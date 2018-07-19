@@ -2,31 +2,35 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {environment} from '../../../environments/environment';
 import {Contact} from '../entities/contact.model';
-import { DeveloperResponse } from '../entities/developer-view.model';
+import {DeveloperView} from '../entities/developer-view.model';
 import {Developer} from '../entities/developer.model';
 import {PersonalInformation} from '../entities/personal-information.model';
 import {SkillsInformation} from '../entities/skills-information.model';
-import {Http, Response, Headers, RequestOptions, URLSearchParams} from '@angular/http';
+import {HttpParams} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
+import {Response, Headers} from '@angular/http';
+
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+
 
 @Injectable()
 export class DeveloperService {
 
-  constructor(private http: Http) {}
+  constructor(private http: HttpClient) {}
 
-  getDevelopers(reference: string): Observable<DeveloperResponse[]> {
+  getDevelopers(reference: string): Observable<DeveloperView[]> {
     const url = environment.API + '/ws/developers';
 
-    const options = new RequestOptions();
-    const params: URLSearchParams = new URLSearchParams();
+    const params: HttpParams = new HttpParams();
 
     if (reference === undefined || reference === null) {
       params.set('reference', reference);
-      options.search = params;
     }
 
     return this
       .http
-      .get(url, options)
+      .get(url, {params: params})
       .map((res: Response) => res.json())
       .catch(this.handleError);
   }
@@ -45,14 +49,12 @@ export class DeveloperService {
   updateDeveloper(developer: Developer, reference: string) {
     const url = environment.API + '/ws/developers';
 
-    const options = new RequestOptions();
-    const params: URLSearchParams = new URLSearchParams();
+    const params: HttpParams = new HttpParams();
 
     params.set('reference', reference);
-    options.search = params;
 
     return this.http
-      .put(url, developer, options)
+      .put(url, developer, {params: params})
       .map((res: Response) => res.json())
       .catch(this.handleError);
   }
@@ -60,14 +62,12 @@ export class DeveloperService {
   deleteDeveloper(reference: string) {
     const url = environment.API + '/ws/developers';
 
-    const options = new RequestOptions();
-    const params: URLSearchParams = new URLSearchParams();
+    const params: HttpParams = new HttpParams();
 
     params.set('reference', reference);
-    options.search = params;
 
     return this.http
-      .delete(url, options)
+      .delete(url, {params: params})
       .map((res: Response) => res.json())
       .catch(this.handleError);
   }
@@ -75,16 +75,14 @@ export class DeveloperService {
   getDeveloperSkills(developerReference: string): Observable<SkillsInformation> {
     const url = environment.API + '/ws/developers/skills';
 
-    const options = new RequestOptions();
-    const params: URLSearchParams = new URLSearchParams();
+    const params: HttpParams = new HttpParams();
     params.set('developerReference', developerReference);
 
-    options.search = params;
 
 
     return this
       .http
-      .get(url, options)
+      .get(url, {params: params})
       .map((res: Response) => res.json())
       .catch(this.handleError);
   }
@@ -92,13 +90,11 @@ export class DeveloperService {
   updateDeveloperSkills(skills: SkillsInformation, developerReference: string) {
     const url = environment.API + '/ws/developers/skills';
 
-    const options = new RequestOptions();
-    const params: URLSearchParams = new URLSearchParams();
+    const params: HttpParams = new HttpParams();
     params.set('developerReference', developerReference);
-    options.search = params;
 
     return this.http
-      .put(url, skills, options)
+      .put(url, skills, {params: params})
       .map((res: Response) => res.json())
       .catch(this.handleError);
   }
@@ -107,16 +103,16 @@ export class DeveloperService {
   getDeveloperInfo(developerReference: string): Observable<PersonalInformation> {
     const url = environment.API + '/ws/developers/personal_info';
 
-    const options = new RequestOptions();
-    const params: URLSearchParams = new URLSearchParams();
+
+    const params: HttpParams = new HttpParams();
     params.set('developerReference', developerReference);
 
-    options.search = params;
+
 
 
     return this
       .http
-      .get(url, options)
+      .get(url, {params: params})
       .map((res: Response) => res.json())
       .catch(this.handleError);
   }
@@ -124,13 +120,11 @@ export class DeveloperService {
   updateDeveloperInfo(info: PersonalInformation, developerReference: string) {
     const url = environment.API + '/ws/developers/personal_info';
 
-    const options = new RequestOptions();
-    const params: URLSearchParams = new URLSearchParams();
+    const params: HttpParams = new HttpParams();
     params.set('developerReference', developerReference);
-    options.search = params;
 
     return this.http
-      .put(url, info, options)
+      .put(url, info, {params: params})
       .map((res: Response) => res.json())
       .catch(this.handleError);
   }

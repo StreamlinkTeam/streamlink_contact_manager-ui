@@ -1,7 +1,7 @@
 
 
 export class User {
-  reference: number;
+  reference: string;
   username: string;
   password: string;
   email: string;

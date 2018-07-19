@@ -1,7 +1,7 @@
 
 
 export class Action {
-  reference: number;
+  reference: string;
   developerReference: string;
   responsableReference: string;
   type: string;

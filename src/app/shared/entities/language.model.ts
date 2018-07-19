@@ -1,7 +1,7 @@
 
 
 export class Language {
-  reference: number;
+  reference: string;
   name: string;
   description: string;
 }

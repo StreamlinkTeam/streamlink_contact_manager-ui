@@ -1,4 +1,4 @@
-import {DeveloperResponse} from '../shared/entities/developer-view.model';
+import {DeveloperView} from '../shared/entities/developer-view.model';
 import {Developer} from '../shared/entities/developer.model';
 import {DeveloperService} from '../shared/services/developer.service';
 import {Component, OnInit} from '@angular/core';
@@ -12,7 +12,7 @@ import {SelectItem} from 'primeng/primeng';
 })
 export class DeveloperComponent implements OnInit {
 
-  developers: DeveloperResponse[];
+  developers: DeveloperView[];
 
   experience: SelectItem[];
 
@@ -23,7 +23,7 @@ export class DeveloperComponent implements OnInit {
 
   constructor(private service: DeveloperService) {}
 
-  getdevelopers(): DeveloperResponse[] {
+  getdevelopers(): DeveloperView[] {
 
     this.service.getDevelopers(null).subscribe(val => this.developers = val);
 
@@ -34,33 +34,34 @@ export class DeveloperComponent implements OnInit {
   ngOnInit() {
     this.getdevelopers();
 
+
     this.cols = [
-      {field: 'firstname', header: 'firts'},
-      {field: 'lastname', header: 'name'},
-      {field: 'stage', header: 'stage'},
+      {field: 'firstname', header: 'First Name'},
+      {field: 'lastname', header: 'Last Name'},
+      {field: 'stage', header: 'Stage'},
       {field: 'mobility', header: 'Mobility'},
-      {field: 'skillsInformation.experience', header: 'experience'},
-      {field: 'contact.email1', header: 'email'}
+      {field: 'experience', header: 'Experience'},
+      {field: 'email1', header: 'Email'}
 
     ];
 
     this.stage = [
       {label: 'Tous', value: null},
-      {label: 'ToTreat', value: 'ToTreat'},
-      {label: 'Green', value: 'InTheProcessOfQualifying'},
-      {label: 'Silver', value: 'Vivier'},
-      {label: 'Black', value: 'VivierPlus'},
-      {label: 'Red', value: 'ConvertedToResource'},
-      {label: 'Maroon', value: 'StopContacting'}
+      {label: 'A traiter', value: 'ToTreat'},
+      {label: 'En Cours de Qualif', value: 'InTheProcessOfQualifying'},
+      {label: 'Vivier', value: 'Vivier'},
+      {label: 'Vivier ++', value: 'VivierPlus'},
+      {label: 'Converti en Ressource', value: 'ConvertedToResource'},
+      {label: 'Ne plus contacter', value: 'StopContacting'}
     ];
 
     this.experience = [
       {label: 'Tous', value: null},
-      {label: 'BETWEEN1AND2', value: 'NON'},
-      {label: 'Green', value: 'BETWEEN1AND2'},
-      {label: 'BETWEEN3AND5', value: 'BETWEEN3AND5'},
-      {label: 'BETWEEN6ND10', value: 'BETWEEN6ND10'},
-      {label: 'MORE_THAN_10', value: 'MORE_THAN_10'}];
+      {label: 'Non', value: 'NON'},
+      {label: 'Entre 1 et 2 ans', value: 'BETWEEN1AND2'},
+      {label: 'Entre 3 et 5 ans', value: 'BETWEEN3AND5'},
+      {label: 'Entre 6 et 10 ans', value: 'BETWEEN6ND10'},
+      {label: 'Plus que 10 ans', value: 'MORE_THAN_10'}];
   }
 
 }

@@ -2,29 +2,33 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {environment} from '../../../environments/environment';
 import {Evaluation} from '../entities/evaluation.model';
-import {Http, Response, Headers, RequestOptions, URLSearchParams} from '@angular/http';
+import { HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import {Response, Headers} from '@angular/http';
+
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+
 
 @Injectable()
 export class EvaluationService {
 
-  constructor(private http: Http) {}
+  constructor(private http: HttpClient) {}
 
   getEvaluations(reference: string, developerReference: string): Observable<Evaluation[]> {
     const url = environment.API + '/ws/evaluations';
 
-    const options = new RequestOptions();
-    const params: URLSearchParams = new URLSearchParams();
+    const params: HttpParams = new HttpParams();
     params.set('developerReference', developerReference);
 
     if (reference === undefined || reference === null) {
       params.set('reference', reference);
     }
-    options.search = params;
 
 
     return this
       .http
-      .get(url, options)
+      .get(url, {params : params})
       .map((res: Response) => res.json())
       .catch(this.handleError);
   }
@@ -35,13 +39,11 @@ export class EvaluationService {
   createEvaluations(evaluation: Evaluation, developerReference: string) {
     const url = environment.API + '/ws/evaluations';
 
-    const options = new RequestOptions();
-    const params: URLSearchParams = new URLSearchParams();
+    const params: HttpParams = new HttpParams();
     params.set('developerReference', developerReference);
-    options.search = params;
 
     return this.http
-      .post(url, evaluation, options)
+      .post(url, evaluation, {params : params})
       .map((res: Response) => res.json())
       .catch(this.handleError);
   }
@@ -49,15 +51,13 @@ export class EvaluationService {
   updateEvaluation(evaluation: Evaluation, reference: string, developerReference: string) {
     const url = environment.API + '/ws/evaluations';
 
-    const options = new RequestOptions();
-    const params: URLSearchParams = new URLSearchParams();
+    const params: HttpParams = new HttpParams();
 
     params.set('developerReference', developerReference);
     params.set('reference', reference);
-    options.search = params;
 
     return this.http
-      .put(url, evaluation, options)
+      .put(url, evaluation, {params : params})
       .map((res: Response) => res.json())
       .catch(this.handleError);
   }
@@ -65,16 +65,14 @@ export class EvaluationService {
   deleteEvaluation(reference: string, developerReference: string) {
     const url = environment.API + '/ws/evaluations';
 
-    const options = new RequestOptions();
-    const params: URLSearchParams = new URLSearchParams();
+    const params: HttpParams = new HttpParams();
 
     params.set('reference', reference);
     params.set('developerReference', developerReference);
 
-    options.search = params;
 
     return this.http
-      .delete(url, options)
+      .delete(url, {params : params})
       .map((res: Response) => res.json())
       .catch(this.handleError);
   }

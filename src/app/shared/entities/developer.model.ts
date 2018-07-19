@@ -1,12 +1,13 @@
 
 
 export class Developer {
-  reference: number;
+  reference: string;
   firstName: string;
   lastName: string;
   managerReference: string;
   rhReference: string;
   availability: Date;
+  gender: string;
   mobility: string;
   createdDate: Date;
   modifiedDate: Date;

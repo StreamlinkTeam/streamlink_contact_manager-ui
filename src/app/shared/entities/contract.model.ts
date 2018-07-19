@@ -1,7 +1,7 @@
 
 
 export class Contract {
-  reference: number;
+  reference: string;
   developerReference: string;
   currency: string;
   salary: number;

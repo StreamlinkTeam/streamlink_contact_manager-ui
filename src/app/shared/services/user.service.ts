@@ -1,34 +1,40 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {environment} from '../../../environments/environment';
-import {Action} from '../entities/action.model';
+import {Token} from '../entities/token.model';
 import {User} from '../entities/user.model';
-import {Http, Response, Headers, RequestOptions, URLSearchParams} from '@angular/http';
+import {HttpResponse, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
+
+
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+
 
 @Injectable()
 export class UserService {
 
-  constructor(private http: Http) {}
+  constructor(private http: HttpClient) {}
 
-  authenticate(username: string, password: string): Observable<string> {
-    let options = new RequestOptions();
-    let params = new URLSearchParams();
-    params.set('username', username);
-    params.set('password', password);
-    options.search = params;
-    let url = environment.API + '/ws/users/login';
+  authenticate(username: string, password: string): Observable<boolean> {
 
-    return this.http.
-      get(url, options)
-      .map((res: Response) => {
-        return this.authenticateSuccess(res.json());
+
+    const url = environment.API + '/ws/users/login';
+
+    const options = {params: new HttpParams().set('username', username).set('password', password)};
+
+    return this.http.get(url, options)
+      .map((res: HttpResponse<Token>) => {
+//        console.info(res.body);
+        this.authenticateSuccess({ ... res.body });
+        return true;
       })
       .catch(this.handleError);
   }
 
-  getCurrentUser(): Observable<any> {
+  getCurrentUser(): Observable<User> {
     let url = environment.API + '/ws/users/current';
-    return this.http.get(url).map((res: Response) => res.json());
+    return this.http.get(url).map((res: HttpResponse<User>) => res.body);
   }
 
   logout(): Observable<any> {
@@ -38,8 +44,9 @@ export class UserService {
     });
   }
 
-  authenticateSuccess(token: string): string {
-    localStorage.setItem('access_token', token);
+  authenticateSuccess(token: Token): Token {
+    localStorage.setItem('access_token', token.access_token);
+    console.info(token);
     return token;
   }
 
@@ -50,7 +57,7 @@ export class UserService {
     return this
       .http
       .get(url)
-      .map((res: Response) => res.json())
+      .map((res: HttpResponse<User[]>) => res.body)
       .catch(this.handleError);
   }
 
@@ -58,14 +65,15 @@ export class UserService {
  * Handle server errors.
  * @param error .
  */
-  private handleError(error: Response | any) {
+  private handleError(error: HttpResponse<any> | any) {
     let err: {};
-    if (error instanceof Response) {
-      const body = error.json() || '';
+    if (error instanceof HttpResponse) {
+      const body = error.body() || '';
       err = body.error || body;
     } else {
       err = {};
     }
+    console.error(error);
     console.error(err);
     return Promise.reject(err);
   }

@@ -2,27 +2,32 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {environment} from '../../../environments/environment';
 import {Language} from '../entities/language.model';
-import {Http, Response, Headers, RequestOptions, URLSearchParams} from '@angular/http';
+import {HttpParams} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
+import {Http, Response, Headers} from '@angular/http';
+
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+
+
 
 @Injectable()
 export class LanguageService {
 
-  constructor(private http: Http) {}
+  constructor(private http: HttpClient) {}
 
   getLanguages(reference: string): Observable<Language[]> {
     const url = environment.API + '/ws/languages';
 
-    const options = new RequestOptions();
-    const params: URLSearchParams = new URLSearchParams();
+    const params: HttpParams = new HttpParams();
 
     if (reference === undefined || reference === null) {
       params.set('reference', reference);
-      options.search = params;
     }
 
     return this
       .http
-      .get(url, options)
+      .get(url, {params : params})
       .map((res: Response) => res.json())
       .catch(this.handleError);
   }
@@ -41,14 +46,12 @@ export class LanguageService {
   updateLanguage(language: Language, reference: string) {
     const url = environment.API + '/ws/languages';
 
-    const options = new RequestOptions();
-    const params: URLSearchParams = new URLSearchParams();
+    const params: HttpParams = new HttpParams();
 
     params.set('reference', reference);
-    options.search = params;
 
     return this.http
-      .put(url, language, options)
+      .put(url, language, {params : params})
       .map((res: Response) => res.json())
       .catch(this.handleError);
   }
@@ -56,14 +59,12 @@ export class LanguageService {
   deleteLanguage(reference: string) {
     const url = environment.API + '/ws/languages';
 
-    const options = new RequestOptions();
-    const params: URLSearchParams = new URLSearchParams();
+    const params: HttpParams = new HttpParams();
 
     params.set('reference', reference);
-    options.search = params;
 
     return this.http
-      .delete(url, options)
+      .delete(url, {params : params})
       .map((res: Response) => res.json())
       .catch(this.handleError);
   }

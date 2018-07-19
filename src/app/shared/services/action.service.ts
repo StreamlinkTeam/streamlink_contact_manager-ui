@@ -2,29 +2,33 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {environment} from '../../../environments/environment';
 import {Action} from '../entities/action.model';
-import {Http, Response, Headers, RequestOptions, URLSearchParams} from '@angular/http';
+import {HttpParams} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
+import {Response, Headers} from '@angular/http';
+
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+
 
 @Injectable()
 export class ActionService {
 
-  constructor(private http: Http) {}
+  constructor(private http: HttpClient) {}
 
   getActions(reference: string, developerReference: string): Observable<Action[]> {
     const url = environment.API + '/ws/actions';
 
-    const options = new RequestOptions();
-    const params: URLSearchParams = new URLSearchParams();
+    const params: HttpParams = new HttpParams();
     params.set('developerReference', developerReference);
 
     if (reference === undefined || reference === null) {
       params.set('reference', reference);
     }
-    options.search = params;
 
 
     return this
       .http
-      .get(url, options)
+      .get(url, {params: params})
       .map((res: Response) => res.json())
       .catch(this.handleError);
   }
@@ -35,13 +39,11 @@ export class ActionService {
   createActions(action: Action, developerReference: string) {
     const url = environment.API + '/ws/actions';
 
-    const options = new RequestOptions();
-    const params: URLSearchParams = new URLSearchParams();
+    const params: HttpParams = new HttpParams();
     params.set('developerReference', developerReference);
-    options.search = params;
 
     return this.http
-      .post(url, action, options)
+      .post(url, action, {params: params})
       .map((res: Response) => res.json())
       .catch(this.handleError);
   }
@@ -49,15 +51,13 @@ export class ActionService {
   updateAction(action: Action, reference: string, developerReference: string) {
     const url = environment.API + '/ws/actions';
 
-    const options = new RequestOptions();
-    const params: URLSearchParams = new URLSearchParams();
+    const params: HttpParams = new HttpParams();
 
     params.set('developerReference', developerReference);
     params.set('reference', reference);
-    options.search = params;
 
     return this.http
-      .put(url, action, options)
+      .put(url, action, {params: params})
       .map((res: Response) => res.json())
       .catch(this.handleError);
   }
@@ -65,16 +65,13 @@ export class ActionService {
   deleteAction(reference: string, developerReference: string) {
     const url = environment.API + '/ws/actions';
 
-    const options = new RequestOptions();
-    const params: URLSearchParams = new URLSearchParams();
+    const params: HttpParams = new HttpParams();
 
     params.set('reference', reference);
     params.set('developerReference', developerReference);
 
-    options.search = params;
-
     return this.http
-      .delete(url, options)
+      .delete(url, {params: params})
       .map((res: Response) => res.json())
       .catch(this.handleError);
   }

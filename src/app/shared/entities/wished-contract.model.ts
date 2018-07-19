@@ -1,7 +1,7 @@
 
 
 export class WishedContract {
-  reference: number;
+  reference: string;
   developerReference: string;
   currency: string;
   currentSalary: number;

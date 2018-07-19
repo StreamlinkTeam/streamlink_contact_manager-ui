@@ -1,11 +1,9 @@
 
-import {Contact} from './contact.model';
-import {PersonalInformation} from './personal-information.model';
-import {SkillsInformation} from './skills-information.model';
+import {Language} from './language.model';
 import {User} from './user.model';
 
-export class DeveloperResponse {
-  reference: number;
+export class DeveloperView {
+  reference: string;
   firstname: string;
   lastname: string;
   stage: string;
@@ -13,11 +11,29 @@ export class DeveloperResponse {
   rh: User;
   note: string;
   availability: Date;
+  gender: string;
   mobility: string;
   createdDate: Date;
   modifiedDate: Date;
-  personalInformation: PersonalInformation;
-  skillsInformation: SkillsInformation;
-  contact: Contact;
-
+  placeOfBirth: string;
+  birthDate: Date;
+  nationality: string;
+  socialSecurityNumber: string;
+  familySituation: string;
+  title: string;
+  languages: Language[];
+  qualifications: string[];
+  experience: string;
+  formation: string;
+  email1: string;
+  email2: string;
+  email3: string;
+  tel1: string;
+  tel2: string;
+  tel3: string;
+  fax: string;
+  address: string;
+  npa: string;
+  city: string;
+  country: string;
 }
