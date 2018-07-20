@@ -2,9 +2,9 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {environment} from '../../../environments/environment';
 import {Evaluation} from '../entities/evaluation.model';
-import { HttpParams } from '@angular/common/http';
-import { HttpClient } from '@angular/common/http';
-import {Response, Headers} from '@angular/http';
+import {HttpResponse} from '@angular/common/http';
+import {HttpParams} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -28,8 +28,8 @@ export class EvaluationService {
 
     return this
       .http
-      .get(url, {params : params})
-      .map((res: Response) => res.json())
+      .get(url, {params: params})
+      .map((res: HttpResponse<Evaluation[]>) => res.body)
       .catch(this.handleError);
   }
 
@@ -43,8 +43,8 @@ export class EvaluationService {
     params.set('developerReference', developerReference);
 
     return this.http
-      .post(url, evaluation, {params : params})
-      .map((res: Response) => res.json())
+      .post(url, evaluation, {params: params})
+      .map((res: HttpResponse<Evaluation>) => res.body)
       .catch(this.handleError);
   }
 
@@ -57,8 +57,8 @@ export class EvaluationService {
     params.set('reference', reference);
 
     return this.http
-      .put(url, evaluation, {params : params})
-      .map((res: Response) => res.json())
+      .put(url, evaluation, {params: params})
+      .map((res: HttpResponse<Evaluation>) => res.body)
       .catch(this.handleError);
   }
 
@@ -72,8 +72,8 @@ export class EvaluationService {
 
 
     return this.http
-      .delete(url, {params : params})
-      .map((res: Response) => res.json())
+      .delete(url, {params: params})
+      .map((res: HttpResponse<any>) => res.body)
       .catch(this.handleError);
   }
 
@@ -82,16 +82,11 @@ export class EvaluationService {
  * Handle server errors.
  * @param error .
  */
-  private handleError(error: Response | any) {
-    let err: {};
-    if (error instanceof Response) {
-      const body = error.json() || '';
-      err = body.error || body;
-    } else {
-      err = {};
-    }
-    console.error(err);
-    return Promise.reject(err);
+private handleError(error: HttpResponse<any> | any) {
+
+
+    console.error(error);
+    return Promise.reject(error);
   }
 
 }

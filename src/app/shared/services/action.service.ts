@@ -2,9 +2,9 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {environment} from '../../../environments/environment';
 import {Action} from '../entities/action.model';
+import {HttpResponse} from '@angular/common/http';
 import {HttpParams} from '@angular/common/http';
 import {HttpClient} from '@angular/common/http';
-import {Response, Headers} from '@angular/http';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -29,7 +29,7 @@ export class ActionService {
     return this
       .http
       .get(url, {params: params})
-      .map((res: Response) => res.json())
+      .map((res: HttpResponse<Action[]>) => res.body)
       .catch(this.handleError);
   }
 
@@ -44,7 +44,7 @@ export class ActionService {
 
     return this.http
       .post(url, action, {params: params})
-      .map((res: Response) => res.json())
+      .map((res: HttpResponse<Action>) => res.body)
       .catch(this.handleError);
   }
 
@@ -58,7 +58,7 @@ export class ActionService {
 
     return this.http
       .put(url, action, {params: params})
-      .map((res: Response) => res.json())
+      .map((res: HttpResponse<Action>) => res.body)
       .catch(this.handleError);
   }
 
@@ -72,7 +72,7 @@ export class ActionService {
 
     return this.http
       .delete(url, {params: params})
-      .map((res: Response) => res.json())
+      .map((res: HttpResponse<any>) => res.body)
       .catch(this.handleError);
   }
 
@@ -81,16 +81,11 @@ export class ActionService {
  * Handle server errors.
  * @param error .
  */
-  private handleError(error: Response | any) {
-    let err: {};
-    if (error instanceof Response) {
-      const body = error.json() || '';
-      err = body.error || body;
-    } else {
-      err = {};
-    }
-    console.error(err);
-    return Promise.reject(err);
+  private handleError(error: HttpResponse<any> | any) {
+
+
+    console.error(error);
+    return Promise.reject(error);
   }
 
 }

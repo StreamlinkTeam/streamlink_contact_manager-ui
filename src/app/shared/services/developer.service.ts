@@ -6,9 +6,10 @@ import {DeveloperView} from '../entities/developer-view.model';
 import {Developer} from '../entities/developer.model';
 import {PersonalInformation} from '../entities/personal-information.model';
 import {SkillsInformation} from '../entities/skills-information.model';
+import {HttpHeaders} from '@angular/common/http';
+import {HttpResponse} from '@angular/common/http';
 import {HttpParams} from '@angular/common/http';
 import {HttpClient} from '@angular/common/http';
-import {Response, Headers} from '@angular/http';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -19,19 +20,29 @@ export class DeveloperService {
 
   constructor(private http: HttpClient) {}
 
-  getDevelopers(reference: string): Observable<DeveloperView[]> {
+  getDeveloper(reference: string): Observable<Developer> {
+
     const url = environment.API + '/ws/developers';
 
-    const params: HttpParams = new HttpParams();
+    const options = {params: new HttpParams().set('reference', reference)};
 
-    if (reference === undefined || reference === null) {
-      params.set('reference', reference);
-    }
+    const developer = this
+      .http
+      .get<any[]>(url, options)
+      .catch(this.handleError)[0];
+
+    console.info(developer);
+    console.info(reference);
+
+    return developer;
+  }
+
+  getDevelopers(): Observable<DeveloperView[]> {
+    const url = environment.API + '/ws/developers';
 
     return this
       .http
-      .get(url, {params: params})
-      .map((res: Response) => res.json())
+      .get<DeveloperView[]>(url)
       .catch(this.handleError);
   }
 
@@ -42,7 +53,7 @@ export class DeveloperService {
     const url = environment.API + '/ws/developers';
     return this.http
       .post(url, developer)
-      .map((res: Response) => res.json())
+      .map((res: HttpResponse<DeveloperView>) => res.body)
       .catch(this.handleError);
   }
 
@@ -55,7 +66,7 @@ export class DeveloperService {
 
     return this.http
       .put(url, developer, {params: params})
-      .map((res: Response) => res.json())
+      .map((res: HttpResponse<DeveloperView[]>) => res.body)
       .catch(this.handleError);
   }
 
@@ -68,7 +79,7 @@ export class DeveloperService {
 
     return this.http
       .delete(url, {params: params})
-      .map((res: Response) => res.json())
+      .map((res: HttpResponse<any>) => res.body)
       .catch(this.handleError);
   }
 
@@ -83,7 +94,7 @@ export class DeveloperService {
     return this
       .http
       .get(url, {params: params})
-      .map((res: Response) => res.json())
+      .map((res: HttpResponse<SkillsInformation>) => res.body)
       .catch(this.handleError);
   }
 
@@ -95,7 +106,7 @@ export class DeveloperService {
 
     return this.http
       .put(url, skills, {params: params})
-      .map((res: Response) => res.json())
+      .map((res: HttpResponse<SkillsInformation>) => res.body)
       .catch(this.handleError);
   }
 
@@ -107,13 +118,10 @@ export class DeveloperService {
     const params: HttpParams = new HttpParams();
     params.set('developerReference', developerReference);
 
-
-
-
     return this
       .http
       .get(url, {params: params})
-      .map((res: Response) => res.json())
+      .map((res: HttpResponse<PersonalInformation>) => res.body)
       .catch(this.handleError);
   }
 
@@ -125,7 +133,33 @@ export class DeveloperService {
 
     return this.http
       .put(url, info, {params: params})
-      .map((res: Response) => res.json())
+      .map((res: HttpResponse<PersonalInformation>) => res.body)
+      .catch(this.handleError);
+  }
+
+  getDeveloperContact(developerReference: string): Observable<Contact> {
+    const url = environment.API + '/ws/developers/contact';
+
+
+    const params: HttpParams = new HttpParams();
+    params.set('developerReference', developerReference);
+
+    return this
+      .http
+      .get(url, {params: params})
+      .map((res: HttpResponse<Contact>) => res.body)
+      .catch(this.handleError);
+  }
+
+  updateDeveloperContact(contact: Contact, developerReference: string) {
+    const url = environment.API + '/ws/developers/contact';
+
+    const params: HttpParams = new HttpParams();
+    params.set('developerReference', developerReference);
+
+    return this.http
+      .put(url, contact, {params: params})
+      .map((res: HttpResponse<Contact>) => res.body)
       .catch(this.handleError);
   }
 
@@ -133,16 +167,11 @@ export class DeveloperService {
  * Handle server errors.
  * @param error .
  */
-  private handleError(error: Response | any) {
-    let err: {};
-    if (error instanceof Response) {
-      const body = error.json() || '';
-      err = body.error || body;
-    } else {
-      err = {};
-    }
-    console.error(err);
-    return Promise.reject(err);
+  private handleError(error: HttpResponse<any> | any) {
+
+
+    console.error(error);
+    return Promise.reject(error);
   }
 
 }

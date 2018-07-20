@@ -23,10 +23,9 @@ export class UserService {
 
     const options = {params: new HttpParams().set('username', username).set('password', password)};
 
-    return this.http.get(url, options)
-      .map((res: HttpResponse<Token>) => {
-//        console.info(res.body);
-        this.authenticateSuccess({ ... res.body });
+    return this.http.get<Token>(url, options)
+      .map(token => {
+        this.authenticateSuccess(token);
         return true;
       })
       .catch(this.handleError);
@@ -37,16 +36,14 @@ export class UserService {
     return this.http.get(url).map((res: HttpResponse<User>) => res.body);
   }
 
-  logout(): Observable<any> {
-    return new Observable((observer) => {
-      localStorage.removeItem('access_token');
-      observer.complete();
-    });
+  logout(): boolean {
+    localStorage.removeItem('access_token');
+    return true;
   }
 
   authenticateSuccess(token: Token): Token {
+
     localStorage.setItem('access_token', token.access_token);
-    console.info(token);
     return token;
   }
 
@@ -66,16 +63,10 @@ export class UserService {
  * @param error .
  */
   private handleError(error: HttpResponse<any> | any) {
-    let err: {};
-    if (error instanceof HttpResponse) {
-      const body = error.body() || '';
-      err = body.error || body;
-    } else {
-      err = {};
-    }
+
+
     console.error(error);
-    console.error(err);
-    return Promise.reject(err);
+    return Promise.reject(error);
   }
 
 }

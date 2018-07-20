@@ -1,0 +1,25 @@
+<div class="bg-primary p-a-1" [class.bg-warning]="editing">
+	<h5>{{editing ? "Edit" : "Create"}} Product</h5>
+</div>
+<form novalidate #form="ngForm" (ngSubmit)="save(form)">
+	<div class="form-group">
+		<label>firstname</label> <input class="form-control" name="firstname"
+			[(ngModel)]="developer.firstName" />
+	</div>
+	<div class="form-group">
+		<label>lastname</label> <input class="form-control" name="lastname"
+			[(ngModel)]="developer.lastName" />
+	</div>
+	<div class="form-group">
+		<label>availability</label> <input class="form-control" type="date"
+			name="availability" [(ngModel)]="developer.availability" /> 
+	</div>
+	<div class="form-group">
+		<label>mobility</label> <input class="form-control" name="mobility"
+			[(ngModel)]="developer.mobility" />
+	</div>
+	<button type="submit" class="btn btn-primary"
+		[class.btn-warning]="editing">{{editing ? "Save" : "Create"}}
+	</button>
+	<button type="reset" class="btn btn-secondary" routerLink="/developers">Annuler</button>
+</form>

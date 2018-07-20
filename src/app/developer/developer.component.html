@@ -9,11 +9,11 @@
 </ng-template> <ng-template pTemplate="header" let-columns>
 <tr>
 	<th *ngFor="let col of columns">{{col.header}}</th>
+	<th>Action</th>
 </tr>
 <tr>
 	<th *ngFor="let col of columns" [ngSwitch]="col.field">
-<!-- 	<input *ngSwitchCase="'lastname'" pInputText type="text" -->
-<!-- 		(input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"> -->
+		<!-- 	<input *ngSwitchCase="'lastname'" pInputText type="text" --> <!-- 		(input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"> -->
 		<!--                 <div *ngSwitchCase="'year'"> --> <!--                     Value < {{yearFilter}} -->
 		<!--                     <i class="fa fa-close" (click)="yearFilter=null;dt.filter(null, col.field, col.filterMatchMode)" style="cursor:pointer" *ngIf="yearFilter"></i> -->
 		<!--                     <p-slider [style]="{'width':'100%','margin-top':'8px'}" [(ngModel)]="yearFilter" [min]="1970" [max]="2010" (onChange)="onYearChange($event, dt)"></p-slider> -->
@@ -24,9 +24,20 @@
 			[style]="{'width':'100%'}"
 			(onChange)="dt.filter($event.value, col.field, 'equals')"></p-dropdown>
 	</th>
+	<th></th>
 </tr>
 </ng-template> <ng-template pTemplate="body" let-rowData let-columns="columns">
 <tr [pSelectableRow]="rowData">
 	<td *ngFor="let col of columns">{{rowData[col.field]}}</td>
+	<td>
+		<button class="btn btn-sm btn-warning"
+					[routerLink]="['/developer/edit', rowData.reference]">Edit</button>
+				<button class="btn btn-sm btn-danger" (click)="deleteDeveloper(rowData.reference)">
+					Delete</button>
+	</td>
 </tr>
+
 </ng-template> </p-table>
+<button class="btn btn-primary" routerLink="/developer/create">Creer</button>
+
+

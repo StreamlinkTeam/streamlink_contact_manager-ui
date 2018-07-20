@@ -1,8 +1,8 @@
-import { AuthService } from '../shared/services/auth.service';
+import {AuthService} from '../shared/services/auth.service';
 import {Injectable} from '@angular/core';
 import {
   ActivatedRouteSnapshot, RouterStateSnapshot,
-  Router
+  Router, CanDeactivate
 } from '@angular/router';
 
 @Injectable()
@@ -13,10 +13,28 @@ export class AuthGuard {
 
   canActivate(route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): boolean {
-    if (!this.auth.authenticated) {
+    if (!this.auth.isAuthenticated()) {
       this.router.navigateByUrl('/auth');
       return false;
     }
     return true;
   }
+
+}
+
+@Injectable()
+export class LoginGuard {
+
+  constructor(private router: Router,
+    private auth: AuthService) {}
+
+  canActivate(route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot): boolean {
+    if (this.auth.isAuthenticated()) {
+      this.router.navigateByUrl('/developer');
+      return false;
+    }
+    return true;
+  }
+
 }

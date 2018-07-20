@@ -25,7 +25,7 @@ export class DeveloperComponent implements OnInit {
 
   getdevelopers(): DeveloperView[] {
 
-    this.service.getDevelopers(null).subscribe(val => this.developers = val);
+    this.service.getDevelopers().subscribe(val => this.developers = val);
 
     return this.developers;
   }
@@ -33,6 +33,8 @@ export class DeveloperComponent implements OnInit {
 
   ngOnInit() {
     this.getdevelopers();
+
+    console.info(this.developers);
 
 
     this.cols = [
@@ -42,7 +44,6 @@ export class DeveloperComponent implements OnInit {
       {field: 'mobility', header: 'Mobility'},
       {field: 'experience', header: 'Experience'},
       {field: 'email1', header: 'Email'}
-
     ];
 
     this.stage = [
@@ -62,6 +63,11 @@ export class DeveloperComponent implements OnInit {
       {label: 'Entre 3 et 5 ans', value: 'BETWEEN3AND5'},
       {label: 'Entre 6 et 10 ans', value: 'BETWEEN6ND10'},
       {label: 'Plus que 10 ans', value: 'MORE_THAN_10'}];
+  }
+
+  deleteDeveloper(reference: string) {
+    this.service.deleteDeveloper(reference);
+
   }
 
 }
