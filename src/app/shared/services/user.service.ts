@@ -33,7 +33,7 @@ export class UserService {
 
   getCurrentUser(): Observable<User> {
     let url = environment.API + '/ws/users/current';
-    return this.http.get(url).map((res: HttpResponse<User>) => res.body);
+    return this.http.get<User>(url).catch(this.handleError);;
   }
 
   logout(): boolean {
@@ -53,8 +53,7 @@ export class UserService {
 
     return this
       .http
-      .get(url)
-      .map((res: HttpResponse<User[]>) => res.body)
+      .get<User[]>(url)
       .catch(this.handleError);
   }
 

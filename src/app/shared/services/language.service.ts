@@ -16,19 +16,12 @@ export class LanguageService {
 
   constructor(private http: HttpClient) {}
 
-  getLanguages(reference: string): Observable<Language[]> {
+  getLanguages(): Observable<Language[]> {
     const url = environment.API + '/ws/languages';
-
-    const params: HttpParams = new HttpParams();
-
-    if (reference === undefined || reference === null) {
-      params.set('reference', reference);
-    }
 
     return this
       .http
-      .get(url, {params: params})
-      .map((res: HttpResponse<Language[]>) => res.body)
+      .get<Language[]>(url)
       .catch(this.handleError);
   }
 

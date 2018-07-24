@@ -1,25 +1,60 @@
-<div class="bg-primary p-a-1" [class.bg-warning]="editing">
-	<h5>{{editing ? "Edit" : "Create"}} Product</h5>
+<div class="tab-pane fade show active" id="dev-home" role="tabpanel"
+	aria-labelledby="dev-home-tab" [class.bg-warning]="editing">
+	<h5>{{editing ? "Edit" : "Create"}} Developer</h5>
 </div>
 <form novalidate #form="ngForm" (ngSubmit)="save(form)">
 	<div class="form-group">
-		<label>firstname</label> <input class="form-control" name="firstname"
-			[(ngModel)]="developer.firstName" />
+		<label>first name</label> <input class="form-control" name="firstname"
+			[(ngModel)]="developer.firstname" />
 	</div>
 	<div class="form-group">
-		<label>lastname</label> <input class="form-control" name="lastname"
-			[(ngModel)]="developer.lastName" />
+		<label>last name</label> <input class="form-control" name="lastname"
+			[(ngModel)]="developer.lastname" />
+	</div>
+	<div class="form-group">
+
+		<div class="segmented-control " style="width: 100%; color: #4fa2d9">
+			<input type="radio" value="M" name="gender"
+				[(ngModel)]="developer.gender"> Homme <input type="radio"
+				value="F" name="gender" [(ngModel)]="developer.gender"> Femme
+		</div>
+	</div>
+	<div class="form-group">
+		<label>Etape</label> <select class="form-control" name="stage"
+			[(ngModel)]="developer.stage">
+			<option *ngFor="let stage of stages" [ngValue]="stage.value">{{stage.label}}</option>
+		</select>
+	</div>
+	<div class="form-group">
+		<label>Responsable RH</label> <select class="form-control" name="rh"
+			[(ngModel)]="developer.rhReference">
+			<option *ngFor="let user of users" [ngValue]="user.reference">{{user.firstname}}
+				{{user.lastname}}</option>
+		</select>
+	</div>
+	<div class="form-group">
+		<label>Responsable Manager</label> <select class="form-control"
+			name="manager" [(ngModel)]="developer.managerReference">
+			<option *ngFor="let user of users" [ngValue]="user.reference">{{user.firstname}}
+				{{user.lastname}}</option>
+		</select>
 	</div>
 	<div class="form-group">
 		<label>availability</label> <input class="form-control" type="date"
-			name="availability" [(ngModel)]="developer.availability" /> 
+			name="availability" [(ngModel)]="developer.availability" />
 	</div>
 	<div class="form-group">
 		<label>mobility</label> <input class="form-control" name="mobility"
 			[(ngModel)]="developer.mobility" />
 	</div>
+	<div class="form-group">
+		<label>note</label>
+		<textarea class="form-control" name="note"
+			[(ngModel)]="developer.note">
+			</textarea>
+	</div>
 	<button type="submit" class="btn btn-primary"
-		[class.btn-warning]="editing">{{editing ? "Save" : "Create"}}
+		[class.btn-warning]="editing">Enregistrer
 	</button>
 	<button type="reset" class="btn btn-secondary" routerLink="/developers">Annuler</button>
 </form>

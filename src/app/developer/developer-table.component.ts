@@ -8,9 +8,9 @@ import {SelectItem} from 'primeng/primeng';
 @Component({
   selector: 'developer',
   moduleId: module.id,
-  templateUrl: 'developer.component.html'
+  templateUrl: 'developer-table.component.html'
 })
-export class DeveloperComponent implements OnInit {
+export class DeveloperTableComponent implements OnInit {
 
   developers: DeveloperView[];
 
@@ -66,8 +66,13 @@ export class DeveloperComponent implements OnInit {
   }
 
   deleteDeveloper(reference: string) {
-    this.service.deleteDeveloper(reference);
 
+    if (confirm('Suppression du Developpeur')) {
+
+      console.info(reference);
+      this.service.deleteDeveloper(reference).subscribe(res => console.info(res));
+      this.ngOnInit();
+    }
   }
 
 }

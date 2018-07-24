@@ -1,0 +1,28 @@
+<div class="tab-pane fade show active" id="dev-contact" role="tabpanel"
+	aria-labelledby="dev-contact-tab" [class.bg-warning]="editing">
+	<h5>{{editing ? "Edit" : "Create"}} Developer</h5>
+</div>
+<form novalidate #form="ngForm" (ngSubmit)="save(form)">
+
+
+	<!-- 	<div class="form-group"> -->
+	<!-- 		<label>Titre</label> <input class="form-control" name="title" -->
+	<!-- 			[(ngModel)]="skills.title" /> -->
+	<!-- 	</div> -->
+
+
+	<div class="form-group">
+
+		<label>Compétences (Nuage de mots clefs)</label>
+
+		<ng-select  [multiple]="true" name="languages"
+			#languages="ngModel" bindLabel="name" [(ngModel)]="skills.languages"
+			[items]="languages" id="languages"
+			placeholder="Selectionner des languages de Programmation ..."></ng-select>
+
+	</div>
+
+	<button type="submit" class="btn btn-primary"
+		[class.btn-warning]="editing">Enregistrer</button>
+	<button type="reset" class="btn btn-secondary" routerLink="/developers">Annuler</button>
+</form>
