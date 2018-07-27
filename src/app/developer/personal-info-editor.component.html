@@ -1,7 +1,3 @@
-<div class="tab-pane fade show active" id="dev-perso" role="tabpanel"
-	aria-labelledby="dev-perso-tab" [class.bg-warning]="editing">
-	<h5>{{editing ? "Edit" : "Create"}} Developer</h5>
-</div>
 <form novalidate #form="ngForm" (ngSubmit)="save(form)">
 
 	<div class="form-group">
@@ -15,44 +11,44 @@
 	</div>
 
 	<div class="form-group">
-		<label>Nationalité</label> <select class="form-control"
+		<label>NationalitÃ©</label> <select class="form-control"
 			name="nationalite" [(ngModel)]="personalInfo.nationality">
-			<option value="">Non défini</option>
+			<option value="">Non dÃ©fini</option>
 			<option value="Afghanistan">Afghanistane</option>
 			<option value="Afrique_Centrale">Africaine Centrale</option>
 			<option value="Afrique_du_sud">Sud-Africaine</option>
 			<option value="Albanie">Albanaise</option>
-			<option value="Algerie">Algérienne</option>
+			<option value="Algerie">AlgÃ©rienne</option>
 			<option value="Allemagne">Allemande</option>
 			<option value="Andorre">Andorrane</option>
 			<option value="Angola">Angolaise</option>
 			<option value="Anguilla">Anguilliane</option>
 			<option value="Arabie_Saoudite">Arabie Saoudite</option>
 			<option value="Argentine">Argentine</option>
-			<option value="Armenie">Arménienne</option>
+			<option value="Armenie">ArmÃ©nienne</option>
 			<option value="Australie">Australienne</option>
 			<option value="Autriche">Autrichienne</option>
-			<option value="Azerbaidjan">Azerbaïdjanaise</option>
-			<option value="Bahamas">Bahaméenne</option>
-			<option value="Bahrein">Bahreïnie</option>
+			<option value="Azerbaidjan">AzerbaÃ¯djanaise</option>
+			<option value="Bahamas">BahamÃ©enne</option>
+			<option value="Bahrein">BahreÃ¯nie</option>
 			<option value="Bangladesh">Bangladaise</option>
 			<option value="Barbade">Barbadienne</option>
 			<option value="Belgique">Belge</option>
-			<option value="Belize">Bélizienne</option>
-			<option value="Benin">Béninoise</option>
+			<option value="Belize">BÃ©lizienne</option>
+			<option value="Benin">BÃ©ninoise</option>
 			<option value="Bermudes">Bermudienne</option>
 			<option value="Bhoutan">Bhoutanaise</option>
-			<option value="Bielorussie">Biélorusse</option>
+			<option value="Bielorussie">BiÃ©lorusse</option>
 			<option value="Birmanie">Birmane</option>
 			<option value="Bolivie">Bolivienne</option>
 			<option value="Botswana">Botswanaise</option>
 			<option value="Boznie_Herzegovine">Bosniaque</option>
-			<option value="Bresil">Brésilienne</option>
-			<option value="Brunei">Brunéienne</option>
+			<option value="Bresil">BrÃ©silienne</option>
+			<option value="Brunei">BrunÃ©ienne</option>
 			<option value="Bulgarie">Bulgare</option>
-			<option value="Burkina_Faso">Burkinabè2</option>
+			<option value="Burkina_Faso">BurkinabÃ¨2</option>
 			<option value="Burundi">Burundaise</option>
-			<option value="Caiman">Caïmanienne</option>
+			<option value="Caiman">CaÃ¯manienne</option>
 			<option value="Cambodge">Cambodgienne</option>
 			<option value="Cameroun">Camerounaise</option>
 			<option value="Canada">Canadienne</option>
@@ -66,8 +62,8 @@
 			<option value="Congo">Congolaise</option>
 			<option value="Congo_democratique">Congolaise</option>
 			<option value="Cook">Cookienne</option>
-			<option value="Coree_du_Nord">Nord Coréenne</option>
-			<option value="Coree_du_Sud">Sud Coréenne</option>
+			<option value="Coree_du_Nord">Nord CorÃ©enne</option>
+			<option value="Coree_du_Sud">Sud CorÃ©enne</option>
 			<option value="Costa_Rica">Costaricienne</option>
 			<option value="Cote_d_Ivoire">Ivoirienne</option>
 			<option value="Croatie">Croate</option>
@@ -78,47 +74,47 @@
 			<option value="Egypte">Egyptienne</option>
 			<option value="Emirats_Arabes_Unis">UAE</option>
 			<option value="Equateur">Equatorienne</option>
-			<option value="Erythree">Érythréenne</option>
+			<option value="Erythree">Ã‰rythrÃ©enne</option>
 			<option value="Espagne">Espagnole</option>
 			<option value="Estonie">Estonienne</option>
-			<option value="Etats_Unis">Américaine</option>
+			<option value="Etats_Unis">AmÃ©ricaine</option>
 			<option value="Ethiopie">Ethiopienne</option>
 			<option value="Falkland">Malouinne</option>
-			<option value="Feroe">Féroïenne</option>
+			<option value="Feroe">FÃ©roÃ¯enne</option>
 			<option value="Fidji">Fidjienne</option>
 			<option value="Finlande">Finlandaise</option>
-			<option value="France">Française</option>
+			<option value="France">FranÃ§aise</option>
 			<option value="Gabon">Gabonaise</option>
 			<option value="Gambie">Gambienne</option>
 			<option value="Georgie">Georgienne</option>
-			<option value="Ghana">Ghanéenne</option>
+			<option value="Ghana">GhanÃ©enne</option>
 			<option value="Gibraltar">Gibraltarienne</option>
 			<option value="Grece">Grecque</option>
 			<option value="Grenade">Grenadienne</option>
 			<option value="Groenland">Groenlandaise</option>
-			<option value="Guadeloupe">Guadeloupéenne</option>
+			<option value="Guadeloupe">GuadeloupÃ©enne</option>
 			<option value="Guam">Guam</option>
-			<option value="Guatemala">Guatémaltèque</option>
+			<option value="Guatemala">GuatÃ©maltÃ¨que</option>
 			<option value="Guernesey">Guernsey</option>
-			<option value="Guinee equatoriale">Équatoguinéenne</option>
-			<option value="Guinee">Guinéenne</option>
-			<option value="Guinee_Bissau">Bissau-Guinéenne</option>
+			<option value="Guinee equatoriale">Ã‰quatoguinÃ©enne</option>
+			<option value="Guinee">GuinÃ©enne</option>
+			<option value="Guinee_Bissau">Bissau-GuinÃ©enne</option>
 			<option value="Guyana">Guyanienne</option>
-			<option value="Guyane_Francaise">Guyanienne Française</option>
-			<option value="Haiti">Haïtienne</option>
-			<option value="Hawaii">Hawaïenne</option>
+			<option value="Guyane_Francaise">Guyanienne FranÃ§aise</option>
+			<option value="Haiti">HaÃ¯tienne</option>
+			<option value="Hawaii">HawaÃ¯enne</option>
 			<option value="Honduras">Hondurienne</option>
 			<option value="Hong_Kong">Hongkongaise</option>
 			<option value="Hongrie">Hongroise</option>
 			<option value="Inde">Indienne</option>
-			<option value="Indonesie">Indonésienne</option>
+			<option value="Indonesie">IndonÃ©sienne</option>
 			<option value="Iran">Iranienne</option>
 			<option value="Iraq">Iraquienne</option>
 			<option value="Irlande">Irlandaise</option>
 			<option value="Islande">Islandaise</option>
-			<option value="Israel">Israélienne</option>
+			<option value="Israel">IsraÃ©lienne</option>
 			<option value="Italie">Italienne</option>
-			<option value="Jamaique">Jamaïcaine</option>
+			<option value="Jamaique">JamaÃ¯caine</option>
 			<option value="Jan Mayen">Jan Mayen</option>
 			<option value="Japon">Japonaise</option>
 			<option value="Jersey">Jerseyan</option>
@@ -127,19 +123,19 @@
 			<option value="Kenya">Kenyanne</option>
 			<option value="Kirghizstan">Kirghize</option>
 			<option value="Kiribati">Kiribatienne</option>
-			<option value="Koweit">Koweïtienne</option>
+			<option value="Koweit">KoweÃ¯tienne</option>
 			<option value="Laos">Laotienne</option>
-			<option value="Lesotho">Lésothienne</option>
+			<option value="Lesotho">LÃ©sothienne</option>
 			<option value="Lettonie">Lettonienne</option>
 			<option value="Liban">Libanaise</option>
-			<option value="Liberia">Libérienne</option>
+			<option value="Liberia">LibÃ©rienne</option>
 			<option value="Liechtenstein">Liechtensteinoise</option>
 			<option value="Lituanie">Lituanienne</option>
 			<option value="Luxembourg">Luxembourgeoise</option>
 			<option value="Lybie">Libyenne</option>
 			<option value="Macao">Macanaise</option>
-			<option value="Macedoine">Macédonienne</option>
-			<option value="Madère">Madéroise</option>
+			<option value="Macedoine">MacÃ©donienne</option>
+			<option value="MadÃ¨re">MadÃ©roise</option>
 			<option value="Madagascar">Malgache</option>
 			<option value="Malaisie">Malaisienne</option>
 			<option value="Malawi">Malawite</option>
@@ -155,36 +151,36 @@
 			<option value="Mauritanie">Mauritanienne</option>
 			<option value="Mayotte">Mahoraise</option>
 			<option value="Mexique">Mexicaine</option>
-			<option value="Micronesie">Micronésienne</option>
+			<option value="Micronesie">MicronÃ©sienne</option>
 			<option value="Midway">Midway</option>
 			<option value="Moldavie">Moldave</option>
-			<option value="Monaco">Monégasque</option>
+			<option value="Monaco">MonÃ©gasque</option>
 			<option value="Mongolie">Mongolienne</option>
-			<option value="Montenegro">Monténégrine</option>
+			<option value="Montenegro">MontÃ©nÃ©grine</option>
 			<option value="Montserrat">Montserrat</option>
 			<option value="Mozambique">Mozambicaine</option>
 			<option value="Namibie">Namibienne</option>
 			<option value="Nauru">Nauruanne</option>
-			<option value="Nepal">Népalaise</option>
+			<option value="Nepal">NÃ©palaise</option>
 			<option value="Nicaragua">Nicaraguayenne</option>
 			<option value="Niger">Nigerienne</option>
-			<option value="Nigeria">Nigériane</option>
-			<option value="Niue">Niuéenne</option>
+			<option value="Nigeria">NigÃ©riane</option>
+			<option value="Niue">NiuÃ©enne</option>
 			<option value="Norfolk">Norfolk</option>
-			<option value="Norvege">Norvégienne</option>
-			<option value="Nouvelle-Zelande">Néo-Zélandaise</option>
-			<option value="Pays-Bas">Néerlandaise</option>
+			<option value="Norvege">NorvÃ©gienne</option>
+			<option value="Nouvelle-Zelande">NÃ©o-ZÃ©landaise</option>
+			<option value="Pays-Bas">NÃ©erlandaise</option>
 			<option value="Oman">Omanaise</option>
 			<option value="Ouganda">Ougandaise</option>
 			<option value="Ouzbekistan">Ouzbekistane</option>
 			<option value="Pakistan">Pakistanaise</option>
 			<option value="Palau">Paluanne</option>
 			<option value="Palestine">Palestinienne</option>
-			<option value="Panama">Panaméenne</option>
+			<option value="Panama">PanamÃ©enne</option>
 			<option value="Papouasie_Nouvelle_Guinee">Papouasienne</option>
 			<option value="Paraguay">Paraguayenne</option>
 			<option value="Nationality_Bas">Allemande</option>
-			<option value="Perou">Péruvienne</option>
+			<option value="Perou">PÃ©ruvienne</option>
 			<option value="Philippines">Philippines</option>
 			<option value="Pologne">Polonaise</option>
 			<option value="Polynesie">Polynesienne</option>
@@ -192,10 +188,10 @@
 			<option value="Portugal">Portugaise</option>
 			<option value="Qatar">Qatarienne</option>
 			<option value="Republique_Dominicaine">Dominicaine</option>
-			<option value="Republique_Tcheque">Tchèque</option>
-			<option value="Reunion">Réunionnaise</option>
+			<option value="Republique_Tcheque">TchÃ¨que</option>
+			<option value="Reunion">RÃ©unionnaise</option>
 			<option value="R.A.S._chinoise_de_Hong_Kong">Hongkongaise</option>
-			<option value="Republique_tcheque">Tchèque</option>
+			<option value="Republique_tcheque">TchÃ¨que</option>
 			<option value="Roumanie">Roumaine</option>
 			<option value="Royaume_Uni">Britannique</option>
 			<option value="Russie">Russe</option>
@@ -205,23 +201,23 @@
 			<option value="Sainte_Lucie">Lucienne</option>
 			<option value="Salomon">Salomonienne</option>
 			<option value="Salvador">Salvadorienne</option>
-			<option value="Samoa_Americaine">Samoane Américaine</option>
+			<option value="Samoa_Americaine">Samoane AmÃ©ricaine</option>
 			<option value="Samoa_Occidentales">Samoane Occidentale</option>
-			<option value="Sao_Tome_et_Principe">Santoméenne</option>
-			<option value="Senegal">Sénégalaise</option>
+			<option value="Sao_Tome_et_Principe">SantomÃ©enne</option>
+			<option value="Senegal">SÃ©nÃ©galaise</option>
 			<option value="Serbie">Serbe</option>
 			<option value="Seychelles">Seychelloise</option>
-			<option value="Sierra Leone">Sierraléonaise</option>
+			<option value="Sierra Leone">SierralÃ©onaise</option>
 			<option value="Singapour">Singapourienne</option>
 			<option value="Slovaquie">Slovaque</option>
-			<option value="Slovenie">Slovénienne</option>
-			<option value="Suede">Suédoise</option>
+			<option value="Slovenie">SlovÃ©nienne</option>
+			<option value="Suede">SuÃ©doise</option>
 			<option value="Suisse">Suisse</option>
 			<option value="Surinam">Surinamienne</option>
 			<option value="Swaziland">Swazie</option>
 			<option value="Syrie">Syrienne</option>
 			<option value="Tadjikistan">Tadjike</option>
-			<option value="Taiwan">Taïwanaise</option>
+			<option value="Taiwan">TaÃ¯wanaise</option>
 			<option value="Tanzanie">Tanzanienne</option>
 			<option value="Tchad">Tchadienne</option>
 			<option value="Territoire_palestinien">Palestinienne</option>
@@ -231,26 +227,26 @@
 			<option value="Trinite_et_Tobago">Trinidadienne</option>
 			<option value="Tristan da cunha">Anglaise</option>
 			<option value="Tunisie">Tunisienne</option>
-			<option value="Turkmenistan">Turkmène</option>
+			<option value="Turkmenistan">TurkmÃ¨ne</option>
 			<option value="Turquie">Turce</option>
 			<option value="Ukraine">Ukrainienne</option>
 			<option value="Uruguay">Uruguayenne</option>
 			<option value="Vanuatu">Vanuataise</option>
 			<option value="Vatican">Vaticane</option>
-			<option value="Venezuela">Vénézuélienne</option>
-			<option value="Vierges_Americaines">Américaine</option>
+			<option value="Venezuela">VÃ©nÃ©zuÃ©lienne</option>
+			<option value="Vierges_Americaines">AmÃ©ricaine</option>
 			<option value="Vierges_Britanniques">Britannique</option>
 			<option value="Vietnam">Vietnamienne</option>
 			<option value="Wake">Wake</option>
 			<option value="Wallis et Futuna">Wallisian</option>
-			<option value="Yemen">Yéménite</option>
+			<option value="Yemen">YÃ©mÃ©nite</option>
 			<option value="Zambie">Zambienne</option>
-			<option value="Zimbabwe">Zimbabwéenne</option>
+			<option value="Zimbabwe">ZimbabwÃ©enne</option>
 		</select>
 	</div>
 
 	<div class="form-group">
-		<label>Numéro de Sécurité Sociale </label> <input class="form-control"
+		<label>NumÃ©ro de SÃ©curitÃ© Sociale </label> <input class="form-control"
 			name="socialSecurityNumber"
 			[(ngModel)]="personalInfo.socialSecurityNumber" />
 	</div>
@@ -262,7 +258,10 @@
 		</select>
 	</div>
 
-	<button type="submit" class="btn btn-primary"
-		[class.btn-warning]="editing">Enregistrer</button>
-	<button type="reset" class="btn btn-secondary" routerLink="/developers">Annuler</button>
+	<div class="form-group">
+		<button type="submit" class="btn btn-primary"
+			[class.btn-warning]="editing">Enregistrer</button>
+		<button type="reset" class="btn btn-secondary"
+			routerLink="/developers">Annuler</button>
+	</div>
 </form>

@@ -31,13 +31,17 @@
 	<td *ngFor="let col of columns">{{rowData[col.field]}}</td>
 	<td>
 		<button class="btn btn-sm btn-warning"
-					[routerLink]="['/developer/edit', rowData.reference]">Edit</button>
-				<button class="btn btn-sm btn-danger" (click)="deleteDeveloper(rowData.reference)">
-					Delete</button>
+			[routerLink]="['/developer/edit', rowData.reference]">Edit</button>
+		<button class="btn btn-sm btn-danger"
+			(click)="deleteDeveloper(rowData.reference)">Delete</button>
 	</td>
 </tr>
 
 </ng-template> </p-table>
-<button class="btn btn-primary" routerLink="/developer/create">Creer</button>
+<div class="dropdown-divider"></div>
+
+<div class="form-group">
+	<button class="btn btn-primary" routerLink="/developer/create">Ajouter</button>
+</div>
 
 

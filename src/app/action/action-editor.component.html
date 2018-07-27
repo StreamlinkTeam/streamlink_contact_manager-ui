@@ -1,0 +1,74 @@
+<div class="container">
+	<div class="row tab-pane fade show active bg-warning" role="tabpanel">
+		<h5 class="dropdown-header text-dark">Actions</h5>
+	</div>
+	<div class="row">
+		<div class="col border">
+			<form novalidate #form="ngForm" (ngSubmit)="save(form)">
+
+				<div *ngIf="editing" class="form-group">
+					<label>Date de Création: </label> <input readonly
+						class="form-control" name="createdDate"
+						value="{{action.createdDate | date:'long'}}" />
+				</div>
+
+				<div class="form-row">
+					<div class="form-group col-md-6">
+						<label>Type</label> <select class="form-control" name="type"
+							[(ngModel)]="action.type">
+							<option *ngFor="let ff of types" [ngValue]="ff.value">{{ff.label}}</option>
+						</select>
+					</div>
+
+					<div class="form-group col-md-6">
+						<label>Date</label> <input class="form-control"
+							type="datetime-local" name="date" [(ngModel)]="action.date" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label>Note</label>
+					<textarea class="form-control" name="note" rows="5"
+						[(ngModel)]="action.note">
+			</textarea>
+				</div>
+
+				<div class="form-group">
+					<button type="submit" class="btn btn-warning">Enregistrer</button>
+					<button type="reset" class="btn btn-secondary"
+						routerLink="/developers">Annuler</button>
+
+					<button *ngIf="editing" type="button" class="btn btn-primary"
+						(click)="newAction()">Nouveau</button>
+				</div>
+
+				<table *ngIf="actions?.length > 0"
+					class="table table-striped table-sm">
+					<thead>
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col">Type</th>
+							<th scope="col">Note</th>
+							<th scope="col">Date</th>
+							<th scope="col"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let act of actions; let i=index">
+							<td>{{i}}</td>
+							<td>{{act.type}}</td>
+							<td>{{act.note}}</td>
+							<td>{{act.date | date:'short'}}</td>
+							<td>
+								<button type="button" class="btn btn-sm btn-info"
+									(click)="showAction(i)">Editer</button>
+								<button type="button" class="btn btn-sm btn-danger"
+									(click)="deleteAction(i)">Supprimer</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</form>
+		</div>
+	</div>
+</div>

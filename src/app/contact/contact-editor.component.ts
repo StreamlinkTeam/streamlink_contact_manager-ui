@@ -8,6 +8,7 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {NgForm} from '@angular/forms';
 
 @Component({
+  selector: 'app-contact',
   moduleId: module.id,
   templateUrl: 'contact-editor.component.html'
 })

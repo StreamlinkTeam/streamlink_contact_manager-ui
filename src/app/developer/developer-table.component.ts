@@ -38,10 +38,10 @@ export class DeveloperTableComponent implements OnInit {
 
 
     this.cols = [
-      {field: 'firstname', header: 'First Name'},
-      {field: 'lastname', header: 'Last Name'},
-      {field: 'stage', header: 'Stage'},
-      {field: 'mobility', header: 'Mobility'},
+      {field: 'firstname', header: 'Nom'},
+      {field: 'lastname', header: 'Prénom'},
+      {field: 'stage', header: 'Etape'},
+      {field: 'mobility', header: 'Mobilité'},
       {field: 'experience', header: 'Experience'},
       {field: 'email1', header: 'Email'}
     ];

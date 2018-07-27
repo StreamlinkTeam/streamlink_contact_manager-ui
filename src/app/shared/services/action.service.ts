@@ -15,64 +15,50 @@ export class ActionService {
 
   constructor(private http: HttpClient) {}
 
-  getActions(reference: string, developerReference: string): Observable<Action[]> {
-    const url = environment.API + '/ws/actions';
+  getActions(developerReference: string): Observable<Action[]> {
+    const url = environment.API + '/ws/developers/actions';
 
-    const params: HttpParams = new HttpParams();
-    params.set('developerReference', developerReference);
-
-    if (reference === undefined || reference === null) {
-      params.set('reference', reference);
-    }
+    const options = {params: new HttpParams().set('developerReference', developerReference)};
 
 
     return this
       .http
-      .get(url, {params: params})
-      .map((res: HttpResponse<Action[]>) => res.body)
+      .get<Action[]>(url, options)
       .catch(this.handleError);
   }
 
 
 
 
-  createActions(action: Action, developerReference: string) {
-    const url = environment.API + '/ws/actions';
+  createAction(action: Action, developerReference: string): Observable<Action> {
+    const url = environment.API + '/ws/developers/actions';
 
-    const params: HttpParams = new HttpParams();
-    params.set('developerReference', developerReference);
+    const options = {params: new HttpParams().set('developerReference', developerReference)};
 
     return this.http
-      .post(url, action, {params: params})
-      .map((res: HttpResponse<Action>) => res.body)
+      .post<Action>(url, action, options)
       .catch(this.handleError);
   }
 
-  updateAction(action: Action, reference: string, developerReference: string) {
-    const url = environment.API + '/ws/actions';
+  updateAction(action: Action, reference: string, developerReference: string): Observable<Action> {
+    const url = environment.API + '/ws/developers/actions';
 
-    const params: HttpParams = new HttpParams();
+    const options = {params: new HttpParams().set('developerReference', developerReference).set('reference', reference)};
 
-    params.set('developerReference', developerReference);
-    params.set('reference', reference);
 
     return this.http
-      .put(url, action, {params: params})
-      .map((res: HttpResponse<Action>) => res.body)
+      .put<Action>(url, action, options)
       .catch(this.handleError);
   }
 
   deleteAction(reference: string, developerReference: string) {
-    const url = environment.API + '/ws/actions';
+    const url = environment.API + '/ws/developers/actions';
 
-    const params: HttpParams = new HttpParams();
+    const options = {params: new HttpParams().set('developerReference', developerReference).set('reference', reference)};
 
-    params.set('reference', reference);
-    params.set('developerReference', developerReference);
 
     return this.http
-      .delete(url, {params: params})
-      .map((res: HttpResponse<any>) => res.body)
+      .delete(url, options)
       .catch(this.handleError);
   }
 

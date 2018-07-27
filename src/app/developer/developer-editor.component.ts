@@ -48,10 +48,10 @@ export class DeveloperEditorComponent {
         subscribe(response => console.info(response.reference));
 
     } else {
-      this.service.createDevelopers(this.developer).subscribe(response => console.info(response.reference));
+      let reference: string;
+      this.service.createDevelopers(this.developer).subscribe(response => reference = response.reference);
+      this.router.navigateByUrl('developer/edit/' + reference);
 
     }
-
-    //    this.router.navigateByUrl('/developer');
   }
 }

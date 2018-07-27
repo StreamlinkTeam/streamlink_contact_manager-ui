@@ -1,60 +1,86 @@
-<div class="tab-pane fade show active" id="dev-home" role="tabpanel"
-	aria-labelledby="dev-home-tab" [class.bg-warning]="editing">
-	<h5>{{editing ? "Edit" : "Create"}} Developer</h5>
-</div>
-<form novalidate #form="ngForm" (ngSubmit)="save(form)">
-	<div class="form-group">
-		<label>first name</label> <input class="form-control" name="firstname"
-			[(ngModel)]="developer.firstname" />
-	</div>
-	<div class="form-group">
-		<label>last name</label> <input class="form-control" name="lastname"
-			[(ngModel)]="developer.lastname" />
-	</div>
-	<div class="form-group">
-
-		<div class="segmented-control " style="width: 100%; color: #4fa2d9">
-			<input type="radio" value="M" name="gender"
-				[(ngModel)]="developer.gender"> Homme <input type="radio"
-				value="F" name="gender" [(ngModel)]="developer.gender"> Femme
+<div class="container tab-pane fade show active" role="tabpanel">
+	<div class="row">
+		<div class="col border" [class.bg-warning]="editing"
+			[class.bg-info]="!editing">
+			<h5 class="text-dark dropdown-header">Informations</h5>
+		</div>
+		<div class="col border tab-pane fade show active" id="dev-home"
+			role="tabpanel" aria-labelledby="dev-home-tab"
+			[class.bg-warning]="editing" [hidden]="!editing">
+			<h5 class="text-dark dropdown-header">Informations
+				complémentaires</h5>
 		</div>
 	</div>
-	<div class="form-group">
-		<label>Etape</label> <select class="form-control" name="stage"
-			[(ngModel)]="developer.stage">
-			<option *ngFor="let stage of stages" [ngValue]="stage.value">{{stage.label}}</option>
-		</select>
-	</div>
-	<div class="form-group">
-		<label>Responsable RH</label> <select class="form-control" name="rh"
-			[(ngModel)]="developer.rhReference">
-			<option *ngFor="let user of users" [ngValue]="user.reference">{{user.firstname}}
-				{{user.lastname}}</option>
-		</select>
-	</div>
-	<div class="form-group">
-		<label>Responsable Manager</label> <select class="form-control"
-			name="manager" [(ngModel)]="developer.managerReference">
-			<option *ngFor="let user of users" [ngValue]="user.reference">{{user.firstname}}
-				{{user.lastname}}</option>
-		</select>
-	</div>
-	<div class="form-group">
-		<label>availability</label> <input class="form-control" type="date"
-			name="availability" [(ngModel)]="developer.availability" />
-	</div>
-	<div class="form-group">
-		<label>mobility</label> <input class="form-control" name="mobility"
-			[(ngModel)]="developer.mobility" />
-	</div>
-	<div class="form-group">
-		<label>note</label>
-		<textarea class="form-control" name="note"
-			[(ngModel)]="developer.note">
+	<div class="row">
+		<div class="col border">
+			<form novalidate #form="ngForm" (ngSubmit)="save(form)">
+				<div *ngIf="editing" class="form-group">
+					<label>Date de Création: </label> <input readonly
+						class="form-control" name="createdDate"
+						value="{{developer.createdDate | date:'long'}}" />
+				</div>
+				<div class="form-group">
+					<label>Nom</label> <input class="form-control" name="firstname"
+						[(ngModel)]="developer.firstname" />
+				</div>
+				<div class="form-group">
+					<label>Prénom</label> <input class="form-control" name="lastname"
+						[(ngModel)]="developer.lastname" />
+				</div>
+				<div class="form-group">
+
+					<div class="segmented-control " style="width: 100%; color: #4fa2d9">
+						<input type="radio" value="M" name="gender"
+							[(ngModel)]="developer.gender"> Mr <input type="radio"
+							value="F" name="gender" [(ngModel)]="developer.gender">
+						Mme
+					</div>
+				</div>
+				<div class="form-group">
+					<label>Etape</label> <select class="form-control" name="stage"
+						[(ngModel)]="developer.stage">
+						<option *ngFor="let stage of stages" [ngValue]="stage.value">{{stage.label}}</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<label>Responsable RH</label> <select class="form-control"
+						name="rh" [(ngModel)]="developer.rhReference">
+						<option *ngFor="let user of users" [ngValue]="user.reference">{{user.firstname}}
+							{{user.lastname}}</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<label>Responsable Manager</label> <select class="form-control"
+						name="manager" [(ngModel)]="developer.managerReference">
+						<option *ngFor="let user of users" [ngValue]="user.reference">{{user.firstname}}
+							{{user.lastname}}</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<label>Disponibiltité</label> <input class="form-control"
+						type="date" name="availability"
+						[(ngModel)]="developer.availability" />
+				</div>
+				<div class="form-group">
+					<label>Mobilité</label> <input class="form-control" name="mobility"
+						[(ngModel)]="developer.mobility" />
+				</div>
+				<div class="form-group">
+					<label>Commentaires</label>
+					<textarea class="form-control" name="note" rows="5"
+						[(ngModel)]="developer.note">
 			</textarea>
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-primary"
+						[class.btn-warning]="editing">Enregistrer</button>
+					<button type="reset" class="btn btn-secondary"
+						routerLink="/developers">Annuler</button>
+				</div>
+			</form>
+		</div>
+		<div class="col border" *ngIf="editing">
+			<app-personal-info></app-personal-info>
+		</div>
 	</div>
-	<button type="submit" class="btn btn-primary"
-		[class.btn-warning]="editing">Enregistrer
-	</button>
-	<button type="reset" class="btn btn-secondary" routerLink="/developers">Annuler</button>
-</form>
+</div>

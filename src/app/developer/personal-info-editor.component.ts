@@ -9,6 +9,7 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {NgForm} from '@angular/forms';
 
 @Component({
+  selector: 'app-personal-info',
   moduleId: module.id,
   templateUrl: 'personal-info-editor.component.html'
 })
@@ -31,10 +32,10 @@ export class PersonalInfoEditorComponent {
     }
 
     this.familySituations = [
-      {label: 'Célibataire', value: 'SINGLE'},
-      {label: 'Marié(e)', value: 'MARRIED'},
+      {label: 'CÃ©libataire', value: 'SINGLE'},
+      {label: 'MariÃ©(e)', value: 'MARRIED'},
       {label: 'Concubinage', value: 'COHABITATION'},
-      {label: 'Divorcé(e)', value: 'DIVORCED'},
+      {label: 'DivorcÃ©(e)', value: 'DIVORCED'},
       {label: 'Veuf(ve)', value: 'WIDOWED'},
       {label: 'PACS', value: 'PACS'}
     ];

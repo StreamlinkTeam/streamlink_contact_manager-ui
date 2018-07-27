@@ -1,8 +1,9 @@
+import {User} from '../entities/user.model';
 import {UserService} from './user.service';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 
-import { tokenNotExpired } from 'angular2-jwt';
+import {tokenNotExpired} from 'angular2-jwt';
 
 
 import 'rxjs/add/operator/map';
@@ -14,6 +15,14 @@ export class AuthService {
 
   authenticate(username: string, password: string): Observable<boolean> {
     return this.userService.authenticate(username, password);
+  }
+
+  getCurrentUser(): User {
+    let user: User;
+
+    this.userService.getCurrentUser().subscribe(response => user = response);
+    return user;
+
   }
 
   getToken(): string {

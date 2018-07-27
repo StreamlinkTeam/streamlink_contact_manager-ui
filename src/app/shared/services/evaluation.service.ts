@@ -15,65 +15,50 @@ export class EvaluationService {
 
   constructor(private http: HttpClient) {}
 
-  getEvaluations(reference: string, developerReference: string): Observable<Evaluation[]> {
-    const url = environment.API + '/ws/evaluations';
+  getEvaluations(developerReference: string): Observable<Evaluation[]> {
+    const url = environment.API + '/ws/developers/evaluations';
 
-    const params: HttpParams = new HttpParams();
-    params.set('developerReference', developerReference);
-
-    if (reference === undefined || reference === null) {
-      params.set('reference', reference);
-    }
+    const options = {params: new HttpParams().set('developerReference', developerReference)};
 
 
     return this
       .http
-      .get(url, {params: params})
-      .map((res: HttpResponse<Evaluation[]>) => res.body)
+      .get<Evaluation[]>(url, options)
       .catch(this.handleError);
   }
 
 
 
 
-  createEvaluations(evaluation: Evaluation, developerReference: string) {
-    const url = environment.API + '/ws/evaluations';
+  createEvaluation(evaluation: Evaluation, developerReference: string): Observable<Evaluation> {
+    const url = environment.API + '/ws/developers/evaluations';
 
-    const params: HttpParams = new HttpParams();
-    params.set('developerReference', developerReference);
+    const options = {params: new HttpParams().set('developerReference', developerReference)};
 
     return this.http
-      .post(url, evaluation, {params: params})
-      .map((res: HttpResponse<Evaluation>) => res.body)
+      .post<Evaluation>(url, evaluation, options)
       .catch(this.handleError);
   }
 
-  updateEvaluation(evaluation: Evaluation, reference: string, developerReference: string) {
-    const url = environment.API + '/ws/evaluations';
+  updateEvaluation(evaluation: Evaluation, reference: string, developerReference: string): Observable<Evaluation> {
+    const url = environment.API + '/ws/developers/evaluations';
 
-    const params: HttpParams = new HttpParams();
+    const options = {params: new HttpParams().set('developerReference', developerReference).set('reference', reference)};
 
-    params.set('developerReference', developerReference);
-    params.set('reference', reference);
 
     return this.http
-      .put(url, evaluation, {params: params})
-      .map((res: HttpResponse<Evaluation>) => res.body)
+      .put<Evaluation>(url, evaluation, options)
       .catch(this.handleError);
   }
 
   deleteEvaluation(reference: string, developerReference: string) {
-    const url = environment.API + '/ws/evaluations';
+    const url = environment.API + '/ws/developers/evaluations';
 
-    const params: HttpParams = new HttpParams();
-
-    params.set('reference', reference);
-    params.set('developerReference', developerReference);
+    const options = {params: new HttpParams().set('developerReference', developerReference).set('reference', reference)};
 
 
     return this.http
-      .delete(url, {params: params})
-      .map((res: HttpResponse<any>) => res.body)
+      .delete(url, options)
       .catch(this.handleError);
   }
 
@@ -82,7 +67,7 @@ export class EvaluationService {
  * Handle server errors.
  * @param error .
  */
-private handleError(error: HttpResponse<any> | any) {
+  private handleError(error: HttpResponse<any> | any) {
 
 
     console.error(error);

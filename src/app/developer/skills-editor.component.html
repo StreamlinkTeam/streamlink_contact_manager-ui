@@ -1,28 +1,84 @@
-<div class="tab-pane fade show active" id="dev-contact" role="tabpanel"
-	aria-labelledby="dev-contact-tab" [class.bg-warning]="editing">
-	<h5>{{editing ? "Edit" : "Create"}} Developer</h5>
-</div>
-<form novalidate #form="ngForm" (ngSubmit)="save(form)">
-
-
-	<!-- 	<div class="form-group"> -->
-	<!-- 		<label>Titre</label> <input class="form-control" name="title" -->
-	<!-- 			[(ngModel)]="skills.title" /> -->
-	<!-- 	</div> -->
-
-
-	<div class="form-group">
-
-		<label>Comp�tences (Nuage de mots clefs)</label>
-
-		<ng-select  [multiple]="true" name="languages"
-			#languages="ngModel" bindLabel="name" [(ngModel)]="skills.languages"
-			[items]="languages" id="languages"
-			placeholder="Selectionner des languages de Programmation ..."></ng-select>
-
+<div class="container">
+	<div class="row tab-pane fade show active" role="tabpanel" [class.bg-warning]="editing">
+		<h5 class="dropdown-header text-dark">Profil Technique</h5>
 	</div>
+	<div class="row">
+		<div class="col border">
+			<form novalidate #form="ngForm" (ngSubmit)="save(form)">
 
-	<button type="submit" class="btn btn-primary"
-		[class.btn-warning]="editing">Enregistrer</button>
-	<button type="reset" class="btn btn-secondary" routerLink="/developers">Annuler</button>
-</form>
+				<div class="form-group">
+					<label>Titre</label> <input class="form-control" name="title"
+						[(ngModel)]="skills.title" />
+				</div>
+
+				<div class="form-row">
+					<div class="form-group col-md-6">
+						<label>Formation</label> <select class="form-control"
+							name="formation" [(ngModel)]="skills.formation">
+							<option *ngFor="let ff of formations" [ngValue]="ff.value">{{ff.label}}</option>
+						</select>
+					</div>
+
+					<div class="form-group col-md-6">
+						<label>Expérience</label> <select class="form-control"
+							name="experience" [(ngModel)]="skills.experience">
+							<option *ngFor="let ex of experiences" [ngValue]="ex.value">{{ex.label}}</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="form-group">
+
+					<label>Compétences</label>
+
+					<ng-select [multiple]="true" name="languages" #languages="ngModel"
+						bindLabel="name" [(ngModel)]="skills.languages"
+						[items]="languages$ | async" id="languages"
+						placeholder="Selectionner des languages de Programmation ..."></ng-select>
+
+				</div>
+
+				<div class="form-row">
+					<div class="form-group col-md-8">
+						<input class="form-control" name="title" #diplome />
+					</div>
+					<div class="col-md-4">
+						<span>
+							<button class="btn btn-primary glyphicon glyphicon-plus"
+								type="button" (click)="addQualifications(diplome)">Ajouter
+								Un diplôme</button>
+						</span>
+					</div>
+				</div>
+
+				<table class="table table-striped table-sm">
+					<thead>
+						<tr>
+							<th scope="col">#</th>
+							<th class="col-md-6" scope="col">Diplôme</th>
+							<th scope="col"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let skill of skills.qualifications; let i=index">
+							<td>{{i}}</td>
+							<td class="col-md-6" >{{skill}}</td>
+							<td >
+								<button class="btn btn-sm btn-danger"
+									(click)="removeQualification(i)">Delete</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+
+				<div class="form-group">
+
+					<button type="submit" class="btn btn-primary"
+						[class.btn-warning]="editing">Enregistrer</button>
+					<button type="reset" class="btn btn-secondary"
+						routerLink="/developers">Annuler</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

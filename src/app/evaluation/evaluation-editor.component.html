@@ -1,0 +1,90 @@
+<div class="container">
+	<div class="row tab-pane fade show active bg-warning" role="tabpanel">
+		<h5 class="dropdown-header text-dark">Evaluations</h5>
+	</div>
+	<div class="row">
+		<div class="col border">
+			<form novalidate #form="ngForm" (ngSubmit)="save(form)">
+
+				<div *ngIf="editing" class="form-group">
+					<label>Date de Création: </label> <input readonly
+						class="form-control" name="createdDate"
+						value="{{evaluation.createdDate | date:'long'}}" />
+				</div>
+
+				<div class="form-row">
+					<div class="form-group col-md-6">
+						<label>Technique</label> <select class="form-control"
+							name="technical" [(ngModel)]="evaluation.technical">
+							<option value="NOT_DEFINED">Non défini</option>
+							<option value="A">A</option>
+							<option value="B">B</option>
+							<option value="C">C</option>
+							<option value="D">D</option>
+						</select>
+					</div>
+
+					<div class="form-group col-md-6">
+						<label>Relationnel</label> <select class="form-control"
+							name="relational" [(ngModel)]="evaluation.relational">
+							<option value="NOT_DEFINED">Non défini</option>
+							<option value="A">A</option>
+							<option value="B">B</option>
+							<option value="C">C</option>
+							<option value="D">D</option>
+						</select>
+					</div>
+
+
+				</div>
+
+				<div class="form-group">
+					<label>Note</label>
+					<textarea class="form-control" name="note" rows="5"
+						[(ngModel)]="evaluation.note">
+			</textarea>
+				</div>
+
+				<div class="form-group">
+					<button type="submit" class="btn btn-warning">Enregistrer</button>
+					<button type="reset" class="btn btn-secondary"
+						routerLink="/developers">Annuler</button>
+
+					<button *ngIf="editing" type="button" class="btn btn-primary"
+						(click)="newEvaluation()">Nouveau</button>
+				</div>
+
+				<table *ngIf="evaluations?.length > 0"
+					class="table table-striped table-sm">
+					<thead>
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col">Technique</th>
+							<th scope="col">Relationnel</th>
+							<th scope="col">Note</th>
+							<th scope="col">Responsable</th>
+							<th scope="col"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let eva of evaluations; let i=index">
+							<td>{{i}}</td>
+							<td>{{eva.technical}}</td>
+							<td>{{eva.relational}}</td>
+							<td>{{eva.note}}</td>
+							<td>{{eva.responsableName}}</td>
+							<td>
+								<button type="button" class="btn btn-sm btn-info"
+									(click)="showEvaluation(i)">Editer</button>
+
+								<button type="button" class="btn btn-sm btn-danger"
+									(click)="deleteEvaluation(i)">Supprimer</button>
+
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</form>
+		</div>
+	</div>
+</div>

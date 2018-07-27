@@ -91,15 +91,14 @@ export class DeveloperService {
       .catch(this.handleError);
   }
 
-  updateDeveloperSkills(skills: SkillsInformation, developerReference: string) {
+  updateDeveloperSkills(skills: SkillsInformation, developerReference: string): Observable<SkillsInformation> {
     const url = environment.API + '/ws/developers/skills';
 
-    const params: HttpParams = new HttpParams();
-    params.set('developerReference', developerReference);
+    const options = {params: new HttpParams().set('developerReference', developerReference)};
+
 
     return this.http
-      .put(url, skills, {params: params})
-      .map((res: HttpResponse<SkillsInformation>) => res.body)
+      .put<SkillsInformation>(url, skills, options)
       .catch(this.handleError);
   }
 
