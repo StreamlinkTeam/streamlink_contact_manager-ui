@@ -1,12 +1,13 @@
 import {DeveloperView} from '../shared/entities/developer-view.model';
-import {Developer} from '../shared/entities/developer.model';
 import {DeveloperService} from '../shared/services/developer.service';
 import {Component, OnInit} from '@angular/core';
-import {SelectItem} from 'primeng/primeng';
+import {HttpClient} from "@angular/common/http";
+import {environment} from "../../environments/environment";
+import {ServerDataSource} from "ng2-smart-table";
+
 
 
 @Component({
-  selector: 'developer',
   moduleId: module.id,
   templateUrl: 'developer-table.component.html'
 })
@@ -14,25 +15,64 @@ export class DeveloperTableComponent implements OnInit {
 
   developers: DeveloperView[];
 
-  experience: SelectItem[];
+  source: ServerDataSource;
 
-  stage: SelectItem[];
 
+  settings = {
+    columns: {
+      firstname: {
+        title: 'Nom'
+      },
+      lastname: {
+        title: 'Prénom'
+      },
+      stage: {
+        title: 'Etape'
+      },
+      mobility: {
+        title: 'Mobilité'
+      },
+      experience: {
+        title: 'Experience'
+      },
+      email1: {
+        title: 'Email'
+      }
+    }
+  };
   cols: any[];
+  experience: any[];
+  stage: any[];
 
 
-  constructor(private service: DeveloperService) {}
-
-  getdevelopers(): DeveloperView[] {
-
-    this.service.getDevelopers().subscribe(val => this.developers = val);
-
-    return this.developers;
+  constructor(private service: DeveloperService, private http: HttpClient) {
   }
 
+  /* getDevelopers(): DeveloperView[] {
+
+     this.service.getDevelopers().subscribe(val => this.developers = val);
+
+     return this.developers;
+   }*/
 
   ngOnInit() {
-    this.getdevelopers();
+    /*
+        this.getDevelopers();
+    */
+
+    const url = environment.API + '/api/developer/search/filter?value=';
+    this.source = new ServerDataSource(this.http, {
+      endPoint: url,
+      dataKey: 'embedded.developer',
+      totalKey: 'page.totalElements',
+      pagerLimitKey:'size',
+      perPage: 'page.size',
+      pagerPageKey: 'page',
+      page: 0
+    });
+
+
+    console.log(this.source);
 
     console.info(this.developers);
 
@@ -45,6 +85,7 @@ export class DeveloperTableComponent implements OnInit {
       {field: 'experience', header: 'Experience'},
       {field: 'email1', header: 'Email'}
     ];
+
 
     this.stage = [
       {label: 'Tous', value: null},
@@ -65,13 +106,17 @@ export class DeveloperTableComponent implements OnInit {
       {label: 'Plus que 10 ans', value: 'MORE_THAN_10'}];
   }
 
-  deleteDeveloper(reference: string) {
+  deleteDeveloper(developer: DeveloperView) {
 
-    if (confirm('Suppression du Developpeur')) {
+    if (confirm('Suppression du Developpeur' + developer.firstname + ' ' + developer.lastname)) {
 
-      console.info(reference);
-      this.service.deleteDeveloper(reference).subscribe(res => console.info(res));
-      this.ngOnInit();
+      console.info(developer);
+      this.service.deleteDeveloper(developer.reference).subscribe(res => {
+        console.info(res);
+        const index = this.developers.indexOf(developer);
+        this.developers.splice(index, 1)
+      });
+
     }
   }
 

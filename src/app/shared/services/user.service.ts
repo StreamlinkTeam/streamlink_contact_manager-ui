@@ -3,8 +3,7 @@ import {Observable} from 'rxjs/Observable';
 import {environment} from '../../../environments/environment';
 import {Token} from '../entities/token.model';
 import {User} from '../entities/user.model';
-import {HttpResponse, HttpHeaders} from '@angular/common/http';
-import {HttpClient, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpParams, HttpResponse} from '@angular/common/http';
 
 
 import 'rxjs/add/operator/map';
@@ -14,7 +13,8 @@ import 'rxjs/add/operator/catch';
 @Injectable()
 export class UserService {
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
   authenticate(username: string, password: string): Observable<boolean> {
 
@@ -27,13 +27,12 @@ export class UserService {
       .map(token => {
         this.authenticateSuccess(token);
         return true;
-      })
-      .catch(this.handleError);
+      });
   }
 
   getCurrentUser(): Observable<User> {
     let url = environment.API + '/ws/users/current';
-    return this.http.get<User>(url).catch(this.handleError);;
+    return this.http.get<User>(url).catch(this.handleError);
   }
 
   logout(): boolean {
@@ -58,9 +57,9 @@ export class UserService {
   }
 
   /**
- * Handle server errors.
- * @param error .
- */
+   * Handle server errors.
+   * @param error .
+   */
   private handleError(error: HttpResponse<any> | any) {
 
 

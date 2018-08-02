@@ -1,13 +1,9 @@
-import {Contact} from '../shared/entities/contact.model';
-import {Developer} from '../shared/entities/developer.model';
 import {Language} from '../shared/entities/language.model';
 import {SkillsInformation} from '../shared/entities/skills-information.model';
-import {User} from '../shared/entities/user.model';
 import {DeveloperService} from '../shared/services/developer.service';
 import {LanguageService} from '../shared/services/language.service';
-import {UserService} from '../shared/services/user.service';
 import {Component, OnInit} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
 import {Observable} from 'rxjs';
 
@@ -18,15 +14,15 @@ import {Observable} from 'rxjs';
 export class SkillsEditorComponent implements OnInit {
 
   editing = false;
+  qualifTitle = '';
   skills: SkillsInformation = new SkillsInformation();
   languages$: Observable<Language[]>;
   experiences: any[];
   formations: any[];
 
 
-
   constructor(private service: DeveloperService, private languageService: LanguageService, private router: Router,
-    private activeRoute: ActivatedRoute) {
+              private activeRoute: ActivatedRoute) {
 
 
   }
@@ -56,14 +52,15 @@ export class SkillsEditorComponent implements OnInit {
 
 
     if (this.editing) {
-      this.service.getDeveloperSkills(this.activeRoute.snapshot.parent.params['reference']).subscribe(response => this.skills = response);
+      this.service.getDeveloperSkills(this.activeRoute.snapshot.parent.params['reference'])
+        .subscribe(response => this.skills = response);
       console.info(this.skills.title);
     }
   }
 
-  addQualifications(diplome: HTMLInputElement) {
-    this.skills.qualifications.push(diplome.value);
-    diplome.value = '';
+  addQualifications() {
+    this.skills.qualifications.push(this.qualifTitle);
+    this.qualifTitle = '';
   }
 
   removeQualification(i: number) {
@@ -72,12 +69,13 @@ export class SkillsEditorComponent implements OnInit {
 
   save(form: NgForm) {
 
-    if (this.editing) {
-      console.info(this.skills);
-      this.service.updateDeveloperSkills(this.skills, this.skills.developerReference).
-        subscribe(response => console.info(response.developerReference));
+    if (form.valid) {
+      if (this.editing) {
+        console.info(this.skills);
+        this.service.updateDeveloperSkills(this.skills, this.skills.developerReference)
+          .subscribe(response => console.info(response.developerReference));
+      }
     }
 
-    //    this.router.navigateByUrl('/developer');
   }
 }

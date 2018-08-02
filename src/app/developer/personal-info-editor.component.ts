@@ -1,11 +1,7 @@
-import {Contact} from '../shared/entities/contact.model';
-import {Developer} from '../shared/entities/developer.model';
 import {PersonalInformation} from '../shared/entities/personal-information.model';
-import {User} from '../shared/entities/user.model';
 import {DeveloperService} from '../shared/services/developer.service';
-import {UserService} from '../shared/services/user.service';
 import {Component} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
 
 @Component({
@@ -20,9 +16,8 @@ export class PersonalInfoEditorComponent {
   familySituations: any[];
 
 
-
   constructor(private service: DeveloperService, private router: Router,
-    activeRoute: ActivatedRoute) {
+              activeRoute: ActivatedRoute) {
     this.editing = activeRoute.snapshot.parent.params['mode'] === 'edit';
 
     console.info(activeRoute.snapshot.parent.params['reference']);
@@ -44,13 +39,15 @@ export class PersonalInfoEditorComponent {
 
   save(form: NgForm) {
 
-    if (this.editing) {
-      console.info(this.personalInfo);
-      this.service.updateDeveloperInfo(this.personalInfo, this.personalInfo.developerReference).
-        subscribe(response => console.info(response.developerReference));
-
+    if (form.valid) {
+      if (this.editing) {
+        console.info(this.personalInfo);
+        this.service.updateDeveloperInfo(this.personalInfo, this.personalInfo.developerReference).subscribe(response => {
+          console.info(response.developerReference);
+          this.personalInfo = response;
+        });
+      }
     }
-
     //    this.router.navigateByUrl('/developer');
   }
 }

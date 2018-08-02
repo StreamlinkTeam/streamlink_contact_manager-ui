@@ -1,12 +1,8 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {environment} from '../../../environments/environment';
-import {Contact} from '../entities/contact.model';
 import {Contract} from '../entities/contract.model';
-import {PersonalInformation} from '../entities/personal-information.model';
-import {SkillsInformation} from '../entities/skills-information.model';
 import { WishedContract } from '../entities/wished-contract.model';
-import {HttpHeaders} from '@angular/common/http';
 import {HttpResponse} from '@angular/common/http';
 import {HttpParams} from '@angular/common/http';
 import {HttpClient} from '@angular/common/http';

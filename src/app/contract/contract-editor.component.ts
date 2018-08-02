@@ -1,13 +1,8 @@
-import {Contact} from '../shared/entities/contact.model';
 import {Contract} from '../shared/entities/contract.model';
-import {Developer} from '../shared/entities/developer.model';
-import {User} from '../shared/entities/user.model';
 import {WishedContract} from '../shared/entities/wished-contract.model';
 import {ContractService} from '../shared/services/contract.service';
-import {DeveloperService} from '../shared/services/developer.service';
-import {UserService} from '../shared/services/user.service';
 import {Component, OnInit} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
 
 @Component({
@@ -24,9 +19,8 @@ export class ContractEditorComponent implements OnInit {
   haveContract = false;
 
 
-
   constructor(private service: ContractService, private router: Router,
-    private activeRoute: ActivatedRoute) {
+              private activeRoute: ActivatedRoute) {
 
 
   }
@@ -37,16 +31,15 @@ export class ContractEditorComponent implements OnInit {
     console.info(this.activeRoute.snapshot.parent.params['reference']);
     if (this.editing) {
       this.service.getWishedContract
-        (this.activeRoute.snapshot.parent.params['reference'])
+      (this.activeRoute.snapshot.parent.params['reference'])
         .subscribe(response => this.wishedContract = response);
 
       this.service.getContract
-        (this.activeRoute.snapshot.parent.params['reference'])
+      (this.activeRoute.snapshot.parent.params['reference'])
         .subscribe(response => {
           this.contract = response;
           this.haveContract = this.contract != null && this.contract.reference != null;
         });
-
 
 
     }
@@ -57,41 +50,41 @@ export class ContractEditorComponent implements OnInit {
     con.developerReference = this.wishedContract.developerReference;
 
     this.service.createContracts(con, this.wishedContract.developerReference)
-      .subscribe(response => this.contract = response);
+      .subscribe(response => {
+        this.contract = response;
+        this.haveContract = true;
+      });
 
-    this.haveContract = true;
 
   }
 
   deleteContract() {
 
-    this.service.deleteContract(this.contract.developerReference).
-      subscribe(response => {
-        this.contract = null;
-        this.haveContract = false;
-      });
+    this.service.deleteContract(this.contract.developerReference).subscribe(response => {
+      this.contract = null;
+      this.haveContract = false;
+    });
   }
 
   saveContract(form: NgForm) {
 
-    if (this.editing) {
-      console.info(this.wishedContract);
-      this.service.updateContract(this.contract, this.contract.developerReference).
-        subscribe(response => console.info(response.developerReference));
+    if (form.valid) {
+      if (this.editing) {
+        console.info(this.wishedContract);
+        this.service.updateContract(this.contract, this.contract.developerReference).subscribe(response => console.info(response.developerReference));
+      }
     }
-
     //    this.router.navigateByUrl('/developer');
   }
 
   saveWishedContract(form: NgForm) {
 
-    if (this.editing) {
-      console.info(this.wishedContract);
-      this.service.updateWishedContract(this.wishedContract, this.wishedContract.developerReference).
-        subscribe(response => console.info(response.developerReference));
-
+    if (form.valid) {
+      if (this.editing) {
+        console.info(this.wishedContract);
+        this.service.updateWishedContract(this.wishedContract, this.wishedContract.developerReference).subscribe(response => console.info(response.developerReference));
+      }
     }
-
     //    this.router.navigateByUrl('/developer');
   }
 }

@@ -4,6 +4,7 @@ import {environment} from '../../../environments/environment';
 import {Contact} from '../entities/contact.model';
 import {DeveloperView} from '../entities/developer-view.model';
 import {Developer} from '../entities/developer.model';
+import {CV} from '../entities/cv.model';
 import {PersonalInformation} from '../entities/personal-information.model';
 import {SkillsInformation} from '../entities/skills-information.model';
 import {HttpHeaders} from '@angular/common/http';
@@ -18,7 +19,8 @@ import 'rxjs/add/operator/catch';
 @Injectable()
 export class DeveloperService {
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
   getDeveloper(reference: string): Observable<Developer> {
 
@@ -45,8 +47,6 @@ export class DeveloperService {
       .get<DeveloperView[]>(url)
       .catch(this.handleError);
   }
-
-
 
 
   createDevelopers(developer: Developer): Observable<Developer> {
@@ -150,10 +150,46 @@ export class DeveloperService {
       .catch(this.handleError);
   }
 
+  getDeveloperCVs(developerReference: string): Observable<CV[]> {
+    const url = environment.API + '/ws/developers/cv';
+
+    const options = {params: new HttpParams().set('developerReference', developerReference)};
+
+
+    return this
+      .http
+      .get<CV[]>(url, options)
+      .catch(this.handleError);
+  }
+
+  createDeveloperCv(fileToUpload: File, developerReference: string): Observable<CV> {
+    const url = environment.API + '/ws/developers/cv';
+
+    const formData: FormData = new FormData();
+    formData.append('cv', fileToUpload, fileToUpload.name);
+
+    const options = {params: new HttpParams().set('developerReference', developerReference)};
+
+
+    return this.http
+      .post<CV>(url, formData, options);
+  }
+
+  deleteCV(reference: string, developerReference: string) {
+    const url = environment.API + '/ws/developers/cv';
+
+    const options = {params: new HttpParams().set('developerReference', developerReference).set('reference', reference)};
+
+
+    return this.http
+      .delete(url, options)
+      .catch(this.handleError);
+  }
+
   /**
- * Handle server errors.
- * @param error .
- */
+   * Handle server errors.
+   * @param error .
+   */
   private handleError(error: HttpResponse<any> | any) {
 
 

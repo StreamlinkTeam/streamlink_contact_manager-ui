@@ -3,7 +3,7 @@ import {User} from '../shared/entities/user.model';
 import {DeveloperService} from '../shared/services/developer.service';
 import {UserService} from '../shared/services/user.service';
 import {Component} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
 
 @Component({
@@ -19,8 +19,8 @@ export class DeveloperEditorComponent {
 
 
   constructor(private service: DeveloperService, private userService: UserService,
-    private router: Router,
-    activeRoute: ActivatedRoute) {
+              private router: Router,
+              activeRoute: ActivatedRoute) {
     this.editing = activeRoute.snapshot.parent.params['mode'] === 'edit';
     userService.getUsers().subscribe(response => this.users = response);
     console.info(activeRoute.snapshot.parent.params['reference']);
@@ -40,18 +40,22 @@ export class DeveloperEditorComponent {
 
   }
 
+
   save(form: NgForm) {
 
-    if (this.editing) {
-      console.info(this.developer);
-      this.service.updateDeveloper(this.developer, this.developer.reference).
-        subscribe(response => console.info(response.reference));
+    if (form.valid) {
+      if (this.editing) {
+        console.info(this.developer);
+        this.service.updateDeveloper(this.developer, this.developer.reference).subscribe(response => console.info(response.reference));
 
-    } else {
-      let reference: string;
-      this.service.createDevelopers(this.developer).subscribe(response => reference = response.reference);
-      this.router.navigateByUrl('developer/edit/' + reference);
-
+      } else {
+        let reference: string;
+        this.service.createDevelopers(this.developer)
+          .subscribe(response => {
+            reference = response.reference;
+            this.router.navigateByUrl('developer/edit/' + reference);
+          });
+      }
     }
   }
 }

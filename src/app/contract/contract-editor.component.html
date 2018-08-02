@@ -1,176 +1,189 @@
 <div class="container tab-pane fade show active" role="tabpanel">
-	<div class="row">
-		<div class="col border" [class.bg-warning]="editing"
-			[class.bg-info]="!editing">
-			<h5 class="text-dark dropdown-header">Informations
-				contractuelles</h5>
-		</div>
-		<div class="col border" *ngIf="haveContract" [class.bg-warning]="editing">
-			<h5 class="text-dark dropdown-header">Contrat RH proposé</h5>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col border">
-			<form novalidate #wishedContractForm="ngForm"
-				(ngSubmit)="saveWishedContract(wishedContractForm)">
+  <div class="row">
+    <div class="col border">
+      <div class="row">
+        <div class="col border bg-warning">
+          <h5 class="text-dark dropdown-header">Informations Contractuelles</h5>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col border">
+          <form novalidate #wishedContractForm="ngForm"
+                (ngSubmit)="saveWishedContract(wishedContractForm)">
 
-				<div class="form-group row">
-					<label for=currentSalary class="col-sm-4 col-form-label">Salaire
-						actuel : </label>
-					<div class="col-sm-8">
-						<input class="form-control" id="currentSalary" type="number"
-							name="currentSalary" [(ngModel)]="wishedContract.currentSalary"
-							required>
-					</div>
-				</div>
+            <div class="form-group row">
+              <label for=currentSalary class="col-sm-4 col-form-label">Salaire
+                actuel : </label>
+              <div class="col-sm-8">
+                <input class="form-control" id="currentSalary" type="number"
+                       name="currentSalary" [(ngModel)]="wishedContract.currentSalary"
+                       required>
+              </div>
+            </div>
 
 
-				<div class="form-group row">
-					<label for=currency class="col-sm-4 col-form-label">Devise:
-					</label>
-					<div class="col-sm-8">
-						<select class="form-control" name="currency"
-							[(ngModel)]="wishedContract.currency">
-							<option value="EUR">EUR Euro</option>
-							<option value="USD">USD United States Dollars</option>
-							<option value="GPB">GPB United Kingdom Pounds</option>
-						</select>
-					</div>
-				</div>
+            <div class="form-group row">
+              <label for=currency class="col-sm-4 col-form-label">Devise:
+              </label>
+              <div class="col-sm-8">
+                <select class="form-control" name="currency"
+                        [(ngModel)]="wishedContract.currency">
+                  <option value="EUR">EUR Euro</option>
+                  <option value="USD">USD United States Dollars</option>
+                  <option value="GPB">GPB United Kingdom Pounds</option>
+                </select>
+              </div>
+            </div>
 
-				<div class="form-group row">
-					<label for=wishedContractType class="col-sm-4 col-form-label">Contrat
-						RH souhaité: </label>
-					<div class="col-sm-8">
-						<select class="form-control" name="wishedContractType"
-							[(ngModel)]="wishedContract.wishedContractType">
-							<option value="NOT_DEFINED">Non défini</option>
-							<option value="CDI">CDI</option>
-							<option value="CDD">CDD</option>
-							<option value="SUBCONTRACTOR">Sous-traitant</option>
-							<option value="FREELANCE">Freelance</option>
-							<option value="TRAINEESHIP">Stage</option>
-						</select>
-					</div>
-				</div>
+            <div class="form-group row">
+              <label for=wishedContractType class="col-sm-4 col-form-label">Contrat
+                RH souhaité: </label>
+              <div class="col-sm-8">
+                <select id="wishedContractType" class="form-control" name="wishedContractType"
+                        [(ngModel)]="wishedContract.wishedContractType">
+                  <option value="NOT_DEFINED">Non défini</option>
+                  <option value="CDI">CDI</option>
+                  <option value="CDD">CDD</option>
+                  <option value="SUBCONTRACTOR">Sous-traitant</option>
+                  <option value="FREELANCE">Freelance</option>
+                  <option value="TRAINEESHIP">Stage</option>
+                </select>
+              </div>
+            </div>
 
-				<div class="form-group row">
-					<label for=wishedSalaryMin class="col-sm-4 col-form-label">Salaire
-						souhaité(Min):</label>
-					<div class="col-sm-8">
-						<input class="form-control" id="wishedSalaryMin" type="number"
-							name="wishedSalaryMin"
-							[(ngModel)]="wishedContract.wishedSalaryMin" required>
-					</div>
-				</div>
+            <div class="form-group row">
+              <label for=wishedSalaryMin class="col-sm-4 col-form-label">Salaire
+                souhaité(Min):</label>
+              <div class="col-sm-8">
+                <input class="form-control" id="wishedSalaryMin" type="number"
+                       name="wishedSalaryMin"
+                       [(ngModel)]="wishedContract.wishedSalaryMin" required>
+              </div>
+            </div>
 
-				<div class="form-group row">
-					<label for=wishedSalaryMax class="col-sm-4 col-form-label">Salaire
-						souhaité(Max):</label>
-					<div class="col-sm-8">
-						<input class="form-control" id="wishedSalaryMax" type="number"
-							name="wishedSalaryMax"
-							[(ngModel)]="wishedContract.wishedSalaryMax" required>
-					</div>
-				</div>
+            <div class="form-group row">
+              <label for=wishedSalaryMax class="col-sm-4 col-form-label">Salaire
+                souhaité(Max):</label>
+              <div class="col-sm-8">
+                <input class="form-control" id="wishedSalaryMax" type="number"
+                       name="wishedSalaryMax"
+                       [(ngModel)]="wishedContract.wishedSalaryMax" required>
+              </div>
+            </div>
 
-				<div class="form-group">
-					<button type="submit" class="btn btn-primary"
-						[class.btn-warning]="editing">Enregistrer</button>
-					<button type="reset" class="btn btn-secondary"
-						routerLink="/developers">Annuler</button>
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary"
+                      [class.btn-warning]="editing">Enregistrer
+              </button>
+              <button type="reset" class="btn btn-secondary"
+                      routerLink="/developers">Annuler
+              </button>
 
-					<button class="btn btn-info" *ngIf="!haveContract"
-						(click)="initContract()">Contrat RH proposé</button>
-				</div>
-			</form>
-		</div>
-		<div *ngIf="haveContract" class="col border">
-			<form novalidate #contractForm="ngForm"
-				(ngSubmit)="saveContract(contractForm)">
+              <button class="btn btn-info" *ngIf="!haveContract"
+                      (click)="initContract()">Contrat RH proposé
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col border" *ngIf="haveContract">
+      <div class="row">
+        <div class="col border bg-warning">
+          <h5 class="text-dark dropdown-header">Contrat RH proposé</h5>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col border">
+          <form novalidate #contractForm="ngForm"
+                (ngSubmit)="saveContract(contractForm)">
 
-				<div class="form-group row">
-					<label for=salary class="col-sm-4 col-form-label">Salaire :
-					</label>
-					<div class="col-sm-8">
-						<input class="form-control" id="salary" type="number"
-							name="salary" [(ngModel)]="contract.salary" required>
-					</div>
-				</div>
+            <div class="form-group row">
+              <label for=salary class="col-sm-4 col-form-label">Salaire :
+              </label>
+              <div class="col-sm-8">
+                <input class="form-control" id="salary" type="number"
+                       name="salary" [(ngModel)]="contract.salary" required>
+              </div>
+            </div>
 
 
-				<div class="form-group row">
-					<label for=currency class="col-sm-4 col-form-label">Devise:
-					</label>
-					<div class="col-sm-8">
-						<select class="form-control" name="currency"
-							[(ngModel)]="contract.currency">
-							<option value="EUR">EUR Euro</option>
-							<option value="USD">USD United States Dollars</option>
-							<option value="GPB">GPB United Kingdom Pounds</option>
-						</select>
-					</div>
-				</div>
+            <div class="form-group row">
+              <label for=currency class="col-sm-4 col-form-label">Devise:
+              </label>
+              <div class="col-sm-8">
+                <select id="currency" class="form-control" name="currency"
+                        [(ngModel)]="contract.currency">
+                  <option value="EUR">EUR Euro</option>
+                  <option value="USD">USD United States Dollars</option>
+                  <option value="GPB">GPB United Kingdom Pounds</option>
+                </select>
+              </div>
+            </div>
 
-				<div class="form-group row">
-					<label for=contractType class="col-sm-4 col-form-label">Contrat
-						RH: </label>
-					<div class="col-sm-8">
-						<select class="form-control" name="contractType"
-							[(ngModel)]="contract.contractType">
-							<option value="NOT_DEFINED">Non défini</option>
-							<option value="CDI">CDI</option>
-							<option value="CDD">CDD</option>
-							<option value="SUBCONTRACTOR">Sous-traitant</option>
-							<option value="FREELANCE">Freelance</option>
-							<option value="TRAINEESHIP">Stage</option>
-						</select>
-					</div>
-				</div>
+            <div class="form-group row">
+              <label for=contractType class="col-sm-4 col-form-label">Contrat
+                RH: </label>
+              <div class="col-sm-8">
+                <select class="form-control" name="contractType" id="contractType"
+                        [(ngModel)]="contract.contractType">
+                  <option value="NOT_DEFINED">Non défini</option>
+                  <option value="CDI">CDI</option>
+                  <option value="CDD">CDD</option>
+                  <option value="SUBCONTRACTOR">Sous-traitant</option>
+                  <option value="FREELANCE">Freelance</option>
+                  <option value="TRAINEESHIP">Stage</option>
+                </select>
+              </div>
+            </div>
 
-				<div class="form-group row">
-					<label for=workTime class="col-sm-4 col-form-label">Temps
-						de travail: </label>
-					<div class="col-sm-8">
-						<select class="form-control" name="workTime"
-							[(ngModel)]="contract.workTime">
-							<option value="NOT_DEFINED">Non défini</option>
-							<option value="FULL_TIME">Temps plein</option>
-							<option value="PART_TIME">Temps partiel</option>
-							<option value="HALF_TIME">Mi-temps</option>
-						</select>
-					</div>
-				</div>
+            <div class="form-group row">
+              <label for=workTime class="col-sm-4 col-form-label">Temps
+                de travail: </label>
+              <div class="col-sm-8">
+                <select id="workTime" class="form-control" name="workTime"
+                        [(ngModel)]="contract.workTime">
+                  <option value="NOT_DEFINED">Non défini</option>
+                  <option value="FULL_TIME">Temps plein</option>
+                  <option value="PART_TIME">Temps partiel</option>
+                  <option value="HALF_TIME">Mi-temps</option>
+                </select>
+              </div>
+            </div>
 
-				<div class="form-group row">
-					<label for=startDate class="col-sm-4 col-form-label">Date
-						de Début:</label>
-					<div class="col-sm-8">
-						<input class="form-control" id="startDate" type="date"
-							name="startDate" [(ngModel)]="contract.startDate" required>
-					</div>
-				</div>
+            <div class="form-group row">
+              <label for=startDate class="col-sm-4 col-form-label">Date
+                de Début:</label>
+              <div class="col-sm-8">
+                <input class="form-control" id="startDate" type="date"
+                       name="startDate" [(ngModel)]="contract.startDate" required>
+              </div>
+            </div>
 
-				<div class="form-group row">
-					<label for=endDate class="col-sm-4 col-form-label">Date de
-						Fin:</label>
-					<div class="col-sm-8">
-						<input class="form-control" id="endDate" type="date"
-							name="endDate" [(ngModel)]="contract.endDate" required>
-					</div>
-				</div>
+            <div class="form-group row">
+              <label for=endDate class="col-sm-4 col-form-label">Date de
+                Fin:</label>
+              <div class="col-sm-8">
+                <input class="form-control" id="endDate" type="date"
+                       name="endDate" [(ngModel)]="contract.endDate" required>
+              </div>
+            </div>
 
-				<div class="form-group">
-					<button type="submit" class="btn btn-primary"
-						[class.btn-warning]="editing">Enregistrer</button>
-					<button type="reset" class="btn btn-secondary"
-						routerLink="/developers">Annuler</button>
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary"
+                      [class.btn-warning]="editing">Enregistrer
+              </button>
+              <button type="reset" class="btn btn-secondary"
+                      routerLink="/developers">Annuler
+              </button>
 
-					<button type="button" class="btn btn-danger"
-						(click)="deleteContract()">Supprimer</button>
-
-				</div>
-			</form>
-		</div>
-	</div>
+              <button type="button" class="btn btn-danger"
+                      (click)="deleteContract()">Supprimer
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

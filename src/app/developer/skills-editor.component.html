@@ -1,84 +1,100 @@
 <div class="container">
-	<div class="row tab-pane fade show active" role="tabpanel" [class.bg-warning]="editing">
-		<h5 class="dropdown-header text-dark">Profil Technique</h5>
-	</div>
-	<div class="row">
-		<div class="col border">
-			<form novalidate #form="ngForm" (ngSubmit)="save(form)">
+  <div class="row">
+    <div class="col border bg-warning">
+      <h5 class="dropdown-header text-dark">Profil Technique</h5>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-8 border">
+      <form novalidate #form="ngForm" (ngSubmit)="save(form)">
 
-				<div class="form-group">
-					<label>Titre</label> <input class="form-control" name="title"
-						[(ngModel)]="skills.title" />
-				</div>
+        <div class="form-group">
+          <label>Titre</label> <input class="form-control" name="title"
+                                      [(ngModel)]="skills.title"/>
+        </div>
 
-				<div class="form-row">
-					<div class="form-group col-md-6">
-						<label>Formation</label> <select class="form-control"
-							name="formation" [(ngModel)]="skills.formation">
-							<option *ngFor="let ff of formations" [ngValue]="ff.value">{{ff.label}}</option>
-						</select>
-					</div>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label>Formation</label> <select class="form-control"
+                                             name="formation" [(ngModel)]="skills.formation">
+            <option *ngFor="let ff of formations" [ngValue]="ff.value">{{ff.label}}</option>
+          </select>
+          </div>
 
-					<div class="form-group col-md-6">
-						<label>Expérience</label> <select class="form-control"
-							name="experience" [(ngModel)]="skills.experience">
-							<option *ngFor="let ex of experiences" [ngValue]="ex.value">{{ex.label}}</option>
-						</select>
-					</div>
-				</div>
+          <div class="form-group col-md-6">
+            <label>Expérience</label> <select class="form-control"
+                                              name="experience" [(ngModel)]="skills.experience">
+            <option *ngFor="let ex of experiences" [ngValue]="ex.value">{{ex.label}}</option>
+          </select>
+          </div>
+        </div>
 
-				<div class="form-group">
+        <div class="form-group">
 
-					<label>Compétences</label>
+          <label>Compétences</label>
 
-					<ng-select [multiple]="true" name="languages" #languages="ngModel"
-						bindLabel="name" [(ngModel)]="skills.languages"
-						[items]="languages$ | async" id="languages"
-						placeholder="Selectionner des languages de Programmation ..."></ng-select>
+          <textarea class="form-control" placeholder="Nuages de mots clés ..." name="languages" rows="5"
+                    [(ngModel)]="skills.languages"></textarea>
 
-				</div>
+          <!--<ng-select [multiple]="true" name="languages" #languages="ngModel"
+              bindLabel="name" [(ngModel)]="skills.languages"
+              [items]="languages$ | async" id="languages"
+              placeholder="Selectionner des languages de Programmation ..."></ng-select>-->
 
-				<div class="form-row">
-					<div class="form-group col-md-8">
-						<input class="form-control" name="title" #diplome />
-					</div>
-					<div class="col-md-4">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-8">
+            <input class="form-control" placeholder="Nom du Diplôme ..."
+                   name="qualifTitle" [(ngModel)]="qualifTitle" required/>
+          </div>
+          <div class="col-md-4">
 						<span>
-							<button class="btn btn-primary glyphicon glyphicon-plus"
-								type="button" (click)="addQualifications(diplome)">Ajouter
-								Un diplôme</button>
+							<button class="btn btn-primary fa fa-plus" [disabled]="!qualifTitle"
+                      type="button" (click)="addQualifications()">Ajouter
+                                Un diplôme
+                            </button>
 						</span>
-					</div>
-				</div>
+          </div>
+        </div>
 
-				<table class="table table-striped table-sm">
-					<thead>
-						<tr>
-							<th scope="col">#</th>
-							<th class="col-md-6" scope="col">Diplôme</th>
-							<th scope="col"></th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr *ngFor="let skill of skills.qualifications; let i=index">
-							<td>{{i}}</td>
-							<td class="col-md-6" >{{skill}}</td>
-							<td >
-								<button class="btn btn-sm btn-danger"
-									(click)="removeQualification(i)">Delete</button>
-							</td>
-						</tr>
-					</tbody>
-				</table>
+        <table class="table table-striped table-sm">
+          <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th class="col-md-6" scope="col">Diplôme</th>
+            <th scope="col"></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let skill of skills.qualifications; let i=index">
+            <td>{{i+1}}</td>
+            <td class="col-md-6">{{skill}}</td>
+            <td>
+              <button class="btn btn-sm btn-danger"
+                      (click)="removeQualification(i)">Delete
+              </button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
 
-				<div class="form-group">
+        <div class="form-group">
 
-					<button type="submit" class="btn btn-primary"
-						[class.btn-warning]="editing">Enregistrer</button>
-					<button type="reset" class="btn btn-secondary"
-						routerLink="/developers">Annuler</button>
-				</div>
-			</form>
-		</div>
-	</div>
+          <button type="submit" class="btn btn-primary"
+                  [class.btn-warning]="editing">Enregistrer
+          </button>
+          <button type="reset" class="btn btn-secondary"
+                  routerLink="/developers">Annuler
+          </button>
+        </div>
+      </form>
+    </div>
+    <!--</div>-->
+    <!--<div class="row">-->
+    <div class="col-4 border">
+      <app-developer-cv></app-developer-cv>
+    </div>
+  </div>
+
 </div>

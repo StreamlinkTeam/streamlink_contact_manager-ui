@@ -1,6 +1,6 @@
 import {ActionEditorComponent} from './action/action-editor.component';
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule, LOCALE_ID} from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
 
 
 import {AppComponent} from './app.component';
@@ -10,8 +10,7 @@ import {AuthInterceptor} from './auth.interceptor';
 import {AuthModule} from './auth/auth.module';
 import {DeveloperTableComponent} from './developer/developer-table.component';
 import {DeveloperModule} from './developer/developer.module';
-import {HttpClientModule} from '@angular/common/http';
-import {HTTP_INTERCEPTORS} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {RouterModule} from '@angular/router';
 import {AppNavbarComponent} from './app-navbar/app-navbar.component';
 import {ContactEditorComponent} from './contact/contact-editor.component';
@@ -21,10 +20,10 @@ import {DeveloperComponent} from './developer/developer.component';
 import {PersonalInfoEditorComponent} from './developer/personal-info-editor.component';
 import {SkillsEditorComponent} from './developer/skills-editor.component';
 import {EvaluationEditorComponent} from './evaluation/evaluation-editor.component';
-import { registerLocaleData } from '@angular/common';
+import {registerLocaleData} from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 
-// the second parameter 'fr' is optional
+
 registerLocaleData(localeFr, 'fr');
 
 
@@ -58,21 +57,6 @@ registerLocaleData(localeFr, 'fr');
           {path: '**', redirectTo: 'general'}
         ]
       },
-      //      {
-      //        path: 'developer/:mode/:reference', component: DeveloperEditorComponent,
-      //        canActivate: [AuthGuard]
-      //      },
-      //      {
-      //        path: 'developer/create', component: DeveloperComponent,
-      //        canActivate: [AuthGuard],
-      //        children: [
-      //          {path: 'general', component: DeveloperEditorComponent},
-      //          {path: 'contact', component: ContactEditorComponent},
-      //          {path: 'skills', component: DeveloperEditorComponent},
-      //          {path: 'personal-info', component: PersonalInfoEditorComponent},
-      //          {path: '**', redirectTo: 'general'}
-      //        ]
-      //      },
       {path: '**', redirectTo: '/developer'}
     ])
   ],
@@ -84,4 +68,5 @@ registerLocaleData(localeFr, 'fr');
     }, {provide: LOCALE_ID, useValue: 'fr'}
   ], bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+}

@@ -1,13 +1,7 @@
 import {Action} from '../shared/entities/action.model';
-import {Contact} from '../shared/entities/contact.model';
-import {Developer} from '../shared/entities/developer.model';
-import {User} from '../shared/entities/user.model';
 import {ActionService} from '../shared/services/action.service';
-import {DeveloperService} from '../shared/services/developer.service';
-import {UserService} from '../shared/services/user.service';
-import {DatePipe} from '@angular/common';
 import {Component} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
 
 @Component({
@@ -28,7 +22,7 @@ export class ActionEditorComponent {
 
 
   constructor(private service: ActionService, private router: Router,
-    activeRoute: ActivatedRoute) {
+              activeRoute: ActivatedRoute) {
 
     this.reference = activeRoute.snapshot.parent.params['reference'];
     this.service.getActions(this.reference).subscribe(response => this.actions = response);
@@ -45,20 +39,26 @@ export class ActionEditorComponent {
 
   }
 
-  showAction(index: number) {
-
-    this.action = Object.assign({}, this.actions[index]);
-    this.editing = true;
-
-    console.info(this.action.createdDate);
+  showAction(index: number, form: NgForm) {
 
 
+    const act = this.actions[index];
+
+    if (act.reference !== this.action.reference) {
+      form.resetForm();
+
+      this.action = Object.assign({}, this.actions[index]);
+      this.editing = true;
+    }
   }
 
-  newAction() {
+  newAction(form: NgForm) {
+
+    form.resetForm();
 
     this.action = new Action();
     this.editing = false;
+
   }
 
   deleteAction(index: number) {
@@ -71,31 +71,32 @@ export class ActionEditorComponent {
         this.editing = false;
       }
 
-      this.service.deleteAction(act.reference, this.reference).
-        subscribe(response => {
-          console.info(response);
-          this.actions.splice(index, 1);
-        });
+      this.service.deleteAction(act.reference, this.reference).subscribe(response => {
+        console.info(response);
+        this.actions.splice(index, 1);
+      });
     }
   }
 
   save(form: NgForm) {
 
-    if (this.editing) {
+    if (form.valid) {
+      if (this.editing) {
 
-      this.service.updateAction(this.action, this.action.reference, this.reference).
-        subscribe(response => {
+        this.service.updateAction(this.action, this.action.reference, this.reference).subscribe(response => {
           this.service.getActions(this.reference).subscribe(res => this.actions = res);
           this.action = new Action();
           this.editing = false;
 
         });
-    } else {
-      this.service.createAction(this.action, this.reference).
-        subscribe(response => {
+      } else {
+        this.service.createAction(this.action, this.reference).subscribe(response => {
           this.service.getActions(this.reference).subscribe(res => this.actions = res);
           this.action = new Action();
         });
+      }
+      form.resetForm();
+
     }
 
   }

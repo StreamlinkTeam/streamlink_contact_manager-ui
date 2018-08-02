@@ -1,10 +1,29 @@
 /* You can add global styles to this file, and also import other style files */
 body {
-   padding-top: 80px; 
+  padding-top: 80px;
 }
+
 .starter-template {
-    padding: 3rem 1.5rem;
-/*     text-align: center; */
+  padding: 3rem 1.5rem;
+  /*     text-align: center; */
+}
+
+input.ng-dirty.ng-invalid {
+  border: 2px solid #ff0000
+}
+
+input.ng-dirty.ng-valid {
+  border: 2px solid #6bc502
+}
+
+.form-group.required .control-label:after {
+  content: "*";
+  color: red;
+}
+
+.form-group.required .col-form-label:after {
+  content: "*";
+  color: red;
 }
 
 @import "~bootstrap/dist/css/bootstrap.css";
