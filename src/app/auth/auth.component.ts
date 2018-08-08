@@ -26,7 +26,7 @@ export class AuthComponent {
       this.auth.authenticate(this.username, this.password)
         .subscribe(response => {
           if (response) {
-            this.router.navigateByUrl('/developer');
+            this.router.navigate(['/developers']);
           }
           this.errorMessage = 'Erreur d\'authentification';
         }, err => {

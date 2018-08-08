@@ -3,7 +3,7 @@ import {Observable} from 'rxjs/Observable';
 import {environment} from '../../../environments/environment';
 import {Token} from '../entities/token.model';
 import {User} from '../entities/user.model';
-import {HttpClient, HttpParams, HttpResponse} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 
 
 import 'rxjs/add/operator/map';
@@ -32,7 +32,7 @@ export class UserService {
 
   getCurrentUser(): Observable<User> {
     let url = environment.API + '/ws/users/current';
-    return this.http.get<User>(url).catch(this.handleError);
+    return this.http.get<User>(url);
   }
 
   logout(): boolean {
@@ -50,21 +50,7 @@ export class UserService {
 
     const url = environment.API + '/ws/users';
 
-    return this
-      .http
-      .get<User[]>(url)
-      .catch(this.handleError);
-  }
-
-  /**
-   * Handle server errors.
-   * @param error .
-   */
-  private handleError(error: HttpResponse<any> | any) {
-
-
-    console.error(error);
-    return Promise.reject(error);
+    return this.http.get<User[]>(url);
   }
 
 }

@@ -6,6 +6,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
 import {Observable} from 'rxjs';
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   moduleId: module.id,
@@ -21,7 +22,10 @@ export class SkillsEditorComponent implements OnInit {
   formations: any[];
 
 
-  constructor(private service: DeveloperService, private languageService: LanguageService, private router: Router,
+  constructor(private service: DeveloperService,
+              private languageService: LanguageService,
+              private toastr: ToastrService,
+              private router: Router,
               private activeRoute: ActivatedRoute) {
 
 
@@ -33,10 +37,10 @@ export class SkillsEditorComponent implements OnInit {
     this.languages$ = this.languageService.getLanguages();
 
     this.experiences = [
-      {label: 'Non défini', value: 'NON'},
+      {label: 'Non', value: 'NON'},
       {label: 'Entre 1 et 2 ans', value: 'BETWEEN1AND2'},
       {label: 'Entre 3 et 5 ans', value: 'BETWEEN3AND5'},
-      {label: 'Entre 6 et 10 ans', value: 'BETWEEN6ND10'},
+      {label: 'Entre 6 et 10 ans', value: 'BETWEEN6AND10'},
       {label: 'Plus que 10 ans', value: 'MORE_THAN_10'}];
 
     this.formations = [
@@ -53,8 +57,9 @@ export class SkillsEditorComponent implements OnInit {
 
     if (this.editing) {
       this.service.getDeveloperSkills(this.activeRoute.snapshot.parent.params['reference'])
-        .subscribe(response => this.skills = response);
-      console.info(this.skills.title);
+        .subscribe(response => this.skills = response,
+          error =>
+            this.router.navigate(['/developers','error']));
     }
   }
 
@@ -73,7 +78,14 @@ export class SkillsEditorComponent implements OnInit {
       if (this.editing) {
         console.info(this.skills);
         this.service.updateDeveloperSkills(this.skills, this.skills.developerReference)
-          .subscribe(response => console.info(response.developerReference));
+          .subscribe(res => {
+
+            this.skills = res;
+            this.toastr.success('Données Mise à jour avec succés', 'Opération Réussite!');
+
+          }, error => {
+            this.toastr.error('Erreur lors de la mise à jour des donnés', 'Opération échoué !!!');
+          });
       }
     }
 

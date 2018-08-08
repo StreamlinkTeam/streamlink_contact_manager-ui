@@ -19,10 +19,7 @@ export class LanguageService {
   getLanguages(): Observable<Language[]> {
     const url = environment.API + '/ws/languages';
 
-    return this
-      .http
-      .get<Language[]>(url)
-      .catch(this.handleError);
+    return this.http.get<Language[]>(url);
   }
 
 
@@ -32,8 +29,7 @@ export class LanguageService {
     const url = environment.API + '/ws/languages';
     return this.http
       .post(url, language)
-      .map((res: HttpResponse<Language>) => res.body)
-      .catch(this.handleError);
+      .map((res: HttpResponse<Language>) => res.body);
   }
 
   updateLanguage(language: Language, reference: string) {
@@ -45,8 +41,7 @@ export class LanguageService {
 
     return this.http
       .put(url, language, {params: params})
-      .map((res: HttpResponse<Language>) => res.body)
-      .catch(this.handleError);
+      .map((res: HttpResponse<Language>) => res.body);
   }
 
   deleteLanguage(reference: string) {
@@ -58,20 +53,8 @@ export class LanguageService {
 
     return this.http
       .delete(url, {params: params})
-      .map((res: HttpResponse<any>) => res.body)
-      .catch(this.handleError);
+      .map((res: HttpResponse<any>) => res.body);
   }
 
-
-  /**
- * Handle server errors.
- * @param error .
- */
-  private handleError(error: HttpResponse<any> | any) {
-
-
-    console.error(error);
-    return Promise.reject(error);
-  }
 
 }

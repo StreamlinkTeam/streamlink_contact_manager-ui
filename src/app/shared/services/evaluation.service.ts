@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {environment} from '../../../environments/environment';
 import {Evaluation} from '../entities/evaluation.model';
-import {HttpResponse} from '@angular/common/http';
 import {HttpParams} from '@angular/common/http';
 import {HttpClient} from '@angular/common/http';
 
@@ -21,10 +20,7 @@ export class EvaluationService {
     const options = {params: new HttpParams().set('developerReference', developerReference)};
 
 
-    return this
-      .http
-      .get<Evaluation[]>(url, options)
-      .catch(this.handleError);
+    return this.http.get<Evaluation[]>(url, options);
   }
 
 
@@ -36,8 +32,7 @@ export class EvaluationService {
     const options = {params: new HttpParams().set('developerReference', developerReference)};
 
     return this.http
-      .post<Evaluation>(url, evaluation, options)
-      .catch(this.handleError);
+      .post<Evaluation>(url, evaluation, options);
   }
 
   updateEvaluation(evaluation: Evaluation, reference: string, developerReference: string): Observable<Evaluation> {
@@ -47,8 +42,7 @@ export class EvaluationService {
 
 
     return this.http
-      .put<Evaluation>(url, evaluation, options)
-      .catch(this.handleError);
+      .put<Evaluation>(url, evaluation, options);
   }
 
   deleteEvaluation(reference: string, developerReference: string) {
@@ -58,20 +52,7 @@ export class EvaluationService {
 
 
     return this.http
-      .delete(url, options)
-      .catch(this.handleError);
-  }
-
-
-  /**
- * Handle server errors.
- * @param error .
- */
-  private handleError(error: HttpResponse<any> | any) {
-
-
-    console.error(error);
-    return Promise.reject(error);
+      .delete(url, options);
   }
 
 }

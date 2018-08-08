@@ -7,10 +7,7 @@ import {Developer} from '../entities/developer.model';
 import {CV} from '../entities/cv.model';
 import {PersonalInformation} from '../entities/personal-information.model';
 import {SkillsInformation} from '../entities/skills-information.model';
-import {HttpHeaders} from '@angular/common/http';
-import {HttpResponse} from '@angular/common/http';
-import {HttpParams} from '@angular/common/http';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams, HttpResponse} from '@angular/common/http';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -28,32 +25,19 @@ export class DeveloperService {
 
     const options = {params: new HttpParams().set('developerReference', reference)};
 
-    const developer = this
-      .http
-      .get<Developer>(url, options)
-      .catch(this.handleError);
-
-    console.info(developer);
-    console.info(reference);
-
-    return developer;
+    return this.http.get<Developer>(url, options);
   }
 
   getDevelopers(): Observable<DeveloperView[]> {
     const url = environment.API + '/ws/developers/all';
 
-    return this
-      .http
-      .get<DeveloperView[]>(url)
-      .catch(this.handleError);
+    return this.http.get<DeveloperView[]>(url);
   }
 
 
   createDevelopers(developer: Developer): Observable<Developer> {
     const url = environment.API + '/ws/developers';
-    return this.http
-      .post<Developer>(url, developer)
-      .catch(this.handleError);
+    return this.http.post<Developer>(url, developer);
   }
 
   updateDeveloper(developer: Developer, reference: string): Observable<Developer> {
@@ -63,8 +47,7 @@ export class DeveloperService {
 
 
     return this.http
-      .put<Developer>(url, developer, options)
-      .catch(this.handleError);
+      .put<Developer>(url, developer, options);
   }
 
   deleteDeveloper(reference: string) {
@@ -75,8 +58,7 @@ export class DeveloperService {
 
     return this.http
       .delete(url, options)
-      .map((res: HttpResponse<any>) => res.body)
-      .catch(this.handleError);
+      .map((res: HttpResponse<any>) => res.body);
   }
 
   getDeveloperSkills(developerReference: string): Observable<SkillsInformation> {
@@ -85,10 +67,7 @@ export class DeveloperService {
     const options = {params: new HttpParams().set('developerReference', developerReference)};
 
 
-    return this
-      .http
-      .get<SkillsInformation>(url, options)
-      .catch(this.handleError);
+    return this.http.get<SkillsInformation>(url, options);
   }
 
   updateDeveloperSkills(skills: SkillsInformation, developerReference: string): Observable<SkillsInformation> {
@@ -98,8 +77,7 @@ export class DeveloperService {
 
 
     return this.http
-      .put<SkillsInformation>(url, skills, options)
-      .catch(this.handleError);
+      .put<SkillsInformation>(url, skills, options);
   }
 
 
@@ -111,8 +89,7 @@ export class DeveloperService {
 
     return this
       .http
-      .get<PersonalInformation>(url, options)
-      .catch(this.handleError);
+      .get<PersonalInformation>(url, options);
   }
 
   updateDeveloperInfo(info: PersonalInformation, developerReference: string): Observable<PersonalInformation> {
@@ -122,8 +99,7 @@ export class DeveloperService {
 
 
     return this.http
-      .put<PersonalInformation>(url, info, options)
-      .catch(this.handleError);
+      .put<PersonalInformation>(url, info, options);
   }
 
   getDeveloperContact(developerReference: string): Observable<Contact> {
@@ -135,8 +111,7 @@ export class DeveloperService {
 
     return this
       .http
-      .get<Contact>(url, options)
-      .catch(this.handleError);
+      .get<Contact>(url, options);
   }
 
   updateDeveloperContact(contact: Contact, developerReference: string): Observable<Contact> {
@@ -146,8 +121,7 @@ export class DeveloperService {
 
 
     return this.http
-      .put<Contact>(url, contact, options)
-      .catch(this.handleError);
+      .put<Contact>(url, contact, options);
   }
 
   getDeveloperCVs(developerReference: string): Observable<CV[]> {
@@ -158,8 +132,7 @@ export class DeveloperService {
 
     return this
       .http
-      .get<CV[]>(url, options)
-      .catch(this.handleError);
+      .get<CV[]>(url, options);
   }
 
   createDeveloperCv(fileToUpload: File, developerReference: string): Observable<CV> {
@@ -182,19 +155,8 @@ export class DeveloperService {
 
 
     return this.http
-      .delete(url, options)
-      .catch(this.handleError);
+      .delete(url, options);
   }
 
-  /**
-   * Handle server errors.
-   * @param error .
-   */
-  private handleError(error: HttpResponse<any> | any) {
-
-
-    console.error(error);
-    return Promise.reject(error);
-  }
 
 }

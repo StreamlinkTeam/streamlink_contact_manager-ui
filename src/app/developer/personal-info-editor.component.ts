@@ -3,6 +3,7 @@ import {DeveloperService} from '../shared/services/developer.service';
 import {Component} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-personal-info',
@@ -16,14 +17,19 @@ export class PersonalInfoEditorComponent {
   familySituations: any[];
 
 
-  constructor(private service: DeveloperService, private router: Router,
-              activeRoute: ActivatedRoute) {
+  constructor(private service: DeveloperService,
+              private toastr: ToastrService,
+              private router: Router,
+              private activeRoute: ActivatedRoute) {
     this.editing = activeRoute.snapshot.parent.params['mode'] === 'edit';
 
     console.info(activeRoute.snapshot.parent.params['reference']);
     if (this.editing) {
-      service.getDeveloperInfo(activeRoute.snapshot.parent.params['reference']).subscribe(response => this.personalInfo = response);
-      console.info(this.personalInfo.birthDate);
+      service.getDeveloperInfo(activeRoute.snapshot.parent.params['reference'])
+        .subscribe(response => this.personalInfo = response
+          ,
+          error =>
+            this.router.navigate(['/developers', 'error']));
     }
 
     this.familySituations = [
@@ -42,12 +48,16 @@ export class PersonalInfoEditorComponent {
     if (form.valid) {
       if (this.editing) {
         console.info(this.personalInfo);
-        this.service.updateDeveloperInfo(this.personalInfo, this.personalInfo.developerReference).subscribe(response => {
-          console.info(response.developerReference);
-          this.personalInfo = response;
-        });
+        this.service.updateDeveloperInfo(this.personalInfo, this.personalInfo.developerReference)
+          .subscribe(response => {
+
+            this.personalInfo = response;
+            this.toastr.success('Données Mise à jour avec succés', 'Opération Réussite!');
+
+          }, error => {
+            this.toastr.error('Erreur lors de la mise à jour des donnés', 'Opération échoué !!!');
+          });
       }
     }
-    //    this.router.navigateByUrl('/developer');
   }
 }

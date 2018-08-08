@@ -22,6 +22,7 @@ import {SkillsEditorComponent} from './developer/skills-editor.component';
 import {EvaluationEditorComponent} from './evaluation/evaluation-editor.component';
 import {registerLocaleData} from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
+import {ToastrModule} from "ngx-toastr";
 
 
 registerLocaleData(localeFr, 'fr');
@@ -34,10 +35,15 @@ registerLocaleData(localeFr, 'fr');
   ],
   imports: [
     BrowserModule, DeveloperModule, AuthModule, HttpClientModule,
+    ToastrModule.forRoot(),
     RouterModule.forRoot([
       {path: 'auth', component: AuthComponent, canActivate: [LoginGuard]},
       {
-        path: 'developer', component: DeveloperTableComponent,
+        path: 'developers', component: DeveloperTableComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'developers/:error', component: DeveloperTableComponent,
         canActivate: [AuthGuard]
       },
       {
@@ -57,7 +63,7 @@ registerLocaleData(localeFr, 'fr');
           {path: '**', redirectTo: 'general'}
         ]
       },
-      {path: '**', redirectTo: '/developer'}
+      {path: '**', redirectTo: '/developers'}
     ])
   ],
   providers: [

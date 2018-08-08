@@ -3,7 +3,6 @@ import {Observable} from 'rxjs/Observable';
 import {environment} from '../../../environments/environment';
 import {Contract} from '../entities/contract.model';
 import { WishedContract } from '../entities/wished-contract.model';
-import {HttpResponse} from '@angular/common/http';
 import {HttpParams} from '@angular/common/http';
 import {HttpClient} from '@angular/common/http';
 
@@ -24,8 +23,7 @@ export class ContractService {
 
     return this
       .http
-      .get<Contract>(url, options)
-      .catch(this.handleError);
+      .get<Contract>(url, options);
 
   }
 
@@ -36,8 +34,7 @@ export class ContractService {
     const options = {params: new HttpParams().set('developerReference', reference)};
 
     return this.http
-      .post<Contract>(url, contract, options)
-      .catch(this.handleError);
+      .post<Contract>(url, contract, options);
   }
 
   updateContract(contract: Contract, reference: string): Observable<Contract> {
@@ -47,8 +44,7 @@ export class ContractService {
 
 
     return this.http
-      .put<Contract>(url, contract, options)
-      .catch(this.handleError);
+      .put<Contract>(url, contract, options);
   }
 
   deleteContract(reference: string): Observable<any> {
@@ -58,8 +54,7 @@ export class ContractService {
 
 
     return this.http
-      .delete<any>(url, options)
-      .catch(this.handleError);
+      .delete<any>(url, options);
   }
   
   getWishedContract(reference: string): Observable<WishedContract> {
@@ -70,8 +65,7 @@ export class ContractService {
 
     return this
       .http
-      .get<WishedContract>(url, options)
-      .catch(this.handleError);
+      .get<WishedContract>(url, options);
 
   }
 
@@ -82,21 +76,7 @@ export class ContractService {
 
 
     return this.http
-      .put<WishedContract>(url, wishedContract, options)
-      .catch(this.handleError);
+      .put<WishedContract>(url, wishedContract, options);
   }
-
-
-  /**
-* Handle server errors.
-* @param error .
-*/
-  private handleError(error: HttpResponse<any> | any) {
-
-
-    console.error(error);
-    return Promise.reject(error);
-  }
-
 }
 

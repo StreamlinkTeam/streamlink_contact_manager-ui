@@ -21,10 +21,7 @@ export class ActionService {
     const options = {params: new HttpParams().set('developerReference', developerReference)};
 
 
-    return this
-      .http
-      .get<Action[]>(url, options)
-      .catch(this.handleError);
+    return this.http.get<Action[]>(url, options);
   }
 
 
@@ -35,9 +32,7 @@ export class ActionService {
 
     const options = {params: new HttpParams().set('developerReference', developerReference)};
 
-    return this.http
-      .post<Action>(url, action, options)
-      .catch(this.handleError);
+    return this.http.post<Action>(url, action, options);
   }
 
   updateAction(action: Action, reference: string, developerReference: string): Observable<Action> {
@@ -46,9 +41,7 @@ export class ActionService {
     const options = {params: new HttpParams().set('developerReference', developerReference).set('reference', reference)};
 
 
-    return this.http
-      .put<Action>(url, action, options)
-      .catch(this.handleError);
+    return this.http.put<Action>(url, action, options);
   }
 
   deleteAction(reference: string, developerReference: string) {
@@ -57,21 +50,8 @@ export class ActionService {
     const options = {params: new HttpParams().set('developerReference', developerReference).set('reference', reference)};
 
 
-    return this.http
-      .delete(url, options)
-      .catch(this.handleError);
+    return this.http.delete(url, options);
   }
 
-
-  /**
- * Handle server errors.
- * @param error .
- */
-  private handleError(error: HttpResponse<any> | any) {
-
-
-    console.error(error);
-    return Promise.reject(error);
-  }
 
 }

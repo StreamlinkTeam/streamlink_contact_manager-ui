@@ -5,6 +5,7 @@ import {UserService} from '../shared/services/user.service';
 import {Component} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   moduleId: module.id,
@@ -19,14 +20,19 @@ export class DeveloperEditorComponent {
 
 
   constructor(private service: DeveloperService, private userService: UserService,
+              private toastr: ToastrService,
               private router: Router,
-              activeRoute: ActivatedRoute) {
+              private activeRoute: ActivatedRoute) {
+
     this.editing = activeRoute.snapshot.parent.params['mode'] === 'edit';
+
     userService.getUsers().subscribe(response => this.users = response);
     console.info(activeRoute.snapshot.parent.params['reference']);
     if (this.editing) {
-      service.getDeveloper(activeRoute.snapshot.parent.params['reference']).subscribe(response => this.developer = response);
-      console.info(this.developer);
+      service.getDeveloper(activeRoute.snapshot.parent.params['reference'])
+        .subscribe(response => this.developer = response
+          , error =>
+            this.router.navigate(['/developers', 'error']));
     }
 
     this.stages = [
@@ -46,14 +52,27 @@ export class DeveloperEditorComponent {
     if (form.valid) {
       if (this.editing) {
         console.info(this.developer);
-        this.service.updateDeveloper(this.developer, this.developer.reference).subscribe(response => console.info(response.reference));
+        this.service.updateDeveloper(this.developer, this.developer.reference)
+          .subscribe(
+            response => {
+
+              this.developer = response;
+              this.toastr.success('Données Mise à jour avec succés', 'Opération Réussite!');
+
+            }, error => {
+              this.toastr.error('Erreur lors de la mise à jour des donnés', 'Opération échoué !!!');
+            }
+          );
 
       } else {
-        let reference: string;
         this.service.createDevelopers(this.developer)
           .subscribe(response => {
-            reference = response.reference;
-            this.router.navigateByUrl('developer/edit/' + reference);
+
+            this.toastr.success('Developpeur Créé avec succés', 'Opération Réussite!');
+            this.router.navigate(['/developer/edit', response.reference]);
+
+          }, error => {
+            this.toastr.error('Erreur lors de la création du condidats', 'Opération échoué !!!');
           });
       }
     }
