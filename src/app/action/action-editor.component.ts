@@ -3,6 +3,7 @@ import {ActionService} from '../shared/services/action.service';
 import {Component} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-contact',
@@ -21,11 +22,14 @@ export class ActionEditorComponent {
   actions: Action[];
 
 
-  constructor(private service: ActionService, private router: Router,
+  constructor(private service: ActionService, private router: Router, private toastr: ToastrService,
               activeRoute: ActivatedRoute) {
 
     this.reference = activeRoute.snapshot.parent.params['reference'];
-    this.service.getActions(this.reference).subscribe(response => this.actions = response);
+    this.service.getActions(this.reference)
+      .subscribe(response => this.actions = response,
+        error =>
+          this.router.navigate(['/developers', 'error']));
 
 
     this.types = [
@@ -72,8 +76,13 @@ export class ActionEditorComponent {
       }
 
       this.service.deleteAction(act.reference, this.reference).subscribe(response => {
+
         console.info(response);
         this.actions.splice(index, 1);
+        this.toastr.success('Action supprimée avec succés', 'Opération Réussite!');
+
+      }, error => {
+        this.toastr.error('Erreur lors de la suppression de l\'Action', 'Opération échoué !!!');
       });
     }
   }
@@ -83,17 +92,29 @@ export class ActionEditorComponent {
     if (form.valid) {
       if (this.editing) {
 
-        this.service.updateAction(this.action, this.action.reference, this.reference).subscribe(response => {
-          this.service.getActions(this.reference).subscribe(res => this.actions = res);
-          this.action = new Action();
-          this.editing = false;
+        this.service.updateAction(this.action, this.action.reference, this.reference)
+          .subscribe(response => {
 
-        });
+            this.service.getActions(this.reference).subscribe(res => this.actions = res);
+            this.action = new Action();
+            this.editing = false;
+            this.toastr.success('Action Mise à jour avec succés', 'Opération Réussite!');
+
+
+          }, error => {
+            this.toastr.error('Erreur lors de la mise à jour de l\'Action', 'Opération échoué !!!');
+          });
       } else {
-        this.service.createAction(this.action, this.reference).subscribe(response => {
-          this.service.getActions(this.reference).subscribe(res => this.actions = res);
-          this.action = new Action();
-        });
+        this.service.createAction(this.action, this.reference)
+          .subscribe(response => {
+
+            this.service.getActions(this.reference).subscribe(res => this.actions = res);
+            this.action = new Action();
+            this.toastr.success('Action Créé avec succés', 'Opération Réussite!');
+
+          }, error => {
+            this.toastr.error('Erreur lors de la création de l\'Action', 'Opération échoué !!!');
+          });
       }
       form.resetForm();
 

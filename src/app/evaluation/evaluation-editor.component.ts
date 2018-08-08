@@ -3,6 +3,7 @@ import {EvaluationService} from '../shared/services/evaluation.service';
 import {Component} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-contact',
@@ -18,11 +19,15 @@ export class EvaluationEditorComponent {
   evaluations: Evaluation[];
 
 
-  constructor(private service: EvaluationService, private router: Router,
+  constructor(private service: EvaluationService, private router: Router, private toastr: ToastrService,
               activeRoute: ActivatedRoute) {
 
     this.reference = activeRoute.snapshot.parent.params['reference'];
-    this.service.getEvaluations(this.reference).subscribe(response => this.evaluations = response);
+    this.service.getEvaluations(this.reference)
+      .subscribe(response => this.evaluations = response
+        , error => {
+          this.router.navigate(['/developers', 'error']);
+        });
 
 
   }
@@ -56,10 +61,15 @@ export class EvaluationEditorComponent {
       }
 
 
-      this.service.deleteEvaluation(act.reference, this.reference).subscribe(response => {
-        console.info(response);
-        this.evaluations.splice(index, 1);
-      });
+      this.service.deleteEvaluation(act.reference, this.reference)
+        .subscribe(response => {
+          console.info(response);
+          this.evaluations.splice(index, 1);
+          this.toastr.success('Evaluation supprimée avec succés', 'Opération Réussite!');
+
+        }, error => {
+          this.toastr.error('Erreur lors de la suppression de L\'evaluation', 'Opération échoué !!!');
+        });
     }
 
   }
@@ -69,19 +79,28 @@ export class EvaluationEditorComponent {
     if (form.valid) {
       if (this.editing) {
 
-        this.service.updateEvaluation(this.evaluation, this.evaluation.reference, this.reference).subscribe(response => {
-          this.service.getEvaluations(this.reference).subscribe(res => this.evaluations = res);
-          this.evaluation = new Evaluation();
-          this.editing = false;
+        this.service.updateEvaluation(this.evaluation, this.evaluation.reference, this.reference)
+          .subscribe(response => {
+            this.service.getEvaluations(this.reference).subscribe(res => this.evaluations = res);
+            this.evaluation = new Evaluation();
+            this.editing = false;
+            this.toastr.success('Evaluation Mise à jour avec succés', 'Opération Réussite!');
 
-        });
+
+          }, error => {
+            this.toastr.error('Erreur lors de la mise à jour de l\'Evaluation', 'Opération échoué !!!');
+          });
       } else {
-        this.service.createEvaluation(this.evaluation, this.reference).subscribe(response => {
-          this.service.getEvaluations(this.reference).subscribe(res => this.evaluations = res);
-          this.evaluation = new Evaluation();
-          this.editing = false;
+        this.service.createEvaluation(this.evaluation, this.reference)
+          .subscribe(response => {
+            this.service.getEvaluations(this.reference).subscribe(res => this.evaluations = res);
+            this.evaluation = new Evaluation();
+            this.editing = false;
+            this.toastr.success('Evaluation Créé avec succés', 'Opération Réussite!');
 
-        });
+          }, error => {
+            this.toastr.error('Erreur lors de la création de l\'Evaluation', 'Opération échoué !!!');
+          });
       }
       form.resetForm();
 

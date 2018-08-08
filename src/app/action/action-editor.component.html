@@ -72,7 +72,7 @@
           <tbody>
           <tr *ngFor="let act of actions; let i=index">
             <td>{{i+1}}</td>
-            <td>{{act.type}}</td>
+            <td><span i18n="@@action_type">dummy{{act.type}}</span></td>
             <td>{{act.note}}</td>
             <td>{{act.date | date:'short'}}</td>
             <td>

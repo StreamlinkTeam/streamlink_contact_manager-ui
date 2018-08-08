@@ -4,6 +4,7 @@ import {ContractService} from '../shared/services/contract.service';
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-contract',
@@ -12,16 +13,14 @@ import {NgForm} from '@angular/forms';
 })
 export class ContractEditorComponent implements OnInit {
 
-
   editing = false;
   wishedContract: WishedContract = new WishedContract();
   contract: Contract = new Contract();
   haveContract = false;
 
 
-  constructor(private service: ContractService, private router: Router,
+  constructor(private service: ContractService, private router: Router, private toastr: ToastrService,
               private activeRoute: ActivatedRoute) {
-
 
   }
 
@@ -30,15 +29,19 @@ export class ContractEditorComponent implements OnInit {
 
     console.info(this.activeRoute.snapshot.parent.params['reference']);
     if (this.editing) {
-      this.service.getWishedContract
-      (this.activeRoute.snapshot.parent.params['reference'])
-        .subscribe(response => this.wishedContract = response);
 
-      this.service.getContract
-      (this.activeRoute.snapshot.parent.params['reference'])
+      this.service.getWishedContract(this.activeRoute.snapshot.parent.params['reference'])
+        .subscribe(response => this.wishedContract = response,
+          error => {
+            this.router.navigate(['/developers', 'error']);
+          });
+
+      this.service.getContract(this.activeRoute.snapshot.parent.params['reference'])
         .subscribe(response => {
           this.contract = response;
           this.haveContract = this.contract != null && this.contract.reference != null;
+        }, error => {
+          this.router.navigate(['/developers', 'error']);
         });
 
 
@@ -53,6 +56,8 @@ export class ContractEditorComponent implements OnInit {
       .subscribe(response => {
         this.contract = response;
         this.haveContract = true;
+      }, error => {
+        this.toastr.error('Erreur lors de la création du Contrat', 'Opération échoué !!!');
       });
 
 
@@ -60,10 +65,15 @@ export class ContractEditorComponent implements OnInit {
 
   deleteContract() {
 
-    this.service.deleteContract(this.contract.developerReference).subscribe(response => {
-      this.contract = null;
-      this.haveContract = false;
-    });
+    this.service.deleteContract(this.contract.developerReference)
+      .subscribe(response => {
+        this.contract = null;
+        this.haveContract = false;
+        this.toastr.success('Contrat supprimé avec succés', 'Opération Réussite!');
+
+      }, error => {
+        this.toastr.error('Erreur lors de la suppression du Contrat', 'Opération échoué !!!');
+      });
   }
 
   saveContract(form: NgForm) {
@@ -71,10 +81,16 @@ export class ContractEditorComponent implements OnInit {
     if (form.valid) {
       if (this.editing) {
         console.info(this.wishedContract);
-        this.service.updateContract(this.contract, this.contract.developerReference).subscribe(response => console.info(response.developerReference));
+        this.service.updateContract(this.contract, this.contract.developerReference)
+          .subscribe(response => {
+            console.info(response.developerReference);
+            this.toastr.success('Contrat Mis à jour avec succés', 'Opération Réussite!');
+
+          }, error => {
+            this.toastr.error('Erreur lors de la Création du Contrat', 'Opération échoué !!!');
+          });
       }
     }
-    //    this.router.navigateByUrl('/developer');
   }
 
   saveWishedContract(form: NgForm) {
@@ -82,9 +98,16 @@ export class ContractEditorComponent implements OnInit {
     if (form.valid) {
       if (this.editing) {
         console.info(this.wishedContract);
-        this.service.updateWishedContract(this.wishedContract, this.wishedContract.developerReference).subscribe(response => console.info(response.developerReference));
+        this.service.updateWishedContract(this.wishedContract, this.wishedContract.developerReference)
+          .subscribe(response => {
+            console.info(response.developerReference);
+            this.toastr.success('Contrat Mis à jour avec succés', 'Opération Réussite!');
+
+          }, error => {
+            this.toastr.error('Erreur lors de la Création du Contrat', 'Opération échoué !!!');
+          });
       }
     }
-    //    this.router.navigateByUrl('/developer');
+
   }
 }
