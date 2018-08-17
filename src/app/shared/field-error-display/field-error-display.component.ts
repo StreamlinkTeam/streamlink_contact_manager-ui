@@ -23,10 +23,10 @@ export class FieldErrorDisplayComponent {
       for (let errorName in this.model.errors) {
         switch (errorName) {
           case 'email':
-            messages.push(`L'entée ${thing} doit avoir une format email valide`);
+            messages.push(`L'entrée ${thing} doit avoir une format email valide`);
             break;
           case 'required':
-            messages.push(`L'entée ${thing} est requise`);
+            messages.push(`L'entrée ${thing} est requise`);
             break;
           case 'minlength':
             messages.push(`L'entrée ${thing} doit avoir au minimum 

@@ -1,7 +1,7 @@
 
 
 export class Contact {
-  developerReference: string;
+  ownerReference: string;
   email1: string;
   email2: string;
   email3: string;

@@ -10,6 +10,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
 import {ValidatorService} from "./services/validator.service";
 import {FieldErrorDisplayComponent} from "./field-error-display/field-error-display.component";
+import {LoaderService} from "./services/loader.service";
 
 @NgModule({
   imports: [HttpClientModule, CommonModule],
@@ -17,7 +18,7 @@ import {FieldErrorDisplayComponent} from "./field-error-display/field-error-disp
   exports: [FieldErrorDisplayComponent],
   providers: [DeveloperService, EvaluationService, ActionService,
     UserService, LanguageService, AuthService,
-    ContractService, ValidatorService],
+    ContractService, ValidatorService,LoaderService],
 })
 export class SharedModule {
 

@@ -23,6 +23,8 @@ import {EvaluationEditorComponent} from './evaluation/evaluation-editor.componen
 import {registerLocaleData} from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import {ToastrModule} from "ngx-toastr";
+import {DeveloperCVScannerComponent} from "./developer/developer-cv-scanner.component";
+import {LoaderModule} from "./loader/loader.module";
 
 
 registerLocaleData(localeFr, 'fr');
@@ -34,7 +36,7 @@ registerLocaleData(localeFr, 'fr');
     AppNavbarComponent
   ],
   imports: [
-    BrowserModule, DeveloperModule, AuthModule, HttpClientModule,
+    BrowserModule, DeveloperModule, AuthModule, HttpClientModule, LoaderModule,
     ToastrModule.forRoot(),
     RouterModule.forRoot([
       {path: 'auth', component: AuthComponent, canActivate: [LoginGuard]},
@@ -44,6 +46,10 @@ registerLocaleData(localeFr, 'fr');
       },
       {
         path: 'developers/:error', component: DeveloperTableComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'developer/create/from-cv', component: DeveloperCVScannerComponent,
         canActivate: [AuthGuard]
       },
       {

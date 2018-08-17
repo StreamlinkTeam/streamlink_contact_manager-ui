@@ -34,7 +34,7 @@ export class ContactEditorComponent {
 
     if (form.valid) {
 
-      this.service.updateDeveloperContact(this.contact, this.contact.developerReference)
+      this.service.updateDeveloperContact(this.contact, this.contact.ownerReference)
         .subscribe(response => {
 
           this.toastr.success('Contact Mis à jour avec succés', 'Opération Réussite!');

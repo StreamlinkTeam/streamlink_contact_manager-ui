@@ -11,7 +11,8 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class AuthService {
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService) {
+  }
 
   authenticate(username: string, password: string): Observable<boolean> {
     return this.userService.authenticate(username, password);

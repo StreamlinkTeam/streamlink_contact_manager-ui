@@ -8,17 +8,19 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import {LoaderService} from "./loader.service";
 
 
 @Injectable()
 export class UserService {
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private loaderService: LoaderService) {
   }
 
   authenticate(username: string, password: string): Observable<boolean> {
 
 
+    this.loaderService.show();
     const url = environment.API + '/ws/users/login';
 
     const options = {params: new HttpParams().set('username', username).set('password', password)};
@@ -27,12 +29,19 @@ export class UserService {
       .map(token => {
         this.authenticateSuccess(token);
         return true;
+      })
+      ._finally(() => {
+        this.loaderService.hide();
       });
   }
 
   getCurrentUser(): Observable<User> {
-    let url = environment.API + '/ws/users/current';
-    return this.http.get<User>(url);
+    this.loaderService.show();
+    const url = environment.API + '/ws/users/current';
+    return this.http.get<User>(url)
+      ._finally(() => {
+        this.loaderService.hide();
+      });
   }
 
   logout(): boolean {
@@ -48,9 +57,13 @@ export class UserService {
 
   getUsers(): Observable<User[]> {
 
+    this.loaderService.show();
     const url = environment.API + '/ws/users';
 
-    return this.http.get<User[]>(url);
+    return this.http.get<User[]>(url)
+      ._finally(() => {
+        this.loaderService.hide();
+      });
   }
 
 }

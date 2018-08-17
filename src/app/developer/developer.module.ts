@@ -19,8 +19,8 @@ import {RouterModule} from '@angular/router';
 
 import {NgSelectModule} from '@ng-select/ng-select';
 import {Ng2FileSizeModule} from "ng2-file-size";
-import { Ng2SmartTableModule } from 'ng2-smart-table';
-
+import {Ng2SmartTableModule} from 'ng2-smart-table';
+import {DeveloperCVScannerComponent} from "./developer-cv-scanner.component";
 
 
 @NgModule({
@@ -35,10 +35,10 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
     Ng2SmartTableModule],
   declarations: [DeveloperTableComponent, DeveloperEditorComponent,
     ContactEditorComponent, PersonalInfoEditorComponent, SkillsEditorComponent,
-    DeveloperComponent, ContractEditorComponent, ActionEditorComponent, EvaluationEditorComponent, DeveloperCVComponent],
+    DeveloperComponent, ContractEditorComponent, ActionEditorComponent, EvaluationEditorComponent, DeveloperCVComponent, DeveloperCVScannerComponent],
   exports: [DeveloperTableComponent, DeveloperEditorComponent, SkillsEditorComponent,
     ContactEditorComponent, PersonalInfoEditorComponent, DeveloperComponent, ContractEditorComponent, ActionEditorComponent
-    , EvaluationEditorComponent, DeveloperCVComponent]
+    , EvaluationEditorComponent, DeveloperCVComponent, DeveloperCVScannerComponent]
 })
 export class DeveloperModule {
 }
