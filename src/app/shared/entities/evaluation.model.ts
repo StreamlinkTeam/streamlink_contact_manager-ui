@@ -3,8 +3,8 @@
 export class Evaluation {
   reference: string;
   developerReference: string;
-  responsableReference: string;
-  responsableName: string;
+  responsibleReference: string;
+  responsibleName: string;
   relational: string;
   technical: string;
   note: string;

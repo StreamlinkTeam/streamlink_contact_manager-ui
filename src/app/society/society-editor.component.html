@@ -1,0 +1,147 @@
+<div class="container tab-pane fade show active" role="tabpanel">
+  <div class="row">
+    <div class="col border">
+      <div class="row">
+        <div class="col border" [class.bg-warning]="editing" [class.bg-info]="!editing">
+          <h5 class="text-dark dropdown-header">Informations</h5>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col border">
+          <form novalidate #form="ngForm" (ngSubmit)="save(form)">
+            <div *ngIf="editing" class="form-group">
+              <label>Date de Création: </label> <input type="text" readonly class="form-control-plaintext"
+                                                       name="createdDate"
+                                                       value="{{society.createdDate | date:'long'}}"/>
+            </div>
+
+            <div class="form-group">
+              <label>Société</label> <input class="form-control" name="label" required #label_input="ngModel"
+                                            [(ngModel)]="society.label"/>
+              <app-field-error-display
+                [model]="label_input"
+                fieldName="Label"
+                [displayError]="form.submitted && label_input.invalid">
+              </app-field-error-display>
+            </div>
+            <div class="form-group">
+              <label>Effectif</label> <input class="form-control" name="staffNumber" type="number"
+                                             [(ngModel)]="society.staffNumber"/>
+
+            </div>
+            <div class="form-group">
+              <label>Etape</label> <select class="form-control" name="stage"
+                                           [(ngModel)]="society.stage">
+              <option *ngFor="let stage of stages" [ngValue]="stage.value">{{stage.label}}</option>
+            </select>
+            </div>
+            <div class="form-group">
+              <label> Secteur d'activité</label> <select class="form-control" name="activityArea"
+                                                         [(ngModel)]="society.activityArea">
+              <option value="Other">Autres</option>
+              <option value="Aerospace">Aéronautique</option>
+              <option value="Aerospace">Aérospatial</option>
+              <option value="Agri">Agroalimentaire</option>
+              <option value="Insurance">Assurance</option>
+              <option value="Automobile">Automobile</option>
+              <option value="Bank">Banque</option>
+              <option value="Buildings">Bâtiments</option>
+              <option value="Biomedical">Biomédical</option>
+              <option value="Chemistry">Chimie</option>
+              <option value="Advice">Conseil</option>
+              <option value="Defense">Défense</option>
+              <option value="SoftwarePublishing">Edition de logiciels</option>
+              <option value="Energy">Energie</option>
+              <option value="Environment">Environnement</option>
+              <option value="Rail">Ferroviaire</option>
+              <option value="LargeDistribution">Grande distribution</option>
+              <option value="Infrastructure">Infrastructure</option>
+              <option value="Logistics">Logistique</option>
+              <option value="Media">Média</option>
+              <option value="MetalSteelIndustry">Métallurgie/sidérurgie</option>
+              <option value="Naval">Naval</option>
+              <option value="Nuclear">Nucléaire</option>
+              <option value="OilAndGas">Oil &amp; Gaz</option>
+              <option value="Petrochemicals">Pétrochimie</option>
+              <option value="Pharmacy">Pharmacie</option>
+              <option value="Health">Santé</option>
+              <option value="PublicSector">Secteur public</option>
+              <option value="Services">Services</option>
+              <option value="Telecommunications">Télécommunications</option>
+            </select>
+            </div>
+            <div class="form-group">
+              <label>Responsable Manager</label> <select class="form-control"
+                                                         name="manager" [(ngModel)]="society.managerReference">
+              <option *ngFor="let user of users" [ngValue]="user.reference">{{user.firstname}}
+                {{user.lastname}}
+              </option>
+            </select>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-10">
+                <input class="form-control" placeholder="Service ..."
+                       name="qualifTitle" [(ngModel)]="serviceTitle"/>
+              </div>
+              <div class="col-md-2">
+                <span>
+                <button class="btn btn-primary fa fa-plus" [disabled]="!serviceTitle"
+                        type="button" (click)="addService()"></button>
+                </span>
+              </div>
+            </div>
+
+            <table class="table table-striped table-sm">
+              <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th class="col-md-6" scope="col">Liste des services</th>
+                <th scope="col"></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let service of society.services; let i=index">
+                <td>{{i+1}}</td>
+                <td class="col-md-6">{{service}}</td>
+                <td>
+                  <button class="btn btn-sm btn-danger"
+                          (click)="removeService(i)">Delete
+                  </button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+
+            <div class="form-group">
+              <label>Commentaires</label>
+              <textarea class="form-control" name="note" rows="5"
+                        [(ngModel)]="society.note"></textarea>
+            </div>
+
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary"
+                      [class.btn-warning]="editing">Enregistrer
+              </button>
+              <button type="reset" class="btn btn-secondary"
+                      routerLink="/societies">Annuler
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col border" *ngIf="editing">
+      <!--<div class="row">-->
+      <!--<div class="col border bg-warning">-->
+      <!--<h5 class="text-dark dropdown-header">Informations légales</h5>-->
+      <!--</div>-->
+      <!--</div>-->
+      <!--<div class="row">-->
+      <!--<div class="col border">-->
+      <app-legal-info></app-legal-info>
+    </div>
+  </div>
+</div>
+<!--</div>-->
+<!--</div>-->

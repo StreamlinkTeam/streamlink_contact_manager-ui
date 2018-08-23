@@ -21,7 +21,7 @@ export class DeveloperView {
   socialSecurityNumber: string;
   familySituation: string;
   title: string;
-  languages: Language[];
+  languages: string;
   qualifications: string[];
   experience: string;
   formation: string;

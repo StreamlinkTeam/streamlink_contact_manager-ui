@@ -1,8 +1,5 @@
-import {ActionEditorComponent} from '../action/action-editor.component';
-import {ContactEditorComponent} from '../contact/contact-editor.component';
 import {SharedModule} from '../shared/shared.module';
 import {ContractEditorComponent} from '../contract/contract-editor.component';
-import {EvaluationEditorComponent} from '../evaluation/evaluation-editor.component';
 import {DeveloperEditorComponent} from './developer-editor.component';
 import {DeveloperCVComponent} from './developer-cv.component';
 
@@ -18,9 +15,12 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterModule} from '@angular/router';
 
 import {NgSelectModule} from '@ng-select/ng-select';
-import {Ng2FileSizeModule} from "ng2-file-size";
+import {Ng2FileSizeModule} from 'ng2-file-size';
 import {Ng2SmartTableModule} from 'ng2-smart-table';
-import {DeveloperCVScannerComponent} from "./developer-cv-scanner.component";
+import {DeveloperCVScannerComponent} from './developer-cv-scanner.component';
+import {EvaluationModule} from '../evaluation/evaluation.module';
+import {ActionModule} from '../action/action.module';
+import {ContactModule} from '../contact/contact.module';
 
 
 @NgModule({
@@ -32,13 +32,15 @@ import {DeveloperCVScannerComponent} from "./developer-cv-scanner.component";
     RouterModule,
     Ng2FileSizeModule,
     CommonModule,
-    Ng2SmartTableModule],
-  declarations: [DeveloperTableComponent, DeveloperEditorComponent,
-    ContactEditorComponent, PersonalInfoEditorComponent, SkillsEditorComponent,
-    DeveloperComponent, ContractEditorComponent, ActionEditorComponent, EvaluationEditorComponent, DeveloperCVComponent, DeveloperCVScannerComponent],
-  exports: [DeveloperTableComponent, DeveloperEditorComponent, SkillsEditorComponent,
-    ContactEditorComponent, PersonalInfoEditorComponent, DeveloperComponent, ContractEditorComponent, ActionEditorComponent
-    , EvaluationEditorComponent, DeveloperCVComponent, DeveloperCVScannerComponent]
+    Ng2SmartTableModule,
+    EvaluationModule,
+    ActionModule,
+    ContactModule],
+  declarations: [DeveloperTableComponent, DeveloperEditorComponent, PersonalInfoEditorComponent, SkillsEditorComponent,
+    DeveloperComponent, ContractEditorComponent, DeveloperCVComponent, DeveloperCVScannerComponent],
+  exports: [DeveloperTableComponent, DeveloperEditorComponent, SkillsEditorComponent, PersonalInfoEditorComponent, DeveloperComponent
+    , ContractEditorComponent
+    , DeveloperCVComponent, DeveloperCVScannerComponent]
 })
 export class DeveloperModule {
 }

@@ -3,7 +3,7 @@
 export class Action {
   reference: string;
   developerReference: string;
-  responsableReference: string;
+  responsibleReference: string;
   type: string;
   note: string;
   date: Date;

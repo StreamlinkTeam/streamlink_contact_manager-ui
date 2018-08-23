@@ -3,7 +3,7 @@ import {Subscription} from 'rxjs/Subscription';
 
 import {LoaderService} from '../shared/services/loader.service';
 import {LoaderState} from '../shared/entities/loader';
-import {NgxSpinnerService} from "ngx-spinner";
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'angular-loader',

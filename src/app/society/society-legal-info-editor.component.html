@@ -1,0 +1,53 @@
+<div class="row">
+  <div class="col border bg-warning">
+    <h5 class="text-dark dropdown-header">Informations légales</h5>
+  </div>
+</div>
+<div class="row">
+  <div class="col border">
+    <form novalidate #form="ngForm" (ngSubmit)="save(form)">
+
+      <div class="form-group">
+        <label>TVA </label>
+        <input class="form-control"
+               name="tva"
+               [(ngModel)]="legalInfo.tva"/>
+      </div>
+
+      <div class="form-group">
+        <label>Siret</label>
+        <input class="form-control"
+               name="siret"
+               [(ngModel)]="legalInfo.siret"/>
+      </div>
+      <div class="form-group">
+        <label>Statut juridique</label>
+        <input class="form-control"
+               name="legalStatus"
+               [(ngModel)]="legalInfo.legalStatus"/>
+      </div>
+      <div class="form-group">
+        <label>RCS</label>
+        <input class="form-control"
+               name="rcs"
+               [(ngModel)]="legalInfo.rcs"/>
+      </div>
+      <div class="form-group">
+        <label>Code APE </label>
+        <input class="form-control"
+               name="apeCode"
+               [(ngModel)]="legalInfo.apeCode"/>
+      </div>
+
+
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary"
+                [class.btn-warning]="editing">Enregistrer
+        </button>
+        <button type="reset" class="btn btn-secondary"
+                routerLink="/societies">Annuler
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

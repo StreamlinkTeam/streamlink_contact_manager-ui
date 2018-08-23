@@ -6,7 +6,7 @@ import {NgForm} from '@angular/forms';
 import {ToastrService} from "ngx-toastr";
 
 @Component({
-  selector: 'app-contact',
+  selector: 'app-evaluation',
   moduleId: module.id,
   templateUrl: 'evaluation-editor.component.html'
 })

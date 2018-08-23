@@ -1,4 +1,4 @@
-import {DeveloperService} from '../shared/services/developer.service';
+import {SocietyService} from '../shared/services/society.service';
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
@@ -10,9 +10,9 @@ import {ToastrService} from 'ngx-toastr';
 
 @Component({
   moduleId: module.id,
-  templateUrl: 'developer-table.component.html'
+  templateUrl: 'society-table.component.html'
 })
-export class DeveloperTableComponent implements OnInit {
+export class SocietyTableComponent implements OnInit {
 
   source: ServerDataSource;
 
@@ -37,28 +37,24 @@ export class DeveloperTableComponent implements OnInit {
     },
     mode: 'external',
     columns: {
-      firstname: {
+      label: {
         title: 'Nom',
         filter: false
       },
-      lastname: {
-        title: 'Prénom',
+      activityArea: {
+        title: 'Secteur',
+        filter: false
+      },
+      note: {
+        title: 'Informations',
         filter: false
       },
       stage: {
-        title: 'Etape',
+        title: 'Etat',
         filter: false
       },
-      mobility: {
-        title: 'Mobilité',
-        filter: false
-      },
-      experience: {
-        title: 'Experience',
-        filter: false
-      },
-      email1: {
-        title: 'Email',
+      city: {
+        title: 'Lieu',
         filter: false
       }
     },
@@ -68,12 +64,10 @@ export class DeveloperTableComponent implements OnInit {
     },
   };
 
-  experiences: any[];
   stages: any[];
-  formations: any[];
 
 
-  constructor(private service: DeveloperService,
+  constructor(private service: SocietyService,
               private toastr: ToastrService,
               private http: HttpClient,
               private router: Router,
@@ -81,14 +75,14 @@ export class DeveloperTableComponent implements OnInit {
 
     if (activeRoute.snapshot.params['error'] === 'error') {
       this.toastr.warning('Erreur lors de la récupération de données', 'Opération échoué!');
-      this.router.navigate(['/developers']);
+      this.router.navigate(['/societies']);
     }
   }
 
 
   ngOnInit() {
 
-    this.url = environment.API + '/ws/developers/search?fromAngular=true';
+    this.url = environment.API + '/ws/societies/search?fromAngular=true';
 
     this.source = new ServerDataSource(this.http, {
       endPoint: this.url,
@@ -106,33 +100,11 @@ export class DeveloperTableComponent implements OnInit {
 
     this.stages = [
       {label: 'Tous', value: ''},
-      {label: 'A traiter', value: 'ToTreat'},
-      {label: 'En Cours de Qualif', value: 'InTheProcessOfQualifying'},
-      {label: 'Vivier', value: 'Vivier'},
-      {label: 'Vivier ++', value: 'VivierPlus'},
-      {label: 'Converti en Ressource', value: 'ConvertedToResource'},
-      {label: 'Ne plus contacter', value: 'StopContacting'}
-    ];
-
-    this.experiences = [
-      {label: 'Tous', value: ''},
-      {label: 'Non', value: 'NON'},
-      {label: 'Entre 1 et 2 ans', value: 'BETWEEN1AND2'},
-      {label: 'Entre 3 et 5 ans', value: 'BETWEEN3AND5'},
-      {label: 'Entre 6 et 10 ans', value: 'BETWEEN6AND10'},
-      {label: 'Plus que 10 ans', value: 'MORE_THAN_10'}];
-
-    this.formations = [
-      {label: 'Tous', value: ''},
-      {label: 'Non défini', value: 'NOT_DEFINED'},
-      {label: 'Bac', value: 'BAC'},
-      {label: 'Bac +2', value: 'BAC_PLUS_2'},
-      {label: 'Bac +3', value: 'BAC_PLUS_3'},
-      {label: 'Bac +4', value: 'BAC_PLUS_4'},
-      {label: 'Bac +5', value: 'BAC_PLUS_5'},
-      {label: 'Bac +6', value: 'BAC_PLUS_6'},
-      {label: 'Bac +7', value: 'BAC_PLUS_7'},
-      {label: 'Bac +8', value: 'BAC_PLUS_8'}];
+      {label: 'Prospect', value: 'Prospect'},
+      {label: 'Client', value: 'Customer'},
+      {label: 'Partenaire', value: 'Partner'},
+      {label: 'Fournisseur', value: 'Provider'},
+      {label: 'Archivé', value: 'Archive'}];
   }
 
 
@@ -184,27 +156,27 @@ export class DeveloperTableComponent implements OnInit {
 
   }
 
-  showDeveloper(rowData: Row) {
+  showSociety(rowData: Row) {
 
-    const developer = rowData.getData();
+    const society = rowData.getData();
 
-    this.router.navigate(['/developer/edit', developer.reference]);
+    this.router.navigate(['/society/edit', society.reference]);
 
   }
 
-  deleteDeveloper(rowData: Row) {
+  deleteSociety(rowData: Row) {
 
-    const developer = rowData.getData();
-    if (confirm('Suppression du Developpeur' + developer.firstname + ' ' + developer.lastname)) {
+    const society = rowData.getData();
+    if (confirm('Suppression de la Société' + society.label)) {
 
-      console.info(developer);
-      this.service.deleteDeveloper(developer.reference).subscribe(res => {
+      console.info(society);
+      this.service.deleteSociety(society.reference).subscribe(res => {
 
         this.source.remove(rowData);
-        this.toastr.success('Condidats Supprimé avec succés', 'Opération Réussite!');
+        this.toastr.success('Société Supprimée avec succés', 'Opération Réussite!');
 
       }, error => {
-        this.toastr.error('Erreur lors de la suppression du condidats', 'Opération échoué !!!');
+        this.toastr.error('Erreur lors de la suppression de la Société', 'Opération échoué !!!');
       });
 
     }

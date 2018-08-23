@@ -22,9 +22,13 @@ import {SkillsEditorComponent} from './developer/skills-editor.component';
 import {EvaluationEditorComponent} from './evaluation/evaluation-editor.component';
 import {registerLocaleData} from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
-import {ToastrModule} from "ngx-toastr";
-import {DeveloperCVScannerComponent} from "./developer/developer-cv-scanner.component";
-import {LoaderModule} from "./loader/loader.module";
+import {ToastrModule} from 'ngx-toastr';
+import {DeveloperCVScannerComponent} from './developer/developer-cv-scanner.component';
+import {LoaderModule} from './loader/loader.module';
+import {SocietyModule} from './society/society.module';
+import {SocietyTableComponent} from './society/society-table.component';
+import {SocietyEditorComponent} from './society/society-editor.component';
+import {SocietyComponent} from './society/society.component';
 
 
 registerLocaleData(localeFr, 'fr');
@@ -36,7 +40,7 @@ registerLocaleData(localeFr, 'fr');
     AppNavbarComponent
   ],
   imports: [
-    BrowserModule, DeveloperModule, AuthModule, HttpClientModule, LoaderModule,
+    BrowserModule, DeveloperModule, AuthModule, HttpClientModule, LoaderModule, SocietyModule,
     ToastrModule.forRoot(),
     RouterModule.forRoot([
       {path: 'auth', component: AuthComponent, canActivate: [LoginGuard]},
@@ -66,6 +70,27 @@ registerLocaleData(localeFr, 'fr');
           {path: 'contract', component: ContractEditorComponent},
           {path: 'action', component: ActionEditorComponent},
           {path: 'evaluation', component: EvaluationEditorComponent},
+          {path: '**', redirectTo: 'general'}
+        ]
+      },
+      {
+        path: 'societies', component: SocietyTableComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'societies/:error', component: SocietyTableComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'society/create', component: SocietyEditorComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'society/:mode/:reference', component: SocietyComponent, canActivate: [AuthGuard],
+        children: [
+          {path: 'general', component: SocietyEditorComponent},
+          {path: 'contact', component: ContactEditorComponent},
+          {path: 'action', component: ActionEditorComponent},
           {path: '**', redirectTo: 'general'}
         ]
       },

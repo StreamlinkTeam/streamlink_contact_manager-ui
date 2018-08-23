@@ -44,15 +44,14 @@
         </div>
 
         <div class="form-row">
-          <div class="form-group col-md-8">
+          <div class="form-group col-md-10">
             <input class="form-control" placeholder="Nom du Diplôme ..."
                    name="qualifTitle" [(ngModel)]="qualifTitle"/>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-2">
 						<span>
 							<button class="btn btn-primary fa fa-plus" [disabled]="!qualifTitle"
-                      type="button" (click)="addQualifications()">Ajouter
-                                Un diplôme
+                      type="button" (click)="addQualifications()">
                             </button>
 						</span>
           </div>

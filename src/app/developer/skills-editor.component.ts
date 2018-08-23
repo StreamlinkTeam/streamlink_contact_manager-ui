@@ -1,12 +1,9 @@
-import {Language} from '../shared/entities/language.model';
 import {SkillsInformation} from '../shared/entities/skills-information.model';
 import {DeveloperService} from '../shared/services/developer.service';
-import {LanguageService} from '../shared/services/language.service';
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
-import {Observable} from 'rxjs';
-import {ToastrService} from "ngx-toastr";
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   moduleId: module.id,
@@ -17,13 +14,13 @@ export class SkillsEditorComponent implements OnInit {
   editing = false;
   qualifTitle = '';
   skills: SkillsInformation = new SkillsInformation();
-  languages$: Observable<Language[]>;
+  // languages$: Observable<Language[]>;
   experiences: any[];
   formations: any[];
 
 
   constructor(private service: DeveloperService,
-              private languageService: LanguageService,
+              // private languageService: LanguageService,
               private toastr: ToastrService,
               private router: Router,
               private activeRoute: ActivatedRoute) {
@@ -34,7 +31,7 @@ export class SkillsEditorComponent implements OnInit {
   ngOnInit(): void {
     this.editing = this.activeRoute.snapshot.parent.params['mode'] === 'edit';
 
-    this.languages$ = this.languageService.getLanguages();
+    // this.languages$ = this.languageService.getLanguages();
 
     this.experiences = [
       {label: 'Non', value: 'NON'},
@@ -59,7 +56,7 @@ export class SkillsEditorComponent implements OnInit {
       this.service.getDeveloperSkills(this.activeRoute.snapshot.parent.params['reference'])
         .subscribe(response => this.skills = response,
           error =>
-            this.router.navigate(['/developers','error']));
+            this.router.navigate(['/developers', 'error']));
     }
   }
 
