@@ -20,7 +20,8 @@ export class SocietyLegalInfoEditorComponent {
               private toastr: ToastrService,
               private router: Router,
               private activeRoute: ActivatedRoute) {
-    this.editing = activeRoute.snapshot.parent.params['mode'] === 'edit';
+
+    this.editing = activeRoute.snapshot.parent.params['reference'] !== undefined;
 
     console.info(activeRoute.snapshot.parent.params['reference']);
     if (this.editing) {

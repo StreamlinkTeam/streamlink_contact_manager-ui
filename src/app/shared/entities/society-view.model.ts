@@ -24,6 +24,7 @@ export class SocietyView {
   npa: string;
   city: string;
   country: string;
+  website: string;
   createdDate: Date;
   modifiedDate: Date;
 }

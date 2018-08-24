@@ -36,4 +36,5 @@ export class DeveloperView {
   npa: string;
   city: string;
   country: string;
+  website: string;
 }

@@ -30,8 +30,8 @@
 
             </div>
             <div class="form-group">
-              <label>Etape</label> <select class="form-control" name="stage"
-                                           [(ngModel)]="society.stage">
+              <label>Etat</label> <select class="form-control" name="stage"
+                                          [(ngModel)]="society.stage">
               <option *ngFor="let stage of stages" [ngValue]="stage.value">{{stage.label}}</option>
             </select>
             </div>
@@ -132,16 +132,7 @@
       </div>
     </div>
     <div class="col border" *ngIf="editing">
-      <!--<div class="row">-->
-      <!--<div class="col border bg-warning">-->
-      <!--<h5 class="text-dark dropdown-header">Informations légales</h5>-->
-      <!--</div>-->
-      <!--</div>-->
-      <!--<div class="row">-->
-      <!--<div class="col border">-->
       <app-legal-info></app-legal-info>
     </div>
   </div>
 </div>
-<!--</div>-->
-<!--</div>-->

@@ -12,6 +12,7 @@ import {ValidatorService} from './services/validator.service';
 import {FieldErrorDisplayComponent} from './field-error-display/field-error-display.component';
 import {LoaderService} from './services/loader.service';
 import {SocietyService} from './services/society.service';
+import {SocietyContactService} from "./services/society-contact.service";
 
 @NgModule({
   imports: [HttpClientModule, CommonModule],
@@ -19,7 +20,7 @@ import {SocietyService} from './services/society.service';
   exports: [FieldErrorDisplayComponent],
   providers: [DeveloperService, EvaluationService, ActionService,
     UserService, LanguageService, AuthService, SocietyService,
-    ContractService, ValidatorService, LoaderService],
+    ContractService, ValidatorService, LoaderService,SocietyContactService],
 })
 export class SharedModule {
 

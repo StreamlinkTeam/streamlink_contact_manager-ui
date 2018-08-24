@@ -3,23 +3,19 @@ import {Router, ActivatedRoute} from '@angular/router';
 
 @Component({
   moduleId: module.id,
-  templateUrl: 'society.component.html'
+  templateUrl: 'society-contact.component.html'
 })
-export class SocietyComponent {
+export class SocietyContactComponent {
 
-  editing = false;
   societyReference: string;
+  societyContactReference: string;
 
 
   constructor(private router: Router,
     activeRoute: ActivatedRoute) {
-    this.editing = activeRoute.snapshot.params['mode'] === 'edit';
 
-    if (this.editing) {
       this.societyReference = activeRoute.snapshot.params['reference'];
-    } else {
-      this.societyReference = null;
-    }
+
   }
 
 

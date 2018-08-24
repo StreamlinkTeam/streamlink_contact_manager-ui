@@ -1,4 +1,3 @@
-import {SocietyService} from '../shared/services/society.service';
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
@@ -6,17 +5,20 @@ import {ServerDataSource} from 'ng2-smart-table';
 import {Row} from 'ng2-smart-table/lib/data-set/row';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
+import {SocietyContactService} from "../shared/services/society-contact.service";
 
 
 @Component({
   moduleId: module.id,
-  templateUrl: 'society-table.component.html'
+  templateUrl: 'society-contact-table.component.html'
 })
-export class SocietyTableComponent implements OnInit {
+export class SocietyContactTableComponent implements OnInit {
 
   source: ServerDataSource;
 
   url: string;
+
+  societyReference: string;
 
 
   settings = {
@@ -37,24 +39,28 @@ export class SocietyTableComponent implements OnInit {
     },
     mode: 'external',
     columns: {
-      label: {
+      firstname: {
         title: 'Nom',
         filter: false
       },
-      activityArea: {
-        title: 'Secteur',
+      lastname: {
+        title: 'Prénom',
         filter: false
       },
-      note: {
-        title: 'Informations',
+      titre: {
+        title: 'Titre',
+        filter: false
+      },
+      service: {
+        title: 'Service',
         filter: false
       },
       stage: {
         title: 'Etat',
         filter: false
       },
-      city: {
-        title: 'Lieu',
+      email1: {
+        title: 'Email',
         filter: false
       }
     },
@@ -67,22 +73,24 @@ export class SocietyTableComponent implements OnInit {
   stages: any[];
 
 
-  constructor(private service: SocietyService,
+  constructor(private service: SocietyContactService,
               private toastr: ToastrService,
               private http: HttpClient,
               private router: Router,
               private activeRoute: ActivatedRoute) {
 
+    this.societyReference = activeRoute.snapshot.parent.params['reference'];
+
     if (activeRoute.snapshot.params['error'] === 'error') {
       this.toastr.warning('Erreur lors de la récupération de données', 'Opération échoué!');
-      this.router.navigate(['/societies']);
+      this.router.navigate(['/society/' + this.societyReference + '/society-contacts']);
     }
   }
 
 
   ngOnInit() {
 
-    this.url = environment.API + '/ws/societies/search?fromAngular=true';
+    this.url = environment.API + '/ws/societies/contacts/search?fromAngular=true&societyReference=' + this.societyReference;
 
     this.source = new ServerDataSource(this.http, {
       endPoint: this.url,
@@ -156,28 +164,28 @@ export class SocietyTableComponent implements OnInit {
 
   }
 
-  showSociety(rowData: Row) {
+  showSocietyContact(rowData: Row) {
 
-    const society = rowData.getData();
+    const societyContact = rowData.getData();
 
-    this.router.navigate(['/society', society.reference]);
+    this.router.navigate(['/society/'+this.societyReference+'/society-contact', societyContact.reference]);
 
   }
 
-  deleteSociety(rowData: Row) {
+  deleteSocietyContact(rowData: Row) {
 
-    const society = rowData.getData();
-    if (confirm('Suppression de la Société ' + society.label)) {
+    const societyContact = rowData.getData();
+    if (confirm('Suppression du Contact ' + societyContact.firstname + ' ' + societyContact.lastname)) {
 
-      console.info(society);
-      this.service.deleteSociety(society.reference).subscribe(res => {
+      this.service.deleteSocietyContact(societyContact.reference, this.societyReference)
+        .subscribe(res => {
 
-        this.source.remove(rowData);
-        this.toastr.success('Société Supprimée avec succés', 'Opération Réussite!');
+          this.source.remove(rowData);
+          this.toastr.success('Contact Supprimé avec succés', 'Opération Réussite!');
 
-      }, error => {
-        this.toastr.error('Erreur lors de la suppression de la Société', 'Opération échoué !!!');
-      });
+        }, error => {
+          this.toastr.error('Erreur lors de la suppression de du contact', 'Opération échoué !!!');
+        });
 
     }
   }

@@ -29,7 +29,7 @@ export class DeveloperCVComponent {
       .subscribe(response => this.cvs = response
         ,
         error =>
-          this.router.navigate(['/developers','error']));
+          this.router.navigate(['/developers', 'error']));
 
   }
 
@@ -61,10 +61,10 @@ export class DeveloperCVComponent {
       this.service.deleteCV(cv.reference, this.referenceDeveloper)
         .subscribe(response => {
 
-        this.cvs.splice(index, 1);
-      }, error => {
-        this.toastr.error('Erreur lors de la Suppression du CV', 'Opération échoué !!!');
-      });
+          this.cvs.splice(index, 1);
+        }, error => {
+          this.toastr.error('Erreur lors de la Suppression du CV', 'Opération échoué !!!');
+        });
     }
   }
 

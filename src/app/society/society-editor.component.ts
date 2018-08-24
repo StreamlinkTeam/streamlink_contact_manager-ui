@@ -25,7 +25,7 @@ export class SocietyEditorComponent {
               private router: Router,
               private activeRoute: ActivatedRoute) {
 
-    this.editing = activeRoute.snapshot.parent.params['mode'] === 'edit';
+    this.editing = activeRoute.snapshot.parent.params['reference'] !== undefined;
 
     userService.getUsers().subscribe(response => this.users = response);
     console.info(activeRoute.snapshot.parent.params['reference']);
@@ -37,7 +37,7 @@ export class SocietyEditorComponent {
     }
 
     this.stages = [
-      {label: 'Tous', value: ''},
+      {label: 'Non défini', value: ''},
       {label: 'Prospect', value: 'Prospect'},
       {label: 'Client', value: 'Customer'},
       {label: 'Partenaire', value: 'Partner'},
@@ -47,6 +47,9 @@ export class SocietyEditorComponent {
   }
 
   addService() {
+    if (this.society.services == undefined) {
+      this.society.services = [];
+    }
     this.society.services.push(this.serviceTitle);
     this.serviceTitle = '';
   }
@@ -78,7 +81,7 @@ export class SocietyEditorComponent {
           .subscribe(response => {
 
             this.toastr.success('Societé Créé avec succés', 'Opération Réussite!');
-            this.router.navigate(['/society/edit', response.reference]);
+            this.router.navigate(['/society', response.reference]);
 
           }, error => {
             this.toastr.error('Erreur lors de la création de la Societé', 'Opération échoué !!!');

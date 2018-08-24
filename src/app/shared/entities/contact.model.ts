@@ -13,4 +13,5 @@ export class Contact {
   npa: string;
   city: string;
   country: string;
+  website: string;
 }

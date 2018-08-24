@@ -29,6 +29,10 @@ import {SocietyModule} from './society/society.module';
 import {SocietyTableComponent} from './society/society-table.component';
 import {SocietyEditorComponent} from './society/society-editor.component';
 import {SocietyComponent} from './society/society.component';
+import {SocietyContactTableComponent} from "./society-contact/society-contact-table.component";
+import {SocietyContactModule} from "./society-contact/society-contact.module";
+import {SocietyContactEditorComponent} from "./society-contact/society-contact-editor.component";
+import {SocietyContactComponent} from "./society-contact/society-contact.component";
 
 
 registerLocaleData(localeFr, 'fr');
@@ -40,7 +44,8 @@ registerLocaleData(localeFr, 'fr');
     AppNavbarComponent
   ],
   imports: [
-    BrowserModule, DeveloperModule, AuthModule, HttpClientModule, LoaderModule, SocietyModule,
+    BrowserModule, DeveloperModule, AuthModule, SocietyContactModule,
+    HttpClientModule, LoaderModule, SocietyModule,
     ToastrModule.forRoot(),
     RouterModule.forRoot([
       {path: 'auth', component: AuthComponent, canActivate: [LoginGuard]},
@@ -86,11 +91,22 @@ registerLocaleData(localeFr, 'fr');
         canActivate: [AuthGuard]
       },
       {
-        path: 'society/:mode/:reference', component: SocietyComponent, canActivate: [AuthGuard],
+        path: 'society/:reference', component: SocietyComponent, canActivate: [AuthGuard],
         children: [
           {path: 'general', component: SocietyEditorComponent},
           {path: 'contact', component: ContactEditorComponent},
           {path: 'action', component: ActionEditorComponent},
+          {path: 'society-contacts', component: SocietyContactTableComponent},
+          {path: 'society-contact/create', component: SocietyContactEditorComponent},
+          {
+            path: 'society-contact/:societyContactReference', component: SocietyContactComponent,
+            children: [
+              {path: 'general', component: SocietyContactEditorComponent},
+              {path: 'contact', component: ContactEditorComponent},
+              {path: 'action', component: ActionEditorComponent},
+              {path: '**', redirectTo: 'general'}
+            ]
+          },
           {path: '**', redirectTo: 'general'}
         ]
       },

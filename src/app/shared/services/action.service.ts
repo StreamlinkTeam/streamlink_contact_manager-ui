@@ -67,5 +67,68 @@ export class ActionService {
       });
   }
 
+  getSocietyActions(societyContactReference: string, societyReference: string): Observable<Action[]> {
+    this.loaderService.show();
+    const url = environment.API + '/ws/societies/contacts/actions';
+
+    const options = {
+      params: new HttpParams().set('societyContactReference', societyContactReference)
+        .set('societyReference', societyReference)
+    };
+
+
+    return this.http.get<Action[]>(url, options)
+      ._finally(() => {
+        this.loaderService.hide();
+      });
+  }
+
+
+  createSocietyAction(action: Action, societyContactReference: string, societyReference: string): Observable<Action> {
+    this.loaderService.show();
+    const url = environment.API + '/ws/societies/contacts/actions';
+
+    const options = {
+      params: new HttpParams().set('societyContactReference', societyContactReference)
+        .set('societyReference', societyReference)
+    };
+    return this.http.post<Action>(url, action, options)
+      ._finally(() => {
+        this.loaderService.hide();
+      });
+  }
+
+  updateSocietyAction(action: Action, reference: string, societyContactReference: string, societyReference: string): Observable<Action> {
+    this.loaderService.show();
+    const url = environment.API + '/ws/societies/contacts/actions';
+
+    const options = {
+      params: new HttpParams().set('societyContactReference', societyContactReference)
+        .set('societyReference', societyReference).set('reference', reference)
+    };
+
+
+    return this.http.put<Action>(url, action, options)
+      ._finally(() => {
+        this.loaderService.hide();
+      });
+  }
+
+  deleteSocietyAction(reference: string, societyContactReference: string, societyReference: string) {
+    this.loaderService.show();
+    const url = environment.API + '/ws/societies/contacts/actions';
+
+    const options = {
+      params: new HttpParams().set('societyContactReference', societyContactReference)
+        .set('societyReference', societyReference).set('reference', reference)
+    };
+
+
+    return this.http.delete(url, options)
+      ._finally(() => {
+        this.loaderService.hide();
+      });
+  }
+
 
 }
