@@ -1,8 +1,8 @@
 <div class="container tab-pane fade show active" role="tabpanel">
   <div class="row">
     <div class="col border">
-      <div class="row">
-        <div class="col border" [class.bg-warning]="editing" [class.bg-info]="!editing">
+      <div class="row" *ngIf="!editing">
+        <div class="col border bg-info">
           <h5 class="text-dark dropdown-header">Informations Général du Contact</h5>
         </div>
       </div>
@@ -93,7 +93,7 @@
                       [class.btn-warning]="editing">Enregistrer
               </button>
               <button type="reset" class="btn btn-secondary"
-                      routerLink="/developers">Annuler
+                      routerLink="/society/{{societyReference}}/society-contacts">Annuler
               </button>
             </div>
           </form>

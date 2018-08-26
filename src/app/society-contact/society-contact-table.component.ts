@@ -5,7 +5,7 @@ import {ServerDataSource} from 'ng2-smart-table';
 import {Row} from 'ng2-smart-table/lib/data-set/row';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
-import {SocietyContactService} from "../shared/services/society-contact.service";
+import {SocietyContactService} from '../shared/services/society-contact.service';
 
 
 @Component({
@@ -168,7 +168,7 @@ export class SocietyContactTableComponent implements OnInit {
 
     const societyContact = rowData.getData();
 
-    this.router.navigate(['/society/'+this.societyReference+'/society-contact', societyContact.reference]);
+    this.router.navigate(['/society/' + this.societyReference + '/society-contact', societyContact.reference]);
 
   }
 

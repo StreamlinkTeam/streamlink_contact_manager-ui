@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="row bg-warning" role="tabpanel">
+  <div class="row bg-warning" role="tabpanel" *ngIf="!isSocietyContact()">
     <h5 class="dropdown-header text-dark">Actions</h5>
   </div>
   <div class="row">
@@ -49,8 +49,11 @@
 
         <div class="form-group">
           <button type="submit" class="btn btn-warning">Enregistrer</button>
-          <button type="reset" class="btn btn-secondaryb fa fa-r"
+          <button type="reset" class="btn btn-secondaryb fa fa-r" *ngIf="isDeveloper()"
                   routerLink="/developers">Annuler
+          </button>
+          <button type="reset" class="btn btn-secondary" *ngIf="isSocietyContact()"
+                  routerLink="/society/{{societyReference}}/society-contacts">Annuler
           </button>
 
           <button *ngIf="editing" type="button" class="btn btn-primary"

@@ -26,9 +26,10 @@
   <div class="form-group required">
     <label class="col-form-label" for="file">Choose File</label>
     <input class="form-control-file" #file_input="ngModel" type="file" id="file"
-           accept=".pdf,.doc,.docx" [ng2FileSize]="{ max: 1024 * 7}"
-           required [fileSizeErrorMsg]="'File size must be less that 10 mb!'"
-           [(ngModel)]="fileToUpload">
+           accept=".pdf,.doc,.docx" [ng2FileSize]="{ max: 1024 * 1024 * 8 * 7}" name="file"
+           (change)="handleFileInput($event.target.files)"
+           required [fileSizeErrorMsg]="'Le fichier ne peut pas dépasser les 7M !'"
+           [(ngModel)]="f">
 
     <app-field-error-display
       [model]="file_input"

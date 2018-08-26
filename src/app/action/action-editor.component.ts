@@ -18,6 +18,9 @@ export class ActionEditorComponent {
 
   types: any[];
 
+  contactType = '';
+  societyReference = '';
+
 
   actions: Action[];
 
@@ -25,11 +28,22 @@ export class ActionEditorComponent {
   constructor(private service: ActionService, private router: Router, private toastr: ToastrService,
               activeRoute: ActivatedRoute) {
 
-    this.reference = activeRoute.snapshot.parent.params['reference'];
-    this.service.getActions(this.reference)
-      .subscribe(response => this.actions = response,
-        error =>
-          this.router.navigate(['/developers', 'error']));
+    this.contactType = activeRoute.snapshot.parent.url[0].toString();
+
+    if (this.isDeveloper()) {
+      this.reference = activeRoute.snapshot.parent.params['reference'];
+      this.service.getActions(this.reference)
+        .subscribe(response => this.actions = response,
+          error =>
+            this.router.navigate(['/developers', 'error']));
+    } else if (this.isSocietyContact()) {
+      this.reference = activeRoute.snapshot.parent.params['societyContactReference'];
+      this.societyReference = activeRoute.snapshot.parent.parent.params['reference'];
+      this.service.getSocietyActions(this.reference, this.societyReference)
+        .subscribe(response => this.actions = response,
+          error =>
+            this.router.navigate(['/society/' + this.societyReference + '/society-contacts', 'error']));
+    }
 
 
     this.types = [
@@ -43,9 +57,20 @@ export class ActionEditorComponent {
 
   }
 
+
+  isSociety() {
+    return this.contactType === 'society';
+  }
+
+  isSocietyContact() {
+    return this.contactType === 'society-contact';
+  }
+
+  isDeveloper() {
+    return this.contactType === 'developer';
+  }
+
   showAction(index: number, form: NgForm) {
-
-
     const act = this.actions[index];
 
     if (act.reference !== this.action.reference) {
@@ -57,7 +82,6 @@ export class ActionEditorComponent {
   }
 
   newAction(form: NgForm) {
-
     form.resetForm();
 
     this.action = new Action();
@@ -66,7 +90,6 @@ export class ActionEditorComponent {
   }
 
   deleteAction(index: number) {
-
     if (confirm('Suppression de l\'Action')) {
       const act = this.actions[index];
 
@@ -75,46 +98,89 @@ export class ActionEditorComponent {
         this.editing = false;
       }
 
-      this.service.deleteAction(act.reference, this.reference).subscribe(response => {
+      if (this.isDeveloper()) {
+        this.service.deleteAction(act.reference, this.reference).subscribe(response => {
 
-        console.info(response);
-        this.actions.splice(index, 1);
-        this.toastr.success('Action supprimée avec succés', 'Opération Réussite!');
+          console.info(response);
+          this.actions.splice(index, 1);
+          this.toastr.success('Action supprimée avec succés', 'Opération Réussite!');
 
-      }, error => {
-        this.toastr.error('Erreur lors de la suppression de l\'Action', 'Opération échoué !!!');
-      });
+        }, error => {
+          this.toastr.error('Erreur lors de la suppression de l\'Action', 'Opération échoué !!!');
+        });
+      } else if (this.isSocietyContact()) {
+        this.service.deleteSocietyAction(act.reference, this.reference, this.societyReference)
+          .subscribe(response => {
+
+            console.info(response);
+            this.actions.splice(index, 1);
+            this.toastr.success('Action supprimée avec succés', 'Opération Réussite!');
+
+          }, error => {
+            this.toastr.error('Erreur lors de la suppression de l\'Action', 'Opération échoué !!!');
+          });
+      }
     }
   }
 
   save(form: NgForm) {
 
     if (form.valid) {
-      if (this.editing) {
+      if (this.isDeveloper()) {
+        if (this.editing) {
 
-        this.service.updateAction(this.action, this.action.reference, this.reference)
-          .subscribe(response => {
+          this.service.updateAction(this.action, this.action.reference, this.reference)
+            .subscribe(response => {
 
-            this.service.getActions(this.reference).subscribe(res => this.actions = res);
-            this.action = new Action();
-            this.editing = false;
-            this.toastr.success('Action Mise à jour avec succés', 'Opération Réussite!');
+              this.service.getActions(this.reference).subscribe(res => this.actions = res);
+              this.action = new Action();
+              this.editing = false;
+              this.toastr.success('Action Mise à jour avec succés', 'Opération Réussite!');
 
 
-          }, error => {
-            this.toastr.error('Erreur lors de la mise à jour de l\'Action', 'Opération échoué !!!');
-          });
-      } else {
-        this.service.createAction(this.action, this.reference)
-          .subscribe(response => {
+            }, error => {
+              this.toastr.error('Erreur lors de la mise à jour de l\'Action', 'Opération échoué !!!');
+            });
+        } else {
+          this.service.createAction(this.action, this.reference)
+            .subscribe(response => {
 
-            this.service.getActions(this.reference).subscribe(res => this.actions = res);
-            this.action = new Action();
-            this.toastr.success('Action Créé avec succés', 'Opération Réussite!');
+              this.service.getActions(this.reference).subscribe(res => this.actions = res);
+              this.action = new Action();
+              this.toastr.success('Action Créé avec succés', 'Opération Réussite!');
 
-          }, error => {
-            this.toastr.error('Erreur lors de la création de l\'Action', 'Opération échoué !!!');
-          });
+            }, error => {
+              this.toastr.error('Erreur lors de la création de l\'Action', 'Opération échoué !!!');
+            });
+        }
+      } else if (this.isSocietyContact()) {
+        if (this.editing) {
+
+          this.service.updateSocietyAction(this.action, this.action.reference, this.reference, this.societyReference)
+            .subscribe(response => {
+
+              this.service.getSocietyActions(this.reference, this.societyReference).subscribe(res => this.actions = res);
+              this.action = new Action();
+              this.editing = false;
+              this.toastr.success('Action Mise à jour avec succés', 'Opération Réussite!');
+
+
+            }, error => {
+              this.toastr.error('Erreur lors de la mise à jour de l\'Action', 'Opération échoué !!!');
+            });
+        } else {
+          this.service.createSocietyAction(this.action, this.reference, this.societyReference)
+            .subscribe(response => {
+
+              this.service.getSocietyActions(this.reference, this.societyReference)
+                .subscribe(res => this.actions = res);
+              this.action = new Action();
+              this.toastr.success('Action Créé avec succés', 'Opération Réussite!');
+
+            }, error => {
+              this.toastr.error('Erreur lors de la création de l\'Action', 'Opération échoué !!!');
+            });
+        }
       }
       form.resetForm();
 

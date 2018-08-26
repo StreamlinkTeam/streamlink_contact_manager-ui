@@ -4,8 +4,8 @@ import {Component} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
 import {ToastrService} from 'ngx-toastr';
-import {SocietyContact} from "../shared/entities/society-contact.model";
-import {SocietyContactService} from "../shared/services/society-contact.service";
+import {SocietyContact} from '../shared/entities/society-contact.model';
+import {SocietyContactService} from '../shared/services/society-contact.service';
 
 @Component({
   moduleId: module.id,
@@ -27,10 +27,11 @@ export class SocietyContactEditorComponent {
 
     this.editing = activeRoute.snapshot.parent.params['societyContactReference'] !== undefined;
 
-    if (this.editing)
+    if (this.editing) {
       this.societyReference = activeRoute.snapshot.parent.parent.params['reference'];
-    else
+    } else {
       this.societyReference = activeRoute.snapshot.parent.params['reference'];
+    }
 
     userService.getUsers().subscribe(response => this.users = response);
     console.info(activeRoute.snapshot.parent.params['societyContactReference']);
@@ -74,7 +75,7 @@ export class SocietyContactEditorComponent {
           .subscribe(response => {
 
             this.toastr.success('Contact Créé avec succés', 'Opération Réussite!');
-            this.router.navigate(['/society', response.reference]);
+            this.router.navigate(['/society/' + this.societyReference + '/society-contact', response.reference]);
 
           }, error => {
             this.toastr.error('Erreur lors de la création du Contact', 'Opération échoué !!!');

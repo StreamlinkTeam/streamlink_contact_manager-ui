@@ -3,8 +3,8 @@ import {DeveloperService} from '../shared/services/developer.service';
 
 import {Component} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {NgForm} from "@angular/forms";
-import {ToastrService} from "ngx-toastr";
+import {NgForm} from '@angular/forms';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   moduleId: module.id,
@@ -15,13 +15,14 @@ export class DeveloperCVComponent {
 
   referenceDeveloper: string;
   fileToUpload: File = null;
+  f: File = null;
 
   cvs: CV[];
 
 
   constructor(private router: Router,
               activeRoute: ActivatedRoute, private service: DeveloperService,
-              private toastr: ToastrService,) {
+              private toastr: ToastrService) {
 
     this.referenceDeveloper = activeRoute.snapshot.parent.params['reference'];
 
@@ -45,6 +46,7 @@ export class DeveloperCVComponent {
           console.log(data);
           this.cvs.push(data);
           this.fileToUpload = null;
+          this.f = null;
         }, error => {
           this.toastr.error('Erreur lors de la Création du CV', 'Opération échoué !!!');
         });

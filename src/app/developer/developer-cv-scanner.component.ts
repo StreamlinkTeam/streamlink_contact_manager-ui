@@ -1,10 +1,9 @@
-import {CV} from '../shared/entities/cv.model';
 import {DeveloperService} from '../shared/services/developer.service';
 
 import {Component} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {NgForm} from "@angular/forms";
-import {ToastrService} from "ngx-toastr";
+import {NgForm} from '@angular/forms';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   moduleId: module.id,
@@ -13,6 +12,8 @@ import {ToastrService} from "ngx-toastr";
 export class DeveloperCVScannerComponent {
 
   fileToUpload: File = null;
+  f: File = null;
+
 
   constructor(private router: Router,
               activeRoute: ActivatedRoute, private service: DeveloperService,

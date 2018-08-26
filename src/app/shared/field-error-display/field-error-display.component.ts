@@ -20,7 +20,7 @@ export class FieldErrorDisplayComponent {
     let thing: string = this.fieldName || this.model.name;
     let messages: string[] = [];
     if (this.model.errors) {
-      for (let errorName in this.model.errors) {
+      for (const errorName in this.model.errors) {
         switch (errorName) {
           case 'email':
             messages.push(`L'entrée ${thing} doit avoir une format email valide`);
@@ -29,15 +29,18 @@ export class FieldErrorDisplayComponent {
             messages.push(`L'entrée ${thing} est requise`);
             break;
           case 'minlength':
-            messages.push(`L'entrée ${thing} doit avoir au minimum 
+            messages.push(`L'entrée ${thing} doit avoir au minimum
       ${this.model.errors['minlength'].requiredLength} characters`);
             break;
           case 'maxlength':
-            messages.push(`L'entrée ${thing} doit avoir au maximum 
-      ${this.model.errors['minlength'].requiredLength} characters`);
+            messages.push(`L'entrée ${thing} doit avoir au maximum
+      ${this.model.errors['maxlength'].requiredLength} characters`);
             break;
           case 'pattern':
             messages.push(`L'entré ${thing} contient des characters illégaux`);
+            break;
+          case 'size':
+            messages.push(`${this.model.errors['size']}`);
             break;
         }
       }

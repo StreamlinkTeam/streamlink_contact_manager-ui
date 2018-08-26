@@ -5,6 +5,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
 import {ToastrService} from 'ngx-toastr';
 import {SocietyService} from '../shared/services/society.service';
+import {SocietyContactService} from '../shared/services/society-contact.service';
 
 @Component({
   selector: 'app-contact',
@@ -14,35 +15,55 @@ import {SocietyService} from '../shared/services/society.service';
 export class ContactEditorComponent {
 
   contact: Contact = new Contact();
-  isDeveloper = true;
+  contactType = '';
+  societyReference = '';
 
 
   constructor(private developerService: DeveloperService,
               private societyService: SocietyService,
+              private societyContactService: SocietyContactService,
               private router: Router,
               private toastr: ToastrService,
               private activeRoute: ActivatedRoute) {
 
-    console.info(activeRoute.snapshot.parent.params['reference']);
-    console.info(activeRoute.snapshot.parent.url[0].toString());
-    this.isDeveloper = activeRoute.snapshot.parent.url[0].toString() === 'developer';
 
-    if (this.isDeveloper) {
+    this.contactType = activeRoute.snapshot.parent.url[0].toString();
+
+    if (this.isDeveloper()) {
       this.developerService.getDeveloperContact(activeRoute.snapshot.parent.params['reference'])
         .subscribe(response => this.contact = response
           , error => {
             this.router.navigate(['/developers', 'error']);
           });
-    } else {
+    } else if (this.isSociety()) {
       this.societyService.getSocietyContact(activeRoute.snapshot.parent.params['reference'])
         .subscribe(response => this.contact = response
           , error => {
             this.router.navigate(['/societies', 'error']);
           });
+    } else {
+      this.societyReference = activeRoute.snapshot.parent.parent.params['reference'];
+      this.societyContactService.getSocietyContactContact(activeRoute.snapshot.parent.params['societyContactReference'],
+        this.societyReference)
+        .subscribe(response => this.contact = response
+          , error => {
+            this.router.navigate(['/society/' + this.societyReference + '/society-contacts', 'error']);
+          });
     }
-    console.info(this.contact.email1);
 
 
+  }
+
+  isSociety() {
+    return this.contactType === 'society';
+  }
+
+  isSocietyContact() {
+    return this.contactType === 'society-contact';
+  }
+
+  isDeveloper() {
+    return this.contactType === 'developer';
   }
 
   save(form: NgForm) {
@@ -50,7 +71,7 @@ export class ContactEditorComponent {
 
     if (form.valid) {
 
-      if (this.isDeveloper) {
+      if (this.isDeveloper()) {
         this.developerService.updateDeveloperContact(this.contact, this.contact.ownerReference)
           .subscribe(response => {
 
@@ -60,8 +81,18 @@ export class ContactEditorComponent {
           }, error => {
             this.toastr.error('Erreur lors de la Mise à jour du contact', 'Opération échoué !!!');
           });
-      } else {
+      } else if (this.isSociety()) {
         this.societyService.updateSocietyContact(this.contact, this.contact.ownerReference)
+          .subscribe(response => {
+
+            this.toastr.success('Contact Mis à jour avec succés', 'Opération Réussite!');
+            this.contact = response;
+
+          }, error => {
+            this.toastr.error('Erreur lors de la Mise à jour du contact', 'Opération échoué !!!');
+          });
+      } else {
+        this.societyContactService.updateSocietyContactContact(this.contact, this.contact.ownerReference, this.societyReference)
           .subscribe(response => {
 
             this.toastr.success('Contact Mis à jour avec succés', 'Opération Réussite!');
