@@ -54,19 +54,19 @@ registerLocaleData(localeFr, 'fr');
         canActivate: [AuthGuard]
       },
       {
+        path: 'developers/create/from-cv', component: DeveloperCVScannerComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'developers/create', component: DeveloperEditorComponent,
+        canActivate: [AuthGuard]
+      },
+      {
         path: 'developers/:error', component: DeveloperTableComponent,
         canActivate: [AuthGuard]
       },
       {
-        path: 'developer/create/from-cv', component: DeveloperCVScannerComponent,
-        canActivate: [AuthGuard]
-      },
-      {
-        path: 'developer/create', component: DeveloperEditorComponent,
-        canActivate: [AuthGuard]
-      },
-      {
-        path: 'developer/:mode/:reference', component: DeveloperComponent, canActivate: [AuthGuard],
+        path: 'developers/:mode/:reference', component: DeveloperComponent, canActivate: [AuthGuard],
         children: [
           {path: 'general', component: DeveloperEditorComponent},
           {path: 'contact', component: ContactEditorComponent},
@@ -83,23 +83,24 @@ registerLocaleData(localeFr, 'fr');
         canActivate: [AuthGuard]
       },
       {
+        path: 'societies/create', component: SocietyEditorComponent,
+        canActivate: [AuthGuard]
+      },
+      {
         path: 'societies/:error', component: SocietyTableComponent,
         canActivate: [AuthGuard]
       },
       {
-        path: 'society/create', component: SocietyEditorComponent,
-        canActivate: [AuthGuard]
-      },
-      {
-        path: 'society/:reference', component: SocietyComponent, canActivate: [AuthGuard],
+        path: 'societies/:mode/:reference', component: SocietyComponent, canActivate: [AuthGuard],
         children: [
           {path: 'general', component: SocietyEditorComponent},
           {path: 'contact', component: ContactEditorComponent},
           {path: 'action', component: ActionEditorComponent},
-          {path: 'society-contacts', component: SocietyContactTableComponent},
-          {path: 'society-contact/create', component: SocietyContactEditorComponent},
+          {path: 'contacts', component: SocietyContactTableComponent},
+          {path: 'contacts/create', component: SocietyContactEditorComponent},
+          {path: 'contacts/:error', component: SocietyContactTableComponent},
           {
-            path: 'society-contact/:societyContactReference', component: SocietyContactComponent,
+            path: 'contacts/:mode/:societyContactReference', component: SocietyContactComponent,
             children: [
               {path: 'general', component: SocietyContactEditorComponent},
               {path: 'contact', component: ContactEditorComponent},

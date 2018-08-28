@@ -1,5 +1,5 @@
 <div class="container" role="tabpanel">
-  <div class="row bg-warning" >
+  <div class="row bg-warning">
     <h5 class="dropdown-header text-dark">Evaluations</h5>
   </div>
   <div class="row">
@@ -94,8 +94,16 @@
           <tbody>
           <tr *ngFor="let eva of evaluations; let i=index">
             <td>{{i+1}}</td>
-            <td>{{eva.technical}}</td>
-            <td>{{eva.relational}}</td>
+            <td>
+              <span i18n>
+                {eva.technical, select, NOT_DEFINED {Non défini} A {A} B {B} C {C} D {D}}
+              </span>
+            </td>
+            <td>
+              <span i18n>
+                {eva.relational, select, NOT_DEFINED {Non défini} A {A} B {B} C {C} D {D}}
+              </span>
+            </td>
             <td>{{eva.note}}</td>
             <td>{{eva.responsibleName}}</td>
             <td>

@@ -27,7 +27,6 @@ export class DeveloperEditorComponent {
     this.editing = activeRoute.snapshot.parent.params['mode'] === 'edit';
 
     userService.getUsers().subscribe(response => this.users = response);
-    console.info(activeRoute.snapshot.parent.params['reference']);
     if (this.editing) {
       service.getDeveloper(activeRoute.snapshot.parent.params['reference'])
         .subscribe(response => this.developer = response
@@ -51,7 +50,6 @@ export class DeveloperEditorComponent {
 
     if (form.valid) {
       if (this.editing) {
-        console.info(this.developer);
         this.service.updateDeveloper(this.developer, this.developer.reference)
           .subscribe(
             response => {
@@ -69,7 +67,7 @@ export class DeveloperEditorComponent {
           .subscribe(response => {
 
             this.toastr.success('Developpeur Créé avec succés', 'Opération Réussite!');
-            this.router.navigate(['/developer/edit', response.reference]);
+            this.router.navigate(['/developers/edit', response.reference]);
 
           }, error => {
             this.toastr.error('Erreur lors de la création du condidats', 'Opération échoué !!!');

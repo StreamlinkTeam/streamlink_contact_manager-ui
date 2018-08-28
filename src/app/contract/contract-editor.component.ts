@@ -27,7 +27,6 @@ export class ContractEditorComponent implements OnInit {
   ngOnInit(): void {
     this.editing = this.activeRoute.snapshot.parent.params['mode'] === 'edit';
 
-    console.info(this.activeRoute.snapshot.parent.params['reference']);
     if (this.editing) {
 
       this.service.getWishedContract(this.activeRoute.snapshot.parent.params['reference'])
@@ -80,10 +79,8 @@ export class ContractEditorComponent implements OnInit {
 
     if (form.valid) {
       if (this.editing) {
-        console.info(this.wishedContract);
         this.service.updateContract(this.contract, this.contract.developerReference)
           .subscribe(response => {
-            console.info(response.developerReference);
             this.toastr.success('Contrat Mis à jour avec succés', 'Opération Réussite!');
 
           }, error => {
@@ -97,10 +94,10 @@ export class ContractEditorComponent implements OnInit {
 
     if (form.valid) {
       if (this.editing) {
-        console.info(this.wishedContract);
+
         this.service.updateWishedContract(this.wishedContract, this.wishedContract.developerReference)
           .subscribe(response => {
-            console.info(response.developerReference);
+
             this.toastr.success('Contrat Mis à jour avec succés', 'Opération Réussite!');
 
           }, error => {

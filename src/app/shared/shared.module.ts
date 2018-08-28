@@ -13,14 +13,16 @@ import {FieldErrorDisplayComponent} from './field-error-display/field-error-disp
 import {LoaderService} from './services/loader.service';
 import {SocietyService} from './services/society.service';
 import {SocietyContactService} from "./services/society-contact.service";
+import {CustomEnumRenderComponent} from './custom-ng2-smart-table-renderer/custom-enum-render.component';
 
 @NgModule({
   imports: [HttpClientModule, CommonModule],
-  declarations: [FieldErrorDisplayComponent],
-  exports: [FieldErrorDisplayComponent],
+  entryComponents: [CustomEnumRenderComponent],
+  declarations: [FieldErrorDisplayComponent, CustomEnumRenderComponent],
+  exports: [FieldErrorDisplayComponent, CustomEnumRenderComponent],
   providers: [DeveloperService, EvaluationService, ActionService,
     UserService, LanguageService, AuthService, SocietyService,
-    ContractService, ValidatorService, LoaderService,SocietyContactService],
+    ContractService, ValidatorService, LoaderService, SocietyContactService],
 })
 export class SharedModule {
 

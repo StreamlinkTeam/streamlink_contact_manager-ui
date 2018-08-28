@@ -6,6 +6,7 @@ import {ServerDataSource} from 'ng2-smart-table';
 import {Row} from 'ng2-smart-table/lib/data-set/row';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
+import {CustomEnumRenderComponent} from '../shared/custom-ng2-smart-table-renderer/custom-enum-render.component';
 
 
 @Component({
@@ -47,7 +48,9 @@ export class DeveloperTableComponent implements OnInit {
       },
       stage: {
         title: 'Etape',
-        filter: false
+        filter: false,
+        type: 'custom',
+        renderComponent: CustomEnumRenderComponent
       },
       mobility: {
         title: 'Mobilité',
@@ -55,7 +58,9 @@ export class DeveloperTableComponent implements OnInit {
       },
       experience: {
         title: 'Experience',
-        filter: false
+        filter: false,
+        type: 'custom',
+        renderComponent: CustomEnumRenderComponent
       },
       email1: {
         title: 'Email',
@@ -102,7 +107,6 @@ export class DeveloperTableComponent implements OnInit {
     });
 
 
-    console.log(this.source);
 
     this.stages = [
       {label: 'Tous', value: ''},
@@ -159,7 +163,6 @@ export class DeveloperTableComponent implements OnInit {
       pagerPageKey: 'page'
     });
 
-    console.log(this.source);
   }
 
   onSearch(query: string = '') {
@@ -180,7 +183,6 @@ export class DeveloperTableComponent implements OnInit {
       pagerPageKey: 'page'
     });
 
-    console.log(this.source);
 
   }
 
@@ -188,7 +190,7 @@ export class DeveloperTableComponent implements OnInit {
 
     const developer = rowData.getData();
 
-    this.router.navigate(['/developer/edit', developer.reference]);
+    this.router.navigate(['/developers/edit', developer.reference]);
 
   }
 
@@ -197,7 +199,6 @@ export class DeveloperTableComponent implements OnInit {
     const developer = rowData.getData();
     if (confirm('Suppression du Developpeur' + developer.firstname + ' ' + developer.lastname)) {
 
-      console.info(developer);
       this.service.deleteDeveloper(developer.reference).subscribe(res => {
 
         this.source.remove(rowData);

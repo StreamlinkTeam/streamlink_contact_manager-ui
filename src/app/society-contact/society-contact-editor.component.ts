@@ -34,12 +34,12 @@ export class SocietyContactEditorComponent {
     }
 
     userService.getUsers().subscribe(response => this.users = response);
-    console.info(activeRoute.snapshot.parent.params['societyContactReference']);
+
     if (this.editing) {
       service.getSocietyContact(activeRoute.snapshot.parent.params['societyContactReference'], this.societyReference)
         .subscribe(response => this.societyContact = response
           , error =>
-            this.router.navigate(['/societies/' + this.societyReference + '/society-contacts', 'error']));
+            this.router.navigate(['/societies/' + this.societyReference + '/contacts', 'error']));
     }
 
     this.stages = [
@@ -57,7 +57,7 @@ export class SocietyContactEditorComponent {
 
     if (form.valid) {
       if (this.editing) {
-        console.info(this.societyContact);
+
         this.service.updateSocietyContact(this.societyContact, this.societyContact.reference, this.societyReference)
           .subscribe(
             response => {
@@ -75,7 +75,7 @@ export class SocietyContactEditorComponent {
           .subscribe(response => {
 
             this.toastr.success('Contact Créé avec succés', 'Opération Réussite!');
-            this.router.navigate(['/society/' + this.societyReference + '/society-contact', response.reference]);
+            this.router.navigate(['/societies/edit/' + this.societyReference + '/contacts', response.reference]);
 
           }, error => {
             this.toastr.error('Erreur lors de la création du Contact', 'Opération échoué !!!');

@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   moduleId: module.id,
@@ -7,14 +7,14 @@ import {Router, ActivatedRoute} from '@angular/router';
 })
 export class SocietyContactComponent {
 
-  societyReference: string;
-  societyContactReference: string;
+  editing = false;
 
 
   constructor(private router: Router,
-    activeRoute: ActivatedRoute) {
+              activeRoute: ActivatedRoute) {
 
-      this.societyReference = activeRoute.snapshot.params['reference'];
+    this.editing = activeRoute.snapshot.params['mode'] === 'edit';
+
 
   }
 

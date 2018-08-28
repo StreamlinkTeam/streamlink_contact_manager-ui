@@ -63,7 +63,7 @@ export class EvaluationEditorComponent {
 
       this.service.deleteEvaluation(act.reference, this.reference)
         .subscribe(response => {
-          console.info(response);
+
           this.evaluations.splice(index, 1);
           this.toastr.success('Evaluation supprimée avec succés', 'Opération Réussite!');
 

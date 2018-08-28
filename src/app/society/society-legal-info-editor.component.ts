@@ -23,7 +23,6 @@ export class SocietyLegalInfoEditorComponent {
 
     this.editing = activeRoute.snapshot.parent.params['reference'] !== undefined;
 
-    console.info(activeRoute.snapshot.parent.params['reference']);
     if (this.editing) {
       service.getSocietyLegalInformation(activeRoute.snapshot.parent.params['reference'])
         .subscribe(response => this.legalInfo = response
@@ -38,7 +37,6 @@ export class SocietyLegalInfoEditorComponent {
 
     if (form.valid) {
       if (this.editing) {
-        console.info(this.legalInfo);
         this.service.updateSocietyLegalInformation(this.legalInfo, this.legalInfo.societyReference)
           .subscribe(response => {
 

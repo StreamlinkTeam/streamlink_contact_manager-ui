@@ -53,7 +53,7 @@
                   routerLink="/developers">Annuler
           </button>
           <button type="reset" class="btn btn-secondary" *ngIf="isSocietyContact()"
-                  routerLink="/society/{{societyReference}}/society-contacts">Annuler
+                  routerLink="/societies/edit/{{societyReference}}/contacts">Annuler
           </button>
 
           <button *ngIf="editing" type="button" class="btn btn-primary"
@@ -75,7 +75,12 @@
           <tbody>
           <tr *ngFor="let act of actions; let i=index">
             <td>{{i+1}}</td>
-            <td><span i18n="@@action_type">{{act.type}}</span></td>
+            <td>
+              <span i18n>
+                {act.type, select, Note {Note} RECALL {Rappel / To do} CUSTOMER_PRESENTATION {Présentation Client}
+                PHYSICAL_INTERVIEW {Entretien Physique} CALL {Appel} EMAIL {Email} TELEPHONE_INTERVIEW {Entretien Téléphonique}}
+              </span>
+            </td>
             <td>{{act.note}}</td>
             <td>{{act.date | date:'short'}}</td>
             <td>

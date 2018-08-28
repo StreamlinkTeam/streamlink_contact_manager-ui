@@ -28,7 +28,7 @@ export class SocietyEditorComponent {
     this.editing = activeRoute.snapshot.parent.params['reference'] !== undefined;
 
     userService.getUsers().subscribe(response => this.users = response);
-    console.info(activeRoute.snapshot.parent.params['reference']);
+
     if (this.editing) {
       service.getSociety(activeRoute.snapshot.parent.params['reference'])
         .subscribe(response => this.society = response
@@ -63,7 +63,7 @@ export class SocietyEditorComponent {
 
     if (form.valid) {
       if (this.editing) {
-        console.info(this.society);
+
         this.service.updateSociety(this.society, this.society.reference)
           .subscribe(
             response => {
@@ -81,7 +81,7 @@ export class SocietyEditorComponent {
           .subscribe(response => {
 
             this.toastr.success('Societé Créé avec succés', 'Opération Réussite!');
-            this.router.navigate(['/society', response.reference]);
+            this.router.navigate(['/societies/edit', response.reference]);
 
           }, error => {
             this.toastr.error('Erreur lors de la création de la Societé', 'Opération échoué !!!');

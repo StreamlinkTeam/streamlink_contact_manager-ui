@@ -6,6 +6,7 @@ import {ServerDataSource} from 'ng2-smart-table';
 import {Row} from 'ng2-smart-table/lib/data-set/row';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
+import {CustomEnumRenderComponent} from '../shared/custom-ng2-smart-table-renderer/custom-enum-render.component';
 
 
 @Component({
@@ -43,7 +44,9 @@ export class SocietyTableComponent implements OnInit {
       },
       activityArea: {
         title: 'Secteur',
-        filter: false
+        filter: false,
+        type: 'custom',
+        renderComponent: CustomEnumRenderComponent
       },
       note: {
         title: 'Informations',
@@ -51,7 +54,9 @@ export class SocietyTableComponent implements OnInit {
       },
       stage: {
         title: 'Etat',
-        filter: false
+        filter: false,
+        type: 'custom',
+        renderComponent: CustomEnumRenderComponent
       },
       city: {
         title: 'Lieu',
@@ -96,8 +101,6 @@ export class SocietyTableComponent implements OnInit {
     });
 
 
-    console.log(this.source);
-
     this.stages = [
       {label: 'Tous', value: ''},
       {label: 'Prospect', value: 'Prospect'},
@@ -131,7 +134,6 @@ export class SocietyTableComponent implements OnInit {
       pagerPageKey: 'page'
     });
 
-    console.log(this.source);
   }
 
   onSearch(query: string = '') {
@@ -152,7 +154,6 @@ export class SocietyTableComponent implements OnInit {
       pagerPageKey: 'page'
     });
 
-    console.log(this.source);
 
   }
 
@@ -160,7 +161,7 @@ export class SocietyTableComponent implements OnInit {
 
     const society = rowData.getData();
 
-    this.router.navigate(['/society', society.reference]);
+    this.router.navigate(['/societies/edit', society.reference]);
 
   }
 
@@ -169,7 +170,7 @@ export class SocietyTableComponent implements OnInit {
     const society = rowData.getData();
     if (confirm('Suppression de la Société ' + society.label)) {
 
-      console.info(society);
+
       this.service.deleteSociety(society.reference).subscribe(res => {
 
         this.source.remove(rowData);

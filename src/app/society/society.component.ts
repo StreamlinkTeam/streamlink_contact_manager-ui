@@ -19,6 +19,7 @@ export class SocietyComponent {
       this.societyReference = activeRoute.snapshot.params['reference'];
     } else {
       this.societyReference = null;
+      this.router.navigate(['/societies/create' ]);
     }
   }
 

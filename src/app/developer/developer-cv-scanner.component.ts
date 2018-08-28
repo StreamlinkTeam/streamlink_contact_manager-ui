@@ -32,7 +32,7 @@ export class DeveloperCVScannerComponent {
       this.service.createDeveloperFromCv(this.fileToUpload)
         .subscribe(data => {
           this.toastr.success('Developpeur Créé avec succés', 'Opération Réussite!');
-          this.router.navigate(['/developer/edit', data.reference]);
+          this.router.navigate(['/developers/edit', data.reference]);
         }, error => {
           this.toastr.error('Erreur lors de la Création du CV', 'Opération échoué !!!');
         });

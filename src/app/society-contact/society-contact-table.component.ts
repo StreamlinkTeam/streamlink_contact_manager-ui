@@ -6,6 +6,7 @@ import {Row} from 'ng2-smart-table/lib/data-set/row';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {SocietyContactService} from '../shared/services/society-contact.service';
+import {CustomEnumRenderComponent} from '../shared/custom-ng2-smart-table-renderer/custom-enum-render.component';
 
 
 @Component({
@@ -57,7 +58,9 @@ export class SocietyContactTableComponent implements OnInit {
       },
       stage: {
         title: 'Etat',
-        filter: false
+        filter: false,
+        type: 'custom',
+        renderComponent: CustomEnumRenderComponent
       },
       email1: {
         title: 'Email',
@@ -83,7 +86,7 @@ export class SocietyContactTableComponent implements OnInit {
 
     if (activeRoute.snapshot.params['error'] === 'error') {
       this.toastr.warning('Erreur lors de la récupération de données', 'Opération échoué!');
-      this.router.navigate(['/society/' + this.societyReference + '/society-contacts']);
+      this.router.navigate(['/societies/edit/' + this.societyReference + '/contacts']);
     }
   }
 
@@ -168,7 +171,7 @@ export class SocietyContactTableComponent implements OnInit {
 
     const societyContact = rowData.getData();
 
-    this.router.navigate(['/society/' + this.societyReference + '/society-contact', societyContact.reference]);
+    this.router.navigate(['/societies/edit/' + this.societyReference + '/contacts/edit', societyContact.reference]);
 
   }
 

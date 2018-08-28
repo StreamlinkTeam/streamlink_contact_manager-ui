@@ -40,7 +40,7 @@ export class DeveloperService {
   getDevelopers(): Observable<DeveloperView[]> {
 
     this.loaderService.show();
-    const url = environment.API + '/ws/developers/all';
+    const url = environment.API + '/ws/developers';
 
     return this.http.get<DeveloperView[]>(url)
       ._finally(() => {

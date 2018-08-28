@@ -23,7 +23,6 @@ export class PersonalInfoEditorComponent {
               private activeRoute: ActivatedRoute) {
     this.editing = activeRoute.snapshot.parent.params['mode'] === 'edit';
 
-    console.info(activeRoute.snapshot.parent.params['reference']);
     if (this.editing) {
       service.getDeveloperInfo(activeRoute.snapshot.parent.params['reference'])
         .subscribe(response => this.personalInfo = response
@@ -47,7 +46,7 @@ export class PersonalInfoEditorComponent {
 
     if (form.valid) {
       if (this.editing) {
-        console.info(this.personalInfo);
+
         this.service.updateDeveloperInfo(this.personalInfo, this.personalInfo.developerReference)
           .subscribe(response => {
 

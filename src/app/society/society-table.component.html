@@ -1,4 +1,3 @@
-<script src="society-table.component.ts"></script>
 <div class="container">
 
   <div class="form-group bg-light border-light">
@@ -18,6 +17,7 @@
       <div class="form-group col-md-6">
         <label>Secteur d'activité	</label>
         <select class="form-control" name="activityArea" (change)="onSelectChange('activityArea',$event.target.value)">
+          <option value="">Tous</option>
             <option value="Other">Autres</option>
             <option value="Aerospace">Aéronautique</option>
             <option value="Aerospace">Aérospatial</option>
@@ -77,7 +77,7 @@
   <div class="dropdown-divider"></div>
 
   <div class="form-group">
-    <button class="btn btn-primary" routerLink="/society/create">Ajouter</button>
+    <button class="btn btn-primary" routerLink="/societies/create">Ajouter</button>
   </div>
 </div>
 

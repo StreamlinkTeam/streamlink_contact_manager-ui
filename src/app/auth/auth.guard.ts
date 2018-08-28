@@ -31,7 +31,7 @@ export class LoginGuard {
   canActivate(route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): boolean {
     if (this.auth.isAuthenticated()) {
-      this.router.navigateByUrl('/developer');
+      this.router.navigateByUrl('/developers');
       return false;
     }
     return true;

@@ -42,7 +42,7 @@ export class ActionEditorComponent {
       this.service.getSocietyActions(this.reference, this.societyReference)
         .subscribe(response => this.actions = response,
           error =>
-            this.router.navigate(['/society/' + this.societyReference + '/society-contacts', 'error']));
+            this.router.navigate(['/societies/edit/' + this.societyReference + '/contacts', 'error']));
     }
 
 
@@ -51,7 +51,7 @@ export class ActionEditorComponent {
       {label: 'Rappel / To do', value: 'RECALL'},
       {label: 'Présentation Client', value: 'CUSTOMER_PRESENTATION'},
       {label: 'Entretien Téléphonique', value: 'TELEPHONE_INTERVIEW'},
-      {label: 'Entretien Physique', value: 'PHYSICAL_MAINTENANCE'},
+      {label: 'Entretien Physique', value: 'PHYSICAL_INTERVIEW'},
       {label: 'Appel', value: 'CALL'},
       {label: 'Email', value: 'EMAIL'}];
 
@@ -59,15 +59,15 @@ export class ActionEditorComponent {
 
 
   isSociety() {
-    return this.contactType === 'society';
+    return this.contactType === 'societies';
   }
 
   isSocietyContact() {
-    return this.contactType === 'society-contact';
+    return this.contactType === 'contacts';
   }
 
   isDeveloper() {
-    return this.contactType === 'developer';
+    return this.contactType === 'developers';
   }
 
   showAction(index: number, form: NgForm) {
@@ -101,7 +101,6 @@ export class ActionEditorComponent {
       if (this.isDeveloper()) {
         this.service.deleteAction(act.reference, this.reference).subscribe(response => {
 
-          console.info(response);
           this.actions.splice(index, 1);
           this.toastr.success('Action supprimée avec succés', 'Opération Réussite!');
 
@@ -112,7 +111,6 @@ export class ActionEditorComponent {
         this.service.deleteSocietyAction(act.reference, this.reference, this.societyReference)
           .subscribe(response => {
 
-            console.info(response);
             this.actions.splice(index, 1);
             this.toastr.success('Action supprimée avec succés', 'Opération Réussite!');
 

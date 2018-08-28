@@ -47,7 +47,7 @@ export class ContactEditorComponent {
         this.societyReference)
         .subscribe(response => this.contact = response
           , error => {
-            this.router.navigate(['/society/' + this.societyReference + '/society-contacts', 'error']);
+            this.router.navigate(['/societies/edit/' + this.societyReference + '/contacts', 'error']);
           });
     }
 
@@ -55,15 +55,15 @@ export class ContactEditorComponent {
   }
 
   isSociety() {
-    return this.contactType === 'society';
+    return this.contactType === 'societies';
   }
 
   isSocietyContact() {
-    return this.contactType === 'society-contact';
+    return this.contactType === 'contacts';
   }
 
   isDeveloper() {
-    return this.contactType === 'developer';
+    return this.contactType === 'developers';
   }
 
   save(form: NgForm) {
@@ -95,11 +95,11 @@ export class ContactEditorComponent {
         this.societyContactService.updateSocietyContactContact(this.contact, this.contact.ownerReference, this.societyReference)
           .subscribe(response => {
 
-            this.toastr.success('Contact Mis à jour avec succés', 'Opération Réussite!');
+            this.toastr.success('Données Mise à jour avec succés', 'Opération Réussite!');
             this.contact = response;
 
           }, error => {
-            this.toastr.error('Erreur lors de la Mise à jour du contact', 'Opération échoué !!!');
+            this.toastr.error('Erreur lors de la Mise à jour des Données', 'Opération échoué !!!');
           });
       }
 

@@ -43,7 +43,6 @@ export class DeveloperCVComponent {
     if (form.valid) {
       this.service.createDeveloperCv(this.fileToUpload, this.referenceDeveloper)
         .subscribe(data => {
-          console.log(data);
           this.cvs.push(data);
           this.fileToUpload = null;
           this.f = null;

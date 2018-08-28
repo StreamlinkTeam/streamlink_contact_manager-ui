@@ -73,7 +73,6 @@ export class SkillsEditorComponent implements OnInit {
 
     if (form.valid) {
       if (this.editing) {
-        console.info(this.skills);
         this.service.updateDeveloperSkills(this.skills, this.skills.developerReference)
           .subscribe(res => {
 

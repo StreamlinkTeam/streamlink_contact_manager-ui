@@ -39,8 +39,7 @@ import {ContactModule} from '../contact/contact.module';
   declarations: [DeveloperTableComponent, DeveloperEditorComponent, PersonalInfoEditorComponent, SkillsEditorComponent,
     DeveloperComponent, ContractEditorComponent, DeveloperCVComponent, DeveloperCVScannerComponent],
   exports: [DeveloperTableComponent, DeveloperEditorComponent, SkillsEditorComponent, PersonalInfoEditorComponent, DeveloperComponent
-    , ContractEditorComponent
-    , DeveloperCVComponent, DeveloperCVScannerComponent]
+    , ContractEditorComponent, DeveloperCVComponent, DeveloperCVScannerComponent]
 })
 export class DeveloperModule {
 }

@@ -21,6 +21,7 @@ export class DeveloperComponent {
       this.referenceDeveloper = activeRoute.snapshot.params['reference'];
     } else {
       this.referenceDeveloper = null;
+      this.router.navigate(['/developers/create' ]);
     }
   }
 
