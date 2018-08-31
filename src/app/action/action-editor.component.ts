@@ -4,6 +4,9 @@ import {Component} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
 import {ToastrService} from 'ngx-toastr';
+import {User} from '../shared/entities/user.model';
+import {SocietyContact} from '../shared/entities/society-contact.model';
+import {SocietyContactService} from '../shared/services/society-contact.service';
 
 @Component({
   selector: 'app-action',
@@ -16,6 +19,9 @@ export class ActionEditorComponent {
   action: Action = new Action();
   reference: string;
 
+  contacts: SocietyContact[];
+
+
   types: any[];
 
   contactType = '';
@@ -25,7 +31,7 @@ export class ActionEditorComponent {
   actions: Action[];
 
 
-  constructor(private service: ActionService, private router: Router, private toastr: ToastrService,
+  constructor(private service: ActionService,private societyContactService: SocietyContactService, private router: Router, private toastr: ToastrService,
               activeRoute: ActivatedRoute) {
 
     this.contactType = activeRoute.snapshot.parent.url[0].toString();
@@ -40,6 +46,18 @@ export class ActionEditorComponent {
       this.reference = activeRoute.snapshot.parent.params['societyContactReference'];
       this.societyReference = activeRoute.snapshot.parent.parent.params['reference'];
       this.service.getSocietyActions(this.reference, this.societyReference)
+        .subscribe(response => this.actions = response,
+          error =>
+            this.router.navigate(['/societies/edit/' + this.societyReference + '/contacts', 'error']));
+    } else if (this.isSociety()) {
+
+      this.reference = null;
+      this.societyReference = activeRoute.snapshot.parent.params['reference'];
+      this.societyContactService.getSocietyContacts(this.societyReference)
+        .subscribe(response => this.contacts = response);
+
+
+      this.service.getSocietyActions(null, this.societyReference)
         .subscribe(response => this.actions = response,
           error =>
             this.router.navigate(['/societies/edit/' + this.societyReference + '/contacts', 'error']));
@@ -117,6 +135,16 @@ export class ActionEditorComponent {
           }, error => {
             this.toastr.error('Erreur lors de la suppression de l\'Action', 'Opération échoué !!!');
           });
+      } else if (this.isSociety()) {
+        this.service.deleteSocietyAction(act.reference, act.societyContactReference, this.societyReference)
+          .subscribe(response => {
+
+            this.actions.splice(index, 1);
+            this.toastr.success('Action supprimée avec succés', 'Opération Réussite!');
+
+          }, error => {
+            this.toastr.error('Erreur lors de la suppression de l\'Action', 'Opération échoué !!!');
+          });
       }
     }
   }
@@ -151,7 +179,8 @@ export class ActionEditorComponent {
               this.toastr.error('Erreur lors de la création de l\'Action', 'Opération échoué !!!');
             });
         }
-      } else if (this.isSocietyContact()) {
+      } else if (this.isSocietyContact() || this.isSociety()) {
+
         if (this.editing) {
 
           this.service.updateSocietyAction(this.action, this.action.reference, this.reference, this.societyReference)
@@ -167,11 +196,11 @@ export class ActionEditorComponent {
               this.toastr.error('Erreur lors de la mise à jour de l\'Action', 'Opération échoué !!!');
             });
         } else {
-          this.service.createSocietyAction(this.action, this.reference, this.societyReference)
+          this.service.createSocietyAction(this.action,this.isSocietyContact() ? this.reference : this.action.societyContactReference,
+            this.societyReference)
             .subscribe(response => {
 
-              this.service.getSocietyActions(this.reference, this.societyReference)
-                .subscribe(res => this.actions = res);
+              this.service.getSocietyActions(this.reference, this.societyReference).subscribe(res => this.actions = res);
               this.action = new Action();
               this.toastr.success('Action Créé avec succés', 'Opération Réussite!');
 

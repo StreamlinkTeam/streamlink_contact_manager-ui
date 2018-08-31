@@ -4,7 +4,7 @@ export class Evaluation {
   reference: string;
   developerReference: string;
   responsibleReference: string;
-  responsibleName: string;
+  responsibleFullName: string;
   relational: string;
   technical: string;
   note: string;

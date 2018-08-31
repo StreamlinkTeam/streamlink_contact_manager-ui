@@ -95,17 +95,13 @@
           <tr *ngFor="let eva of evaluations; let i=index">
             <td>{{i+1}}</td>
             <td>
-              <span i18n>
-                {eva.technical, select, NOT_DEFINED {Non défini} A {A} B {B} C {C} D {D}}
-              </span>
+              <app-custom-enum-render [value]="eva.technical"></app-custom-enum-render>
             </td>
             <td>
-              <span i18n>
-                {eva.relational, select, NOT_DEFINED {Non défini} A {A} B {B} C {C} D {D}}
-              </span>
+              <app-custom-enum-render [value]="eva.relational"></app-custom-enum-render>
             </td>
             <td>{{eva.note}}</td>
-            <td>{{eva.responsibleName}}</td>
+            <td>{{eva.responsibleFullName}}</td>
             <td>
               <button type="button" class="btn btn-sm btn-info fa fa-edit"
                       (click)="showEvaluation(i,form)">

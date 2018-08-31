@@ -71,16 +71,27 @@ export class ActionService {
     this.loaderService.show();
     const url = environment.API + '/ws/societies/contacts/actions';
 
-    const options = {
-      params: new HttpParams().set('societyContactReference', societyContactReference)
-        .set('societyReference', societyReference)
-    };
 
+    if (societyContactReference == null) {
+      const options = {
+        params: new HttpParams().set('societyReference', societyReference)
+      };
 
-    return this.http.get<Action[]>(url, options)
-      ._finally(() => {
-        this.loaderService.hide();
-      });
+      return this.http.get<Action[]>(url, options)
+        ._finally(() => {
+          this.loaderService.hide();
+        });
+    } else {
+      const options = {
+        params: new HttpParams().set('societyContactReference', societyContactReference)
+          .set('societyReference', societyReference)
+      };
+
+      return this.http.get<Action[]>(url, options)
+        ._finally(() => {
+          this.loaderService.hide();
+        });
+    }
   }
 
 
@@ -102,16 +113,27 @@ export class ActionService {
     this.loaderService.show();
     const url = environment.API + '/ws/societies/contacts/actions';
 
-    const options = {
-      params: new HttpParams().set('societyContactReference', societyContactReference)
-        .set('societyReference', societyReference).set('reference', reference)
-    };
+    if (societyContactReference != null) {
+      const options = {
+        params: new HttpParams().set('societyContactReference', societyContactReference)
+          .set('societyReference', societyReference).set('reference', reference)
+      };
 
+      return this.http.put<Action>(url, action, options)
+        ._finally(() => {
+          this.loaderService.hide();
+        });
+    } else {
+      const options = {
+        params: new HttpParams().set('societyReference', societyReference).set('reference', reference)
+      };
 
-    return this.http.put<Action>(url, action, options)
-      ._finally(() => {
-        this.loaderService.hide();
-      });
+      return this.http.put<Action>(url, action, options)
+        ._finally(() => {
+          this.loaderService.hide();
+        });
+
+    }
   }
 
   deleteSocietyAction(reference: string, societyContactReference: string, societyReference: string) {

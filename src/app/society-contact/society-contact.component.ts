@@ -15,6 +15,10 @@ export class SocietyContactComponent {
 
     this.editing = activeRoute.snapshot.params['mode'] === 'edit';
 
+    if (!this.editing) {
+      this.router.navigate(['/societies/' + activeRoute.snapshot.params['reference'] + '/contacts', 'error']);
+    }
+
 
   }
 

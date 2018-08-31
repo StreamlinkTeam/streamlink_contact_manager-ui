@@ -15,6 +15,7 @@ import {Ng2FileSizeModule} from 'ng2-file-size';
 import {Ng2SmartTableModule} from 'ng2-smart-table';
 import {ContactModule} from '../contact/contact.module';
 import {SocietyLegalInfoEditorComponent} from './society-legal-info-editor.component';
+import {ActionModule} from '../action/action.module';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import {SocietyLegalInfoEditorComponent} from './society-legal-info-editor.compo
     Ng2FileSizeModule,
     CommonModule,
     Ng2SmartTableModule,
-    ContactModule],
+    ContactModule,
+    ActionModule],
   declarations: [SocietyTableComponent, SocietyEditorComponent,
     SocietyComponent, SocietyLegalInfoEditorComponent],
   exports: [SocietyTableComponent, SocietyEditorComponent, SocietyComponent, SocietyLegalInfoEditorComponent]
