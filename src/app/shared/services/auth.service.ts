@@ -3,10 +3,9 @@ import {UserService} from './user.service';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 
-import {tokenNotExpired} from 'angular2-jwt';
-
 
 import 'rxjs/add/operator/map';
+import {JwtToken} from '../entities/token.model';
 
 @Injectable()
 export class AuthService {
@@ -40,13 +39,53 @@ export class AuthService {
       return false;
     }
 
-    return tokenNotExpired('access_token');
+    if (!this.tokenNotExpired()) {
+      this.clear();
+      return false;
+    }
+
+    return true;
+
+  }
+
+
+  public isAdmin(): boolean {
+    return this.isAuthenticated() && this.roleMatch(['ROLE_ADMIN']);
+  }
+
+
+  roleMatch(allowedRoles: string[]): boolean {
+    var isMatch = false;
+    var userRoles: string[] = this.getJwtToken().auth;
+    allowedRoles.forEach(element => {
+      if (userRoles.indexOf(element) > -1) {
+        isMatch = true;
+        return false;
+      }
+    });
+    return isMatch;
 
   }
 
 
   clear() {
     this.userService.logout();
+  }
+
+  private tokenNotExpired(): boolean {
+
+    let decodedJwtData = this.getJwtToken();
+
+    // console.log('decodedJwtData: ' + decodedJwtData);
+    // console.log('exp: ' + decodedJwtData.exp.valueOf());
+
+    return !(decodedJwtData.exp.valueOf() > (new Date().valueOf()));
+  }
+
+  private getJwtToken(): JwtToken {
+    let decodedJwtJsonData = window.atob(this.getToken().split('.')[1]);
+    let decodedJwtData = JSON.parse(decodedJwtJsonData) as JwtToken;
+    return decodedJwtData;
   }
 
 }

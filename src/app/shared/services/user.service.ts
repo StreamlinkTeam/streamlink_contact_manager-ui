@@ -9,6 +9,7 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import {LoaderService} from "./loader.service";
+import {HttpResponse} from '@angular/common/http';
 
 
 @Injectable()
@@ -58,9 +59,61 @@ export class UserService {
   getUsers(): Observable<User[]> {
 
     this.loaderService.show();
-    const url = environment.API + '/ws/users';
+    const url = environment.API + '/ws/users/all';
 
     return this.http.get<User[]>(url)
+      ._finally(() => {
+        this.loaderService.hide();
+      });
+  }
+
+  getUser(reference: string): Observable<User> {
+
+    this.loaderService.show();
+    const url = environment.API + '/ws/users';
+
+    const options = {params: new HttpParams().set('userReference', reference)};
+
+    return this.http.get<User>(url, options)
+      ._finally(() => {
+        this.loaderService.hide();
+      });
+
+  }
+
+  createUser(user: User): Observable<User> {
+    this.loaderService.show();
+    const url = environment.API + '/ws/users';
+    return this.http.post<User>(url, user)
+      ._finally(() => {
+        this.loaderService.hide();
+      });
+  }
+
+  updateUser(user: User, reference: string): Observable<User> {
+    this.loaderService.show();
+    const url = environment.API + '/ws/users';
+
+    const options = {params: new HttpParams().set('userReference', reference)};
+
+
+    return this.http
+      .put<User>(url, user, options)
+      ._finally(() => {
+        this.loaderService.hide();
+      });
+  }
+
+  deleteUser(reference: string) {
+    this.loaderService.show();
+    const url = environment.API + '/ws/users';
+
+    const options = {params: new HttpParams().set('userReference', reference)};
+
+
+    return this.http
+      .delete(url, options)
+      .map((res: HttpResponse<any>) => res.body)
       ._finally(() => {
         this.loaderService.hide();
       });

@@ -88,6 +88,11 @@ export class DeveloperTableComponent implements OnInit {
       this.toastr.warning('Erreur lors de la récupération de données', 'Opération échoué!');
       this.router.navigate(['/developers']);
     }
+
+    if (activeRoute.snapshot.params['error'] === 'forbidden') {
+      this.toastr.error('Vous n\'avez pas la permission d\'accéder à cette ressource.', '403 - ACCÈS REFUSÉ');
+      this.router.navigate(['/developers']);
+    }
   }
 
 

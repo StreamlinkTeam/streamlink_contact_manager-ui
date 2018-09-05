@@ -1,4 +1,3 @@
-import {User} from '../shared/entities/user.model';
 import {AuthService} from '../shared/services/auth.service';
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
@@ -19,8 +18,14 @@ export class AppNavbarComponent implements OnInit {
     return this.auth.isAuthenticated();
   }
 
+  isAdmin() {
 
-  constructor(private router: Router, private auth: AuthService) {}
+    return this.auth.isAdmin();
+  }
+
+
+  constructor(private router: Router, private auth: AuthService) {
+  }
 
   logout() {
     this.auth.clear();
