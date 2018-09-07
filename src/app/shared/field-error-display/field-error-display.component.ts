@@ -22,6 +22,9 @@ export class FieldErrorDisplayComponent {
     if (this.model.errors) {
       for (const errorName in this.model.errors) {
         switch (errorName) {
+          case'validateEqual':
+            messages.push(`Les mots de passe ne se correspondent pas`);
+            break;
           case 'email':
             messages.push(`L'entrée ${thing} doit avoir une format email valide`);
             break;

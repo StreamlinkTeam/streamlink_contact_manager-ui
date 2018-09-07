@@ -18,11 +18,21 @@ import {SocietyContactTableComponent} from './society-contact/society-contact-ta
 import {SocietyContactEditorComponent} from './society-contact/society-contact-editor.component';
 import {SocietyContactComponent} from './society-contact/society-contact.component';
 import {AdminComponent} from './admin/admin.component';
-import {UserTableComponent} from './admin/users/admin.users-table.component';
-import {UserEditorComponent} from './admin/users/admin.users-editor.component';
+import {UserTableComponent} from './users/users-table.component';
+import {UserEditorComponent} from './users/users-editor.component';
+import {ProfilComponent} from './profil/profil.component';
+import {ProfilPasswordEditorComponent} from './profil/profil-password-editor.component';
 
 export const appRoutes: Routes = [
   {path: 'auth', component: AuthComponent, canActivate: [LoginGuard]},
+  {
+    path: 'profil', component: ProfilComponent, canActivate: [AuthGuard],
+    children: [
+      {path: 'general', component: UserEditorComponent},
+      {path: 'changepassword', component: ProfilPasswordEditorComponent},
+      {path: '**', redirectTo: 'general'}
+    ]
+  },
   {
     path: 'admin', component: AdminComponent, canActivate: [AuthGuard], data: {roles: ['ROLE_ADMIN']},
     children: [

@@ -1,6 +1,8 @@
 import {AuthService} from '../shared/services/auth.service';
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
+import {User} from '../shared/entities/user.model';
+import {AppNavbarService} from './app-navbar.service';
 
 @Component({
   selector: 'app-navbar',
@@ -9,8 +11,29 @@ import {Router} from '@angular/router';
 })
 export class AppNavbarComponent implements OnInit {
 
+  user: User;
+
+  constructor(private router: Router, private auth: AuthService,
+              private appNavbarService: AppNavbarService) {
+  }
 
   ngOnInit(): void {
+
+    if (this.auth.isAuthenticated()) {
+
+      this.auth.getCurrentUser()
+        .subscribe(response => this.user = response
+          , error =>
+            this.router.navigate(['/developers', 'error']));
+
+      this.appNavbarService.update.subscribe(() => {
+        this.auth.getCurrentUser()
+          .subscribe(response => this.user = response
+            , error =>
+              this.router.navigate(['/developers', 'error']));
+      });
+
+    }
 
   }
 
@@ -23,9 +46,6 @@ export class AppNavbarComponent implements OnInit {
     return this.auth.isAdmin();
   }
 
-
-  constructor(private router: Router, private auth: AuthService) {
-  }
 
   logout() {
     this.auth.clear();

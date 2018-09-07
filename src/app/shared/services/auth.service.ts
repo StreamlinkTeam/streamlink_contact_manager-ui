@@ -17,11 +17,9 @@ export class AuthService {
     return this.userService.authenticate(username, password);
   }
 
-  getCurrentUser(): User {
-    let user: User;
+  getCurrentUser(): Observable<User> {
 
-    this.userService.getCurrentUser().subscribe(response => user = response);
-    return user;
+    return this.userService.getCurrentUser();
 
   }
 
@@ -48,6 +46,11 @@ export class AuthService {
 
   }
 
+  public isCurrentUser(userName: string): boolean {
+
+    return this.getJwtToken().sub === userName;
+  }
+
 
   public isAdmin(): boolean {
     return this.isAuthenticated() && this.roleMatch(['ROLE_ADMIN']);
@@ -55,8 +58,8 @@ export class AuthService {
 
 
   roleMatch(allowedRoles: string[]): boolean {
-    var isMatch = false;
-    var userRoles: string[] = this.getJwtToken().auth;
+    let isMatch = false;
+    const userRoles: string[] = this.getJwtToken().auth;
     allowedRoles.forEach(element => {
       if (userRoles.indexOf(element) > -1) {
         isMatch = true;
@@ -77,14 +80,23 @@ export class AuthService {
     let decodedJwtData = this.getJwtToken();
 
     // console.log('decodedJwtData: ' + decodedJwtData);
-    // console.log('exp: ' + decodedJwtData.exp.valueOf());
+    // console.log('exp: ' + decodedJwtData.exp);
+    //
+    // console.log('date: ' + new Date().getTime());
 
-    return !(decodedJwtData.exp.valueOf() > (new Date().valueOf()));
+    // console.log('User Name: ' + decodedJwtData.sub);
+
+
+    return (decodedJwtData.exp > new Date().getTime());
   }
 
   private getJwtToken(): JwtToken {
     let decodedJwtJsonData = window.atob(this.getToken().split('.')[1]);
     let decodedJwtData = JSON.parse(decodedJwtJsonData) as JwtToken;
+
+    decodedJwtData.exp = decodedJwtData.exp * 1000;
+    decodedJwtData.iat = decodedJwtData.iat * 1000;
+
     return decodedJwtData;
   }
 

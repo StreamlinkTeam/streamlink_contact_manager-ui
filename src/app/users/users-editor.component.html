@@ -2,8 +2,8 @@
   <div class="row">
     <div class="col border">
       <div class="row">
-        <div class="col border" [class.bg-warning]="editing" [class.bg-info]="!editing">
-          <h5 class="text-dark dropdown-header">Détails Du contact</h5>
+        <div class="col border" [class.bg-warning]="editing || currentUser" [class.bg-info]="!editing && !currentUser">
+          <h5 class="text-dark dropdown-header">Détails De L'utilisateur</h5>
         </div>
       </div>
       <div class="row">
@@ -30,10 +30,10 @@
               </app-field-error-display>
             </div>
 
-            <div class="form-group" *ngIf="!editing">
+            <div class="form-group" *ngIf="!editing && !currentUser">
               <label>Mot de Passe</label>
-              <input class="form-control" name="password" type="password" required #password_input="ngModel"
-                     [(ngModel)]="user.password" minlength="8"/>
+              <input class="form-control" name="mdp" type="password" required #password_input="ngModel"
+                     [(ngModel)]="user.password" minlength="8" validateEqual="confirmPassword" reverse="true"/>
               <app-field-error-display
                 [model]="password_input"
                 fieldName="Mot de Passe"
@@ -41,9 +41,22 @@
               </app-field-error-display>
             </div>
 
+            <div class="form-group" *ngIf="!editing && !currentUser">
+              <label>Confirmation du Mot de Passe</label>
+              <input class="form-control" type="password"
+                     name="confirmPassword" [(ngModel)]="user.confirmPassword"
+                     required validateEqual="mdp" minlength="8"
+                     #confirmPassword_input="ngModel">
+              <app-field-error-display
+                [model]="confirmPassword_input"
+                fieldName="Confirmation du Mot de Passe"
+                [displayError]="form.submitted && confirmPassword_input.invalid">
+              </app-field-error-display>
+            </div>
+
             <div class="form-group">
-              <label for="email">Email: </label>
-              <input class="form-control" id="email" name="email" #email_input="ngModel"
+              <label>Email: </label>
+              <input class="form-control" name="mail" #email_input="ngModel"
                      [(ngModel)]="user.email" email>
               <app-field-error-display
                 [model]="email_input"
@@ -68,11 +81,12 @@
 
             <div class="form-group">
               <button type="submit" class="btn btn-primary"
-                      [class.btn-warning]="editing">Enregistrer
+                      [class.btn-warning]="editing || currentUser">Enregistrer
               </button>
-              <button type="reset" class="btn btn-secondary"
+              <button type="reset" class="btn btn-secondary" *ngIf="!currentUser"
                       routerLink="/admin/users">Annuler
               </button>
+
             </div>
           </form>
         </div>

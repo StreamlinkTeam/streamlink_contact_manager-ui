@@ -207,10 +207,10 @@ export class DeveloperTableComponent implements OnInit {
       this.service.deleteDeveloper(developer.reference).subscribe(res => {
 
         this.source.remove(rowData);
-        this.toastr.success('Condidats Supprimé avec succés', 'Opération Réussite!');
+        this.toastr.success('Candidats Supprimé avec succés', 'Opération Réussite!');
 
       }, error => {
-        this.toastr.error('Erreur lors de la suppression du condidats', 'Opération échoué !!!');
+        this.toastr.error('Erreur lors de la suppression du candidats', 'Opération échoué !!!');
       });
 
     }

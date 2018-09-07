@@ -70,7 +70,7 @@ export class DeveloperEditorComponent {
             this.router.navigate(['/developers/edit', response.reference]);
 
           }, error => {
-            this.toastr.error('Erreur lors de la création du condidats', 'Opération échoué !!!');
+            this.toastr.error('Erreur lors de la création du candidats', 'Opération échoué !!!');
           });
       }
     }

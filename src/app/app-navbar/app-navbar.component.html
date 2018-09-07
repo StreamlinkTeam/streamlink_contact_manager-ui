@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-  <a class="navbar-brand" href="#">StreamLink Contacts</a>
+  <a class="navbar-brand" href="#">StreamLink</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse"
           data-target="#navbarsExampleDefault"
           aria-controls="navbarsExampleDefault" aria-expanded="false"
@@ -9,7 +9,7 @@
   <div class="collapse navbar-collapse" id="navbarsExampleDefault">
     <ul class="navbar-nav mr-auto" routerLinkActive="active">
       <li class="nav-item">
-        <a class="nav-link" routerLinkActive="active" routerLink="/developers">Condidats</a>
+        <a class="nav-link" routerLinkActive="active" routerLink="/developers">Candidats</a>
       </li>
 
       <li class="nav-item">
@@ -19,11 +19,31 @@
       <li *ngIf="isAdmin()" class="nav-item">
         <a class="nav-link text-danger" routerLinkActive="active" routerLink="/admin">ADMIN</a>
       </li>
+
+
     </ul>
-    <form *ngIf="isLoggedIn()" class="form-inline my-2 my-lg-0">
-      <button class="btn btn-outline-success my-2 my-sm-0"
-              (click)="logout()" *ngIf="isLoggedIn()" type="submit">Déconnexion
-      </button>
+    <form *ngIf="isLoggedIn() && user != null" class="form-inline my-2 my-lg-0">
+
+      <div class="dropdown">
+        <button class="btn btn-outline-success dropdown-toggle"
+                type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+          {{user.firstname}} {{user.lastname}}
+        </button>
+        <div class="dropdown-menu" style="right: 0;left: auto;"
+             aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" routerLinkActive="active" routerLink="/profil">Profil</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item text-warning" (click)="logout()">Déconnexion</a>
+        </div>
+      </div>
+
+      <!--<a class="nav-link text-success" routerLinkActive="active" routerLink="/profil">Profil</a>-->
+
+      <!--<button class="btn btn-outline-success my-2 my-sm-0"-->
+      <!--(click)="logout()" *ngIf="isLoggedIn()" type="submit">Déconnexion-->
+      <!--</button>-->
+
     </form>
 
   </div>

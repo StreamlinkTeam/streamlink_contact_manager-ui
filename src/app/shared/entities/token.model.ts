@@ -6,6 +6,6 @@ export class Token {
 export class JwtToken {
   sub: string;
   auth: string[];
-  iat: Date;
-  exp: Date;
+  iat: number;
+  exp: number;
 }

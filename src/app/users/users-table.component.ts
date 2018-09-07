@@ -4,13 +4,13 @@ import {ServerDataSource} from 'ng2-smart-table';
 import {Row} from 'ng2-smart-table/lib/data-set/row';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
-import {environment} from '../../../environments/environment';
-import {UserService} from '../../shared/services/user.service';
+import {environment} from '../../environments/environment';
+import {UserService} from '../shared/services/user.service';
 
 
 @Component({
   moduleId: module.id,
-  templateUrl: 'admin.users-table.component.html'
+  templateUrl: 'users-table.component.html'
 })
 export class UserTableComponent implements OnInit {
 

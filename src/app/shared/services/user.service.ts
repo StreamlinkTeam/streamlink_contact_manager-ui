@@ -10,6 +10,8 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import {LoaderService} from "./loader.service";
 import {HttpResponse} from '@angular/common/http';
+import {Developer} from '../entities/developer.model';
+import {SocietyContact} from '../entities/society-contact.model';
 
 
 @Injectable()
@@ -44,6 +46,24 @@ export class UserService {
         this.loaderService.hide();
       });
   }
+
+  changePassword(oldPassword: string, newPassword: string): Observable<any> {
+
+    this.loaderService.show();
+    const url = environment.API + '/ws/users/current/password';
+
+    const options = {
+      params: new HttpParams().set('oldPassword', oldPassword)
+        .set('newPassword', newPassword)
+    };
+
+    return this.http.put<any>(url, options)
+      ._finally(() => {
+        this.loaderService.hide();
+      });
+
+  }
+
 
   logout(): boolean {
     localStorage.removeItem('access_token');

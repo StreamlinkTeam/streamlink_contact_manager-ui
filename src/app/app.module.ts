@@ -8,7 +8,6 @@ import {AuthModule} from './auth/auth.module';
 import {DeveloperModule} from './developer/developer.module';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {RouterModule} from '@angular/router';
-import {AppNavbarComponent} from './app-navbar/app-navbar.component';
 import {registerLocaleData} from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import {ToastrModule} from 'ngx-toastr';
@@ -17,20 +16,19 @@ import {SocietyModule} from './society/society.module';
 import {SocietyContactModule} from "./society-contact/society-contact.module";
 import {appRoutes} from './routes';
 import {AdminModule} from './admin/admin.module';
+import {ProfilModule} from './profil/profil.module';
+import {AppNavbarModule} from './app-navbar/app-navbar.module';
 
 
 registerLocaleData(localeFr, 'fr');
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    AppNavbarComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule, DeveloperModule, AuthModule, SocietyContactModule,
-    HttpClientModule, LoaderModule, SocietyModule, AdminModule,
-    ToastrModule.forRoot(),
+    HttpClientModule, LoaderModule, SocietyModule, AdminModule, ProfilModule,
+    ToastrModule.forRoot({positionClass: 'toast-bottom-right'}), AppNavbarModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [
@@ -39,7 +37,8 @@ registerLocaleData(localeFr, 'fr');
       useClass: AuthInterceptor,
       multi: true
     }, {provide: LOCALE_ID, useValue: 'fr'}
-  ], bootstrap: [AppComponent]
+  ],
+  bootstrap: [AppComponent]
 })
 export class AppModule {
 }
