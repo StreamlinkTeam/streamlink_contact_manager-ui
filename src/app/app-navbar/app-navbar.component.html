@@ -22,13 +22,13 @@
 
 
     </ul>
-    <form *ngIf="isLoggedIn() && user != null" class="form-inline my-2 my-lg-0">
+    <form *ngIf="isLoggedIn() && user$ | async as user" class="form-inline my-2 my-lg-0">
 
       <div class="dropdown">
         <button class="btn btn-outline-success dropdown-toggle"
                 type="button" id="dropdownMenuButton" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
-          {{user.firstname}} {{user.lastname}}
+          {{user.firstname }} {{user.lastname}}
         </button>
         <div class="dropdown-menu" style="right: 0;left: auto;"
              aria-labelledby="dropdownMenuButton">

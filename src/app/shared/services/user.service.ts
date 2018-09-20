@@ -10,8 +10,6 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import {LoaderService} from "./loader.service";
 import {HttpResponse} from '@angular/common/http';
-import {Developer} from '../entities/developer.model';
-import {SocietyContact} from '../entities/society-contact.model';
 
 
 @Injectable()

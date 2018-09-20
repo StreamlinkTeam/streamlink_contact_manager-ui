@@ -3,6 +3,7 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {User} from '../shared/entities/user.model';
 import {AppNavbarService} from './app-navbar.service';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -11,7 +12,7 @@ import {AppNavbarService} from './app-navbar.service';
 })
 export class AppNavbarComponent implements OnInit {
 
-  user: User;
+  user$: Observable<User>;
 
   constructor(private router: Router, private auth: AuthService,
               private appNavbarService: AppNavbarService) {
@@ -21,16 +22,11 @@ export class AppNavbarComponent implements OnInit {
 
     if (this.auth.isAuthenticated()) {
 
-      this.auth.getCurrentUser()
-        .subscribe(response => this.user = response
-          , error =>
-            this.router.navigate(['/developers', 'error']));
+      this.user$ = this.auth.getCurrentUser();
 
       this.appNavbarService.update.subscribe(() => {
-        this.auth.getCurrentUser()
-          .subscribe(response => this.user = response
-            , error =>
-              this.router.navigate(['/developers', 'error']));
+        this.user$ = this.auth.getCurrentUser();
+
       });
 
     }
