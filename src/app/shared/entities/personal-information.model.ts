@@ -7,5 +7,7 @@ export class PersonalInformation {
   nationality: string;
   socialSecurityNumber: string;
   familySituation: string;
+  role: string;
+  tjm: number;
 
 }

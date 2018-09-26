@@ -10,9 +10,10 @@
         <div class="col border">
           <form novalidate #form="ngForm" (ngSubmit)="save(form)">
             <div *ngIf="editing" class="form-group">
-              <label>Date de Création: </label> <input type="text" readonly class="form-control-plaintext"
-                                                       name="createdDate"
-                                                       value="{{societyContact.createdDate | date:'long'}}"/>
+              <label>Date de Création: </label>
+              <input type="text" readonly class="form-control-plaintext"
+                     name="createdDate" style="width: 70%"
+                     value="{{societyContact.createdDate | date:'long'}}"/>
             </div>
 
             <div class="form-group">
@@ -35,17 +36,17 @@
             </div>
 
             <div class="form-group">
-            <label>Titre</label> <input class="form-control" name="titre" required #titre_input="ngModel"
-                                        [(ngModel)]="societyContact.titre"/>
-            <app-field-error-display
-              [model]="titre_input"
-              fieldName="Titre"
-              [displayError]="form.submitted && titre_input.invalid">
-            </app-field-error-display>
-          </div>
+              <label>Titre</label> <input class="form-control" name="titre" required #titre_input="ngModel"
+                                          [(ngModel)]="societyContact.titre"/>
+              <app-field-error-display
+                [model]="titre_input"
+                fieldName="Titre"
+                [displayError]="form.submitted && titre_input.invalid">
+              </app-field-error-display>
+            </div>
 
             <div class="form-group">
-              <label>Service</label> <input class="form-control" name="service"  [(ngModel)]="societyContact.service"/>
+              <label>Service</label> <input class="form-control" name="service" [(ngModel)]="societyContact.service"/>
 
 
             </div>

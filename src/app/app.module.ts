@@ -18,6 +18,7 @@ import {appRoutes} from './routes';
 import {AdminModule} from './admin/admin.module';
 import {ProfilModule} from './profil/profil.module';
 import {AppNavbarModule} from './app-navbar/app-navbar.module';
+import {ResourceModule} from './resource/resource.module';
 
 
 registerLocaleData(localeFr, 'fr');
@@ -26,7 +27,7 @@ registerLocaleData(localeFr, 'fr');
 @NgModule({
   declarations: [AppComponent],
   imports: [
-    BrowserModule, DeveloperModule, AuthModule, SocietyContactModule,
+    BrowserModule, DeveloperModule, AuthModule, SocietyContactModule, ResourceModule,
     HttpClientModule, LoaderModule, SocietyModule, AdminModule, ProfilModule,
     ToastrModule.forRoot({positionClass: 'toast-bottom-right'}), AppNavbarModule,
     RouterModule.forRoot(appRoutes)

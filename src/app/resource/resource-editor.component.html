@@ -13,16 +13,16 @@
               <label>Date de Création: </label>
               <input type="text" readonly class="form-control-plaintext"
                      name="createdDate" style="width: 70%"
-                     value="{{developer.createdDate | date:'long'}}"/>
+                     value="{{resource.createdDate | date:'long'}}"/>
             </div>
             <div class="form-group">
               <label>Commentaires</label>
               <textarea class="form-control" name="note" rows="5"
-                        [(ngModel)]="developer.note"></textarea>
+                        [(ngModel)]="resource.note"></textarea>
             </div>
             <div class="form-group">
               <label>Nom</label> <input class="form-control" name="firstname" required #firstname_input="ngModel"
-                                        [(ngModel)]="developer.firstname"/>
+                                        [(ngModel)]="resource.firstname"/>
               <app-field-error-display
                 [model]="firstname_input"
                 fieldName="Nom"
@@ -31,32 +31,44 @@
             </div>
             <div class="form-group">
               <label>Prénom</label> <input class="form-control" name="lastname" required #lastname_input="ngModel"
-                                           [(ngModel)]="developer.lastname"/>
+                                           [(ngModel)]="resource.lastname"/>
               <app-field-error-display
                 [model]="lastname_input"
                 fieldName="Prénom"
                 [displayError]="form.submitted && lastname_input.invalid">
               </app-field-error-display>
             </div>
+
+            <div class="form-group">
+              <label>Matricule</label>
+              <input class="form-control" name="registrationNumber" [(ngModel)]="resource.registrationNumber"/>
+
+            </div>
             <div class="form-group">
 
               <div class="segmented-control " style="width: 100%; color: #4fa2d9">
                 <input type="radio" value="M" name="gender"
-                       [(ngModel)]="developer.gender"> Mr <input type="radio"
-                                                                 value="F" name="gender"
-                                                                 [(ngModel)]="developer.gender">
+                       [(ngModel)]="resource.gender"> Mr <input type="radio"
+                                                                value="F" name="gender"
+                                                                [(ngModel)]="resource.gender">
                 Mme
               </div>
             </div>
             <div class="form-group">
-              <label>Etape</label> <select class="form-control" name="stage"
-                                           [(ngModel)]="developer.stage">
-              <option *ngFor="let stage of stages" [ngValue]="stage.value">{{stage.label}}</option>
+              <label>Etat</label> <select class="form-control" name="resourceStage"
+                                          [(ngModel)]="resource.resourceStage">
+              <option *ngFor="let stage of resourceStages" [ngValue]="stage.value">{{stage.label}}</option>
+            </select>
+            </div>
+            <div class="form-group">
+              <label>Type</label> <select class="form-control" name="resourceType"
+                                          [(ngModel)]="resource.resourceType">
+              <option *ngFor="let type of resourceTypes" [ngValue]="type.value">{{type.label}}</option>
             </select>
             </div>
             <div class="form-group">
               <label>Responsable RH</label> <select class="form-control"
-                                                    name="rh" [(ngModel)]="developer.rhReference">
+                                                    name="rh" [(ngModel)]="resource.rhReference">
               <option *ngFor="let user of users" [ngValue]="user.reference">{{user.firstname}}
                 {{user.lastname}}
               </option>
@@ -64,7 +76,7 @@
             </div>
             <div class="form-group">
               <label>Responsable Manager</label> <select class="form-control"
-                                                         name="manager" [(ngModel)]="developer.managerReference">
+                                                         name="manager" [(ngModel)]="resource.managerReference">
               <option *ngFor="let user of users" [ngValue]="user.reference">{{user.firstname}}
                 {{user.lastname}}
               </option>
@@ -73,14 +85,14 @@
             <div class="form-group">
               <label>Disponibiltité</label> <input class="form-control"
                                                    type="date" name="availability"
-                                                   [(ngModel)]="developer.availability"/>
+                                                   [(ngModel)]="resource.availability"/>
             </div>
             <div class="form-group">
               <label>Mobilité</label>
 
               <ng-select [multiple]="true" bindValue="label" [hideSelected]="true"
                          name="mobility" #mobility="ngModel"
-                         [(ngModel)]="developer.mobility" id="mobility">
+                         [(ngModel)]="resource.mobility" id="mobility">
 
 
                 <ng-option value="monde">Monde</ng-option>
@@ -322,7 +334,7 @@
                       [class.btn-warning]="editing">Enregistrer
               </button>
               <button type="reset" class="btn btn-secondary"
-                      routerLink="/developers">Annuler
+                      routerLink="/resources">Annuler
               </button>
             </div>
           </form>

@@ -10,9 +10,10 @@
         <div class="col border">
           <form novalidate #form="ngForm" (ngSubmit)="save(form)">
             <div *ngIf="editing" class="form-group">
-              <label>Date de Création: </label> <input type="text" readonly class="form-control-plaintext"
-                                                       name="createdDate"
-                                                       value="{{society.createdDate | date:'long'}}"/>
+              <label>Date de Création: </label>
+              <input type="text" readonly class="form-control-plaintext"
+                     name="createdDate" style="width: 70%"
+                     value="{{society.createdDate | date:'long'}}"/>
             </div>
 
             <div class="form-group">

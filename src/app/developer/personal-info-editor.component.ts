@@ -15,6 +15,8 @@ export class PersonalInfoEditorComponent {
   editing = false;
   personalInfo: PersonalInformation = new PersonalInformation();
   familySituations: any[];
+  urlToReturn = '';
+
 
 
   constructor(private service: DeveloperService,
@@ -22,13 +24,15 @@ export class PersonalInfoEditorComponent {
               private router: Router,
               private activeRoute: ActivatedRoute) {
     this.editing = activeRoute.snapshot.parent.params['mode'] === 'edit';
+    this.urlToReturn = '/'+activeRoute.snapshot.parent.url[0].toString();
+
 
     if (this.editing) {
       service.getDeveloperInfo(activeRoute.snapshot.parent.params['reference'])
         .subscribe(response => this.personalInfo = response
           ,
           error =>
-            this.router.navigate(['/developers', 'error']));
+            this.router.navigate([this.urlToReturn, 'error']));
     }
 
     this.familySituations = [
@@ -40,6 +44,14 @@ export class PersonalInfoEditorComponent {
       {label: 'PACS', value: 'PACS'}
     ];
 
+  }
+
+  isDeveloper() {
+    return this.activeRoute.snapshot.parent.url[0].toString() === 'developers';
+  }
+
+  isResource() {
+    return this.activeRoute.snapshot.parent.url[0].toString() === 'resources';
   }
 
   save(form: NgForm) {

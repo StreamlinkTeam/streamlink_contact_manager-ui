@@ -42,7 +42,7 @@ export class UserEditorComponent {
           this.currentUser = true;
         }
         , error =>
-          this.router.navigate(['/developers', 'error']));
+          this.router.navigate(['/admin', 'error']));
     }
 
   }

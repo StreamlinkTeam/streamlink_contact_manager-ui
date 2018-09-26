@@ -1,11 +1,31 @@
-
-import {Language} from './language.model';
 import {User} from './user.model';
 
-export class DeveloperView {
+
+export class Resource {
   reference: string;
   firstname: string;
   lastname: string;
+  registrationNumber: string;
+  resourceType: string;
+  resourceStage: string;
+  note: string;
+  managerReference: string;
+  rhReference: string;
+  availability: Date;
+  gender: string;
+  stage: string;
+  mobility: string;
+  createdDate: Date;
+  modifiedDate: Date;
+}
+
+export class ResourceView {
+  reference: string;
+  firstname: string;
+  lastname: string;
+  registrationNumber: string;
+  resourceType: string;
+  resourceStage: string;
   stage: string;
   manager: User;
   rh: User;
@@ -38,3 +58,4 @@ export class DeveloperView {
   country: string;
   website: string;
 }
+

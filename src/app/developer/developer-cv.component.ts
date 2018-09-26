@@ -16,21 +16,23 @@ export class DeveloperCVComponent {
   referenceDeveloper: string;
   fileToUpload: File = null;
   f: File = null;
+  urlToReturn = '';
 
   cvs: CV[];
 
 
   constructor(private router: Router,
-              activeRoute: ActivatedRoute, private service: DeveloperService,
+              private activeRoute: ActivatedRoute, private service: DeveloperService,
               private toastr: ToastrService) {
 
     this.referenceDeveloper = activeRoute.snapshot.parent.params['reference'];
+    this.urlToReturn = '/'+activeRoute.snapshot.parent.url[0].toString();
 
     this.service.getDeveloperCVs(this.referenceDeveloper)
       .subscribe(response => this.cvs = response
         ,
         error =>
-          this.router.navigate(['/developers', 'error']));
+          this.router.navigate([this.urlToReturn, 'error']));
 
   }
 

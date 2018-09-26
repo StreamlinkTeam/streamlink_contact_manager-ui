@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   moduleId: module.id,
@@ -8,8 +9,13 @@ import {Router, ActivatedRoute} from '@angular/router';
 export class AdminComponent {
 
 
-  constructor(private router: Router,
+  constructor(private router: Router,private toastr: ToastrService,
     activeRoute: ActivatedRoute) {
+
+    if (activeRoute.snapshot.params['error'] === 'error') {
+      this.toastr.warning('Erreur lors de la récupération de données', 'Opération échoué!');
+      this.router.navigate(['/admin']);
+    }
   }
 
 

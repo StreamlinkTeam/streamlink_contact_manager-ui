@@ -15,13 +15,14 @@ import {SocietyService} from './services/society.service';
 import {SocietyContactService} from "./services/society-contact.service";
 import {CustomEnumRenderComponent} from './custom-ng2-smart-table-renderer/custom-enum-render.component';
 import {EqualValidator} from './directives/equal-validator.directive';
+import {ResourceService} from './services/resource.service';
 
 @NgModule({
   imports: [HttpClientModule, CommonModule],
   entryComponents: [CustomEnumRenderComponent],
-  declarations: [FieldErrorDisplayComponent, CustomEnumRenderComponent,EqualValidator],
-  exports: [FieldErrorDisplayComponent, CustomEnumRenderComponent,EqualValidator],
-  providers: [DeveloperService, EvaluationService, ActionService,
+  declarations: [FieldErrorDisplayComponent, CustomEnumRenderComponent, EqualValidator],
+  exports: [FieldErrorDisplayComponent, CustomEnumRenderComponent, EqualValidator],
+  providers: [DeveloperService, EvaluationService, ActionService, ResourceService,
     UserService, LanguageService, AuthService, SocietyService,
     ContractService, ValidatorService, LoaderService, SocietyContactService],
 })

@@ -81,7 +81,7 @@
                       [class.btn-warning]="editing">Enregistrer
               </button>
               <button type="reset" class="btn btn-secondary"
-                      routerLink="/developers">Annuler
+                      [routerLink]="urlToReturn">Annuler
               </button>
 
               <button class="btn btn-info" *ngIf="!haveContract"
@@ -179,7 +179,7 @@
                       [class.btn-warning]="editing">Enregistrer
               </button>
               <button type="reset" class="btn btn-secondary"
-                      routerLink="/developers">Annuler
+                      [routerLink]="urlToReturn">Annuler
               </button>
 
               <button type="button" class="btn btn-danger"

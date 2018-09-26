@@ -17,10 +17,12 @@ export class ContractEditorComponent implements OnInit {
   wishedContract: WishedContract = new WishedContract();
   contract: Contract = new Contract();
   haveContract = false;
+  urlToReturn = '';
 
 
   constructor(private service: ContractService, private router: Router, private toastr: ToastrService,
               private activeRoute: ActivatedRoute) {
+    this.urlToReturn = '/'+this.activeRoute.snapshot.parent.url[0].toString();
 
   }
 
@@ -32,7 +34,7 @@ export class ContractEditorComponent implements OnInit {
       this.service.getWishedContract(this.activeRoute.snapshot.parent.params['reference'])
         .subscribe(response => this.wishedContract = response,
           error => {
-            this.router.navigate(['/developers', 'error']);
+            this.router.navigate([this.urlToReturn, 'error']);
           });
 
       this.service.getContract(this.activeRoute.snapshot.parent.params['reference'])
@@ -40,7 +42,7 @@ export class ContractEditorComponent implements OnInit {
           this.contract = response;
           this.haveContract = this.contract != null && this.contract.reference != null;
         }, error => {
-          this.router.navigate(['/developers', 'error']);
+          this.router.navigate([this.urlToReturn, 'error']);
         });
 
 

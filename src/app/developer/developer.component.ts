@@ -10,7 +10,7 @@ import {Router, ActivatedRoute} from '@angular/router';
 export class DeveloperComponent {
 
   editing = false;
-  referenceDeveloper: string;
+  reference: string;
 
 
   constructor(private router: Router,
@@ -18,10 +18,10 @@ export class DeveloperComponent {
     this.editing = activeRoute.snapshot.params['mode'] === 'edit';
 
     if (this.editing) {
-      this.referenceDeveloper = activeRoute.snapshot.params['reference'];
+      this.reference = activeRoute.snapshot.params['reference'];
     } else {
-      this.referenceDeveloper = null;
-      this.router.navigate(['/developers/create' ]);
+      this.reference = null;
+      this.router.navigate(['/'+activeRoute.snapshot.url[0].toString()+'/create' ]);
     }
   }
 

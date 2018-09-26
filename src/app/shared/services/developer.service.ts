@@ -3,8 +3,7 @@ import {Observable} from 'rxjs/Observable';
 
 import {environment} from '../../../environments/environment';
 import {Contact} from '../entities/contact.model';
-import {DeveloperView} from '../entities/developer-view.model';
-import {Developer} from '../entities/developer.model';
+import {Developer, DeveloperView} from '../entities/developer.model';
 import {CV} from '../entities/cv.model';
 import {PersonalInformation} from '../entities/personal-information.model';
 import {SkillsInformation} from '../entities/skills-information.model';

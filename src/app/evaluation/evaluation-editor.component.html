@@ -10,7 +10,7 @@
           <label class="col-form-label">Date de Création: </label>
           <input type="text" readonly
                  class="form-control-plaintext"
-                 name="createdDate"
+                 name="createdDate" style="width: 70%"
                  value="{{evaluation.createdDate | date:'long'}}"/>
         </div>
 
@@ -70,8 +70,11 @@
 
         <div class="form-group">
           <button type="submit" class="btn btn-warning">Enregistrer</button>
-          <button type="reset" class="btn btn-secondary"
+          <button type="reset" class="btn btn-secondary" *ngIf="isDeveloper()"
                   routerLink="/developers">Annuler
+          </button>
+          <button type="reset" class="btn btn-secondary" *ngIf="!isDeveloper()"
+                  routerLink="/resources">Annuler
           </button>
 
           <button *ngIf="editing" type="button" class="btn btn-primary"

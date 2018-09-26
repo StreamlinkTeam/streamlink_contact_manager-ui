@@ -22,6 +22,8 @@ import {UserTableComponent} from './users/users-table.component';
 import {UserEditorComponent} from './users/users-editor.component';
 import {ProfilComponent} from './profil/profil.component';
 import {ProfilPasswordEditorComponent} from './profil/profil-password-editor.component';
+import {ResourceTableComponent} from './resource/resource-table.component';
+import {ResourceEditorComponent} from './resource/resource-editor.component';
 
 export const appRoutes: Routes = [
   {path: 'auth', component: AuthComponent, canActivate: [LoginGuard]},
@@ -51,6 +53,22 @@ export const appRoutes: Routes = [
     path: 'developers/:mode/:reference', component: DeveloperComponent, canActivate: [AuthGuard],
     children: [
       {path: 'general', component: DeveloperEditorComponent},
+      {path: 'contact', component: ContactEditorComponent},
+      {path: 'skills', component: SkillsEditorComponent},
+      {path: 'personal-info', component: PersonalInfoEditorComponent},
+      {path: 'contract', component: ContractEditorComponent},
+      {path: 'action', component: ActionEditorComponent},
+      {path: 'evaluation', component: EvaluationEditorComponent},
+      {path: '**', redirectTo: 'general'}
+    ]
+  },
+  {path: 'resources', component: ResourceTableComponent, canActivate: [AuthGuard]},
+  {path: 'resources/create', component: ResourceEditorComponent, canActivate: [AuthGuard]},
+  {path: 'resources/:error', component: ResourceTableComponent, canActivate: [AuthGuard]},
+  {
+    path: 'resources/:mode/:reference', component: DeveloperComponent, canActivate: [AuthGuard],
+    children: [
+      {path: 'general', component: ResourceEditorComponent},
       {path: 'contact', component: ContactEditorComponent},
       {path: 'skills', component: SkillsEditorComponent},
       {path: 'personal-info', component: PersonalInfoEditorComponent},

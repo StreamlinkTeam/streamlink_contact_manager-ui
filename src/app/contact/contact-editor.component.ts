@@ -6,6 +6,7 @@ import {NgForm} from '@angular/forms';
 import {ToastrService} from 'ngx-toastr';
 import {SocietyService} from '../shared/services/society.service';
 import {SocietyContactService} from '../shared/services/society-contact.service';
+import {ResourceService} from '../shared/services/resource.service';
 
 @Component({
   selector: 'app-contact',
@@ -20,6 +21,7 @@ export class ContactEditorComponent {
 
 
   constructor(private developerService: DeveloperService,
+              private resourceService: ResourceService,
               private societyService: SocietyService,
               private societyContactService: SocietyContactService,
               private router: Router,
@@ -40,6 +42,12 @@ export class ContactEditorComponent {
         .subscribe(response => this.contact = response
           , error => {
             this.router.navigate(['/societies', 'error']);
+          });
+    } else if (this.isResource()) {
+      this.resourceService.getResourceContact(activeRoute.snapshot.parent.params['reference'])
+        .subscribe(response => this.contact = response
+          , error => {
+            this.router.navigate(['/resources', 'error']);
           });
     } else {
       this.societyReference = activeRoute.snapshot.parent.parent.params['reference'];
@@ -66,6 +74,10 @@ export class ContactEditorComponent {
     return this.contactType === 'developers';
   }
 
+  isResource() {
+    return this.contactType === 'resources';
+  }
+
   save(form: NgForm) {
 
 
@@ -83,6 +95,16 @@ export class ContactEditorComponent {
           });
       } else if (this.isSociety()) {
         this.societyService.updateSocietyContact(this.contact, this.contact.ownerReference)
+          .subscribe(response => {
+
+            this.toastr.success('Contact Mis à jour avec succés', 'Opération Réussite!');
+            this.contact = response;
+
+          }, error => {
+            this.toastr.error('Erreur lors de la Mise à jour du contact', 'Opération échoué !!!');
+          });
+      }else if (this.isResource()) {
+        this.resourceService.updateResourceContact(this.contact, this.contact.ownerReference)
           .subscribe(response => {
 
             this.toastr.success('Contact Mis à jour avec succés', 'Opération Réussite!');

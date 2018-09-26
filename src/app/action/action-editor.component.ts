@@ -4,7 +4,6 @@ import {Component} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
 import {ToastrService} from 'ngx-toastr';
-import {User} from '../shared/entities/user.model';
 import {SocietyContact} from '../shared/entities/society-contact.model';
 import {SocietyContactService} from '../shared/services/society-contact.service';
 
@@ -31,17 +30,17 @@ export class ActionEditorComponent {
   actions: Action[];
 
 
-  constructor(private service: ActionService,private societyContactService: SocietyContactService, private router: Router, private toastr: ToastrService,
+  constructor(private service: ActionService, private societyContactService: SocietyContactService, private router: Router, private toastr: ToastrService,
               activeRoute: ActivatedRoute) {
 
     this.contactType = activeRoute.snapshot.parent.url[0].toString();
 
-    if (this.isDeveloper()) {
+    if (this.isDeveloper() || this.isResource()) {
       this.reference = activeRoute.snapshot.parent.params['reference'];
       this.service.getActions(this.reference)
         .subscribe(response => this.actions = response,
           error =>
-            this.router.navigate(['/developers', 'error']));
+            this.router.navigate(['/' + activeRoute.snapshot.parent.url[0].toString(), 'error']));
     } else if (this.isSocietyContact()) {
       this.reference = activeRoute.snapshot.parent.params['societyContactReference'];
       this.societyReference = activeRoute.snapshot.parent.parent.params['reference'];
@@ -88,6 +87,10 @@ export class ActionEditorComponent {
     return this.contactType === 'developers';
   }
 
+  isResource() {
+    return this.contactType === 'resources';
+  }
+
   showAction(index: number, form: NgForm) {
     const act = this.actions[index];
 
@@ -116,7 +119,7 @@ export class ActionEditorComponent {
         this.editing = false;
       }
 
-      if (this.isDeveloper()) {
+      if (this.isDeveloper() || this.isResource()) {
         this.service.deleteAction(act.reference, this.reference).subscribe(response => {
 
           this.actions.splice(index, 1);
@@ -152,7 +155,7 @@ export class ActionEditorComponent {
   save(form: NgForm) {
 
     if (form.valid) {
-      if (this.isDeveloper()) {
+      if (this.isDeveloper() || this.isResource()) {
         if (this.editing) {
 
           this.service.updateAction(this.action, this.action.reference, this.reference)
@@ -186,7 +189,8 @@ export class ActionEditorComponent {
           this.service.updateSocietyAction(this.action, this.action.reference, this.reference, this.societyReference)
             .subscribe(response => {
 
-              this.service.getSocietyActions(this.reference, this.societyReference).subscribe(res => this.actions = res);
+              this.service.getSocietyActions(this.reference, this.societyReference)
+                .subscribe(res => this.actions = res);
               this.action = new Action();
               this.editing = false;
               this.toastr.success('Action Mise à jour avec succés', 'Opération Réussite!');
@@ -196,7 +200,7 @@ export class ActionEditorComponent {
               this.toastr.error('Erreur lors de la mise à jour de l\'Action', 'Opération échoué !!!');
             });
         } else {
-          this.service.createSocietyAction(this.action,this.isSocietyContact() ? this.reference : this.action.societyContactReference,
+          this.service.createSocietyAction(this.action, this.isSocietyContact() ? this.reference : this.action.societyContactReference,
             this.societyReference)
             .subscribe(response => {
 

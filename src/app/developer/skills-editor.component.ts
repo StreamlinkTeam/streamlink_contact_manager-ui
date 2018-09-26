@@ -14,13 +14,12 @@ export class SkillsEditorComponent implements OnInit {
   editing = false;
   qualifTitle = '';
   skills: SkillsInformation = new SkillsInformation();
-  // languages$: Observable<Language[]>;
   experiences: any[];
   formations: any[];
+  urlToReturn = '';
 
 
   constructor(private service: DeveloperService,
-              // private languageService: LanguageService,
               private toastr: ToastrService,
               private router: Router,
               private activeRoute: ActivatedRoute) {
@@ -30,8 +29,8 @@ export class SkillsEditorComponent implements OnInit {
 
   ngOnInit(): void {
     this.editing = this.activeRoute.snapshot.parent.params['mode'] === 'edit';
+    this.urlToReturn = '/'+this.activeRoute.snapshot.parent.url[0].toString();
 
-    // this.languages$ = this.languageService.getLanguages();
 
     this.experiences = [
       {label: 'Non', value: 'NON'},
@@ -56,7 +55,7 @@ export class SkillsEditorComponent implements OnInit {
       this.service.getDeveloperSkills(this.activeRoute.snapshot.parent.params['reference'])
         .subscribe(response => this.skills = response,
           error =>
-            this.router.navigate(['/developers', 'error']));
+            this.router.navigate([this.urlToReturn, 'error']));
     }
   }
 

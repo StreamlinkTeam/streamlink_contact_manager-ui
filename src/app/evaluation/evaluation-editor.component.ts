@@ -15,6 +15,8 @@ export class EvaluationEditorComponent {
   editing = false;
   evaluation: Evaluation = new Evaluation();
   reference: string;
+  contactType = '';
+
 
   evaluations: Evaluation[];
 
@@ -23,13 +25,19 @@ export class EvaluationEditorComponent {
               activeRoute: ActivatedRoute) {
 
     this.reference = activeRoute.snapshot.parent.params['reference'];
+    this.contactType = activeRoute.snapshot.parent.url[0].toString();
+
     this.service.getEvaluations(this.reference)
       .subscribe(response => this.evaluations = response
         , error => {
-          this.router.navigate(['/developers', 'error']);
+          this.router.navigate(['/' + this.contactType, 'error']);
         });
 
 
+  }
+
+  isDeveloper() {
+    return this.contactType === 'developers';
   }
 
   showEvaluation(index: number, form: NgForm) {
