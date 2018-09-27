@@ -3,7 +3,7 @@ import {Observable} from 'rxjs/Observable';
 
 import {environment} from '../../../environments/environment';
 import {Contact} from '../entities/contact.model';
-import {Society} from '../entities/society.model';
+import {Society, SocietyView} from '../entities/society.model';
 import {PersonalInformation} from '../entities/personal-information.model';
 import {HttpClient, HttpParams, HttpResponse} from '@angular/common/http';
 
@@ -13,7 +13,6 @@ import 'rxjs/add/operator/finally';
 
 import {LoaderService} from './loader.service';
 import {LegalInformation} from '../entities/legal-information.model';
-import {SocietyView} from '../entities/society-view.model';
 
 
 @Injectable()

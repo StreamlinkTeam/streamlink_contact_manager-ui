@@ -45,7 +45,7 @@
                 RH souhaité: </label>
               <div class="col-sm-8">
                 <select id="wishedContractType" class="form-control" name="wishedContractType"
-                        [(ngModel)]="wishedContract.wishedContractType">
+                        [(ngModel)]="wishedContract.type">
                   <option value="NOT_DEFINED">Non défini</option>
                   <option value="CDI">CDI</option>
                   <option value="CDD">CDD</option>
@@ -131,7 +131,7 @@
                 RH: </label>
               <div class="col-sm-8">
                 <select class="form-control" name="contractType" id="contractType"
-                        [(ngModel)]="contract.contractType">
+                        [(ngModel)]="contract.type">
                   <option value="NOT_DEFINED">Non défini</option>
                   <option value="CDI">CDI</option>
                   <option value="CDD">CDD</option>

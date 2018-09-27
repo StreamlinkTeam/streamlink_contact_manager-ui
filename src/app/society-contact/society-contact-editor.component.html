@@ -36,12 +36,12 @@
             </div>
 
             <div class="form-group">
-              <label>Titre</label> <input class="form-control" name="titre" required #titre_input="ngModel"
-                                          [(ngModel)]="societyContact.titre"/>
+              <label>Titre</label> <input class="form-control" name="title" required #title_input="ngModel"
+                                          [(ngModel)]="societyContact.title"/>
               <app-field-error-display
-                [model]="titre_input"
+                [model]="title_input"
                 fieldName="Titre"
-                [displayError]="form.submitted && titre_input.invalid">
+                [displayError]="form.submitted && title_input.invalid">
               </app-field-error-display>
             </div>
 

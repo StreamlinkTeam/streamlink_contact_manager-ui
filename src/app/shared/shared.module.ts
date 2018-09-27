@@ -12,10 +12,11 @@ import {ValidatorService} from './services/validator.service';
 import {FieldErrorDisplayComponent} from './field-error-display/field-error-display.component';
 import {LoaderService} from './services/loader.service';
 import {SocietyService} from './services/society.service';
-import {SocietyContactService} from "./services/society-contact.service";
+import {SocietyContactService} from './services/society-contact.service';
 import {CustomEnumRenderComponent} from './custom-ng2-smart-table-renderer/custom-enum-render.component';
 import {EqualValidator} from './directives/equal-validator.directive';
 import {ResourceService} from './services/resource.service';
+import {ProjectService} from './services/project.service';
 
 @NgModule({
   imports: [HttpClientModule, CommonModule],
@@ -23,7 +24,7 @@ import {ResourceService} from './services/resource.service';
   declarations: [FieldErrorDisplayComponent, CustomEnumRenderComponent, EqualValidator],
   exports: [FieldErrorDisplayComponent, CustomEnumRenderComponent, EqualValidator],
   providers: [DeveloperService, EvaluationService, ActionService, ResourceService,
-    UserService, LanguageService, AuthService, SocietyService,
+    UserService, LanguageService, AuthService, SocietyService, ProjectService,
     ContractService, ValidatorService, LoaderService, SocietyContactService],
 })
 export class SharedModule {

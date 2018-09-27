@@ -2,16 +2,17 @@ import {Developer} from '../shared/entities/developer.model';
 import {User} from '../shared/entities/user.model';
 import {DeveloperService} from '../shared/services/developer.service';
 import {UserService} from '../shared/services/user.service';
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
 import {ToastrService} from 'ngx-toastr';
+import {ResourceService} from '../shared/services/resource.service';
 
 @Component({
   moduleId: module.id,
   templateUrl: 'developer-editor.component.html'
 })
-export class DeveloperEditorComponent {
+export class DeveloperEditorComponent implements OnInit {
 
   editing = false;
   developer: Developer = new Developer();
@@ -19,17 +20,27 @@ export class DeveloperEditorComponent {
   stages: any[];
 
 
-  constructor(private service: DeveloperService, private userService: UserService,
+  constructor(private service: DeveloperService, private resourceService: ResourceService,
+              private userService: UserService,
               private toastr: ToastrService,
               private router: Router,
               private activeRoute: ActivatedRoute) {
 
-    this.editing = activeRoute.snapshot.parent.params['mode'] === 'edit';
+  }
 
-    userService.getUsers().subscribe(response => this.users = response);
+  ngOnInit(): void {
+
+    this.editing = this.activeRoute.snapshot.parent.params['mode'] === 'edit';
+
+    this.userService.getUsers().subscribe(response => this.users = response);
     if (this.editing) {
-      service.getDeveloper(activeRoute.snapshot.parent.params['reference'])
-        .subscribe(response => this.developer = response
+      this.service.getDeveloper(this.activeRoute.snapshot.parent.params['reference'])
+        .subscribe(response => {
+            this.developer = response;
+            if (this.developer.resource) {
+              this.router.navigate(['/resources/edit', this.developer.reference]);
+            }
+          }
           , error =>
             this.router.navigate(['/developers', 'error']));
     }
@@ -42,7 +53,6 @@ export class DeveloperEditorComponent {
       {label: 'Converti en Ressource', value: 'ConvertedToResource'},
       {label: 'Ne plus contacter', value: 'StopContacting'}
     ];
-
   }
 
 
@@ -56,6 +66,10 @@ export class DeveloperEditorComponent {
 
               this.developer = response;
               this.toastr.success('Données Mise à jour avec succés', 'Opération Réussite!');
+              if (this.developer.resource) {
+                this.router.navigate(['/resources/edit', this.developer.reference]);
+                this.toastr.success('Nouvelle Resource ajoutée avec succés', 'Opération Réussite!');
+              }
 
             }, error => {
               this.toastr.error('Erreur lors de la mise à jour des donnés', 'Opération échoué !!!');
@@ -67,12 +81,36 @@ export class DeveloperEditorComponent {
           .subscribe(response => {
 
             this.toastr.success('Developpeur Créé avec succés', 'Opération Réussite!');
-            this.router.navigate(['/developers/edit', response.reference]);
-
+            if (this.developer.resource) {
+              this.router.navigate(['/resources/edit', this.developer.reference]);
+              this.toastr.success('Nouvelle Resource ajoutée avec succés', 'Opération Réussite!');
+            } else {
+              this.router.navigate(['/developers/edit', response.reference]);
+            }
           }, error => {
             this.toastr.error('Erreur lors de la création du candidats', 'Opération échoué !!!');
           });
       }
+    }
+  }
+
+  convertToResource() {
+
+    if (!this.developer.resource) {
+
+      this.resourceService.createResourceFromDeveloper(this.developer.reference)
+        .subscribe(
+          response => {
+
+            this.router.navigate(['/resources/edit', response.reference]);
+            this.toastr.success('Nouvelle Resource ajoutée avec succés', 'Opération Réussite!');
+
+          }, error => {
+            this.toastr.error('Erreur lors de la mise à jour des donnés', 'Opération échoué !!!');
+          }
+        );
+    } else {
+      this.toastr.error('Resource Exist Déja', 'Opération échoué !!!');
     }
   }
 }

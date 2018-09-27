@@ -1,6 +1,7 @@
 export class Action {
   reference: string;
   developerReference: string;
+  projectReference: string;
   societyContactReference: string;
   responsibleFullName: string;
   societyContactFullName: string;

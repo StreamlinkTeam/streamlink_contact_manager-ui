@@ -3,7 +3,7 @@ export class SocietyContact {
   reference: string;
   firstname: string;
   lastname: string;
-  titre: string;
+  title: string;
   service: string;
   managerReference: string;
   societyReference: string;
@@ -21,7 +21,7 @@ export class SocietyContactView {
   reference: string;
   firstname: string;
   lastname: string;
-  titre: string;
+  title: string;
   service: string;
   managerReference: string;
   societyReference: string;

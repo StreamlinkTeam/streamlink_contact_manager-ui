@@ -1,4 +1,4 @@
-import {Routes} from '@angular/router'
+import {Routes} from '@angular/router';
 import {AuthGuard, LoginGuard} from './auth/auth.guard';
 import {AuthComponent} from './auth/auth.component';
 import {DeveloperTableComponent} from './developer/developer-table.component';
@@ -24,6 +24,9 @@ import {ProfilComponent} from './profil/profil.component';
 import {ProfilPasswordEditorComponent} from './profil/profil-password-editor.component';
 import {ResourceTableComponent} from './resource/resource-table.component';
 import {ResourceEditorComponent} from './resource/resource-editor.component';
+import {ProjectTableComponent} from './project/project-table.component';
+import {ProjectEditorComponent} from './project/project-editor.component';
+import {ProjectComponent} from './project/project.component';
 
 export const appRoutes: Routes = [
   {path: 'auth', component: AuthComponent, canActivate: [LoginGuard]},
@@ -43,6 +46,17 @@ export const appRoutes: Routes = [
       {path: 'users/:error', component: UserTableComponent},
       {path: 'users/edit/:reference', component: UserEditorComponent},
       {path: '**', redirectTo: 'users'}
+    ]
+  },
+  {path: 'projects', component: ProjectTableComponent, canActivate: [AuthGuard]},
+  {path: 'projects/create', component: ProjectEditorComponent, canActivate: [AuthGuard]},
+  {path: 'projects/:error', component: ProjectTableComponent, canActivate: [AuthGuard]},
+  {
+    path: 'projects/:mode/:reference', component: ProjectComponent, canActivate: [AuthGuard],
+    children: [
+      {path: 'general', component: ProjectEditorComponent},
+      {path: 'action', component: ActionEditorComponent},
+      {path: '**', redirectTo: 'general'}
     ]
   },
   {path: 'developers', component: DeveloperTableComponent, canActivate: [AuthGuard]},

@@ -3,9 +3,10 @@
 export class WishedContract {
   reference: string;
   developerReference: string;
+  responsibleReference: string;
   currency: string;
   currentSalary: number;
-  wishedContractType: string;
+  type: string;
   wishedSalaryMax: number;
   wishedSalaryMin: number;
 

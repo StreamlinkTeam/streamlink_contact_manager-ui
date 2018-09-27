@@ -1,11 +1,10 @@
-
-
 export class Contract {
   reference: string;
   developerReference: string;
+  responsibleReference: string;
   currency: string;
   salary: number;
-  contractType: string;
+  type: string;
   workTime: Date;
   startDate: Date;
   endDate: Date;

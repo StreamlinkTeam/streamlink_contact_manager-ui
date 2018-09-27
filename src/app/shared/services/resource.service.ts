@@ -12,7 +12,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/finally';
 
-import {LoaderService} from "./loader.service";
+import {LoaderService} from './loader.service';
 import {Resource, ResourceView} from '../entities/resource.model';
 
 
@@ -52,6 +52,20 @@ export class ResourceService {
     this.loaderService.show();
     const url = environment.API + '/ws/resources';
     return this.http.post<Resource>(url, resource)
+      ._finally(() => {
+        this.loaderService.hide();
+      });
+  }
+
+  createResourceFromDeveloper(developerReference: string): Observable<Resource> {
+    this.loaderService.show();
+    const url = environment.API + '/ws/resources/from-developer';
+
+    const options = {params: new HttpParams().set('developerReference', developerReference)};
+
+
+    return this.http
+      .post<Resource>(url, null, options)
       ._finally(() => {
         this.loaderService.hide();
       });

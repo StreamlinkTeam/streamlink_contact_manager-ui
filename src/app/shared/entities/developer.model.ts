@@ -12,6 +12,7 @@ export class Developer {
   gender: string;
   stage: string;
   mobility: string;
+  resource: boolean;
   createdDate: Date;
   modifiedDate: Date;
 }
@@ -29,6 +30,7 @@ export class DeveloperView {
   mobility: string;
   createdDate: Date;
   modifiedDate: Date;
+  isResource: boolean;
   placeOfBirth: string;
   birthDate: Date;
   nationality: string;
@@ -51,5 +53,6 @@ export class DeveloperView {
   city: string;
   country: string;
   website: string;
+  resource: boolean;
 }
 

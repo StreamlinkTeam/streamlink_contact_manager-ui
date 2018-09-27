@@ -13,12 +13,13 @@ import localeFr from '@angular/common/locales/fr';
 import {ToastrModule} from 'ngx-toastr';
 import {LoaderModule} from './loader/loader.module';
 import {SocietyModule} from './society/society.module';
-import {SocietyContactModule} from "./society-contact/society-contact.module";
+import {SocietyContactModule} from './society-contact/society-contact.module';
 import {appRoutes} from './routes';
 import {AdminModule} from './admin/admin.module';
 import {ProfilModule} from './profil/profil.module';
 import {AppNavbarModule} from './app-navbar/app-navbar.module';
 import {ResourceModule} from './resource/resource.module';
+import {ProjectModule} from './project/project.module';
 
 
 registerLocaleData(localeFr, 'fr');
@@ -27,9 +28,11 @@ registerLocaleData(localeFr, 'fr');
 @NgModule({
   declarations: [AppComponent],
   imports: [
-    BrowserModule, DeveloperModule, AuthModule, SocietyContactModule, ResourceModule,
-    HttpClientModule, LoaderModule, SocietyModule, AdminModule, ProfilModule,
-    ToastrModule.forRoot({positionClass: 'toast-bottom-right'}), AppNavbarModule,
+    BrowserModule, HttpClientModule, AppNavbarModule,
+    LoaderModule, SocietyModule, AdminModule, ProfilModule,
+    DeveloperModule, AuthModule, SocietyContactModule, ResourceModule,
+    ProjectModule,
+    ToastrModule.forRoot({positionClass: 'toast-bottom-right'}),
     RouterModule.forRoot(appRoutes)
   ],
   providers: [

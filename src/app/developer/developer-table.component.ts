@@ -112,7 +112,6 @@ export class DeveloperTableComponent implements OnInit {
     });
 
 
-
     this.stages = [
       {label: 'Tous', value: ''},
       {label: 'A traiter', value: 'ToTreat'},
@@ -194,15 +193,18 @@ export class DeveloperTableComponent implements OnInit {
   showDeveloper(rowData: Row) {
 
     const developer = rowData.getData();
-
-    this.router.navigate(['/developers/edit', developer.reference]);
+    if (developer.resource) {
+      this.router.navigate(['/resources/edit', developer.reference]);
+    } else {
+      this.router.navigate(['/developers/edit', developer.reference]);
+    }
 
   }
 
   deleteDeveloper(rowData: Row) {
 
     const developer = rowData.getData();
-    if (confirm('Suppression du Developpeur' + developer.firstname + ' ' + developer.lastname)) {
+    if (confirm('Suppression du Developpeur ' + developer.firstname + ' ' + developer.lastname)) {
 
       this.service.deleteDeveloper(developer.reference).subscribe(res => {
 

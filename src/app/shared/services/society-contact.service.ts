@@ -10,8 +10,8 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/finally';
 
-import {LoaderService} from "./loader.service";
-import {SocietyContact, SocietyContactView} from "../entities/society-contact.model";
+import {LoaderService} from './loader.service';
+import {SocietyContact, SocietyContactView} from '../entities/society-contact.model';
 
 
 @Injectable()
@@ -66,7 +66,8 @@ export class SocietyContactService {
       });
   }
 
-  updateSocietyContact(societyContact: SocietyContact, societyContactReference: string, societyReference: string): Observable<SocietyContact> {
+  updateSocietyContact(societyContact: SocietyContact, societyContactReference: string,
+                       societyReference: string): Observable<SocietyContact> {
     this.loaderService.show();
     const url = environment.API + '/ws/societies/contacts';
 

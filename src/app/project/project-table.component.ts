@@ -5,21 +5,19 @@ import {ServerDataSource} from 'ng2-smart-table';
 import {Row} from 'ng2-smart-table/lib/data-set/row';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
-import {SocietyContactService} from '../shared/services/society-contact.service';
 import {CustomEnumRenderComponent} from '../shared/custom-ng2-smart-table-renderer/custom-enum-render.component';
+import {ProjectService} from '../shared/services/project.service';
 
 
 @Component({
   moduleId: module.id,
-  templateUrl: 'society-contact-table.component.html'
+  templateUrl: 'project-table.component.html'
 })
-export class SocietyContactTableComponent implements OnInit {
+export class ProjectTableComponent implements OnInit {
 
   source: ServerDataSource;
 
   url: string;
-
-  societyReference: string;
 
 
   settings = {
@@ -40,31 +38,32 @@ export class SocietyContactTableComponent implements OnInit {
     },
     mode: 'external',
     columns: {
-      firstname: {
-        title: 'Nom',
-        filter: false
-      },
-      lastname: {
-        title: 'Prénom',
-        filter: false
-      },
       title: {
-        title: 'Titre',
+        title: 'Title',
         filter: false
       },
-      service: {
-        title: 'Service',
-        filter: false
-      },
-      stage: {
-        title: 'Etat',
+      type: {
+        title: 'Type',
         filter: false,
         type: 'custom',
         renderComponent: CustomEnumRenderComponent
       },
-      email1: {
-        title: 'Email',
-        filter: false
+      activityArea: {
+        title: 'Secteur',
+        filter: false,
+        type: 'custom',
+        renderComponent: CustomEnumRenderComponent
+      },
+      stage: {
+        title: 'Etape',
+        filter: false,
+        type: 'custom',
+        renderComponent: CustomEnumRenderComponent
+      },
+      client: {
+        title: 'Client',
+        filter: false,
+        sort: false
       }
     },
     // actions: false,
@@ -74,26 +73,26 @@ export class SocietyContactTableComponent implements OnInit {
   };
 
   stages: any[];
+  types: any[];
 
 
-  constructor(private service: SocietyContactService,
+
+  constructor(private service: ProjectService,
               private toastr: ToastrService,
               private http: HttpClient,
               private router: Router,
               private activeRoute: ActivatedRoute) {
 
-    this.societyReference = activeRoute.snapshot.parent.params['reference'];
-
     if (activeRoute.snapshot.params['error'] === 'error') {
       this.toastr.warning('Erreur lors de la récupération de données', 'Opération échoué!');
-      this.router.navigate(['/societies/edit/' + this.societyReference + '/contacts']);
+      this.router.navigate(['/projects']);
     }
   }
 
 
   ngOnInit() {
 
-    this.url = environment.API + '/ws/societies/contacts/search?fromAngular=true&societyReference=' + this.societyReference;
+    this.url = environment.API + '/ws/projects/search?fromAngular=true';
 
     this.source = new ServerDataSource(this.http, {
       endPoint: this.url,
@@ -111,11 +110,19 @@ export class SocietyContactTableComponent implements OnInit {
 
     this.stages = [
       {label: 'Tous', value: ''},
-      {label: 'Prospect', value: 'Prospect'},
-      {label: 'Client', value: 'Customer'},
-      {label: 'Partenaire', value: 'Partner'},
-      {label: 'Fournisseur', value: 'Provider'},
-      {label: 'Archivé', value: 'Archive'}];
+      {label: 'En cours', value: 'InProgress'},
+      {label: 'Reporté', value: 'Postponed'},
+      {label: 'Gagné', value: 'Won'},
+      {label: 'Perdu', value: 'Lost'},
+      {label: 'Abandonné', value: 'Abandoned'}];
+
+    this.types = [
+      {label: 'Tous', value: ''},
+      {label: 'Régie', value: 'Authority'},
+      {label: 'Forfait', value: 'FlatRate'},
+      {label: 'Projet interne', value: 'InternalProject'},
+      {label: 'Produit', value: 'Product'},
+      {label: 'Recrutement', value: 'Recruitment'}];
   }
 
 
@@ -167,27 +174,27 @@ export class SocietyContactTableComponent implements OnInit {
 
   }
 
-  showSocietyContact(rowData: Row) {
+  showProject(rowData: Row) {
 
-    const societyContact = rowData.getData();
+    const project = rowData.getData();
 
-    this.router.navigate(['/societies/edit/' + this.societyReference + '/contacts/edit', societyContact.reference]);
+    this.router.navigate(['/projects/edit', project.reference]);
 
   }
 
-  deleteSocietyContact(rowData: Row) {
+  deleteProject(rowData: Row) {
 
-    const societyContact = rowData.getData();
-    if (confirm('Suppression du Contact ' + societyContact.firstname + ' ' + societyContact.lastname)) {
+    const project = rowData.getData();
+    if (confirm('Suppression du Projet ' + project.title)) {
 
-      this.service.deleteSocietyContact(societyContact.reference, this.societyReference)
+      this.service.deleteProject(project.reference)
         .subscribe(res => {
 
           this.source.remove(rowData);
-          this.toastr.success('Contact Supprimé avec succés', 'Opération Réussite!');
+          this.toastr.success('Projet Supprimé avec succés', 'Opération Réussite!');
 
         }, error => {
-          this.toastr.error('Erreur lors de la suppression de du contact', 'Opération échoué !!!');
+          this.toastr.error('Erreur lors de la suppression de du Projet', 'Opération échoué !!!');
         });
 
     }
