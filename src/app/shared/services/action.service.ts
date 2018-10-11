@@ -6,7 +6,7 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import {LoaderService} from "./loader.service";
+import {LoaderService} from './loader.service';
 
 
 @Injectable()
@@ -144,6 +144,58 @@ export class ActionService {
       params: new HttpParams().set('societyContactReference', societyContactReference)
         .set('societyReference', societyReference).set('reference', reference)
     };
+
+
+    return this.http.delete(url, options)
+      ._finally(() => {
+        this.loaderService.hide();
+      });
+  }
+
+  getProjectActions(projectReference: string): Observable<Action[]> {
+    this.loaderService.show();
+    const url = environment.API + '/ws/projects/actions';
+
+    const options = {params: new HttpParams().set('projectReference', projectReference)};
+
+
+    return this.http.get<Action[]>(url, options)
+      ._finally(() => {
+        this.loaderService.hide();
+      });
+  }
+
+
+  createProjectAction(action: Action, projectReference: string): Observable<Action> {
+    this.loaderService.show();
+    const url = environment.API + '/ws/projects/actions';
+
+    const options = {params: new HttpParams().set('projectReference', projectReference)};
+
+    return this.http.post<Action>(url, action, options)
+      ._finally(() => {
+        this.loaderService.hide();
+      });
+  }
+
+  updateProjectAction(action: Action, reference: string, projectReference: string): Observable<Action> {
+    this.loaderService.show();
+    const url = environment.API + '/ws/projects/actions';
+
+    const options = {params: new HttpParams().set('projectReference', projectReference).set('reference', reference)};
+
+
+    return this.http.put<Action>(url, action, options)
+      ._finally(() => {
+        this.loaderService.hide();
+      });
+  }
+
+  deleteProjectAction(reference: string, projectReference: string) {
+    this.loaderService.show();
+    const url = environment.API + '/ws/projects/actions';
+
+    const options = {params: new HttpParams().set('projectReference', projectReference).set('reference', reference)};
 
 
     return this.http.delete(url, options)

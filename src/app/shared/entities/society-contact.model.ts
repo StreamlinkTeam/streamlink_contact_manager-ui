@@ -1,3 +1,5 @@
+import {Society} from './society.model';
+
 export class SocietyContact {
 
   reference: string;

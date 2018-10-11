@@ -23,7 +23,7 @@ export class AuthGuard {
       if (match)
         return true;
       else {
-        this.router.navigate(['/developers','forbidden']);
+        this.router.navigate(['/developers', 'forbidden']);
         return false;
       }
     }

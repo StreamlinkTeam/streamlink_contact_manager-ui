@@ -26,7 +26,7 @@ export class DeveloperCVComponent {
               private toastr: ToastrService) {
 
     this.referenceDeveloper = activeRoute.snapshot.parent.params['reference'];
-    this.urlToReturn = '/'+activeRoute.snapshot.parent.url[0].toString();
+    this.urlToReturn = '/' + activeRoute.snapshot.parent.url[0].toString();
 
     this.service.getDeveloperCVs(this.referenceDeveloper)
       .subscribe(response => this.cvs = response

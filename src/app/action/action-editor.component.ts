@@ -30,7 +30,10 @@ export class ActionEditorComponent {
   actions: Action[];
 
 
-  constructor(private service: ActionService, private societyContactService: SocietyContactService, private router: Router, private toastr: ToastrService,
+  constructor(private service: ActionService,
+              private societyContactService: SocietyContactService,
+              private router: Router,
+              private toastr: ToastrService,
               activeRoute: ActivatedRoute) {
 
     this.contactType = activeRoute.snapshot.parent.url[0].toString();
@@ -60,6 +63,12 @@ export class ActionEditorComponent {
         .subscribe(response => this.actions = response,
           error =>
             this.router.navigate(['/societies/edit/' + this.societyReference + '/contacts', 'error']));
+    } else if (this.isProject()) {
+      this.reference = activeRoute.snapshot.parent.params['reference'];
+      this.service.getProjectActions(this.reference)
+        .subscribe(response => this.actions = response,
+          error =>
+            this.router.navigate(['/' + activeRoute.snapshot.parent.url[0].toString(), 'error']));
     }
 
 
@@ -72,6 +81,10 @@ export class ActionEditorComponent {
       {label: 'Appel', value: 'CALL'},
       {label: 'Email', value: 'EMAIL'}];
 
+  }
+
+  isProject() {
+    return this.contactType === 'projects';
   }
 
 
@@ -148,6 +161,16 @@ export class ActionEditorComponent {
           }, error => {
             this.toastr.error('Erreur lors de la suppression de l\'Action', 'Opération échoué !!!');
           });
+      } else if (this.isProject()) {
+
+        this.service.deleteProjectAction(act.reference, this.reference).subscribe(response => {
+
+          this.actions.splice(index, 1);
+          this.toastr.success('Action supprimée avec succés', 'Opération Réussite!');
+
+        }, error => {
+          this.toastr.error('Erreur lors de la suppression de l\'Action', 'Opération échoué !!!');
+        });
       }
     }
   }
@@ -205,6 +228,33 @@ export class ActionEditorComponent {
             .subscribe(response => {
 
               this.service.getSocietyActions(this.reference, this.societyReference).subscribe(res => this.actions = res);
+              this.action = new Action();
+              this.toastr.success('Action Créé avec succés', 'Opération Réussite!');
+
+            }, error => {
+              this.toastr.error('Erreur lors de la création de l\'Action', 'Opération échoué !!!');
+            });
+        }
+      } else if (this.isProject()) {
+        if (this.editing) {
+
+          this.service.updateProjectAction(this.action, this.action.reference, this.reference)
+            .subscribe(response => {
+
+              this.service.getProjectActions(this.reference).subscribe(res => this.actions = res);
+              this.action = new Action();
+              this.editing = false;
+              this.toastr.success('Action Mise à jour avec succés', 'Opération Réussite!');
+
+
+            }, error => {
+              this.toastr.error('Erreur lors de la mise à jour de l\'Action', 'Opération échoué !!!');
+            });
+        } else {
+          this.service.createProjectAction(this.action, this.reference)
+            .subscribe(response => {
+
+              this.service.getProjectActions(this.reference).subscribe(res => this.actions = res);
               this.action = new Action();
               this.toastr.success('Action Créé avec succés', 'Opération Réussite!');
 

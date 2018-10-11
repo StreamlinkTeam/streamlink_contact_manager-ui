@@ -103,7 +103,7 @@ export class ContactEditorComponent {
           }, error => {
             this.toastr.error('Erreur lors de la Mise à jour du contact', 'Opération échoué !!!');
           });
-      }else if (this.isResource()) {
+      } else if (this.isResource()) {
         this.resourceService.updateResourceContact(this.contact, this.contact.ownerReference)
           .subscribe(response => {
 

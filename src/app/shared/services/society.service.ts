@@ -35,6 +35,18 @@ export class SocietyService {
 
   }
 
+  searchSocieties(term: string): Observable<SocietyView[]> {
+
+    this.loaderService.show();
+    const url = environment.API + '/ws/societies/auto-complete';
+    const options = {params: new HttpParams().set('term', term)};
+
+    return this.http.get<SocietyView[]>(url, options)
+      ._finally(() => {
+        this.loaderService.hide();
+      });
+  }
+
   getSocieties(): Observable<SocietyView[]> {
 
     this.loaderService.show();

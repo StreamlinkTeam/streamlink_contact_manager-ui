@@ -68,14 +68,18 @@
                   routerLink="/developers">Annuler
           </button>
           <button type="reset" class="btn btn-secondary" *ngIf="isResource()"
-                            routerLink="/resources">Annuler
-        </button>
+                  routerLink="/resources">Annuler
+          </button>
           <button type="reset" class="btn btn-secondary" *ngIf="isSocietyContact()"
                   routerLink="/societies/edit/{{societyReference}}/contacts">Annuler
           </button>
 
           <button type="reset" class="btn btn-secondary" *ngIf="isSociety()"
                   routerLink="/societies">Annuler
+          </button>
+
+          <button type="reset" class="btn btn-secondary" *ngIf="isProject()"
+                  routerLink="/projects">Annuler
           </button>
 
           <button *ngIf="editing" type="button" class="btn btn-primary"

@@ -9,7 +9,7 @@ export class ProfilComponent {
 
 
   constructor(private router: Router,
-    activeRoute: ActivatedRoute) {
+              activeRoute: ActivatedRoute) {
   }
 
 

@@ -42,9 +42,7 @@ export class SocietyContactService {
     this.loaderService.show();
     const url = environment.API + '/ws/societies/contacts/all';
 
-    const options = {
-      params: new HttpParams().set('societyReference', societyReference)
-    };
+    const options = {params: new HttpParams().set('societyReference', societyReference)};
 
     return this.http.get<SocietyContactView[]>(url, options)
       ._finally(() => {

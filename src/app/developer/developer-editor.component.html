@@ -321,7 +321,7 @@
               <button type="submit" class="btn btn-primary"
                       [class.btn-warning]="editing">Enregistrer
               </button>
-              <button *ngIf="!developer.resource && editing"  (click)="convertToResource()"
+              <button *ngIf="!developer.resource && editing" (click)="convertToResource()"
                       type="button" class="btn btn-success">Convertir En Resource
               </button>
               <button type="reset" class="btn btn-secondary"

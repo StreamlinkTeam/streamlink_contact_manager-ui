@@ -1,5 +1,3 @@
-
-
 export class Evaluation {
   reference: string;
   developerReference: string;

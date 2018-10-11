@@ -1,5 +1,3 @@
-
-
 export class Contact {
   ownerReference: string;
   email1: string;

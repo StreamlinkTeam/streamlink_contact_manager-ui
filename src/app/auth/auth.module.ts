@@ -10,8 +10,9 @@ import {RouterModule} from '@angular/router';
 
 @NgModule({
   imports: [SharedModule, CommonModule, FormsModule],
-  providers: [AuthGuard,LoginGuard],
+  providers: [AuthGuard, LoginGuard],
   exports: [AuthComponent],
   declarations: [AuthComponent]
 })
-export class AuthModule {}
+export class AuthModule {
+}

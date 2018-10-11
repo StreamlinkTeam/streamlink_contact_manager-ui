@@ -11,7 +11,9 @@ import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(public auth: AuthService) {}
+  constructor(public auth: AuthService) {
+  }
+
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
     if (this.auth.isAuthenticated()) {

@@ -15,6 +15,7 @@ import {ContactModule} from '../contact/contact.module';
 import {ProjectTableComponent} from './project-table.component';
 import {ProjectEditorComponent} from './project-editor.component';
 import {ProjectComponent} from './project.component';
+import {ProjectInfoEditorComponent} from './project-info-editor.component';
 
 
 @NgModule({
@@ -29,8 +30,8 @@ import {ProjectComponent} from './project.component';
     Ng2SmartTableModule,
     ActionModule,
     ContactModule],
-  declarations: [ProjectTableComponent, ProjectEditorComponent, ProjectComponent],
-  exports: [ProjectTableComponent, ProjectEditorComponent, ProjectComponent]
+  declarations: [ProjectTableComponent, ProjectEditorComponent, ProjectInfoEditorComponent, ProjectComponent],
+  exports: [ProjectTableComponent, ProjectEditorComponent, ProjectInfoEditorComponent, ProjectComponent]
 })
 export class ProjectModule {
 }

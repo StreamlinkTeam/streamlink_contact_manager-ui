@@ -1,5 +1,3 @@
-
-
 export class PersonalInformation {
   developerReference: string;
   placeOfBirth: string;

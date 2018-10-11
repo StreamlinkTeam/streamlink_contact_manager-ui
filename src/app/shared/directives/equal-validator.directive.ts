@@ -2,8 +2,9 @@ import {Attribute, Directive} from '@angular/core';
 import {AbstractControl, NG_VALIDATORS, Validator} from '@angular/forms';
 
 @Directive({
-  selector: '[validateEqual][formControlName],[validateEqual][formControl],[validateEqual][ngModel]',
-  providers: [{ provide: NG_VALIDATORS, useExisting: EqualValidator, multi: true }]}
+    selector: '[validateEqual][formControlName],[validateEqual][formControl],[validateEqual][ngModel]',
+    providers: [{provide: NG_VALIDATORS, useExisting: EqualValidator, multi: true}]
+  }
 )
 export class EqualValidator implements Validator {
   constructor(@Attribute('validateEqual') public validateEqual: string,

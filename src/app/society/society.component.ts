@@ -12,14 +12,14 @@ export class SocietyComponent {
 
 
   constructor(private router: Router,
-    activeRoute: ActivatedRoute) {
+              activeRoute: ActivatedRoute) {
     this.editing = activeRoute.snapshot.params['mode'] === 'edit';
 
     if (this.editing) {
       this.societyReference = activeRoute.snapshot.params['reference'];
     } else {
       this.societyReference = null;
-      this.router.navigate(['/societies/create' ]);
+      this.router.navigate(['/societies/create']);
     }
   }
 

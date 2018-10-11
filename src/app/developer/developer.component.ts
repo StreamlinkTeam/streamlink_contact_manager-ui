@@ -14,14 +14,14 @@ export class DeveloperComponent {
 
 
   constructor(private router: Router,
-    activeRoute: ActivatedRoute) {
+              activeRoute: ActivatedRoute) {
     this.editing = activeRoute.snapshot.params['mode'] === 'edit';
 
     if (this.editing) {
       this.reference = activeRoute.snapshot.params['reference'];
     } else {
       this.reference = null;
-      this.router.navigate(['/' + activeRoute.snapshot.url[0].toString() + '/create' ]);
+      this.router.navigate(['/' + activeRoute.snapshot.url[0].toString() + '/create']);
     }
   }
 

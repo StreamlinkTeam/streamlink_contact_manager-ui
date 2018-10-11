@@ -86,7 +86,7 @@ export class ProjectService {
   }
 
 
-  updateProjectInformation(projectReference: string): Observable<ProjectInformation> {
+  getProjectInformation(projectReference: string): Observable<ProjectInformation> {
     this.loaderService.show();
     const url = environment.API + '/ws/projects/information';
 
@@ -102,7 +102,7 @@ export class ProjectService {
       });
   }
 
-  getProjectInformation(info: ProjectInformation, projectReference: string): Observable<ProjectInformation> {
+  updateProjectInformation(info: ProjectInformation, projectReference: string): Observable<ProjectInformation> {
     this.loaderService.show();
     const url = environment.API + '/ws/projects/information';
 

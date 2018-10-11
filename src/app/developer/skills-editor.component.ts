@@ -29,7 +29,7 @@ export class SkillsEditorComponent implements OnInit {
 
   ngOnInit(): void {
     this.editing = this.activeRoute.snapshot.parent.params['mode'] === 'edit';
-    this.urlToReturn = '/'+this.activeRoute.snapshot.parent.url[0].toString();
+    this.urlToReturn = '/' + this.activeRoute.snapshot.parent.url[0].toString();
 
 
     this.experiences = [

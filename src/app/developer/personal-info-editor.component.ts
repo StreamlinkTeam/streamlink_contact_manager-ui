@@ -18,13 +18,12 @@ export class PersonalInfoEditorComponent {
   urlToReturn = '';
 
 
-
   constructor(private service: DeveloperService,
               private toastr: ToastrService,
               private router: Router,
               private activeRoute: ActivatedRoute) {
     this.editing = activeRoute.snapshot.parent.params['mode'] === 'edit';
-    this.urlToReturn = '/'+activeRoute.snapshot.parent.url[0].toString();
+    this.urlToReturn = '/' + activeRoute.snapshot.parent.url[0].toString();
 
 
     if (this.editing) {

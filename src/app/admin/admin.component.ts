@@ -9,8 +9,8 @@ import {ToastrService} from 'ngx-toastr';
 export class AdminComponent {
 
 
-  constructor(private router: Router,private toastr: ToastrService,
-    activeRoute: ActivatedRoute) {
+  constructor(private router: Router, private toastr: ToastrService,
+              activeRoute: ActivatedRoute) {
 
     if (activeRoute.snapshot.params['error'] === 'error') {
       this.toastr.warning('Erreur lors de la récupération de données', 'Opération échoué!');

@@ -5,9 +5,9 @@ export class Project {
 
   reference: string;
   title: string;
-  service: string;
   managerReference: string;
   rhReference: string;
+  societyReference: string;
   societyContactReference: string;
   type: string;
   stage: string;

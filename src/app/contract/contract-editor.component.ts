@@ -22,7 +22,7 @@ export class ContractEditorComponent implements OnInit {
 
   constructor(private service: ContractService, private router: Router, private toastr: ToastrService,
               private activeRoute: ActivatedRoute) {
-    this.urlToReturn = '/'+this.activeRoute.snapshot.parent.url[0].toString();
+    this.urlToReturn = '/' + this.activeRoute.snapshot.parent.url[0].toString();
 
   }
 

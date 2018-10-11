@@ -60,8 +60,7 @@ export class UserEditorComponent {
 
               this.user = response;
               this.toastr.success('Données Mise à jour avec succés', 'Opération Réussite!');
-              if(this.currentUser || this.auth.isCurrentUser(this.user.email))
-              {
+              if (this.currentUser || this.auth.isCurrentUser(this.user.email)) {
                 this.appNavbarService.updateUser();
               }
 

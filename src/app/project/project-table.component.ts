@@ -63,7 +63,7 @@ export class ProjectTableComponent implements OnInit {
       client: {
         title: 'Client',
         filter: false,
-        sort: false
+        // sort: false
       }
     },
     // actions: false,
@@ -74,7 +74,6 @@ export class ProjectTableComponent implements OnInit {
 
   stages: any[];
   types: any[];
-
 
 
   constructor(private service: ProjectService,

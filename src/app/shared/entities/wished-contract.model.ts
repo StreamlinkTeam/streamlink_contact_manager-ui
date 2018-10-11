@@ -1,5 +1,3 @@
-
-
 export class WishedContract {
   reference: string;
   developerReference: string;
