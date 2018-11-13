@@ -27,6 +27,7 @@ import {ResourceEditorComponent} from './resource/resource-editor.component';
 import {ProjectTableComponent} from './project/project-table.component';
 import {ProjectEditorComponent} from './project/project-editor.component';
 import {ProjectComponent} from './project/project.component';
+import {PositioningTableComponent} from './positioning/positioning-table.component';
 
 export const appRoutes: Routes = [
   {path: 'auth', component: AuthComponent, canActivate: [LoginGuard]},
@@ -48,6 +49,17 @@ export const appRoutes: Routes = [
       {path: '**', redirectTo: 'users'}
     ]
   },
+  {path: 'positionings', component: PositioningTableComponent, canActivate: [AuthGuard]},
+  // {path: 'positionings/create', component: ProjectEditorComponent, canActivate: [AuthGuard]},
+  {path: 'positionings/:error', component: PositioningTableComponent, canActivate: [AuthGuard]},
+  /*{
+    path: 'positionings/:mode/:reference', component: ProjectComponent, canActivate: [AuthGuard],
+    children: [
+      {path: 'general', component: ProjectEditorComponent},
+      {path: 'action', component: ActionEditorComponent},
+      {path: '**', redirectTo: 'general'}
+    ]
+  },*/
   {path: 'projects', component: ProjectTableComponent, canActivate: [AuthGuard]},
   {path: 'projects/create', component: ProjectEditorComponent, canActivate: [AuthGuard]},
   {path: 'projects/:error', component: ProjectTableComponent, canActivate: [AuthGuard]},

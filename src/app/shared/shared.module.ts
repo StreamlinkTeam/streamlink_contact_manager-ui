@@ -17,13 +17,14 @@ import {CustomEnumRenderComponent} from './custom-ng2-smart-table-renderer/custo
 import {EqualValidator} from './directives/equal-validator.directive';
 import {ResourceService} from './services/resource.service';
 import {ProjectService} from './services/project.service';
+import {PositioningService} from './services/positioning.service';
 
 @NgModule({
   imports: [HttpClientModule, CommonModule],
   entryComponents: [CustomEnumRenderComponent],
   declarations: [FieldErrorDisplayComponent, CustomEnumRenderComponent, EqualValidator],
   exports: [FieldErrorDisplayComponent, CustomEnumRenderComponent, EqualValidator],
-  providers: [DeveloperService, EvaluationService, ActionService, ResourceService,
+  providers: [DeveloperService, EvaluationService, ActionService, ResourceService, PositioningService,
     UserService, LanguageService, AuthService, SocietyService, ProjectService,
     ContractService, ValidatorService, LoaderService, SocietyContactService],
 })

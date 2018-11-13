@@ -20,6 +20,7 @@ import {ProfilModule} from './profil/profil.module';
 import {AppNavbarModule} from './app-navbar/app-navbar.module';
 import {ResourceModule} from './resource/resource.module';
 import {ProjectModule} from './project/project.module';
+import {PositioningModule} from './positioning/positioning.module';
 
 
 registerLocaleData(localeFr, 'fr');
@@ -29,7 +30,7 @@ registerLocaleData(localeFr, 'fr');
   declarations: [AppComponent],
   imports: [
     BrowserModule, HttpClientModule, AppNavbarModule,
-    LoaderModule, SocietyModule, AdminModule, ProfilModule,
+    LoaderModule, SocietyModule, AdminModule, ProfilModule, PositioningModule,
     DeveloperModule, AuthModule, SocietyContactModule, ResourceModule,
     ProjectModule,
     ToastrModule.forRoot({positionClass: 'toast-bottom-right'}),

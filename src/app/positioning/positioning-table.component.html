@@ -1,0 +1,60 @@
+<div class="container">
+
+  <div class="form-group bg-light border-light">
+
+
+    <h4 class="dropdown-header">Liste des Position</h4>
+
+
+    <div class="form-row">
+
+      <div class="form-group col-md-4">
+        <label>Etape</label>
+        <select class="form-control" name="stage" (change)="onSelectChange('stage',$event.target.value)">
+          <option *ngFor="let stage of positioningStages" [value]="stage.value">{{stage.label}}</option>
+        </select>
+      </div>
+
+      <div class="form-group col-md-4">
+        <label>Etape du Projet</label>
+        <select class="form-control" name="stage" (change)="onSelectChange('projectStage',$event.target.value)">
+          <option *ngFor="let stage of projectStages" [value]="stage.value">{{stage.label}}</option>
+        </select>
+      </div>
+
+      <div class="form-group col-md-4">
+        <label>Type du Projet</label>
+        <select class="form-control" name="stage" (change)="onSelectChange('projectType',$event.target.value)">
+          <option *ngFor="let type of projectTypes" [value]="type.value">{{type.label}}</option>
+        </select>
+      </div>
+
+
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col">
+        <input #search class="form-control" (keyup)="onSearch(search.value)"
+               type="search" placeholder="Recherche..." aria-label="Recherche">
+      </div>
+    </div>
+
+    <div class="fixed-bottom"></div>
+
+
+  </div>
+
+  <ng2-smart-table (edit)="showPositioning($event)"
+                   (delete)="deletePositioning($event)"
+                   [settings]="settings"
+                   [source]="source">
+  </ng2-smart-table>
+
+  <div class="dropdown-divider"></div>
+
+  <div class="form-group">
+    <button class="btn btn-primary" routerLink="/projects/create">Ajouter</button>
+  </div>
+</div>
+
+
