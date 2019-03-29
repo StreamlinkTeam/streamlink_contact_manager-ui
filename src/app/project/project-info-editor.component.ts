@@ -20,6 +20,7 @@ export class ProjectInfoEditorComponent {
               private toastr: ToastrService,
               private router: Router,
               private activeRoute: ActivatedRoute) {
+
     this.editing = activeRoute.snapshot.parent.params['mode'] === 'edit';
 
 

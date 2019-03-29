@@ -1,5 +1,5 @@
+import {ActionTableComponent} from './action-table.component';
 import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
 
 import {SharedModule} from '../shared/shared.module';
 import {ActionEditorComponent} from './action-editor.component';
@@ -15,10 +15,12 @@ import {BrowserModule} from '@angular/platform-browser';
     SharedModule,
   ],
   exports: [
-    ActionEditorComponent
+    ActionEditorComponent,
+    ActionTableComponent
   ],
   declarations: [
-    ActionEditorComponent
+    ActionEditorComponent,
+    ActionTableComponent
   ]
 })
 

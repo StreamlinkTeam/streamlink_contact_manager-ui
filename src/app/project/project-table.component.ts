@@ -22,7 +22,7 @@ export class ProjectTableComponent implements OnInit {
 
   settings = {
     attr: {
-      class: 'table table-striped table-sm'
+      class: ''
     },
     edit: {
       editButtonContent: 'Editer'

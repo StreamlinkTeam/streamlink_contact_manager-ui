@@ -116,5 +116,16 @@ export class ProjectService {
       });
   }
 
+  searchProjects(term: string): Observable<ProjectView[]> {
+
+    this.loaderService.show();
+    const url = environment.API + '/ws/projects/auto-complete';
+    const options = {params: new HttpParams().set('term', term)};
+
+    return this.http.get<ProjectView[]>(url, options)
+      ._finally(() => {
+        this.loaderService.hide();
+      });
+  }
 
 }

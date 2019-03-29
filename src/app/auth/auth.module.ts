@@ -1,15 +1,17 @@
 import {SharedModule} from '../shared/shared.module';
 import {AuthComponent} from './auth.component';
 import {AuthGuard, LoginGuard} from './auth.guard';
-import {AuthInterceptor} from '../auth.interceptor';
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
-import {FormsModule} from '@angular/forms';
-import {RouterModule} from '@angular/router';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {ButtonsModule, InputsModule, WavesModule} from 'angular-bootstrap-md';
 
+// MDB Angular Free
+// Angular Forms Modules
 
 @NgModule({
-  imports: [SharedModule, CommonModule, FormsModule],
+  imports: [SharedModule, CommonModule, FormsModule, ReactiveFormsModule,
+    InputsModule, WavesModule, ButtonsModule],
   providers: [AuthGuard, LoginGuard],
   exports: [AuthComponent],
   declarations: [AuthComponent]

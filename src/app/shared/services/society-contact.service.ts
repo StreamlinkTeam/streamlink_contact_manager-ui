@@ -13,7 +13,6 @@ import 'rxjs/add/operator/finally';
 import {LoaderService} from './loader.service';
 import {SocietyContact, SocietyContactView} from '../entities/society-contact.model';
 
-
 @Injectable()
 export class SocietyContactService {
 
@@ -136,6 +135,8 @@ export class SocietyContactService {
         this.loaderService.hide();
       });
   }
+
+
 
 
 }

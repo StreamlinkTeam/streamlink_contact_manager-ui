@@ -18,6 +18,7 @@ import {EqualValidator} from './directives/equal-validator.directive';
 import {ResourceService} from './services/resource.service';
 import {ProjectService} from './services/project.service';
 import {PositioningService} from './services/positioning.service';
+import {NeedService} from './services/need.service';
 
 @NgModule({
   imports: [HttpClientModule, CommonModule],
@@ -26,7 +27,7 @@ import {PositioningService} from './services/positioning.service';
   exports: [FieldErrorDisplayComponent, CustomEnumRenderComponent, EqualValidator],
   providers: [DeveloperService, EvaluationService, ActionService, ResourceService, PositioningService,
     UserService, LanguageService, AuthService, SocietyService, ProjectService,
-    ContractService, ValidatorService, LoaderService, SocietyContactService],
+    ContractService, ValidatorService, LoaderService, SocietyContactService, NeedService],
 })
 export class SharedModule {
 

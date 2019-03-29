@@ -39,7 +39,9 @@ export class ResourceService {
   getResources(): Observable<ResourceView[]> {
 
     this.loaderService.show();
-    const url = environment.API + '/ws/resources';
+    //const url = environment.API + '/ws/resources';
+
+    const url = environment.API + '/ws/resources/all';
 
     return this.http.get<ResourceView[]>(url)
       ._finally(() => {
@@ -228,6 +230,16 @@ export class ResourceService {
 
     return this.http
       .delete(url, options)
+      ._finally(() => {
+        this.loaderService.hide();
+      });
+  }
+
+  searchResources(term: string): Observable<ResourceView[]> {
+    this.loaderService.show();
+    const url = environment.API + '/ws/resources/auto-complete';
+    const options = {params: new HttpParams().set('term', term)};
+    return this.http.get<ResourceView[]>(url, options)
       ._finally(() => {
         this.loaderService.hide();
       });

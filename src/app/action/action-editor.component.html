@@ -1,89 +1,89 @@
 <div class="container">
-  <div class="row bg-warning" role="tabpanel" *ngIf="!isSocietyContact()">
+  <div *ngIf="!isSocietyContact()" class="row bg-warning" role="tabpanel">
     <h5 class="dropdown-header text-dark">Actions</h5>
   </div>
   <div class="row">
     <div class="col border">
-      <form novalidate #form="ngForm" (ngSubmit)="save(form)">
+      <form #form="ngForm" (ngSubmit)="save(form)" novalidate>
 
         <div *ngIf="editing" class="form-group">
           <label class="col-form-label">Date de Création: </label>
-          <input type="text" readonly class="form-control-plaintext"
-                 name="createdDate" style="width: 70%"
+          <input class="form-control-plaintext" name="createdDate" readonly
+                 style="width: 70%" type="text"
                  value="{{action.createdDate | date:'long'}}"/>
         </div>
 
         <div class="form-row">
           <div class="form-group col-md-6 required">
             <label class="col-form-label">Type</label>
-            <select class="form-control" name="type" #type_input="ngModel"
-                    [(ngModel)]="action.type" required>
+            <select #type_input="ngModel" [(ngModel)]="action.type" class="form-control"
+                    name="type" required>
               <option *ngFor="let ff of types" [ngValue]="ff.value">{{ff.label}}</option>
             </select>
             <app-field-error-display
-              [model]="type_input"
-              [displayError]="form.submitted && type_input.invalid">
+              [displayError]="form.submitted && type_input.invalid"
+              [model]="type_input">
             </app-field-error-display>
 
           </div>
 
           <div class="form-group col-md-6">
             <label class="col-form-label">Date</label>
-            <input class="form-control"
-                   type="datetime-local" name="date" [(ngModel)]="action.date"/>
+            <input [(ngModel)]="action.date"
+                   class="form-control" name="date" type="datetime-local"/>
           </div>
         </div>
 
-        <div class="form-group" *ngIf="isSociety()">
-          <label>Contact</label> <select class="form-control" required #contact_input="ngModel"
-                                         name="societyContactReference" [(ngModel)]="action.societyContactReference">
+        <div *ngIf="isSociety()" class="form-group">
+          <label>Contact</label> <select #contact_input="ngModel" [(ngModel)]="action.societyContactReference" class="form-control"
+                                         name="societyContactReference" required>
           <option *ngFor="let contact of contacts" [ngValue]="contact.reference">{{contact.firstname}}
             {{contact.lastname}}
           </option>
         </select>
           <app-field-error-display
+            [displayError]="form.submitted && contact_input.invalid"
             [model]="contact_input"
-            fieldName="Contact"
-            [displayError]="form.submitted && contact_input.invalid">
+            fieldName="Contact">
           </app-field-error-display>
 
         </div>
 
         <div class="form-group required">
           <label class="col-form-label">Note</label>
-          <textarea class="form-control" #note_input="ngModel" name="note" rows="5"
-                    [(ngModel)]="action.note" required>
+          <textarea #note_input="ngModel" [(ngModel)]="action.note" class="form-control" name="note"
+                    required rows="5">
 
 			</textarea>
 
           <app-field-error-display
-            [model]="note_input"
-            [displayError]="form.submitted && note_input.invalid">
+            [displayError]="form.submitted && note_input.invalid"
+            [model]="note_input">
           </app-field-error-display>
         </div>
 
         <div class="form-group">
-          <button type="submit" class="btn btn-warning">Enregistrer</button>
-          <button type="reset" class="btn btn-secondary" *ngIf="isDeveloper()"
-                  routerLink="/developers">Annuler
+          <button class="btn btn-warning" type="submit">Enregistrer</button>
+          <button *ngIf="isDeveloper()" class="btn btn-secondary" routerLink="/developers"
+                  type="reset">Annuler
           </button>
-          <button type="reset" class="btn btn-secondary" *ngIf="isResource()"
-                  routerLink="/resources">Annuler
+          <button *ngIf="isResource()" class="btn btn-secondary" routerLink="/resources"
+                  type="reset">Annuler
           </button>
-          <button type="reset" class="btn btn-secondary" *ngIf="isSocietyContact()"
-                  routerLink="/societies/edit/{{societyReference}}/contacts">Annuler
-          </button>
-
-          <button type="reset" class="btn btn-secondary" *ngIf="isSociety()"
-                  routerLink="/societies">Annuler
+          <button *ngIf="isSocietyContact()" class="btn btn-secondary" routerLink="/societies/edit/{{societyReference}}/contacts"
+                  type="reset">Annuler
           </button>
 
-          <button type="reset" class="btn btn-secondary" *ngIf="isProject()"
-                  routerLink="/projects">Annuler
+          <button *ngIf="isSociety()" class="btn btn-secondary" routerLink="/societies"
+                  type="reset">Annuler
           </button>
 
-          <button *ngIf="editing" type="button" class="btn btn-primary"
-                  (click)="newAction(form)">Nouveau
+          <button *ngIf="isProject()" class="btn btn-secondary" routerLink="/projects"
+                  type="reset">Annuler
+          </button>
+
+          <button (click)="newAction(form)" *ngIf="editing" class="btn btn-primary"
+                  type="button">Nouveau
           </button>
         </div>
 
@@ -95,14 +95,14 @@
             <th scope="col">Type</th>
             <th scope="col">Note</th>
             <th scope="col">Responsable</th>
-            <th scope="col" *ngIf="isSociety()">Contact</th>
+            <th *ngIf="isSociety()" scope="col">Contact</th>
             <th scope="col">Date</th>
             <th scope="col"></th>
           </tr>
           </thead>
           <tbody>
           <tr *ngFor="let act of actions; let i=index">
-            <td>{{i+1}}</td>
+            <td>{{i + 1}}</td>
             <td>
               <app-custom-enum-render [value]="act.type"></app-custom-enum-render>
 
@@ -112,11 +112,11 @@
             <td *ngIf="isSociety()">{{act.societyContactFullName}}</td>
             <td>{{act.date | date:'short'}}</td>
             <td>
-              <button type="button" class="btn btn-sm btn-info fa fa-edit"
-                      (click)="showAction(i,form)">
+              <button (click)="showAction(i,form)" class="btn btn-sm btn-info fa fa-edit"
+                      type="button">
               </button>
-              <button type="button" class="btn btn-sm btn-danger fa fa-trash"
-                      (click)="deleteAction(i)">
+              <button (click)="deleteAction(i)" class="btn btn-sm btn-danger fa fa-trash"
+                      type="button">
               </button>
             </td>
           </tr>

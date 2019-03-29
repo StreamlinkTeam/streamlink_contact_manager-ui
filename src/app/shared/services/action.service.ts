@@ -28,6 +28,15 @@ export class ActionService {
       });
   }
 
+  getAllActions(): Observable<Action[]> {
+    this.loaderService.show();
+    const url = environment.API + '/ws/';
+
+    return this.http.get<Action[]>(url)
+      ._finally(() => {
+        this.loaderService.hide();
+      });
+  }
 
   createAction(action: Action, developerReference: string): Observable<Action> {
     this.loaderService.show();

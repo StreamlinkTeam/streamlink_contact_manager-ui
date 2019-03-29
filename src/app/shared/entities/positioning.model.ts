@@ -1,7 +1,9 @@
 export class Positioning {
+
   reference: string;
   resourceReference: string;
   projectReference: string;
+  needReference: string;
   responsibleFullName: string;
   stage: string;
   note: string;

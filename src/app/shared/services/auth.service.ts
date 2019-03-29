@@ -3,7 +3,6 @@ import {UserService} from './user.service';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 
-
 import 'rxjs/add/operator/map';
 import {JwtToken} from '../entities/token.model';
 
@@ -55,6 +54,8 @@ export class AuthService {
   public isAdmin(): boolean {
     return this.isAuthenticated() && this.roleMatch(['ROLE_ADMIN']);
   }
+
+
 
 
   roleMatch(allowedRoles: string[]): boolean {

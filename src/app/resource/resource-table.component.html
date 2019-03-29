@@ -1,47 +1,47 @@
 <div class="container">
 
-  <div class="form-group bg-light border-light">
+  <mdb-card bgColor="winter-neva-gradient" class="text-white">
+    <mdb-card-header>Liste des Candidats</mdb-card-header>
+    <mdb-card-body>
 
 
-    <h1 class="dropdown-header">Liste des Resources</h1>
+      <div class="form-row">
 
-    <div class="form-row">
+        <div class="form-group col-md-4">
+          <label>Etape</label>
+          <select (change)="onSelectChange('stage',$event.target.value)" class="form-control" name="stage">
+            <option *ngFor="let stage of resourceStage" [value]="stage.value">{{stage.label}}</option>
+          </select>
+        </div>
 
-      <div class="form-group col-md-4">
-        <label>Etape</label>
-        <select class="form-control" name="stage" (change)="onSelectChange('stage',$event.target.value)">
-          <option *ngFor="let stage of resourceStage" [value]="stage.value">{{stage.label}}</option>
-        </select>
+        <div class="form-group col-md-4">
+          <label>Formation</label>
+          <select (change)="onSelectChange('formation',$event.target.value)" class="form-control" name="formation">
+            <option *ngFor="let formation of formations" [value]="formation.value">{{formation.label}}</option>
+          </select>
+        </div>
+
+        <div class="form-group col-md-4">
+          <label>Type</label>
+          <select (change)="onSelectChange('type',$event.target.value)" class="form-control" name="type">
+            <option *ngFor="let type of resourceType" [value]="type.value">{{type.label}}</option>
+          </select>
+        </div>
       </div>
 
-      <div class="form-group col-md-4">
-        <label>Formation</label>
-        <select class="form-control" name="formation" (change)="onSelectChange('formation',$event.target.value)">
-          <option *ngFor="let formation of formations" [value]="formation.value">{{formation.label}}</option>
-        </select>
+      <div class="form-row">
+        <div class="form-group col">
+          <input #search (keyup)="onSearch(search.value)" aria-label="Recherche"
+                 class="form-control" placeholder="recherche..." type="search">
+        </div>
       </div>
 
-      <div class="form-group col-md-4">
-        <label>Type</label>
-        <select class="form-control" name="type" (change)="onSelectChange('type',$event.target.value)">
-          <option *ngFor="let type of resourceType" [value]="type.value">{{type.label}}</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="form-row">
-      <div class="form-group col">
-        <input #search class="form-control" (keyup)="onSearch(search.value)"
-               type="search" placeholder="recherche..." aria-label="Recherche">
-      </div>
-    </div>
-
-    <div class="fixed-bottom"></div>
-
-  </div>
-
-  <ng2-smart-table (edit)="showResource($event)"
-                   (delete)="deleteResource($event)"
+      <div class="fixed-bottom"></div>
+    </mdb-card-body>
+  </mdb-card>
+  <br>
+  <ng2-smart-table (delete)="deleteResource($event)"
+                   (edit)="showResource($event)"
                    [settings]="settings"
                    [source]="source"></ng2-smart-table>
   <div class="dropdown-divider"></div>

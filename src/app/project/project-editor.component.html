@@ -2,88 +2,103 @@
   <div class="row">
     <div class="col border">
       <div class="row">
-        <div class="col border" [class.bg-warning]="editing" [class.bg-info]="!editing">
+        <div [class.bg-info]="!editing" [class.bg-warning]="editing" class="col border">
           <h5 class="text-dark dropdown-header">Informations</h5>
         </div>
       </div>
       <div class="row">
         <div class="col border">
-          <form novalidate #form="ngForm" (ngSubmit)="save(form)">
+          <form #form="ngForm" (ngSubmit)="save(form)" novalidate>
             <div *ngIf="editing" class="form-group">
               <label>Date de Création: </label>
-              <input type="text" readonly class="form-control-plaintext"
-                     name="createdDate" style="width: 70%"
+              <input class="form-control-plaintext" name="createdDate" readonly
+                     style="width: 70%" type="text"
                      value="{{project.createdDate | date:'long'}}"/>
             </div>
 
             <div class="form-group">
-              <label>Titre</label> <input class="form-control" name="title" required #title_input="ngModel"
-                                          [(ngModel)]="project.title"/>
+              <label>Titre</label>
+
+              <input #title_input="ngModel"
+                     [(ngModel)]="project.title"
+                     class="form-control"
+                     name="title"
+                     required/>
+
               <app-field-error-display
+                [displayError]="form.submitted && title_input.invalid"
                 [model]="title_input"
-                fieldName="Titre"
-                [displayError]="form.submitted && title_input.invalid">
+                fieldName="Titre">
               </app-field-error-display>
             </div>
 
             <div class="form-group">
-              <label>Type</label> <select class="form-control" name="type"
-                                          [(ngModel)]="project.type">
-              <option *ngFor="let type of types" [ngValue]="type.value">{{type.label}}</option>
-            </select>
+              <label>Type</label>
+
+              <select [(ngModel)]="project.type"
+                      class="form-control"
+                      name="type">
+                <option *ngFor="let type of types"
+                        [ngValue]="type.value">{{type.label}}</option>
+              </select>
             </div>
 
             <div class="form-group">
-              <label>Etape</label> <select class="form-control" name="stage"
-                                           [(ngModel)]="project.stage">
-              <option *ngFor="let stage of stages" [ngValue]="stage.value">{{stage.label}}</option>
-            </select>
+              <label>Etape</label>
+              <select [(ngModel)]="project.stage"
+                      class="form-control"
+                      name="stage">
+                <option *ngFor="let stage of stages"
+                        [ngValue]="stage.value">{{stage.label}}</option>
+              </select>
             </div>
 
             <div class="form-group">
               <label>Societé</label>
 
-              <ng-select [items]="societies$ | async"
-                         name="society"
-                         bindLabel="label"
-                         (change)="onSocietyChange($event)"
-                         bindValue="reference"
-                         notFoundText="Aucun élément trouvé"
-                         typeToSearchText="tapez plus de 3 caractères pour trouver la société"
+              <ng-select (change)="onSocietyChange($event)"
+                         [(ngModel)]="project.societyReference"
+                         [items]="societies$ | async"
                          [loading]="societiesLoading"
                          [typeahead]="societiesInput$"
-                         [(ngModel)]="project.societyReference">
+                         bindLabel="label"
+                         bindValue="reference"
+                         name="society"
+                         notFoundText="Aucun élément trouvé"
+                         typeToSearchText="tapez plus de 3 caractères pour trouver la société">
               </ng-select>
             </div>
 
             <div class="form-group">
               <label>Contact</label>
 
-              <ng-select [items]="contacts$ | async"
-                         name="contact"
+              <ng-select [(ngModel)]="project.societyContactReference"
+                         [items]="contacts$ | async"
                          bindValue="reference"
-                         notFoundText="Aucun élément trouvé"
-                         [(ngModel)]="project.societyContactReference">
-                <ng-template ng-label-tmp let-item="item">
+                         name="contact"
+                         notFoundText="Aucun élément trouvé">
+                <ng-template let-item="item" ng-label-tmp>
                   {{item.firstname}} {{item.lastname}}
                 </ng-template>
-                <ng-template ng-option-tmp let-item="item">
+                <ng-template let-item="item" ng-option-tmp>
                   {{item.firstname}} {{item.lastname}}
                 </ng-template>
               </ng-select>
             </div>
 
             <div class="form-group">
-              <label>Responsable RH</label> <select class="form-control"
-                                                    name="rh" [(ngModel)]="project.rhReference">
-              <option *ngFor="let user of users" [ngValue]="user.reference">{{user.firstname}}
-                {{user.lastname}}
-              </option>
-            </select>
+              <label>Responsable RH</label>
+
+              <select [(ngModel)]="project.rhReference"
+                      class="form-control" name="rh">
+                <option *ngFor="let user of users" [ngValue]="user.reference">{{user.firstname}}
+                  {{user.lastname}}
+                </option>
+              </select>
             </div>
             <div class="form-group">
-              <label>Responsable Manager</label> <select class="form-control"
-                                                         name="manager" [(ngModel)]="project.managerReference">
+              <label>Responsable Manager</label> <select [(ngModel)]="project.managerReference"
+                                                         class="form-control" name="manager">
               <option *ngFor="let user of users" [ngValue]="user.reference">{{user.firstname}}
                 {{user.lastname}}
               </option>
@@ -91,17 +106,17 @@
 
             <div class="form-group">
               <label>Commentaires</label>
-              <textarea class="form-control" name="note" rows="5"
-                        [(ngModel)]="project.note"></textarea>
+              <textarea [(ngModel)]="project.note" class="form-control" name="note"
+                        rows="5"></textarea>
             </div>
 
 
             <div class="form-group">
-              <button type="submit" class="btn btn-primary"
-                      [class.btn-warning]="editing">Enregistrer
+              <button [class.btn-warning]="editing" class="btn btn-primary"
+                      type="submit">Enregistrer
               </button>
-              <button type="reset" class="btn btn-secondary"
-                      routerLink="/projects">Annuler
+              <button class="btn btn-secondary" routerLink="/projects"
+                      type="reset">Annuler
               </button>
             </div>
           </form>
@@ -109,7 +124,7 @@
       </div>
     </div>
 
-    <div class="col border" *ngIf="editing">
+    <div *ngIf="editing" class="col border">
       <app-project-info></app-project-info>
     </div>
 

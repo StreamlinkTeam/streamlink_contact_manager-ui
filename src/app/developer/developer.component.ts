@@ -1,7 +1,5 @@
-import {Developer} from '../shared/entities/developer.model';
-import {User} from '../shared/entities/user.model';
 import {Component} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   moduleId: module.id,

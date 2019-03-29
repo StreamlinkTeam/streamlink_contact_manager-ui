@@ -4,8 +4,6 @@ import {environment} from '../../../environments/environment';
 import {Token} from '../entities/token.model';
 import {User} from '../entities/user.model';
 import {HttpClient, HttpParams} from '@angular/common/http';
-
-
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import {LoaderService} from "./loader.service";
@@ -20,11 +18,12 @@ export class UserService {
 
   authenticate(username: string, password: string): Observable<boolean> {
 
-
     this.loaderService.show();
-    const url = environment.API + '/ws/users/login';
+    const url = environment.API + '/ws/users/login';    //http://localhost:9090
 
-    const options = {params: new HttpParams().set('username', username).set('password', password)};
+    const options = {params: new HttpParams().set('username', username)
+                                             .set('password', password)
+                    };
 
     return this.http.get<Token>(url, options)
       .map(token => {

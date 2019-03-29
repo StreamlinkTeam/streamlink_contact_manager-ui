@@ -6,7 +6,8 @@ import {ValidatorService} from '../shared/services/validator.service';
 
 @Component({
   moduleId: module.id,
-  templateUrl: 'auth.component.html'
+  templateUrl: 'auth.component.html',
+  styleUrls: ['./auth.component.css']
 })
 export class AuthComponent {
 
@@ -16,10 +17,9 @@ export class AuthComponent {
   errorMessage: string;
   errorFields: string [];
 
-
-  constructor(private router: Router, private auth: AuthService
-    , private validator: ValidatorService) {
+  constructor(private router: Router, private auth: AuthService, private validator: ValidatorService) {
   }
+
 
   authenticate(form: NgForm) {
     if (form.valid) {

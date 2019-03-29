@@ -53,7 +53,7 @@ export class UserEditorComponent {
     if (form.valid) {
       if (this.editing || this.currentUser) {
 
-        this.user.password = "UNDEFINED";
+        this.user.password = 'UNDEFINED';
         this.service.updateUser(this.user, this.reference)
           .subscribe(
             response => {

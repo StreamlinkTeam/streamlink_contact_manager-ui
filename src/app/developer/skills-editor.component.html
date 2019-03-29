@@ -6,24 +6,24 @@
   </div>
   <div class="row">
     <div class="col-8 border">
-      <form novalidate #form="ngForm" (ngSubmit)="save(form)">
+      <form #form="ngForm" (ngSubmit)="save(form)" novalidate>
 
         <div class="form-group">
-          <label>Titre</label> <input class="form-control" name="title"
-                                      [(ngModel)]="skills.title"/>
+          <label>Titre</label> <input [(ngModel)]="skills.title" class="form-control"
+                                      name="title"/>
         </div>
 
         <div class="form-row">
           <div class="form-group col-md-6">
-            <label>Formation</label> <select class="form-control"
-                                             name="formation" [(ngModel)]="skills.formation">
+            <label>Formation</label> <select [(ngModel)]="skills.formation"
+                                             class="form-control" name="formation">
             <option *ngFor="let ff of formations" [ngValue]="ff.value">{{ff.label}}</option>
           </select>
           </div>
 
           <div class="form-group col-md-6">
-            <label>Expérience</label> <select class="form-control"
-                                              name="experience" [(ngModel)]="skills.experience">
+            <label>Expérience</label> <select [(ngModel)]="skills.experience"
+                                              class="form-control" name="experience">
             <option *ngFor="let ex of experiences" [ngValue]="ex.value">{{ex.label}}</option>
           </select>
           </div>
@@ -33,8 +33,8 @@
 
           <label>Compétences</label>
 
-          <textarea class="form-control" placeholder="Nuages de mots clés ..." name="languages" rows="5"
-                    [(ngModel)]="skills.languages"></textarea>
+          <textarea [(ngModel)]="skills.languages" class="form-control" name="languages" placeholder="Nuages de mots clés ..."
+                    rows="5"></textarea>
 
           <!--<ng-select [multiple]="true" name="languages" #languages="ngModel"
               bindLabel="name" [(ngModel)]="skills.languages"
@@ -45,13 +45,13 @@
 
         <div class="form-row">
           <div class="form-group col-md-10">
-            <input class="form-control" placeholder="Nom du Diplôme ..."
-                   name="qualifTitle" [(ngModel)]="qualifTitle"/>
+            <input [(ngModel)]="qualifTitle" class="form-control"
+                   name="qualifTitle" placeholder="Nom du Diplôme ..."/>
           </div>
           <div class="col-md-2">
 						<span>
-							<button class="btn btn-primary fa fa-plus" [disabled]="!qualifTitle"
-                      type="button" (click)="addQualifications()">
+							<button (click)="addQualifications()" [disabled]="!qualifTitle"
+                      class="btn btn-primary fa fa-plus" type="button">
                             </button>
 						</span>
           </div>
@@ -67,11 +67,11 @@
           </thead>
           <tbody>
           <tr *ngFor="let skill of skills.qualifications; let i=index">
-            <td>{{i+1}}</td>
+            <td>{{i + 1}}</td>
             <td class="col-md-6">{{skill}}</td>
             <td>
-              <button class="btn btn-sm btn-danger"
-                      (click)="removeQualification(i)">Delete
+              <button (click)="removeQualification(i)"
+                      class="btn btn-sm btn-danger">Delete
               </button>
             </td>
           </tr>
@@ -80,11 +80,11 @@
 
         <div class="form-group">
 
-          <button type="submit" class="btn btn-primary"
-                  [class.btn-warning]="editing">Enregistrer
+          <button [class.btn-warning]="editing" class="btn btn-primary"
+                  type="submit">Enregistrer
           </button>
-          <button type="reset" class="btn btn-secondary"
-                  [routerLink]="urlToReturn">Annuler
+          <button [routerLink]="urlToReturn" class="btn btn-secondary"
+                  type="reset">Annuler
           </button>
         </div>
       </form>

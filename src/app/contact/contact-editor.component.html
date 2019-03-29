@@ -1,93 +1,93 @@
 <div class="container" role="tabpanel">
-  <div class="row bg-warning" *ngIf="!isSocietyContact()">
+  <div *ngIf="!isSocietyContact()" class="row bg-warning">
     <h5 class="dropdown-header text-dark">Coordonnées du Développeur</h5>
   </div>
   <div class="row">
     <div class="col border">
-      <form novalidate #form="ngForm" (ngSubmit)="save(form)">
+      <form #form="ngForm" (ngSubmit)="save(form)" novalidate>
         <div class="form-group required row">
 
-          <label for="email1" class="col-sm-2 col-form-label">Email
+          <label class="col-sm-2 col-form-label" for="email1">Email
             1: </label>
           <div class="col-sm-10">
-            <input class="form-control" #email1_input="ngModel" id="email1" type="email" name="email1"
-                   [(ngModel)]="contact.email1" required email>
+            <input #email1_input="ngModel" [(ngModel)]="contact.email1" class="form-control" email id="email1"
+                   name="email1" required type="email">
             <app-field-error-display
+              [displayError]="form.submitted && email1_input.invalid"
               [model]="email1_input"
-              fieldName="Email 1"
-              [displayError]="form.submitted && email1_input.invalid">
+              fieldName="Email 1">
             </app-field-error-display>
           </div>
         </div>
         <div class="form-group row">
-          <label for="email2" class="col-sm-2 col-form-label">Email
+          <label class="col-sm-2 col-form-label" for="email2">Email
             2: </label>
           <div class="col-sm-10">
-            <input class="form-control" id="email2" name="email2" #email2_input="ngModel"
-                   [(ngModel)]="contact.email2" email>
+            <input #email2_input="ngModel" [(ngModel)]="contact.email2" class="form-control" email
+                   id="email2" name="email2">
             <app-field-error-display
+              [displayError]="form.submitted && email2_input.invalid"
               [model]="email2_input"
-              fieldName="Email 2"
-              [displayError]="form.submitted && email2_input.invalid">
+              fieldName="Email 2">
             </app-field-error-display>
           </div>
         </div>
         <div class="form-group row">
-          <label for="email3" class="col-sm-2 col-form-label">Email
+          <label class="col-sm-2 col-form-label" for="email3">Email
             3: </label>
           <div class="col-sm-10">
-            <input class="form-control" id="email3" name="email3" #email3_input="ngModel"
-                   [(ngModel)]="contact.email3" email>
+            <input #email3_input="ngModel" [(ngModel)]="contact.email3" class="form-control" email
+                   id="email3" name="email3">
             <app-field-error-display
+              [displayError]="form.submitted && email3_input.invalid"
               [model]="email3_input"
-              fieldName="Email 3"
-              [displayError]="form.submitted && email3_input.invalid">
+              fieldName="Email 3">
             </app-field-error-display>
           </div>
         </div>
         <div class="form-row">
 
           <div class="form-group col-md-6">
-            <label class="col-form-label">Tel 1</label> <input class="form-control" type="tel"
-                                                               name="tel1" [(ngModel)]="contact.tel1"/>
+            <label class="col-form-label">Tel 1</label> <input [(ngModel)]="contact.tel1" class="form-control"
+                                                               name="tel1" type="tel"/>
           </div>
           <div class="form-group col-md-6">
-            <label class="col-form-label">Tel 2</label> <input class="form-control" type="tel"
-                                                               name="tel2" [(ngModel)]="contact.tel2"/>
+            <label class="col-form-label">Tel 2</label> <input [(ngModel)]="contact.tel2" class="form-control"
+                                                               name="tel2" type="tel"/>
           </div>
         </div>
         <div class="form-row">
           <div class="form-group col-md-6">
-            <label class="col-form-label">Tel 3</label> <input class="form-control" type="tel"
-                                                               name="tel3" [(ngModel)]="contact.tel3"/>
+            <label class="col-form-label">Tel 3</label> <input [(ngModel)]="contact.tel3" class="form-control"
+                                                               name="tel3" type="tel"/>
           </div>
 
           <div class="form-group col-md-6">
-            <label class="col-form-label">Fax</label> <input class="form-control" type="tel"
-                                                             name="tel3" [(ngModel)]="contact.fax"/>
+            <label class="col-form-label">Fax</label> <input [(ngModel)]="contact.fax" class="form-control"
+                                                             name="tel3" type="tel"/>
           </div>
         </div>
 
         <div class="form-group">
           <label class="col-form-label">Addresse</label>
-          <textarea class="form-control" name="address"
-                    [(ngModel)]="contact.address"> </textarea>
+          <textarea [(ngModel)]="contact.address" class="form-control"
+                    name="address"> </textarea>
         </div>
         <div class="form-row">
 
           <div class="form-group col-md-4">
-            <label class="col-form-label">Code Postal</label> <input class="form-control" name="npa"
-                                                                     [(ngModel)]="contact.npa"/>
+            <label class="col-form-label">Code Postal</label> <input [(ngModel)]="contact.npa" class="form-control"
+                                                                     name="npa"/>
           </div>
 
           <div class="form-group col-md-4">
-            <label class="col-form-label">Ville </label> <input class="form-control" name="city"
-                                                                [(ngModel)]="contact.city"/>
+            <label class="col-form-label">Ville </label> <input [(ngModel)]="contact.city" class="form-control"
+                                                                name="city"/>
           </div>
 
           <div class="form-group col-md-4">
-            <label class="col-form-label">Pays</label> <select class="form-control" name="pays"
-                                                               [(ngModel)]="contact.country">
+            <label class="col-form-label">Pays</label> <select [(ngModel)]="contact.country" class="form-control"
+                                                               name="pays">
             <option value="Afghanistan">Afghanistan</option>
             <option value="Afrique_Centrale">Afrique_Centrale</option>
             <option value="Afrique_du_sud">Afrique_du_Sud</option>
@@ -322,18 +322,18 @@
           </div>
         </div>
         <div class="form-group">
-          <button type="submit" class="btn btn-warning">Enregistrer</button>
-          <button type="reset" class="btn btn-secondary" *ngIf="isDeveloper()"
-                  routerLink="/developers">Annuler
+          <button class="btn btn-warning" type="submit">Enregistrer</button>
+          <button *ngIf="isDeveloper()" class="btn btn-secondary" routerLink="/developers"
+                  type="reset">Annuler
           </button>
-          <button type="reset" class="btn btn-secondary" *ngIf="isResource()"
-                  routerLink="/resources">Annuler
+          <button *ngIf="isResource()" class="btn btn-secondary" routerLink="/resources"
+                  type="reset">Annuler
           </button>
-          <button type="reset" class="btn btn-secondary" *ngIf="isSociety()"
-                  routerLink="/societies">Annuler
+          <button *ngIf="isSociety()" class="btn btn-secondary" routerLink="/societies"
+                  type="reset">Annuler
           </button>
-          <button type="reset" class="btn btn-secondary" *ngIf="isSocietyContact()"
-                  routerLink="/societies/edit/{{societyReference}}/contacts">Annuler
+          <button *ngIf="isSocietyContact()" class="btn btn-secondary" routerLink="/societies/edit/{{societyReference}}/contacts"
+                  type="reset">Annuler
           </button>
         </div>
       </form>

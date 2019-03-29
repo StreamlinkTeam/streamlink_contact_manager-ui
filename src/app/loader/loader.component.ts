@@ -26,10 +26,11 @@ export class LoaderComponent implements OnInit {
 
         this.show = state.show;
 
-        if (this.show)
+        if (this.show) {
           this.spinner.show();
-        else
+        } else {
           this.spinner.hide();
+        }
 
       });
   }

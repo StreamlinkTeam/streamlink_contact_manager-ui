@@ -17,9 +17,12 @@ import {ContactModule} from '../contact/contact.module';
 import {SocietyLegalInfoEditorComponent} from './society-legal-info-editor.component';
 import {ActionModule} from '../action/action.module';
 
+import {ButtonsModule, CardsFreeModule, WavesModule} from 'angular-bootstrap-md';
 
 @NgModule({
-  imports: [SharedModule,
+  imports: [
+    ButtonsModule, WavesModule, CardsFreeModule,
+    SharedModule,
     BrowserModule,
     NgSelectModule,
     BrowserAnimationsModule,

@@ -1,4 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "~bootstrap/dist/css/bootstrap.css";
+
 body {
   padding-top: 80px;
 }
@@ -26,4 +29,4 @@ input.ng-dirty.ng-valid {
   color: red;
 }
 
-@import "~bootstrap/dist/css/bootstrap.css";
+
