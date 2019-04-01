@@ -11,6 +11,7 @@ import 'rxjs/add/operator/finally';
 
 import {LoaderService} from './loader.service';
 import {Project, ProjectInformation, ProjectView} from '../entities/project.model';
+import {ProjectPos} from '../entities/project-pos.model';
 
 
 @Injectable()
@@ -22,7 +23,7 @@ export class ProjectService {
   getProject(projectReference: string): Observable<Project> {
 
     this.loaderService.show();
-    const url = environment.API + '/ws/projects';
+    const url = environment.API + '/ws/projectspos';
 
     const options = {params: new HttpParams().set('projectReference', projectReference)};
 
@@ -33,12 +34,12 @@ export class ProjectService {
 
   }
 
-  getProjects(): Observable<ProjectView[]> {
+  getProjects(): Observable<ProjectPos[]> {
 
     this.loaderService.show();
-    const url = environment.API + '/ws/projects/all';
+    const url = environment.API + '/ws/projectspos/all';
 
-    return this.http.get<ProjectView[]>(url)
+    return this.http.get<ProjectPos[]>(url)
       ._finally(() => {
         this.loaderService.hide();
       });
