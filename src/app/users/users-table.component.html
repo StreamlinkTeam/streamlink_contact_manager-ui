@@ -8,8 +8,8 @@
 
   <!--</div>-->
 
-  <ng2-smart-table (edit)="showUser($event)"
-                   (delete)="deleteUser($event)"
+  <ng2-smart-table (delete)="deleteUser($event)"
+                   (edit)="showUser($event)"
                    [settings]="settings"
                    [source]="source"></ng2-smart-table>
   <div class="dropdown-divider"></div>

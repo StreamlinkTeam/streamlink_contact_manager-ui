@@ -22,13 +22,13 @@ export class DeveloperTableComponent implements OnInit {
 
   settings = {
     attr: {
-      class: 'table table-striped table-sm'
+      class: ''
     },
     edit: {
-      editButtonContent: 'Editer'
+      editButtonContent: '<a class="btn btn-info" title="Modifier ou consulter"><i class="fa fa-pencil-square-o"></i></a>',
     },
     delete: {
-      deleteButtonContent: 'Supprimer'
+      deleteButtonContent: '<a class="btn btn-danger" title="Supprimer"><i class="fa fa-trash-o"></i></a>'
     },
     noDataMessage: 'Pas de valeur disponible !',
     actions: {

@@ -1,3 +1,7 @@
+import {ActionTableComponent} from './action/action-table.component';
+import {NeedComponent} from './need/need.component';
+import {NeedEditorComponent} from './need/need-editor.component';
+import {NeedTableComponent} from './need/need-table.component';
 import {Routes} from '@angular/router';
 import {AuthGuard, LoginGuard} from './auth/auth.guard';
 import {AuthComponent} from './auth/auth.component';
@@ -28,6 +32,8 @@ import {ProjectTableComponent} from './project/project-table.component';
 import {ProjectEditorComponent} from './project/project-editor.component';
 import {ProjectComponent} from './project/project.component';
 import {PositioningTableComponent} from './positioning/positioning-table.component';
+import {PositioningAddComponent} from './positioning-add/positioning-add.component';
+import {PositioningEditComponent} from './positioning-edit/positioning-edit.component';
 
 export const appRoutes: Routes = [
   {path: 'auth', component: AuthComponent, canActivate: [LoginGuard]},
@@ -39,6 +45,9 @@ export const appRoutes: Routes = [
       {path: '**', redirectTo: 'general'}
     ]
   },
+
+  {path: 'actions', component: ActionTableComponent, canActivate: [AuthGuard]},
+
   {
     path: 'admin', component: AdminComponent, canActivate: [AuthGuard], data: {roles: ['ROLE_ADMIN']},
     children: [
@@ -50,16 +59,18 @@ export const appRoutes: Routes = [
     ]
   },
   {path: 'positionings', component: PositioningTableComponent, canActivate: [AuthGuard]},
-  // {path: 'positionings/create', component: ProjectEditorComponent, canActivate: [AuthGuard]},
+  {path: 'positionings/create', component: PositioningAddComponent, canActivate: [AuthGuard]},
   {path: 'positionings/:error', component: PositioningTableComponent, canActivate: [AuthGuard]},
-  /*{
-    path: 'positionings/:mode/:reference', component: ProjectComponent, canActivate: [AuthGuard],
-    children: [
-      {path: 'general', component: ProjectEditorComponent},
-      {path: 'action', component: ActionEditorComponent},
-      {path: '**', redirectTo: 'general'}
-    ]
-  },*/
+  {
+    path: 'positionings/edit/:reference', component: PositioningEditComponent, canActivate: [AuthGuard],
+    // path: 'positionings/:mode/:reference', component: PositioningAddComponent, canActivate: [AuthGuard],
+    // children: [
+    // {path: 'positionings/edit', component: PositioningAddComponent},
+    // {path: 'general', component: PositioningAddComponent},
+    // {path: 'action', component: ActionEditorComponent},
+    // {path: '**', redirectTo: 'general'}
+    // ]
+  },
   {path: 'projects', component: ProjectTableComponent, canActivate: [AuthGuard]},
   {path: 'projects/create', component: ProjectEditorComponent, canActivate: [AuthGuard]},
   {path: 'projects/:error', component: ProjectTableComponent, canActivate: [AuthGuard]},
@@ -71,6 +82,20 @@ export const appRoutes: Routes = [
       {path: '**', redirectTo: 'general'}
     ]
   },
+
+  {path: 'needs', component: NeedTableComponent, canActivate: [AuthGuard]},
+  {path: 'needs/create', component: NeedEditorComponent, canActivate: [AuthGuard]},
+  {path: 'needs/:error', component: NeedTableComponent, canActivate: [AuthGuard]},
+  {
+    path: 'needs/:mode/:reference', component: NeedComponent, canActivate: [AuthGuard],
+    children: [
+      {path: 'general', component: NeedEditorComponent},
+      {path: 'action', component: ActionEditorComponent},
+      {path: '**', redirectTo: 'general'}
+    ]
+  },
+
+
   {path: 'developers', component: DeveloperTableComponent, canActivate: [AuthGuard]},
   {path: 'developers/create/from-cv', component: DeveloperCVScannerComponent, canActivate: [AuthGuard]},
   {path: 'developers/create', component: DeveloperEditorComponent, canActivate: [AuthGuard]},

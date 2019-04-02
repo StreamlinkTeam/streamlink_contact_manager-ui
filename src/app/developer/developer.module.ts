@@ -22,9 +22,13 @@ import {EvaluationModule} from '../evaluation/evaluation.module';
 import {ActionModule} from '../action/action.module';
 import {ContactModule} from '../contact/contact.module';
 
+import {ButtonsModule, CardsFreeModule, WavesModule} from 'angular-bootstrap-md';
+
 
 @NgModule({
-  imports: [SharedModule,
+  imports: [
+    ButtonsModule, WavesModule, CardsFreeModule,
+    SharedModule,
     BrowserModule,
     NgSelectModule,
     BrowserAnimationsModule,

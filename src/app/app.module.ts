@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {LOCALE_ID, NgModule} from '@angular/core';
+import {LOCALE_ID, NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
 
 
 import {AppComponent} from './app.component';
@@ -20,22 +20,57 @@ import {ProfilModule} from './profil/profil.module';
 import {AppNavbarModule} from './app-navbar/app-navbar.module';
 import {ResourceModule} from './resource/resource.module';
 import {ProjectModule} from './project/project.module';
+import {NeedModule} from './need/need.module';
 import {PositioningModule} from './positioning/positioning.module';
+import {PositioningAddComponent} from './positioning-add/positioning-add.component';
+
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+
+import {NgSelectModule} from '@ng-select/ng-select';
+import {PositioningEditComponent} from './positioning-edit/positioning-edit.component';
+
+import {SweetAlert2Module} from '@toverux/ngx-sweetalert2';
+import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
+
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatButtonModule} from '@angular/material';
+import {MatInputModule} from '@angular/material/input';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatMomentDateModule} from '@angular/material-moment-adapter';
+import {MatSelectModule} from '@angular/material/select';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatIconModule} from '@angular/material/icon';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+
+import {ButtonsModule, IconsModule, MDBBootstrapModule, NavbarModule, WavesModule} from 'angular-bootstrap-md';
+
+import {InputTextModule} from 'primeng/inputtext';
+import {FooterComponent} from './footer/footer.component';
 
 
 registerLocaleData(localeFr, 'fr');
 
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, PositioningAddComponent, PositioningEditComponent, FooterComponent,],
   imports: [
+    MDBBootstrapModule, NavbarModule, ButtonsModule, WavesModule, IconsModule,
     BrowserModule, HttpClientModule, AppNavbarModule,
     LoaderModule, SocietyModule, AdminModule, ProfilModule, PositioningModule,
     DeveloperModule, AuthModule, SocietyContactModule, ResourceModule,
-    ProjectModule,
+    ProjectModule, NeedModule,
     ToastrModule.forRoot({positionClass: 'toast-bottom-right'}),
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    FormsModule, ReactiveFormsModule,
+    NgSelectModule,
+    BsDatepickerModule,
+    [SweetAlert2Module.forRoot()],
+    BrowserAnimationsModule,
+    InputTextModule,
+    MatButtonModule, MatIconModule, MatInputModule, MatDatepickerModule,
+    MatProgressSpinnerModule, MatMomentDateModule, MatSelectModule, MatToolbarModule
   ],
+  schemas: [NO_ERRORS_SCHEMA],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
@@ -43,7 +78,8 @@ registerLocaleData(localeFr, 'fr');
       multi: true
     }, {provide: LOCALE_ID, useValue: 'fr'}
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [PositioningAddComponent]
 })
 export class AppModule {
 }

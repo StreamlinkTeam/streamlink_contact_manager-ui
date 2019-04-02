@@ -17,12 +17,12 @@ export class AuthGuard {
       return false;
     }
 
-    let roles = route.data["roles"] as Array<string>;
+    let roles = route.data['roles'] as Array<string>;
     if (roles) {
       var match = this.auth.roleMatch(roles);
-      if (match)
+      if (match) {
         return true;
-      else {
+      } else {
         this.router.navigate(['/developers', 'forbidden']);
         return false;
       }

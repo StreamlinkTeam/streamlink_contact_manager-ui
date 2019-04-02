@@ -16,9 +16,13 @@ import {ProjectEditorComponent} from './project-editor.component';
 import {ProjectComponent} from './project.component';
 import {ProjectInfoEditorComponent} from './project-info-editor.component';
 
+import {ButtonsModule, CardsFreeModule, WavesModule} from 'angular-bootstrap-md';
+
 
 @NgModule({
-  imports: [SharedModule,
+  imports: [
+    ButtonsModule, WavesModule, CardsFreeModule,
+    SharedModule,
     BrowserModule,
     NgSelectModule,
     BrowserAnimationsModule,

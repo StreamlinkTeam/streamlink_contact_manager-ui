@@ -14,7 +14,7 @@ import {Ng2FileSizeModule} from 'ng2-file-size';
 import {Ng2SmartTableModule} from 'ng2-smart-table';
 import {ActionModule} from '../action/action.module';
 import {ContactModule} from '../contact/contact.module';
-import {SocietyContactComponent} from "./society-contact.component";
+import {SocietyContactComponent} from './society-contact.component';
 
 
 @NgModule({

@@ -7,7 +7,7 @@ import {ToastrService} from 'ngx-toastr';
 import {Project} from '../shared/entities/project.model';
 import {ProjectService} from '../shared/services/project.service';
 
-import {distinctUntilChanged, debounceTime, switchMap, tap, catchError} from 'rxjs/operators';
+import {catchError, debounceTime, distinctUntilChanged, switchMap, tap} from 'rxjs/operators';
 
 import {Society, SocietyView} from '../shared/entities/society.model';
 import {SocietyService} from '../shared/services/society.service';
@@ -54,6 +54,8 @@ export class ProjectEditorComponent implements OnInit {
   ngOnInit(): void {
     this.editing = this.activeRoute.snapshot.parent.params['reference'] !== undefined;
 
+    console.log(this.activeRoute);
+
     this.userService.getUsers().subscribe(response => this.users = response);
 
     this.stages = [
@@ -73,6 +75,7 @@ export class ProjectEditorComponent implements OnInit {
       {label: 'Recrutement', value: 'Recruitment'}];
 
     if (this.editing) {
+
       this.service.getProject(this.activeRoute.snapshot.parent.params['reference'])
         .subscribe(response => {
             this.project = response;
@@ -83,6 +86,43 @@ export class ProjectEditorComponent implements OnInit {
             this.router.navigate(['/projects', 'error']));
     } else {
       this.loadSocieties(null);
+    }
+  }
+
+  onSocietyChange($event) {
+    if ($event !== undefined) {
+      this.contacts$ = this.societyContactService.getSocietyContacts($event.reference);
+    }
+  }
+
+  save(form: NgForm) {
+
+    if (form.valid) {
+      if (this.editing) {
+
+        this.service.updateProject(this.project, this.project.reference)
+          .subscribe(
+            response => {
+
+              this.project = response;
+              this.toastr.success('Données Mise à jour avec succés', 'Opération Réussite!');
+
+            }, error => {
+              this.toastr.error('Erreur lors de la mise à jour des donnés', 'Opération échoué !!!');
+            }
+          );
+
+      } else {
+        this.service.createProjects(this.project)
+          .subscribe(response => {
+
+            this.toastr.success('Projet Créé avec succés', 'Opération Réussite!');
+            this.router.navigate(['/projects/edit/', response.reference]);
+
+          }, error => {
+            this.toastr.error('Erreur lors de la création du Projet', 'Opération échoué !!!');
+          });
+      }
     }
   }
 
@@ -131,43 +171,6 @@ export class ProjectEditorComponent implements OnInit {
           ))
         )
       );
-    }
-  }
-
-  onSocietyChange($event) {
-    if ($event !== undefined) {
-      this.contacts$ = this.societyContactService.getSocietyContacts($event.reference);
-    }
-  }
-
-  save(form: NgForm) {
-
-    if (form.valid) {
-      if (this.editing) {
-
-        this.service.updateProject(this.project, this.project.reference)
-          .subscribe(
-            response => {
-
-              this.project = response;
-              this.toastr.success('Données Mise à jour avec succés', 'Opération Réussite!');
-
-            }, error => {
-              this.toastr.error('Erreur lors de la mise à jour des donnés', 'Opération échoué !!!');
-            }
-          );
-
-      } else {
-        this.service.createProjects(this.project)
-          .subscribe(response => {
-
-            this.toastr.success('Projet Créé avec succés', 'Opération Réussite!');
-            this.router.navigate(['/projects/edit/', response.reference]);
-
-          }, error => {
-            this.toastr.error('Erreur lors de la création du Projet', 'Opération échoué !!!');
-          });
-      }
     }
   }
 }

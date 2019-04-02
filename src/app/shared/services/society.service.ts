@@ -71,10 +71,7 @@ export class SocietyService {
   updateSociety(society: Society, reference: string): Observable<Society> {
     this.loaderService.show();
     const url = environment.API + '/ws/societies';
-
     const options = {params: new HttpParams().set('societyReference', reference)};
-
-
     return this.http
       .put<Society>(url, society, options)
       ._finally(() => {
@@ -103,12 +100,10 @@ export class SocietyService {
 
     const options = {params: new HttpParams().set('societyReference', societyReference)};
 
-
     return this
-      .http
-      .get<LegalInformation>(url, options)
-      ._finally(() => {
-        this.loaderService.hide();
+      .http.get<LegalInformation>(url, options)
+           ._finally(() => {
+              this.loaderService.hide();
       });
   }
 

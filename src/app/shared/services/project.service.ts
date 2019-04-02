@@ -11,6 +11,8 @@ import 'rxjs/add/operator/finally';
 
 import {LoaderService} from './loader.service';
 import {Project, ProjectInformation, ProjectView} from '../entities/project.model';
+import {ProjectPos} from '../entities/project-pos.model';
+import {Resource} from '../entities/resource.model';
 
 
 @Injectable()
@@ -19,10 +21,24 @@ export class ProjectService {
   constructor(private http: HttpClient, private loaderService: LoaderService) {
   }
 
+  createProjectFromPositioning(positioningReference: string): Observable<ProjectPos> {
+    this.loaderService.show();
+    const url = environment.API + '/ws/projectspos/from-positioning';
+
+    const options = {params: new HttpParams().set('positioningReference', positioningReference)};
+
+
+    return this.http
+      .post<ProjectPos>(url, null, options)
+      ._finally(() => {
+        this.loaderService.hide();
+      });
+  }
+
   getProject(projectReference: string): Observable<Project> {
 
     this.loaderService.show();
-    const url = environment.API + '/ws/projects';
+    const url = environment.API + '/ws/projectspos';
 
     const options = {params: new HttpParams().set('projectReference', projectReference)};
 
@@ -33,12 +49,12 @@ export class ProjectService {
 
   }
 
-  getProjects(): Observable<ProjectView[]> {
+  getProjects(): Observable<ProjectPos[]> {
 
     this.loaderService.show();
-    const url = environment.API + '/ws/projects/all';
+    const url = environment.API + '/ws/projectspos/all';
 
-    return this.http.get<ProjectView[]>(url)
+    return this.http.get<ProjectPos[]>(url)
       ._finally(() => {
         this.loaderService.hide();
       });
@@ -116,5 +132,16 @@ export class ProjectService {
       });
   }
 
+  searchProjects(term: string): Observable<ProjectView[]> {
+
+    this.loaderService.show();
+    const url = environment.API + '/ws/projects/auto-complete';
+    const options = {params: new HttpParams().set('term', term)};
+
+    return this.http.get<ProjectView[]>(url, options)
+      ._finally(() => {
+        this.loaderService.hide();
+      });
+  }
 
 }

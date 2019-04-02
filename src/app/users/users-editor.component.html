@@ -2,75 +2,75 @@
   <div class="row">
     <div class="col border">
       <div class="row">
-        <div class="col border" [class.bg-warning]="editing || currentUser" [class.bg-info]="!editing && !currentUser">
+        <div [class.bg-info]="!editing && !currentUser" [class.bg-warning]="editing || currentUser" class="col border">
           <h5 class="text-dark dropdown-header">Détails De L'utilisateur</h5>
         </div>
       </div>
       <div class="row">
         <div class="col border">
-          <form novalidate #form="ngForm" (ngSubmit)="save(form)">
+          <form #form="ngForm" (ngSubmit)="save(form)" novalidate>
 
             <div class="form-group">
-              <label>Nom</label> <input class="form-control" name="firstname" required #firstname_input="ngModel"
-                                        [(ngModel)]="user.firstname"/>
+              <label>Nom</label> <input #firstname_input="ngModel" [(ngModel)]="user.firstname" class="form-control" name="firstname"
+                                        required/>
               <app-field-error-display
+                [displayError]="form.submitted && firstname_input.invalid"
                 [model]="firstname_input"
-                fieldName="Nom"
-                [displayError]="form.submitted && firstname_input.invalid">
+                fieldName="Nom">
               </app-field-error-display>
             </div>
             <div class="form-group">
               <label>Prénom</label>
-              <input class="form-control" name="lastname" required #lastname_input="ngModel"
-                     [(ngModel)]="user.lastname"/>
+              <input #lastname_input="ngModel" [(ngModel)]="user.lastname" class="form-control" name="lastname"
+                     required/>
               <app-field-error-display
+                [displayError]="form.submitted && lastname_input.invalid"
                 [model]="lastname_input"
-                fieldName="Prénom"
-                [displayError]="form.submitted && lastname_input.invalid">
+                fieldName="Prénom">
               </app-field-error-display>
             </div>
 
-            <div class="form-group" *ngIf="!editing && !currentUser">
+            <div *ngIf="!editing && !currentUser" class="form-group">
               <label>Mot de Passe</label>
-              <input class="form-control" name="mdp" type="password" required #password_input="ngModel"
-                     [(ngModel)]="user.password" minlength="8" validateEqual="confirmPassword" reverse="true"/>
+              <input #password_input="ngModel" [(ngModel)]="user.password" class="form-control" minlength="8" name="mdp"
+                     required reverse="true" type="password" validateEqual="confirmPassword"/>
               <app-field-error-display
+                [displayError]="form.submitted && password_input.invalid"
                 [model]="password_input"
-                fieldName="Mot de Passe"
-                [displayError]="form.submitted && password_input.invalid">
+                fieldName="Mot de Passe">
               </app-field-error-display>
             </div>
 
-            <div class="form-group" *ngIf="!editing && !currentUser">
+            <div *ngIf="!editing && !currentUser" class="form-group">
               <label>Confirmation du Mot de Passe</label>
-              <input class="form-control" type="password"
-                     name="confirmPassword" [(ngModel)]="user.confirmPassword"
-                     required validateEqual="mdp" minlength="8"
-                     #confirmPassword_input="ngModel">
+              <input #confirmPassword_input="ngModel" [(ngModel)]="user.confirmPassword"
+                     class="form-control" minlength="8"
+                     name="confirmPassword" required type="password"
+                     validateEqual="mdp">
               <app-field-error-display
+                [displayError]="form.submitted && confirmPassword_input.invalid"
                 [model]="confirmPassword_input"
-                fieldName="Confirmation du Mot de Passe"
-                [displayError]="form.submitted && confirmPassword_input.invalid">
+                fieldName="Confirmation du Mot de Passe">
               </app-field-error-display>
             </div>
 
             <div class="form-group">
               <label>Email: </label>
-              <input class="form-control" name="mail" #email_input="ngModel"
-                     [(ngModel)]="user.email" email>
+              <input #email_input="ngModel" [(ngModel)]="user.email" class="form-control"
+                     email name="mail">
               <app-field-error-display
+                [displayError]="form.submitted && email_input.invalid"
                 [model]="email_input"
-                fieldName="Email"
-                [displayError]="form.submitted && email_input.invalid">
+                fieldName="Email">
               </app-field-error-display>
             </div>
 
 
-            <div class="form-group" *ngIf="!currentUser">
+            <div *ngIf="!currentUser" class="form-group">
               <label>Roles</label>
 
-              <ng-select [multiple]="true" bindValue="label" [hideSelected]="true"
-                         name="roles" [(ngModel)]="user.roles" id="roles">
+              <ng-select [(ngModel)]="user.roles" [hideSelected]="true" [multiple]="true"
+                         bindValue="label" id="roles" name="roles">
 
                 <ng-option value="ROLE_ADMIN">Admin</ng-option>
                 <ng-option value="ROLE_CLIENT">Client</ng-option>
@@ -79,11 +79,11 @@
             </div>
 
             <div class="form-group">
-              <button type="submit" class="btn btn-primary"
-                      [class.btn-warning]="editing || currentUser">Enregistrer
+              <button [class.btn-warning]="editing || currentUser" class="btn btn-primary"
+                      type="submit">Enregistrer
               </button>
-              <button type="reset" class="btn btn-secondary" *ngIf="!currentUser"
-                      routerLink="/admin/users">Annuler
+              <button *ngIf="!currentUser" class="btn btn-secondary" routerLink="/admin/users"
+                      type="reset">Annuler
               </button>
 
             </div>

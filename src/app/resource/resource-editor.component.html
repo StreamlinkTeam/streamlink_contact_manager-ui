@@ -2,97 +2,97 @@
   <div class="row">
     <div class="col border">
       <div class="row">
-        <div class="col border" [class.bg-warning]="editing" [class.bg-info]="!editing">
+        <div [class.bg-info]="!editing" [class.bg-warning]="editing" class="col border">
           <h5 class="text-dark dropdown-header">Informations</h5>
         </div>
       </div>
       <div class="row">
         <div class="col border">
-          <form novalidate #form="ngForm" (ngSubmit)="save(form)">
+          <form #form="ngForm" (ngSubmit)="save(form)" novalidate>
             <div *ngIf="editing" class="form-group">
               <label>Date de Création: </label>
-              <input type="text" readonly class="form-control-plaintext"
-                     name="createdDate" style="width: 70%"
+              <input class="form-control-plaintext" name="createdDate" readonly
+                     style="width: 70%" type="text"
                      value="{{resource.createdDate | date:'long'}}"/>
             </div>
             <div class="form-group">
               <label>Commentaires</label>
-              <textarea class="form-control" name="note" rows="5"
-                        [(ngModel)]="resource.note"></textarea>
+              <textarea [(ngModel)]="resource.note" class="form-control" name="note"
+                        rows="5"></textarea>
             </div>
             <div class="form-group">
-              <label>Nom</label> <input class="form-control" name="firstname" required #firstname_input="ngModel"
-                                        [(ngModel)]="resource.firstname"/>
+              <label>Nom</label> <input #firstname_input="ngModel" [(ngModel)]="resource.firstname" class="form-control" name="firstname"
+                                        required/>
               <app-field-error-display
+                [displayError]="form.submitted && firstname_input.invalid"
                 [model]="firstname_input"
-                fieldName="Nom"
-                [displayError]="form.submitted && firstname_input.invalid">
+                fieldName="Nom">
               </app-field-error-display>
             </div>
             <div class="form-group">
-              <label>Prénom</label> <input class="form-control" name="lastname" required #lastname_input="ngModel"
-                                           [(ngModel)]="resource.lastname"/>
+              <label>Prénom</label> <input #lastname_input="ngModel" [(ngModel)]="resource.lastname" class="form-control" name="lastname"
+                                           required/>
               <app-field-error-display
+                [displayError]="form.submitted && lastname_input.invalid"
                 [model]="lastname_input"
-                fieldName="Prénom"
-                [displayError]="form.submitted && lastname_input.invalid">
+                fieldName="Prénom">
               </app-field-error-display>
             </div>
 
             <div class="form-group">
               <label>Matricule</label>
-              <input class="form-control" name="registrationNumber" [(ngModel)]="resource.registrationNumber"/>
+              <input [(ngModel)]="resource.registrationNumber" class="form-control" name="registrationNumber"/>
 
             </div>
             <div class="form-group">
 
               <div class="segmented-control " style="width: 100%; color: #4fa2d9">
-                <input type="radio" value="M" name="gender"
-                       [(ngModel)]="resource.gender"> Mr <input type="radio"
-                                                                value="F" name="gender"
-                                                                [(ngModel)]="resource.gender">
+                <input [(ngModel)]="resource.gender" name="gender" type="radio"
+                       value="M"> Mr <input [(ngModel)]="resource.gender"
+                                                                name="gender" type="radio"
+                                                                value="F">
                 Mme
               </div>
             </div>
             <div class="form-group">
-              <label>Etat</label> <select class="form-control" name="resourceStage"
-                                          [(ngModel)]="resource.resourceStage">
+              <label>Etat</label> <select [(ngModel)]="resource.resourceStage" class="form-control"
+                                          name="resourceStage">
               <option *ngFor="let stage of resourceStages" [ngValue]="stage.value">{{stage.label}}</option>
             </select>
             </div>
             <div class="form-group">
-              <label>Type</label> <select class="form-control" name="resourceType"
-                                          [(ngModel)]="resource.resourceType">
+              <label>Type</label> <select [(ngModel)]="resource.resourceType" class="form-control"
+                                          name="resourceType">
               <option *ngFor="let type of resourceTypes" [ngValue]="type.value">{{type.label}}</option>
             </select>
             </div>
             <div class="form-group">
-              <label>Responsable RH</label> <select class="form-control"
-                                                    name="rh" [(ngModel)]="resource.rhReference">
+              <label>Responsable RH</label> <select [(ngModel)]="resource.rhReference"
+                                                    class="form-control" name="rh">
               <option *ngFor="let user of users" [ngValue]="user.reference">{{user.firstname}}
                 {{user.lastname}}
               </option>
             </select>
             </div>
             <div class="form-group">
-              <label>Responsable Manager</label> <select class="form-control"
-                                                         name="manager" [(ngModel)]="resource.managerReference">
+              <label>Responsable Manager</label> <select [(ngModel)]="resource.managerReference"
+                                                         class="form-control" name="manager">
               <option *ngFor="let user of users" [ngValue]="user.reference">{{user.firstname}}
                 {{user.lastname}}
               </option>
             </select>
             </div>
             <div class="form-group">
-              <label>Disponibiltité</label> <input class="form-control"
-                                                   type="date" name="availability"
-                                                   [(ngModel)]="resource.availability"/>
+              <label>Disponibiltité</label> <input [(ngModel)]="resource.availability"
+                                                   class="form-control" name="availability"
+                                                   type="date"/>
             </div>
             <div class="form-group">
               <label>Mobilité</label>
 
-              <ng-select [multiple]="true" bindValue="label" [hideSelected]="true"
-                         name="mobility" #mobility="ngModel"
-                         [(ngModel)]="resource.mobility" id="mobility">
+              <ng-select #mobility="ngModel" [(ngModel)]="resource.mobility" [hideSelected]="true"
+                         [multiple]="true" bindValue="label"
+                         id="mobility" name="mobility">
 
 
                 <ng-option value="monde">Monde</ng-option>
@@ -330,18 +330,18 @@
             </div>
 
             <div class="form-group">
-              <button type="submit" class="btn btn-primary"
-                      [class.btn-warning]="editing">Enregistrer
+              <button [class.btn-warning]="editing" class="btn btn-primary"
+                      type="submit">Enregistrer
               </button>
-              <button type="reset" class="btn btn-secondary"
-                      routerLink="/resources">Annuler
+              <button class="btn btn-secondary" routerLink="/resources"
+                      type="reset">Annuler
               </button>
             </div>
           </form>
         </div>
       </div>
     </div>
-    <div class="col border" *ngIf="editing">
+    <div *ngIf="editing" class="col border">
       <app-personal-info></app-personal-info>
     </div>
   </div>

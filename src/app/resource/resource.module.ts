@@ -14,9 +14,13 @@ import {ResourceTableComponent} from './resource-table.component';
 import {DeveloperModule} from '../developer/developer.module';
 import {ResourceEditorComponent} from './resource-editor.component';
 
+import {ButtonsModule, CardsFreeModule, WavesModule} from 'angular-bootstrap-md';
+
 
 @NgModule({
-  imports: [SharedModule,
+  imports: [
+    ButtonsModule, WavesModule, CardsFreeModule,
+    SharedModule,
     BrowserModule,
     NgSelectModule,
     BrowserAnimationsModule,

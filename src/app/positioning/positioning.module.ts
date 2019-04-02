@@ -13,9 +13,20 @@ import {Ng2SmartTableModule} from 'ng2-smart-table';
 import {ActionModule} from '../action/action.module';
 import {PositioningTableComponent} from './positioning-table.component';
 
+import {MatInputModule} from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
+import {AngularFontAwesomeModule} from 'angular-font-awesome';
+
+import {ButtonsModule, CardsFreeModule, WavesModule} from 'angular-bootstrap-md';
+
 
 @NgModule({
-  imports: [SharedModule,
+  imports: [
+    ButtonsModule, WavesModule, CardsFreeModule,
+    SharedModule,
     BrowserModule,
     NgSelectModule,
     BrowserAnimationsModule,
@@ -23,8 +34,9 @@ import {PositioningTableComponent} from './positioning-table.component';
     RouterModule,
     Ng2FileSizeModule,
     CommonModule,
-    Ng2SmartTableModule,
-    ActionModule],
+    Ng2SmartTableModule, MatInputModule, MatSelectModule, MatDialogModule, MatButtonModule, MatIconModule,
+    ActionModule, AngularFontAwesomeModule
+  ],
   declarations: [PositioningTableComponent],
   exports: [PositioningTableComponent]
 })

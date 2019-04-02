@@ -22,7 +22,7 @@ export class ProjectTableComponent implements OnInit {
 
   settings = {
     attr: {
-      class: 'table table-striped table-sm'
+      class: ''
     },
     edit: {
       editButtonContent: 'Editer'
@@ -38,21 +38,13 @@ export class ProjectTableComponent implements OnInit {
     },
     mode: 'external',
     columns: {
-      title: {
-        title: 'Title',
+      client: {
+        title: 'Client',
         filter: false
       },
-      type: {
-        title: 'Type',
-        filter: false,
-        type: 'custom',
-        renderComponent: CustomEnumRenderComponent
-      },
-      activityArea: {
-        title: 'Secteur',
-        filter: false,
-        type: 'custom',
-        renderComponent: CustomEnumRenderComponent
+      resourceFullName: {
+        title: 'Ressource',
+        filter: false
       },
       stage: {
         title: 'Etape',
@@ -60,11 +52,15 @@ export class ProjectTableComponent implements OnInit {
         type: 'custom',
         renderComponent: CustomEnumRenderComponent
       },
-      client: {
-        title: 'Client',
+      needTitle: {
+        title: 'Projet',
         filter: false,
         // sort: false
-      }
+      },
+      note: {
+        title: 'Note',
+        filter: false
+      },
     },
     // actions: false,
     pager: {
@@ -91,17 +87,10 @@ export class ProjectTableComponent implements OnInit {
 
   ngOnInit() {
 
-    this.url = environment.API + '/ws/projects/search?fromAngular=true';
+    this.url = environment.API + '/ws/projectspos/all';
 
     this.source = new ServerDataSource(this.http, {
-      endPoint: this.url,
-      dataKey: 'content',
-      totalKey: 'totalElements',
-      pagerLimitKey: 'size',
-      perPage: 'size',
-      sortFieldKey: 'sort',
-      sortDirKey: 'dir',
-      pagerPageKey: 'page'
+      endPoint: this.url
     });
 
 

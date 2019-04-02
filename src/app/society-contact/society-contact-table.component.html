@@ -11,23 +11,23 @@
 
       <div class="form-group col-md-6">
         <label>Etat</label>
-        <select class="form-control" name="stage" (change)="onSelectChange('stage',$event.target.value)">
+        <select (change)="onSelectChange('stage',$event.target.value)" class="form-control" name="stage">
           <option *ngFor="let stage of stages" [value]="stage.value">{{stage.label}}</option>
         </select>
       </div>
 
       <div class="form-group col-md-6">
         <label>Mots clefs</label>
-        <input #search class="form-control" (keyup)="onSearch(search.value)"
-               type="search" placeholder="recherche..." aria-label="Recherche">
+        <input #search (keyup)="onSearch(search.value)" aria-label="Recherche"
+               class="form-control" placeholder="recherche..." type="search">
       </div>
     </div>
 
 
   </div>
 
-  <ng2-smart-table (edit)="showSocietyContact($event)"
-                   (delete)="deleteSocietyContact($event)"
+  <ng2-smart-table (delete)="deleteSocietyContact($event)"
+                   (edit)="showSocietyContact($event)"
                    [settings]="settings"
                    [source]="source"></ng2-smart-table>
   <div class="dropdown-divider"></div>

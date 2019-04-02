@@ -4,14 +4,17 @@ import {environment} from '../../environments/environment';
 import {ServerDataSource} from 'ng2-smart-table';
 import {Row} from 'ng2-smart-table/lib/data-set/row';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ToastrService} from 'ngx-toastr';
+// import {ToastrService} from 'ngx-toastr';
 import {CustomEnumRenderComponent} from '../shared/custom-ng2-smart-table-renderer/custom-enum-render.component';
 import {PositioningService} from '../shared/services/positioning.service';
+import {MatDialog, MatDialogConfig} from '@angular/material';
+import {PositioningAddComponent} from '../positioning-add/positioning-add.component';
 
 
 @Component({
   moduleId: module.id,
-  templateUrl: 'positioning-table.component.html'
+  templateUrl: 'positioning-table.component.html',
+  styleUrls: ['./positioning-table.component.scss']
 })
 export class PositioningTableComponent implements OnInit {
 
@@ -22,13 +25,13 @@ export class PositioningTableComponent implements OnInit {
 
   settings = {
     attr: {
-      class: 'table table-striped table-sm'
+      class: 'table table-striped',
     },
     edit: {
-      editButtonContent: 'Editer'
+      editButtonContent: '<a class="btn btn-info" title="Modifier ou consulter"><i class="fa fa-pencil-square-o"></i></a>&nbsp'
     },
     delete: {
-      deleteButtonContent: 'Supprimer'
+      deleteButtonContent: '<a class="btn btn-danger" title="Supprimer"><i class="fa fa-trash-o"></i></a>'
     },
     noDataMessage: 'Pas de valeur disponible !',
     actions: {
@@ -43,21 +46,21 @@ export class PositioningTableComponent implements OnInit {
         filter: false,
         sort: false
       },
-      projectTitle: {
-        title: 'Project',
+      needTitle: {
+        title: 'Besoin',
         filter: false,
         sort: false
       },
       stage: {
         title: 'Etat',
         filter: false,
-        type: 'custom',
+        // type: 'custom',
         renderComponent: CustomEnumRenderComponent
       },
-      note: {
-        title: 'Commentaire',
-        filter: false
-      },
+      /*       note: {
+              title: 'Commentaire',
+              filter: false,
+            }, */
       client: {
         title: 'Client',
         filter: false,
@@ -76,13 +79,14 @@ export class PositioningTableComponent implements OnInit {
 
 
   constructor(private service: PositioningService,
-              private toastr: ToastrService,
+              // private toastr: ToastrService,
               private http: HttpClient,
               private router: Router,
-              private activeRoute: ActivatedRoute) {
+              private activeRoute: ActivatedRoute,
+              private dialog: MatDialog) {
 
     if (activeRoute.snapshot.params['error'] === 'error') {
-      this.toastr.warning('Erreur lors de la récupération de données', 'Opération échoué!');
+      // this.toastr.warning('Erreur lors de la récupération de données', 'Opération échoué!');
       this.router.navigate(['/positionings']);
     }
   }
@@ -91,20 +95,21 @@ export class PositioningTableComponent implements OnInit {
   ngOnInit() {
 
     this.url = environment.API + '/ws/positionings/search?fromAngular=true';
+    this.source = new ServerDataSource(
+      this.http, {
+        endPoint: this.url,
+        dataKey: 'content',
+        totalKey: 'totalElements',
+        pagerLimitKey: 'size',
+        perPage: 'size',
+        sortFieldKey: 'sort',
+        sortDirKey: 'dir',
+        pagerPageKey: 'page'
+      });
 
-    this.source = new ServerDataSource(this.http, {
-      endPoint: this.url,
-      dataKey: 'content',
-      totalKey: 'totalElements',
-      pagerLimitKey: 'size',
-      perPage: 'size',
-      sortFieldKey: 'sort',
-      sortDirKey: 'dir',
-      pagerPageKey: 'page'
-    });
 
+    // console.log(this.source);       NOT_DEFINED,
 
-    console.log(this.source);
 
     this.positioningStages = [
       {label: 'Tous', value: ''},
@@ -160,7 +165,7 @@ export class PositioningTableComponent implements OnInit {
       pagerPageKey: 'page'
     });
 
-    console.log(this.source);
+    // console.log(this.source);
   }
 
   onSearch(query: string = '') {
@@ -181,14 +186,14 @@ export class PositioningTableComponent implements OnInit {
       pagerPageKey: 'page'
     });
 
-    console.log(this.source);
+    // console.log(this.source);
 
   }
 
   showPositioning(rowData: Row) {
 
-    //TODO
-
+    const positioning = rowData.getData();
+    this.router.navigate(['/positionings/edit', positioning.reference]);
 
   }
 
@@ -196,18 +201,26 @@ export class PositioningTableComponent implements OnInit {
 
     const positioning = rowData.getData();
     if (confirm('Suppression du Positionnement ' + positioning.title)) {
-
       this.service.deletePositioning(positioning.reference)
         .subscribe(res => {
-
           this.source.remove(rowData);
-          this.toastr.success('Positionnement Supprimé avec succés', 'Opération Réussite!');
-
+          // this.toastr.success('Positionnement Supprimé avec succés', 'Opération Réussite!');
         }, error => {
-          this.toastr.error('Erreur lors de la suppression de du Positionnement', 'Opération échoué !!!');
+          //  this.toastr.error('Erreur lors de la suppression de du Positionnement', 'Opération échoué !!!');
         });
-
     }
   }
+
+  onCreate() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '60%';
+    this.dialog.open(PositioningAddComponent, dialogConfig).afterClosed().subscribe(result => {
+      this.source.refresh();
+    });
+
+  }
+
 
 }

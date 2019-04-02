@@ -1,75 +1,75 @@
 <div class="container tab-pane fade show active" role="tabpanel">
   <div class="row">
     <div class="col border">
-      <div class="row" *ngIf="!editing">
+      <div *ngIf="!editing" class="row">
         <div class="col border bg-info">
           <h5 class="text-dark dropdown-header">Informations Général du Contact</h5>
         </div>
       </div>
       <div class="row">
         <div class="col border">
-          <form novalidate #form="ngForm" (ngSubmit)="save(form)">
+          <form #form="ngForm" (ngSubmit)="save(form)" novalidate>
             <div *ngIf="editing" class="form-group">
               <label>Date de Création: </label>
-              <input type="text" readonly class="form-control-plaintext"
-                     name="createdDate" style="width: 70%"
+              <input class="form-control-plaintext" name="createdDate" readonly
+                     style="width: 70%" type="text"
                      value="{{societyContact.createdDate | date:'long'}}"/>
             </div>
 
             <div class="form-group">
-              <label>Nom</label> <input class="form-control" name="firstname" required #firstname_input="ngModel"
-                                        [(ngModel)]="societyContact.firstname"/>
+              <label>Nom</label> <input #firstname_input="ngModel" [(ngModel)]="societyContact.firstname" class="form-control" name="firstname"
+                                        required/>
               <app-field-error-display
+                [displayError]="form.submitted && firstname_input.invalid"
                 [model]="firstname_input"
-                fieldName="Nom"
-                [displayError]="form.submitted && firstname_input.invalid">
+                fieldName="Nom">
               </app-field-error-display>
             </div>
             <div class="form-group">
-              <label>Prénom</label> <input class="form-control" name="lastname" required #lastname_input="ngModel"
-                                           [(ngModel)]="societyContact.lastname"/>
+              <label>Prénom</label> <input #lastname_input="ngModel" [(ngModel)]="societyContact.lastname" class="form-control" name="lastname"
+                                           required/>
               <app-field-error-display
+                [displayError]="form.submitted && lastname_input.invalid"
                 [model]="lastname_input"
-                fieldName="Prénom"
-                [displayError]="form.submitted && lastname_input.invalid">
+                fieldName="Prénom">
               </app-field-error-display>
             </div>
 
             <div class="form-group">
-              <label>Titre</label> <input class="form-control" name="title" required #title_input="ngModel"
-                                          [(ngModel)]="societyContact.title"/>
+              <label>Titre</label> <input #title_input="ngModel" [(ngModel)]="societyContact.title" class="form-control" name="title"
+                                          required/>
               <app-field-error-display
+                [displayError]="form.submitted && title_input.invalid"
                 [model]="title_input"
-                fieldName="Titre"
-                [displayError]="form.submitted && title_input.invalid">
+                fieldName="Titre">
               </app-field-error-display>
             </div>
 
             <div class="form-group">
-              <label>Service</label> <input class="form-control" name="service" [(ngModel)]="societyContact.service"/>
+              <label>Service</label> <input [(ngModel)]="societyContact.service" class="form-control" name="service"/>
 
 
             </div>
             <div class="form-group">
 
               <div class="segmented-control " style="width: 100%; color: #4fa2d9">
-                <input type="radio" value="M" name="gender"
-                       [(ngModel)]="societyContact.gender"> Mr <input type="radio"
-                                                                      value="F" name="gender"
-                                                                      [(ngModel)]="societyContact.gender">
+                <input [(ngModel)]="societyContact.gender" name="gender" type="radio"
+                       value="M"> Mr <input [(ngModel)]="societyContact.gender"
+                                                                      name="gender" type="radio"
+                                                                      value="F">
                 Mme
               </div>
             </div>
             <div class="form-group">
-              <label>Etape</label> <select class="form-control" name="stage"
-                                           [(ngModel)]="societyContact.stage">
+              <label>Etape</label> <select [(ngModel)]="societyContact.stage" class="form-control"
+                                           name="stage">
               <option *ngFor="let stage of stages" [ngValue]="stage.value">{{stage.label}}</option>
             </select>
             </div>
 
             <div class="form-group">
-              <label>Responsable Manager</label> <select class="form-control"
-                                                         name="manager" [(ngModel)]="societyContact.managerReference">
+              <label>Responsable Manager</label> <select [(ngModel)]="societyContact.managerReference"
+                                                         class="form-control" name="manager">
               <option *ngFor="let user of users" [ngValue]="user.reference">{{user.firstname}}
                 {{user.lastname}}
               </option>
@@ -78,23 +78,23 @@
 
             <div class="form-group">
               <label>Périmètre Fonctionnel (Nuage de mots clefs)</label>
-              <textarea class="form-control" name="functionalScope" rows="5"
-                        [(ngModel)]="societyContact.functionalScope"></textarea>
+              <textarea [(ngModel)]="societyContact.functionalScope" class="form-control" name="functionalScope"
+                        rows="5"></textarea>
             </div>
 
             <div class="form-group">
               <label>Périmètre Technique (Nuage de mots clefs)</label>
-              <textarea class="form-control" name="technicalScope" rows="5"
-                        [(ngModel)]="societyContact.technicalScope"></textarea>
+              <textarea [(ngModel)]="societyContact.technicalScope" class="form-control" name="technicalScope"
+                        rows="5"></textarea>
             </div>
 
 
             <div class="form-group">
-              <button type="submit" class="btn btn-primary"
-                      [class.btn-warning]="editing">Enregistrer
+              <button [class.btn-warning]="editing" class="btn btn-primary"
+                      type="submit">Enregistrer
               </button>
-              <button type="reset" class="btn btn-secondary"
-                      routerLink="/societies/edit/{{societyReference}}/contacts">Annuler
+              <button class="btn btn-secondary" routerLink="/societies/edit/{{societyReference}}/contacts"
+                      type="reset">Annuler
               </button>
             </div>
           </form>

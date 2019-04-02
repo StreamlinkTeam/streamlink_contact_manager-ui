@@ -2,43 +2,43 @@
   <div class="row">
     <div class="col border">
       <div class="row">
-        <div class="col border" [class.bg-warning]="editing" [class.bg-info]="!editing">
+        <div [class.bg-info]="!editing" [class.bg-warning]="editing" class="col border">
           <h5 class="text-dark dropdown-header">Informations</h5>
         </div>
       </div>
       <div class="row">
         <div class="col border">
-          <form novalidate #form="ngForm" (ngSubmit)="save(form)">
+          <form #form="ngForm" (ngSubmit)="save(form)" novalidate>
             <div *ngIf="editing" class="form-group">
               <label>Date de Création: </label>
-              <input type="text" readonly class="form-control-plaintext"
-                     name="createdDate" style="width: 70%"
+              <input class="form-control-plaintext" name="createdDate" readonly
+                     style="width: 70%" type="text"
                      value="{{society.createdDate | date:'long'}}"/>
             </div>
 
             <div class="form-group">
-              <label>Société</label> <input class="form-control" name="label" required #label_input="ngModel"
-                                            [(ngModel)]="society.label"/>
+              <label>Société</label> <input #label_input="ngModel" [(ngModel)]="society.label" class="form-control" name="label"
+                                            required/>
               <app-field-error-display
+                [displayError]="form.submitted && label_input.invalid"
                 [model]="label_input"
-                fieldName="Label"
-                [displayError]="form.submitted && label_input.invalid">
+                fieldName="Label">
               </app-field-error-display>
             </div>
             <div class="form-group">
-              <label>Effectif</label> <input class="form-control" name="staffNumber" type="number"
-                                             [(ngModel)]="society.staffNumber"/>
+              <label>Effectif</label> <input [(ngModel)]="society.staffNumber" class="form-control" name="staffNumber"
+                                             type="number"/>
 
             </div>
             <div class="form-group">
-              <label>Etat</label> <select class="form-control" name="stage"
-                                          [(ngModel)]="society.stage">
+              <label>Etat</label> <select [(ngModel)]="society.stage" class="form-control"
+                                          name="stage">
               <option *ngFor="let stage of stages" [ngValue]="stage.value">{{stage.label}}</option>
             </select>
             </div>
             <div class="form-group">
-              <label> Secteur d'activité</label> <select class="form-control" name="activityArea"
-                                                         [(ngModel)]="society.activityArea">
+              <label> Secteur d'activité</label> <select [(ngModel)]="society.activityArea" class="form-control"
+                                                         name="activityArea">
               <option value="Other">Autres</option>
               <option value="Aerospace">Aéronautique</option>
               <option value="Aerospace">Aérospatial</option>
@@ -72,8 +72,8 @@
             </select>
             </div>
             <div class="form-group">
-              <label>Responsable Manager</label> <select class="form-control"
-                                                         name="manager" [(ngModel)]="society.managerReference">
+              <label>Responsable Manager</label> <select [(ngModel)]="society.managerReference"
+                                                         class="form-control" name="manager">
               <option *ngFor="let user of users" [ngValue]="user.reference">{{user.firstname}}
                 {{user.lastname}}
               </option>
@@ -82,13 +82,13 @@
 
             <div class="form-row">
               <div class="form-group col-md-10">
-                <input class="form-control" placeholder="Service ..."
-                       name="qualifTitle" [(ngModel)]="serviceTitle"/>
+                <input [(ngModel)]="serviceTitle" class="form-control"
+                       name="qualifTitle" placeholder="Service ..."/>
               </div>
               <div class="col-md-2">
                 <span>
-                <button class="btn btn-primary fa fa-plus" [disabled]="!serviceTitle"
-                        type="button" (click)="addService()"></button>
+                <button (click)="addService()" [disabled]="!serviceTitle"
+                        class="btn btn-primary fa fa-plus" type="button"></button>
                 </span>
               </div>
             </div>
@@ -103,11 +103,11 @@
               </thead>
               <tbody>
               <tr *ngFor="let service of society.services; let i=index">
-                <td>{{i+1}}</td>
+                <td>{{i + 1}}</td>
                 <td class="col-md-6">{{service}}</td>
                 <td>
-                  <button class="btn btn-sm btn-danger"
-                          (click)="removeService(i)">Delete
+                  <button (click)="removeService(i)"
+                          class="btn btn-sm btn-danger">Delete
                   </button>
                 </td>
               </tr>
@@ -116,23 +116,23 @@
 
             <div class="form-group">
               <label>Commentaires</label>
-              <textarea class="form-control" name="note" rows="5"
-                        [(ngModel)]="society.note"></textarea>
+              <textarea [(ngModel)]="society.note" class="form-control" name="note"
+                        rows="5"></textarea>
             </div>
 
             <div class="form-group">
-              <button type="submit" class="btn btn-primary"
-                      [class.btn-warning]="editing">Enregistrer
+              <button [class.btn-warning]="editing" class="btn btn-primary"
+                      type="submit">Enregistrer
               </button>
-              <button type="reset" class="btn btn-secondary"
-                      routerLink="/societies">Annuler
+              <button class="btn btn-secondary" routerLink="/societies"
+                      type="reset">Annuler
               </button>
             </div>
           </form>
         </div>
       </div>
     </div>
-    <div class="col border" *ngIf="editing">
+    <div *ngIf="editing" class="col border">
       <app-legal-info></app-legal-info>
     </div>
   </div>
