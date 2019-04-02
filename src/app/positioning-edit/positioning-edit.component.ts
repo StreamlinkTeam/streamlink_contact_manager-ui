@@ -78,8 +78,6 @@ export class PositioningEditComponent implements OnInit {
       });
       this.resources = ress;
     });
-
-
   }
 
   updatePostioning(form: NgForm) {
@@ -95,4 +93,16 @@ export class PositioningEditComponent implements OnInit {
     });
   }
 
+  convertToProject() {
+
+    this.projectService.createProjectFromPositioning(this.positioning.reference)
+      .subscribe(
+        response => {
+          // this.router.navigate(['/resources/edit', response.reference]);
+          this.toastr.success('Nouveau Projet ajoutée avec succés', 'Opération Réussite!');
+        }, error => {
+          this.toastr.error('Erreur lors de la mise à jour des donnés', 'Opération échoué !!!');
+        }
+      );
+  }
 }

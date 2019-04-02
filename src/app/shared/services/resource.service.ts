@@ -39,7 +39,7 @@ export class ResourceService {
   getResources(): Observable<ResourceView[]> {
 
     this.loaderService.show();
-    //const url = environment.API + '/ws/resources';
+    // const url = environment.API + '/ws/resources';
 
     const url = environment.API + '/ws/resources/all';
 
