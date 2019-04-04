@@ -34,6 +34,7 @@ import {ProjectComponent} from './project/project.component';
 import {PositioningTableComponent} from './positioning/positioning-table.component';
 import {PositioningAddComponent} from './positioning-add/positioning-add.component';
 import {PositioningEditComponent} from './positioning-edit/positioning-edit.component';
+import {ProjectInfoEditorComponent} from './project/project-info-editor.component';
 
 export const appRoutes: Routes = [
   {path: 'auth', component: AuthComponent, canActivate: [LoginGuard]},
@@ -74,14 +75,15 @@ export const appRoutes: Routes = [
   {path: 'projects', component: ProjectTableComponent, canActivate: [AuthGuard]},
   {path: 'projects/create', component: ProjectEditorComponent, canActivate: [AuthGuard]},
   {path: 'projects/:error', component: ProjectTableComponent, canActivate: [AuthGuard]},
-  {
-    path: 'projects/:mode/:reference', component: ProjectComponent, canActivate: [AuthGuard],
-    children: [
-      {path: 'general', component: ProjectEditorComponent},
-      {path: 'action', component: ActionEditorComponent},
-      {path: '**', redirectTo: 'general'}
-    ]
-  },
+  {path: 'projects/edit/:reference', component: ProjectInfoEditorComponent, canActivate: [AuthGuard]},
+  // {
+  //   path: 'projects/:mode/:reference', component: ProjectComponent, canActivate: [AuthGuard],
+  //   children: [
+  //     {path: 'general', component: ProjectEditorComponent},
+  //     {path: 'action', component: ActionEditorComponent},
+  //     {path: '**', redirectTo: 'general'}
+  //   ]
+  // },
 
   {path: 'needs', component: NeedTableComponent, canActivate: [AuthGuard]},
   {path: 'needs/create', component: NeedEditorComponent, canActivate: [AuthGuard]},
@@ -94,8 +96,6 @@ export const appRoutes: Routes = [
       {path: '**', redirectTo: 'general'}
     ]
   },
-
-
   {path: 'developers', component: DeveloperTableComponent, canActivate: [AuthGuard]},
   {path: 'developers/create/from-cv', component: DeveloperCVScannerComponent, canActivate: [AuthGuard]},
   {path: 'developers/create', component: DeveloperEditorComponent, canActivate: [AuthGuard]},

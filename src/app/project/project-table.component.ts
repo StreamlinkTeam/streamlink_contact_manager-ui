@@ -22,13 +22,13 @@ export class ProjectTableComponent implements OnInit {
 
   settings = {
     attr: {
-      class: ''
+      class: 'table table-striped'
     },
     edit: {
-      editButtonContent: 'Editer'
+      editButtonContent: '<a class="btn btn-info" title="Modifier ou consulter"><i class="fa fa-pencil-square-o"></i></a>&nbsp'
     },
     delete: {
-      deleteButtonContent: 'Supprimer'
+      deleteButtonContent: '<a class="btn btn-danger" title="Supprimer"><i class="fa fa-trash-o"></i></a>'
     },
     noDataMessage: 'Pas de valeur disponible !',
     actions: {
@@ -57,12 +57,7 @@ export class ProjectTableComponent implements OnInit {
         filter: false,
         // sort: false
       },
-      note: {
-        title: 'Note',
-        filter: false
-      },
     },
-    // actions: false,
     pager: {
       perPage: 5
     },
@@ -114,31 +109,31 @@ export class ProjectTableComponent implements OnInit {
   }
 
 
-  onSelectChange(key: string = null, value: string = null) {
-
-    const parameters = new URLSearchParams(this.url);
-    if (value == null || value === '') {
-
-      parameters.delete(key);
-    } else {
-      parameters.set(key, value);
-
-    }
-
-    this.url = decodeURIComponent(parameters.toString());
-    this.source = new ServerDataSource(this.http, {
-      endPoint: this.url,
-      dataKey: 'content',
-      totalKey: 'totalElements',
-      pagerLimitKey: 'size',
-      perPage: 'size',
-      sortFieldKey: 'sort',
-      sortDirKey: 'dir',
-      pagerPageKey: 'page'
-    });
-
-    console.log(this.source);
-  }
+  // onSelectChange(key: string = null, value: string = null) {
+  //
+  //   const parameters = new URLSearchParams(this.url);
+  //   if (value == null || value === '') {
+  //
+  //     parameters.delete(key);
+  //   } else {
+  //     parameters.set(key, value);
+  //
+  //   }
+  //
+  //   this.url = decodeURIComponent(parameters.toString());
+  //   this.source = new ServerDataSource(this.http, {
+  //     endPoint: this.url,
+  //     dataKey: 'content',
+  //     totalKey: 'totalElements',
+  //     pagerLimitKey: 'size',
+  //     perPage: 'size',
+  //     sortFieldKey: 'sort',
+  //     sortDirKey: 'dir',
+  //     pagerPageKey: 'page'
+  //   });
+  //
+  //   console.log(this.source);
+  // }
 
   onSearch(query: string = '') {
 

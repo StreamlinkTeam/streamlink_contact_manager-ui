@@ -74,19 +74,19 @@ export class ProjectEditorComponent implements OnInit {
       {label: 'Produit', value: 'Product'},
       {label: 'Recrutement', value: 'Recruitment'}];
 
-    if (this.editing) {
-
-      this.service.getProject(this.activeRoute.snapshot.parent.params['reference'])
-        .subscribe(response => {
-            this.project = response;
-            this.contacts$ = this.societyContactService.getSocietyContacts(this.project.societyReference);
-            this.loadSocieties(this.project.societyReference);
-          }
-          , error =>
-            this.router.navigate(['/projects', 'error']));
-    } else {
-      this.loadSocieties(null);
-    }
+    // if (this.editing) {
+    //
+    //   this.service.getProject(this.activeRoute.snapshot.parent.params['reference'])
+    //     .subscribe(response => {
+    //         this.project = response;
+    //         this.contacts$ = this.societyContactService.getSocietyContacts(this.project.societyReference);
+    //         this.loadSocieties(this.project.societyReference);
+    //       }
+    //       , error =>
+    //         this.router.navigate(['/projects', 'error']));
+    // } else {
+    //   this.loadSocieties(null);
+    // }
   }
 
   onSocietyChange($event) {
@@ -97,33 +97,33 @@ export class ProjectEditorComponent implements OnInit {
 
   save(form: NgForm) {
 
-    if (form.valid) {
-      if (this.editing) {
-
-        this.service.updateProject(this.project, this.project.reference)
-          .subscribe(
-            response => {
-
-              this.project = response;
-              this.toastr.success('Données Mise à jour avec succés', 'Opération Réussite!');
-
-            }, error => {
-              this.toastr.error('Erreur lors de la mise à jour des donnés', 'Opération échoué !!!');
-            }
-          );
-
-      } else {
-        this.service.createProjects(this.project)
-          .subscribe(response => {
-
-            this.toastr.success('Projet Créé avec succés', 'Opération Réussite!');
-            this.router.navigate(['/projects/edit/', response.reference]);
-
-          }, error => {
-            this.toastr.error('Erreur lors de la création du Projet', 'Opération échoué !!!');
-          });
-      }
-    }
+    // if (form.valid) {
+    //   if (this.editing) {
+    //
+    //     this.service.updateProject(this.project, this.project.reference)
+    //       .subscribe(
+    //         response => {
+    //
+    //           this.project = response;
+    //           this.toastr.success('Données Mise à jour avec succés', 'Opération Réussite!');
+    //
+    //         }, error => {
+    //           this.toastr.error('Erreur lors de la mise à jour des donnés', 'Opération échoué !!!');
+    //         }
+    //       );
+    //
+    //   } else {
+    //     this.service.createProjects(this.project)
+    //       .subscribe(response => {
+    //
+    //         this.toastr.success('Projet Créé avec succés', 'Opération Réussite!');
+    //         this.router.navigate(['/projects/edit/', response.reference]);
+    //
+    //       }, error => {
+    //         this.toastr.error('Erreur lors de la création du Projet', 'Opération échoué !!!');
+    //       });
+    //   }
+    // }
   }
 
   private loadSocieties(societyReference: string) {

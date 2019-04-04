@@ -5,6 +5,7 @@ export class Positioning {
   projectReference: string;
   needReference: string;
   responsibleFullName: string;
+  responsibleReference: string;
   stage: string;
   note: string;
   startDate: Date;
@@ -19,5 +20,5 @@ export class Positioning {
   periodProfitability: number;
   createdDate: Date;
   modifiedDate: Date;
-
+  project: boolean;
 }

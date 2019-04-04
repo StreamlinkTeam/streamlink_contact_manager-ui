@@ -13,7 +13,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/finally';
 
-import {LoaderService} from "./loader.service";
+import {LoaderService} from './loader.service';
 
 
 @Injectable()
