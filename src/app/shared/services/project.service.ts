@@ -35,14 +35,15 @@ export class ProjectService {
       });
   }
 
-  getProject(projectReference: string): Observable<Project> {
+
+  getProject(projectReference: string): Observable<ProjectPos> {
 
     this.loaderService.show();
     const url = environment.API + '/ws/projectspos';
 
     const options = {params: new HttpParams().set('projectReference', projectReference)};
 
-    return this.http.get<Project>(url, options)
+    return this.http.get<ProjectPos>(url, options)
       ._finally(() => {
         this.loaderService.hide();
       });
@@ -72,15 +73,15 @@ export class ProjectService {
       });
   }
 
-  updateProject(project: Project, projectReference: string): Observable<Project> {
+  updateProject(project: ProjectPos, projectReference: string): Observable<ProjectPos> {
     this.loaderService.show();
-    const url = environment.API + '/ws/projects';
+    const url = environment.API + '/ws/projectspos';
 
     const options = {params: new HttpParams().set('projectReference', projectReference)};
 
 
     return this.http
-      .put<Project>(url, project, options)
+      .put<ProjectPos>(url, project, options)
       ._finally(() => {
         this.loaderService.hide();
       });

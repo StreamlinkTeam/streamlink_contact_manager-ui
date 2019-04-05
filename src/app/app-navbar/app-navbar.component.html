@@ -9,31 +9,31 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto" routerLinkActive="active">
-        <li class="nav-item" routerLinkActive="active">
+        <li *ngIf="isLoggedIn()" class="nav-item" routerLinkActive="active">
           <a class="nav-link" routerLink="/actions" routerLinkActive="active">Actions</a>
         </li>
 
-        <li class="nav-item" routerLinkActive="active">
+        <li *ngIf="isLoggedIn()" class="nav-item" routerLinkActive="active">
           <a class="nav-link" routerLink="/developers" routerLinkActive="active">Candidats</a>
         </li>
 
-        <li class="nav-item" routerLinkActive="active">
+        <li *ngIf="isLoggedIn()" class="nav-item" routerLinkActive="active">
           <a class="nav-link" routerLink="/resources" routerLinkActive="active">Resources </a>
         </li>
 
-        <li class="nav-item" routerLinkActive="active">
+        <li *ngIf="isLoggedIn()" class="nav-item" routerLinkActive="active">
           <a class="nav-link" routerLink="/societies" routerLinkActive="active">CRM</a>
         </li>
 
-        <li class="nav-item" routerLinkActive="active">
+        <li *ngIf="isLoggedIn()" class="nav-item" routerLinkActive="active">
           <a class="nav-link" routerLink="/needs" routerLinkActive="active">Besoins</a>
         </li>
 
-        <li class="nav-item" routerLinkActive="active">
+        <li *ngIf="isLoggedIn()" class="nav-item" routerLinkActive="active">
           <a class="nav-link" routerLink="/positionings" routerLinkActive="active">Positionnements</a>
         </li>
 
-        <li class="nav-item" routerLinkActive="active">
+        <li *ngIf="isLoggedIn()" class="nav-item" routerLinkActive="active">
           <a class="nav-link" routerLink="/projects" routerLinkActive="active"><i class="f542"></i> Projets</a>
         </li>
         <li *ngIf="isAdmin()" class="nav-item" routerLinkActive="active">

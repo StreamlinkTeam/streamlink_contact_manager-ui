@@ -15,13 +15,16 @@ import {ProjectTableComponent} from './project-table.component';
 import {ProjectEditorComponent} from './project-editor.component';
 import {ProjectComponent} from './project.component';
 import {ProjectInfoEditorComponent} from './project-info-editor.component';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material';
+
 
 import {ButtonsModule, CardsFreeModule, WavesModule} from 'angular-bootstrap-md';
 
 
 @NgModule({
   imports: [
-    ButtonsModule, WavesModule, CardsFreeModule,
+    ButtonsModule, WavesModule, CardsFreeModule, MatButtonModule,
     SharedModule,
     BrowserModule,
     NgSelectModule,
@@ -29,6 +32,7 @@ import {ButtonsModule, CardsFreeModule, WavesModule} from 'angular-bootstrap-md'
     FormsModule,
     RouterModule,
     Ng2FileSizeModule,
+    MatIconModule,
     CommonModule,
     Ng2SmartTableModule,
     ActionModule],

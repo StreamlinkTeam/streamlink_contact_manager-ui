@@ -9,6 +9,8 @@ import {Project} from '../shared/entities/project.model';
 import {ResourceService} from '../shared/services/resource.service';
 import {UserService} from '../shared/services/user.service';
 import Swal from 'sweetalert2';
+import {NeedService} from '../shared/services/need.service';
+import {Need} from '../shared/entities/need.model';
 
 @Component({
   selector: 'app-positioning-edit',
@@ -20,11 +22,11 @@ export class PositioningEditComponent implements OnInit {
 
   editing = false;
   positioning: Positioning = new Positioning();
-  project: Project = new Project();
+
 
   users: any[];
   stages: any[];
-  projects: any = [];
+  needs: any = [];
   resources: any = [];
 
 
@@ -33,6 +35,7 @@ export class PositioningEditComponent implements OnInit {
               private service: PositioningService,
               private resourceService: ResourceService,
               private projectService: ProjectService,
+              private needService: NeedService,
               private userService: UserService,
               private toastr: ToastrService
   ) {
@@ -55,7 +58,7 @@ export class PositioningEditComponent implements OnInit {
       {label: 'Gagné', value: 'Won'},
       {label: 'Positionné', value: 'Positioned'}];
 
-    let ref = this.route.snapshot.params.reference;
+    const ref = this.route.snapshot.params.reference;
     console.log(this.route);
 
     this.service.getPositioning(ref).subscribe(res => {
@@ -64,8 +67,8 @@ export class PositioningEditComponent implements OnInit {
       console.log(this.positioning.projectReference);
 
     });
-    this.projectService.getProjects().subscribe(res => {
-      this.projects = res;
+    this.needService.getNeeds().subscribe(res => {
+      this.needs = res;
 
     });
 
@@ -94,15 +97,20 @@ export class PositioningEditComponent implements OnInit {
   }
 
   convertToProject() {
+    if (!this.positioning.project) {
 
     this.projectService.createProjectFromPositioning(this.positioning.reference)
       .subscribe(
         response => {
-          // this.router.navigate(['/resources/edit', response.reference]);
+
+           this.router.navigate(['/projects/edit', response.reference]);
           this.toastr.success('Nouveau Projet ajoutée avec succés', 'Opération Réussite!');
         }, error => {
           this.toastr.error('Erreur lors de la mise à jour des donnés', 'Opération échoué !!!');
         }
       );
+    } else {
+      this.toastr.error('Projet déjà créer', 'Opération échoué !!!');
+    }
   }
 }
