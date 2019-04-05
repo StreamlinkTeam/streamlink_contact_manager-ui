@@ -14,7 +14,9 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-project-info',
   moduleId: module.id,
-  templateUrl: 'project-info-editor.component.html'
+  templateUrl: 'project-info-editor.component.html',
+  styleUrls: ['project-info-editor.component.css']
+
 })
 export class ProjectInfoEditorComponent  implements OnInit {
 
