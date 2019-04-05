@@ -14,6 +14,8 @@ import {ActionModule} from '../action/action.module';
 import {PositioningTableComponent} from './positioning-table.component';
 
 import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material';
+
 import {MatSelectModule} from '@angular/material/select';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
@@ -35,6 +37,7 @@ import {ButtonsModule, CardsFreeModule, WavesModule} from 'angular-bootstrap-md'
     Ng2FileSizeModule,
     CommonModule,
     Ng2SmartTableModule, MatInputModule, MatSelectModule, MatDialogModule, MatButtonModule, MatIconModule,
+    MatFormFieldModule,
     ActionModule, AngularFontAwesomeModule
   ],
   declarations: [PositioningTableComponent],

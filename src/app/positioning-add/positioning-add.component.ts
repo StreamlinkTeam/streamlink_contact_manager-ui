@@ -14,7 +14,7 @@ import {User} from '../shared/entities/user.model';
 import Swal from 'sweetalert2';
 import {MatDialogRef} from '@angular/material';
 
-//import * as swal from 'sweetalert2';
+// import * as swal from 'sweetalert2';
 
 
 @Component({

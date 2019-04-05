@@ -1,64 +1,48 @@
-<div class="container tab-pane fade show active" role="tabpanel">
-  <div class="row">
-    <div [class.bg-warning]="editing" class="col border">
-      <div class="row">
-        <div class="col border bg-info">
-          <h5 class="text-dark dropdown-header">{{projectPos.resourceFullName}} : {{ projectPos.needTitle}} </h5>
-        </div>
-      </div>
-      <div class="container">
+<div class="container-fluid">
+
+
+    <mdb-card>
+      <mdb-card-header><h4>{{projectPos.resourceFullName}} : {{ projectPos.needTitle}} {{projectPos.createdDate}}</h4></mdb-card-header>
+
+      <mdb-card-body>
         <form #form="ngForm" (ngSubmit)="updateProject(form)">
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                <label>Besoin | Date de création: {{projectPos.createdDate}} </label>
+                  <mat-form-field class="example-container">
+                          <input [(ngModel)]="projectPos.needTitle" name="projectTitle"
+                          placeholder="Nom de projet"
+                          matInput disabled
+                          type="text">
+                  </mat-form-field>
+              </div>
 
-                <div class="form-group">
-                  <label>Project</label>
-                  <input [(ngModel)]="projectPos.needTitle" class="form-control" name="projectTitle"
-                         placeholder="projectTitle"
 
+              <div class="form-group">
+                <mat-form-field class="example-container">
+                  <input [(ngModel)]="projectPos.resourceFullName" name="resource"
+                         placeholder="Resource"
+                         matInput disabled
                          type="text">
-                </div>
+                </mat-form-field>
+              </div>
 
 
+              <div class="form-group example-container">
+              <mat-form-field>
+                <mat-label>Responsable</mat-label>
+                <mat-select [(ngModel)]="projectPos.responsibleReference" name="responsable" placeholder="Responsable" disabled>
+                  <mat-option *ngFor="let user of users" [value]="user.reference">
+                    {{user.firstname}} {{user.lastname}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
               </div>
 
               <div class="form-group">
-                <label>Resource</label>
-
-                <ng-select [(ngModel)]="projectPos.resourceReference"
-                           [items]="resources"
-                           [loading]="resourcesLoading"
-                           [typeahead]="resourcesInput$"
-                           disabled
-                           bindLabel="fullName"
-                           bindValue="reference"
-                           name="resource"
-                           notFoundText="Aucun élément trouvé"
-                           required
-                           typeToSearchText="tapez plus de 3 caractères pour trouver la resource">
-                </ng-select>
-
-              </div>
-
-              <div class="form-group">
-                <label>Responsable</label>
-                <select [(ngModel)]="projectPos.responsibleReference"
-                        disabled
-                        class="form-control"
-                        name="responsable"
-                        placeholder="responsable">
-
-                  <option *ngFor="let user of users" [ngValue]="user.reference">{{user.firstname}}
-                    {{user.lastname}}
-                  </option>
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label>Stage</label> <select [(ngModel)]="projectPos.stage" class="form-control"
-                                             name="stage"
+                <label>Stage</label>
+                <select [(ngModel)]="projectPos.stage" class="form-control"
+                                  name="stage"
                                              placeholder="stage"
                                              required>
                 <option *ngFor="let stage of stages" [ngValue]="stage.value">{{stage.label}}</option>
@@ -68,20 +52,23 @@
 
 
               <div class="form-group">
-                <label>Free days</label>
-                <input [(ngModel)]="projectPos.freeDays" class="form-control" name="freeDays"
-                       placeholder="freeDays"
+                <mat-form-field class="example-container">
+
+                <input [(ngModel)]="projectPos.freeDays"   name="freeDays"
+                       placeholder="Jour(s) gratuit(s)"
                        required
+                       matInput
                        type="number">
+                </mat-form-field>
               </div>
 
               <div class="form-group">
 
 
                 <!--<input [(ngModel)]="projectPos.place" class="form-control" name="place"-->
-                       <!--placeholder="lieux"-->
-                       <!--required-->
-                       <!--type="text">-->
+                <!--placeholder="lieux"-->
+                <!--required-->
+                <!--type="text">-->
 
                 <label>Lieu de la prestation</label>
                 <ng-select #place="ngModel" [(ngModel)]="projectPos.place"
@@ -323,7 +310,6 @@
                 </ng-select>
 
 
-
               </div>
               <div class="form-group">
                 <label>Adresse</label>
@@ -363,19 +349,22 @@
 
 
               <div class="form-group">
-                <label>Invoiced Days</label>
-                <input [(ngModel)]="projectPos.invoicedDays" class="form-control" name="invoicedDays"
-                       placeholder="invoicedDays"
+                <mat-form-field class="example-container">
+                <input [(ngModel)]="projectPos.invoicedDays" name="invoicedDays"
+                       placeholder="Jour(s) facturé(s)"
                        required
+                       matInput
                        type="number">
+                </mat-form-field>
               </div>
 
               <div class="form-group">
-                <label>Note</label>
-                <input [(ngModel)]="projectPos.note" class="form-control" name="note"
-                       placeholder="note"
-                       required
+                <mat-form-field class="example-container">
+                <input [(ngModel)]="projectPos.note"  name="note"
+                       placeholder="Commentaire"
+                       required matInput
                        type="text">
+                </mat-form-field>
               </div>
               <div class="form-group">
                 <label>Start Date</label>
@@ -393,18 +382,22 @@
               </div>
 
               <div class="form-group">
-                <label>CJM</label>
-                <input [(ngModel)]="projectPos.cjm" class="form-control" name="cjm"
+                <mat-form-field class="example-container">
+                <input [(ngModel)]="projectPos.cjm"  name="cjm"
                        placeholder="CJM"
                        required
+                       matInput
                        type="number">
+                </mat-form-field>
               </div>
               <div class="form-group">
-                <label>TJM</label>
-                <input [(ngModel)]="projectPos.tjm" class="form-control" name="tjm"
-                       placeholder="tjm"
+                <mat-form-field class="example-container">
+                <input [(ngModel)]="projectPos.tjm" name="tjm"
+                       placeholder="TJM"
                        required
+                       matInput
                        type="number">
+                </mat-form-field>
               </div>
             </div>
             <div class="form-group">
@@ -413,10 +406,10 @@
             </div>
           </div>
         </form>
-      </div>
-    </div>
-  </div>
+      </mdb-card-body>
+    </mdb-card>
 </div>
+
 
 
 
