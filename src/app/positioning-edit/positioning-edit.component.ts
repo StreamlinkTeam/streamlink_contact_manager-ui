@@ -97,20 +97,41 @@ export class PositioningEditComponent implements OnInit {
   }
 
   convertToProject() {
-    if (!this.positioning.project) {
 
-    this.projectService.createProjectFromPositioning(this.positioning.reference)
-      .subscribe(
-        response => {
 
-           this.router.navigate(['/projects/edit', response.reference]);
-          this.toastr.success('Nouveau Projet ajoutée avec succés', 'Opération Réussite!');
-        }, error => {
-          this.toastr.error('Erreur lors de la mise à jour des donnés', 'Opération échoué !!!');
+    Swal.fire({
+      title: 'Êtes-vous sûr?',
+      text: 'Convertion du besoin en projet ',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonText: 'annuler',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Oui, je confirme!'
+    }).then((result) => {
+      if (result.value) {
+        Swal.fire(
+          'Projet créer avec sucées!',
+          'Veuillez compléter la fiche du projet',
+          'success'
+        );
+
+        if (!this.positioning.project) {
+
+          this.projectService.createProjectFromPositioning(this.positioning.reference)
+            .subscribe(
+              response => {
+
+                this.router.navigate(['/projects/edit', response.reference]);
+                this.toastr.success('Projet crée avec succés', 'Opération Réussite!');
+              }, error => {
+                this.toastr.error('Erreur de la création de projet', 'Opération échoué !!!');
+              }
+            );
+        } else {
+          this.toastr.error('Projet déjà créer', 'Opération échoué !!!');
         }
-      );
-    } else {
-      this.toastr.error('Projet déjà créer', 'Opération échoué !!!');
-    }
+      }
+    });
   }
 }

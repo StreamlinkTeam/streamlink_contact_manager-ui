@@ -58,9 +58,9 @@ export class ProjectTableComponent implements OnInit {
         // sort: false
       },
     },
-    pager: {
-      perPage: 5
-    },
+    // pager: {
+    //   perPage: 5
+    // },
   };
 
   stages: any[];

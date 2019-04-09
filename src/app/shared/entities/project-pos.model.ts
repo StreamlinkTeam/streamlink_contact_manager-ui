@@ -17,7 +17,10 @@ export class ProjectPos {
   note: any;
   createdDate: any;
   modifiedDate: any;
-  place: any;
+  country: any;
+  address: any;
+  city: any;
+  postal: any;
   comment: any;
   currency: any;
   presentationDate: any;
