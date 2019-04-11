@@ -2,11 +2,10 @@
 @import url('https://fonts.googleapis.com/css?family=Numans');
 
 html, body {
-  background-image: url('https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/8vV2rpe/beach-style-blue-background-1080p_qyvzckhb__F0000.png');
-  background-size: cover;
-  background-repeat: no-repeat;
-  height: 100%;
+  /*background-image: url('../../assets/just-waves.png');*/
+  background-repeat: repeat;
   font-family: 'Numans', sans-serif;
+  height: 100%;
   margin-top: -40px;
 }
 

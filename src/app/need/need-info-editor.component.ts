@@ -9,7 +9,8 @@ import {ToastrService} from 'ngx-toastr';
 @Component({
   moduleId: module.id,
   selector: 'app-need-info',
-  templateUrl: 'need-info-editor.component.html'
+  templateUrl: 'need-info-editor.component.html',
+  styleUrls: ['need-info-editor.component.css']
 })
 export class NeedInfoEditorComponent {
 

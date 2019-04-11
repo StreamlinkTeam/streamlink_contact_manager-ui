@@ -1,44 +1,47 @@
 <!--Main Navigation-->
 <header>
-  <nav class="navbar fixed-top navbar-expand-lg navbar-dark blue-gradient scrolling-navbar">
-    <a class="navbar-brand" routerLink="/developers" style="color: #ffffff"><i class="fa fa-home"></i><strong>&nbsp;Streamlink
-      </strong></a>
-    <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark  scrolling-navbar" style="background-color: #4267b2">
+
+    <a class="navbar-brand" routerLink="/developers" style="color: #ffffff"><i class="fa fa-home"></i><strong>&nbsp;Streamlink</strong>
+    </a>
+
+    <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+            class="navbar-toggler"
             data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto" routerLinkActive="active">
         <li *ngIf="isLoggedIn()" class="nav-item" routerLinkActive="active">
-          <a class="nav-link" routerLink="/actions" routerLinkActive="active">Actions</a>
+          <a class="nav-link" routerLink="/actions" routerLinkActive="active"><b>Actions</b></a>
         </li>
 
         <li *ngIf="isLoggedIn()" class="nav-item" routerLinkActive="active">
-          <a class="nav-link" routerLink="/developers" routerLinkActive="active">Candidats</a>
+          <a class="nav-link" routerLink="/developers" routerLinkActive="active"><b>Candidats</b></a>
         </li>
 
         <li *ngIf="isLoggedIn()" class="nav-item" routerLinkActive="active">
-          <a class="nav-link" routerLink="/resources" routerLinkActive="active">Resources </a>
+          <a class="nav-link" routerLink="/resources" routerLinkActive="active"><b>Resources</b> </a>
         </li>
 
         <li *ngIf="isLoggedIn()" class="nav-item" routerLinkActive="active">
-          <a class="nav-link" routerLink="/societies" routerLinkActive="active">CRM</a>
+          <a class="nav-link" routerLink="/societies" routerLinkActive="active"><b>CRM</b></a>
         </li>
 
         <li *ngIf="isLoggedIn()" class="nav-item" routerLinkActive="active">
-          <a class="nav-link" routerLink="/needs" routerLinkActive="active">Besoins</a>
+          <a class="nav-link" routerLink="/needs" routerLinkActive="active"><b>Besoins</b></a>
         </li>
 
         <li *ngIf="isLoggedIn()" class="nav-item" routerLinkActive="active">
-          <a class="nav-link" routerLink="/positionings" routerLinkActive="active">Positionnements</a>
+          <a class="nav-link" routerLink="/positionings" routerLinkActive="active"><b>Positionnements</b></a>
         </li>
 
         <li *ngIf="isLoggedIn()" class="nav-item" routerLinkActive="active">
-          <a class="nav-link" routerLink="/projects" routerLinkActive="active"><i class="f542"></i> Projets</a>
+          <a class="nav-link" routerLink="/projects" routerLinkActive="active"><i class="f542"></i><b>Projets</b></a>
         </li>
         <li *ngIf="isAdmin()" class="nav-item" routerLinkActive="active">
-          <a class="nav-link" routerLink="/admin" routerLinkActive="active" style="color:azure">Gestion
-            d'utilisateurs</a>
+          <a class="nav-link" routerLink="/admin" routerLinkActive="active" style="color:azure"><b>Gestion
+            d'utilisateurs</b></a>
         </li>
       </ul>
       <div class="md-form my-0">
@@ -54,79 +57,9 @@
             <a (click)="logout()" class="dropdown-item text-warning"><i class="fa fa-power-off"></i></a>
           </li>
 
-
         </ul>
       </div>
     </div>
   </nav>
 
 </header>
-
-
-<!--Main Navigation-->
-
-<!-- <nav class="navbar navbar-expand-md navbar-light  fixed-top" style="background-color: #e3f2fd">
-  <a class="navbar-brand" href="#"><img src="../../assets/streamlink.png" style="width: 120px"></a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse"
-          data-target="#navbarsExampleDefault"
-          aria-controls="navbarsExampleDefault" aria-expanded="false"
-          aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-    <ul class="navbar-nav mr-auto" routerLinkActive="active">
-      <li class="nav-item">
-        <a class="nav-link" routerLinkActive="active" routerLink="/developers">Candidats</a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link" routerLinkActive="active" routerLink="/resources">Resources</a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link" routerLinkActive="active" routerLink="/societies">CRM</a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link" routerLinkActive="active" routerLink="/projects">Projet</a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link" routerLinkActive="active" routerLink="/positionings">Positionnement</a>
-      </li>
-
-      <li *ngIf="isAdmin()" class="nav-item">
-        <a class="nav-link text-danger" routerLinkActive="active" routerLink="/admin">ADMIN</a>
-      </li>
-
-
-
-    </ul>
-    <form *ngIf="isLoggedIn() && user$ | async as user" class="form-inline my-2 my-lg-0">
-
-      <div class="dropdown">
-        <button class="btn btn-outline-success dropdown-toggle"
-                type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-          {{user.firstname }} {{user.lastname}}
-        </button>
-        <div class="dropdown-menu" style="right: 0;left: auto;"
-             aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" routerLinkActive="active" routerLink="/profil">Profil</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item text-warning" (click)="logout()">Déconnexion</a>
-        </div>
-      </div> -->
-
-<!--<a class="nav-link text-success" routerLinkActive="active" routerLink="/profil">Profil</a>-->
-
-<!--<button class="btn btn-outline-success my-2 my-sm-0"-->
-<!--(click)="logout()" *ngIf="isLoggedIn()" type="submit">Déconnexion-->
-<!--</button>-->
-
-<!--     </form>
-
-  </div>
-</nav>
- -->
-

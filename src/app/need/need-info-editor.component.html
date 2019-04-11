@@ -1,97 +1,136 @@
 <div class="row">
-  <!--   <div class="col border bg-warning">
-      <h5 class="text-dark dropdown-header">Informations complémentaires</h5>
-    </div> -->
   <mdb-card style="width: 100%">
 
     <mdb-card-header>Informations complémentaires</mdb-card-header>
-    <mdb-card-body>
+    <mdb-card-body  style="height: 695px">
       <div class="row">
-        <div class="col border">
           <form #form="ngForm" (ngSubmit)="save(form)" novalidate>
 
             <div class="form-group">
-              <label>Date de Début</label>
-              <input [(ngModel)]="needInfo.startingDate" class="form-control" name="startingDate" type="date"/>
+
+              <mat-form-field class="example-container">
+                <input
+                  [matDatepicker]="picker"
+                  matInput
+                  name="startingDate"
+                  placeholder="Date de Début"
+                  [(ngModel)]="needInfo.startingDate">
+
+                <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+
+
             </div>
 
             <div class="form-group">
-              <label>Date de réponse</label>
-              <input [(ngModel)]="needInfo.responseDate" class="form-control" name="responseDate" type="date"/>
+
+              <mat-form-field class="example-container">
+                <input
+                  [matDatepicker]="picker2"
+                  matInput
+                  name="responseDate"
+                  placeholder="Date de réponse"
+                  [(ngModel)]="needInfo.responseDate">
+
+                <mat-datepicker-toggle [for]="picker2" matSuffix></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+              </mat-form-field>
+
             </div>
 
             <div class="form-group">
-              <label>date de clôture</label>
-              <input [(ngModel)]="needInfo.closingDate" class="form-control" name="closingDate" type="date"/>
+              <mat-form-field class="example-container">
+                <input
+                  [matDatepicker]="picker3"
+                  matInput
+                  name="closingDate"
+                  placeholder="date de clôture"
+                  [(ngModel)]="needInfo.closingDate">
+
+                <mat-datepicker-toggle [for]="picker3" matSuffix></mat-datepicker-toggle>
+                <mat-datepicker #picker3></mat-datepicker>
+              </mat-form-field>
+
             </div>
 
             <div class="form-group">
-              <label> Secteur d'activité</label>
-              <select [(ngModel)]="needInfo.activityArea" class="form-control" name="activityArea">
-                <option value="Other">Autres</option>
-                <option value="Aerospace">Aéronautique</option>
-                <option value="Aerospace">Aérospatial</option>
-                <option value="Agri">Agroalimentaire</option>
-                <option value="Insurance">Assurance</option>
-                <option value="Automobile">Automobile</option>
-                <option value="Bank">Banque</option>
-                <option value="Buildings">Bâtiments</option>
-                <option value="Biomedical">Biomédical</option>
-                <option value="Chemistry">Chimie</option>
-                <option value="Advice">Conseil</option>
-                <option value="Defense">Défense</option>
-                <option value="SoftwarePublishing">Edition de logiciels</option>
-                <option value="Energy">Energie</option>
-                <option value="Environment">Environnement</option>
-                <option value="Rail">Ferroviaire</option>
-                <option value="LargeDistribution">Grande distribution</option>
-                <option value="Infrastructure">Infrastructure</option>
-                <option value="Logistics">Logistique</option>
-                <option value="Media">Média</option>
-                <option value="MetalSteelIndustry">Métallurgie/sidérurgie</option>
-                <option value="Naval">Naval</option>
-                <option value="Nuclear">Nucléaire</option>
-                <option value="OilAndGas">Oil &amp; Gaz</option>
-                <option value="Petrochemicals">Pétrochimie</option>
-                <option value="Pharmacy">Pharmacie</option>
-                <option value="Health">Santé</option>
-                <option value="PublicSector">Secteur public</option>
-                <option value="Services">Services</option>
-                <option value="Telecommunications">Télécommunications</option>
-              </select>
+              <mat-form-field class="example-container">
+                <mat-select [(ngModel)]="needInfo.activityArea" placeholder="Secteur d'activité" name="activityArea">
+                <mat-option value="Other">Autres</mat-option>
+                <mat-option value="Aerospace">Aéronautique</mat-option>
+                <mat-option value="Aerospace">Aérospatial</mat-option>
+                <mat-option value="Agri">Agroalimentaire</mat-option>
+                <mat-option value="Insurance">Assurance</mat-option>
+                <mat-option value="Automobile">Automobile</mat-option>
+                <mat-option value="Bank">Banque</mat-option>
+                <mat-option value="Buildings">Bâtiments</mat-option>
+                <mat-option value="Biomedical">Biomédical</mat-option>
+                <mat-option value="Chemistry">Chimie</mat-option>
+                <mat-option value="Advice">Conseil</mat-option>
+                <mat-option value="Defense">Défense</mat-option>
+                <mat-option value="SoftwarePublishing">Edition de logiciels</mat-option>
+                <mat-option value="Energy">Energie</mat-option>
+                <mat-option value="Environment">Environnement</mat-option>
+                <mat-option value="Rail">Ferroviaire</mat-option>
+                <mat-option value="LargeDistribution">Grande distribution</mat-option>
+                <mat-option value="Infrastructure">Infrastructure</mat-option>
+                <mat-option value="Logistics">Logistique</mat-option>
+                <mat-option value="Media">Média</mat-option>
+                <mat-option value="MetalSteelIndustry">Métallurgie/sidérurgie</mat-option>
+                <mat-option value="Naval">Naval</mat-option>
+                <mat-option value="Nuclear">Nucléaire</mat-option>
+                <mat-option value="OilAndGas">Oil &amp; Gaz</mat-option>
+                <mat-option value="Petrochemicals">Pétrochimie</mat-option>
+                <mat-option value="Pharmacy">Pharmacie</mat-option>
+                <mat-option value="Health">Santé</mat-option>
+                <mat-option value="PublicSector">Secteur public</mat-option>
+                <mat-option value="Services">Services</mat-option>
+                <mat-option value="Telecommunications">Télécommunications</mat-option>
+              </mat-select>
+              </mat-form-field>
             </div>
 
 
             <div class="form-group">
-              <label>Budget</label>
-              <input [(ngModel)]="needInfo.budget" class="form-control" name="budget" step="any"
+              <mat-form-field class="example-container">
+              <input [(ngModel)]="needInfo.budget" placeholder="Budget" matInput name="budget" step="any"
                      type="number"/>
+              </mat-form-field>
             </div>
 
             <div class="form-group">
-              <label>Devise</label>
-              <select [(ngModel)]="needInfo.currency" class="form-control"
+              <mat-form-field class="example-container">
+              <mat-select [(ngModel)]="needInfo.currency" placeholder="Devise"
                       name="currency">
-                <option value="EUR">EUR Euro</option>
-                <option value="USD">USD United States Dollars</option>
-                <option value="GPB">GPB United Kingdom Pounds</option>
-              </select>
+                <mat-option value="EUR">EUR Euro</mat-option>
+                <mat-option value="USD">USD United States Dollars</mat-option>
+                <mat-option value="GPB">GPB United Kingdom Pounds</mat-option>
+              </mat-select>
+              </mat-form-field>
             </div>
 
             <div class="form-group">
-              <label>Durée (Par Mois)</label>
-              <input [(ngModel)]="needInfo.durationByMonth" class="form-control" name="durationByMonth"
+              <mat-form-field class="example-container">
+
+              <input [(ngModel)]="needInfo.durationByMonth" matInput placeholder="Durée (Par Mois)" name="durationByMonth"
                      type="number"/>
+              </mat-form-field>
             </div>
 
 
             <div class="form-group">
-              <button [class.btn-warning]="editing" class="btn btn-primary"
-                      type="submit">Enregistrer
+
+
+
+
+              <button mat-raised-button
+                      color="primary"
+                      type="submit"><mat-icon>save_outline</mat-icon> Enregistrer
               </button>
             </div>
           </form>
-        </div>
       </div>
     </mdb-card-body>
   </mdb-card>
+</div>

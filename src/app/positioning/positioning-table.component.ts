@@ -219,7 +219,6 @@ export class PositioningTableComponent implements OnInit {
     this.dialog.open(PositioningAddComponent, dialogConfig).afterClosed().subscribe(result => {
       this.source.refresh();
     });
-
   }
 
 

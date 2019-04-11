@@ -7,6 +7,9 @@ import {CustomEnumRenderComponent} from './../shared/custom-ng2-smart-table-rend
 import {Component, OnInit} from '@angular/core';
 import {ServerDataSource} from 'ng2-smart-table';
 import {ToastrService} from 'ngx-toastr';
+import {MatDialog, MatDialogConfig} from '@angular/material';
+import {PositioningAddComponent} from '../positioning-add/positioning-add.component';
+import {NeedEditorComponent} from './need-editor.component';
 
 @Component({
   selector: 'app-need-table',
@@ -22,10 +25,10 @@ export class NeedTableComponent implements OnInit {
 
   settings = {
     attr: {
-      class: ''
+      class: 'table table-striped'
     },
     edit: {
-      editButtonContent: '<a class="btn btn-info" title="Modifier ou consulter"><i class="fa fa-pencil-square-o"></i></a>'
+      editButtonContent: '<a class="btn btn-info" title="Modifier ou consulter"><i class="fa fa-pencil-square-o"></i></a>&nbsp'
     },
     delete: {
       deleteButtonContent: '<a class="btn btn-danger" title="Supprimer"><i class="fa fa-trash-o"></i></a>'
@@ -80,7 +83,8 @@ export class NeedTableComponent implements OnInit {
               private toastr: ToastrService,
               private http: HttpClient,
               private router: Router,
-              private activeRoute: ActivatedRoute) {
+              private activeRoute: ActivatedRoute,
+              private dialog: MatDialog) {
 
     if (activeRoute.snapshot.params['error'] === 'error') {
       this.toastr.warning('Erreur lors de la récupération de données', 'Opération échoué!');
@@ -198,4 +202,5 @@ export class NeedTableComponent implements OnInit {
 
     }
   }
+
 }
