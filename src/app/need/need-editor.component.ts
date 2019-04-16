@@ -59,7 +59,6 @@ export class NeedEditorComponent implements OnInit {
     this.userService.getUsers().subscribe(response => this.users = response);
 
     this.stages = [
-      {label: 'Tous', value: ''},
       {label: 'En cours', value: 'InProgress'},
       {label: 'Reporté', value: 'Postponed'},
       {label: 'Gagné', value: 'Won'},
@@ -67,7 +66,6 @@ export class NeedEditorComponent implements OnInit {
       {label: 'Abandonné', value: 'Abandoned'}];
 
     this.types = [
-      {label: 'Tous', value: ''},
       {label: 'Régie', value: 'Authority'},
       {label: 'Forfait', value: 'FlatRate'},
       {label: 'Projet interne', value: 'InternalProject'},

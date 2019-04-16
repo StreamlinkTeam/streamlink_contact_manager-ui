@@ -74,14 +74,13 @@ export class PositioningAddComponent implements OnInit {
 
 
     this.stages = [
-      {label: 'Tous', value: ''},
-      {label: 'Non definie', value: 'NOT_DEFINED'},
-      {label: 'En attente', value: 'Waiting'},
-      {label: 'Présenter au client', value: 'PresentedToClient'},
+      // {label: 'Tous', value: ''},
+      {label: 'Positionné', value: 'Positioned'},
       {label: 'Envoye CV', value: 'SendingCV'},
+      {label: 'Présenter au client', value: 'PresentedToClient'},
       {label: 'Rejeter', value: 'Rejected'},
       {label: 'Gagné', value: 'Won'},
-      {label: 'Positionné', value: 'Positioned'}];
+      ];
 
     this.resourceService.getResources().subscribe(res => {
       let ress: any[];

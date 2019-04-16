@@ -80,7 +80,8 @@
                               [(ngModel)]="positioning.stage"
                               [class.is-invalid]="stage.invalid && stage.touched"
                               name="stage"
-                              placeholder="Stage"
+
+                              placeholder="Etat"
                               required>
                     <mat-option *ngFor="let stage of stages" [value]="stage.value">
                       {{stage.label}}

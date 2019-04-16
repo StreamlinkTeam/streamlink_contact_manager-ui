@@ -7,6 +7,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {CustomEnumRenderComponent} from '../shared/custom-ng2-smart-table-renderer/custom-enum-render.component';
 import {ProjectService} from '../shared/services/project.service';
+import {DatePipe} from '@angular/common';
 
 
 @Component({
@@ -38,6 +39,35 @@ export class ProjectTableComponent implements OnInit {
     },
     mode: 'external',
     columns: {
+      startDate: {
+        title: 'Début',
+        type: 'date',
+        filter: false,
+        valuePrepareFunction: (date) => {
+          if (date) {
+            return new DatePipe('en-GB').transform(date, 'dd-MM-yyyy');
+          }
+          return null;
+        },
+        sort: false
+      },
+      endDate: {
+        title: 'Fin',
+        type: 'date',
+        filter: false,
+        valuePrepareFunction: (date) => {
+          if (date) {
+            return new DatePipe('en-GB').transform(date, 'dd-MM-yyyy');
+          }
+          return null;
+        },
+        sort: false
+      },
+      needTitle: {
+        title: 'Projet',
+        filter: false,
+        // sort: false
+      },
       client: {
         title: 'Client',
         filter: false
@@ -51,15 +81,11 @@ export class ProjectTableComponent implements OnInit {
         filter: false,
         type: 'custom',
         renderComponent: CustomEnumRenderComponent
-      },
-      needTitle: {
-        title: 'Projet',
-        filter: false,
-        // sort: false
-      },
+      }
+
     },
      pager: {
-       perPage: 5
+       perPage: 7
      },
   };
 

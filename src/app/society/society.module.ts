@@ -16,12 +16,15 @@ import {Ng2SmartTableModule} from 'ng2-smart-table';
 import {ContactModule} from '../contact/contact.module';
 import {SocietyLegalInfoEditorComponent} from './society-legal-info-editor.component';
 import {ActionModule} from '../action/action.module';
+import {MatButtonModule, MatIconModule} from '@angular/material';
+import {MatTabsModule} from '@angular/material/tabs';
+
 
 import {ButtonsModule, CardsFreeModule, WavesModule} from 'angular-bootstrap-md';
 
 @NgModule({
   imports: [
-    ButtonsModule, WavesModule, CardsFreeModule,
+    ButtonsModule, WavesModule, CardsFreeModule, MatButtonModule, MatIconModule, MatTabsModule,
     SharedModule,
     BrowserModule,
     NgSelectModule,

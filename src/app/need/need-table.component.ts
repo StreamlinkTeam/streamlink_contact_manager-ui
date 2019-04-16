@@ -10,6 +10,7 @@ import {ToastrService} from 'ngx-toastr';
 import {MatDialog, MatDialogConfig} from '@angular/material';
 import {PositioningAddComponent} from '../positioning-add/positioning-add.component';
 import {NeedEditorComponent} from './need-editor.component';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-need-table',
@@ -35,15 +36,32 @@ export class NeedTableComponent implements OnInit {
     },
     noDataMessage: 'Pas de valeur disponible !',
     actions: {
-      columnTitle: '',
+      columnTitle: 'Actions',
       add: false,
       position: 'right'
     },
     mode: 'external',
     columns: {
+      createdDate: {
+        title: 'Date dépôt',
+        type: 'date',
+        filter: false,
+        valuePrepareFunction: (date) => {
+          if (date) {
+            return new DatePipe('en-GB').transform(date, 'dd-MM-yyyy');
+          }
+          return null;
+        },
+        sort: false
+      },
       title: {
-        title: 'Title',
+        title: 'Titre de besoin',
         filter: false
+      },
+      client: {
+        title: 'Client',
+        filter: false,
+        // sort: false
       },
       type: {
         title: 'Type',
@@ -52,26 +70,46 @@ export class NeedTableComponent implements OnInit {
         renderComponent: CustomEnumRenderComponent
       },
       activityArea: {
-        title: 'Secteur',
+        title: 'Secteur d\'activité',
         filter: false,
         type: 'custom',
         renderComponent: CustomEnumRenderComponent
       },
       stage: {
-        title: 'Etape',
+        title: 'Etat',
         filter: false,
         type: 'custom',
         renderComponent: CustomEnumRenderComponent
       },
-      client: {
-        title: 'Client',
+      startingDate: {
+        title: 'Date de démarrage',
+        type: 'date',
         filter: false,
+        valuePrepareFunction: (date) => {
+          if (date) {
+            return new DatePipe('en-GB').transform(date, 'dd-MM-yyyy');
+          }
+          return 'Non définie';
+        },
+        sort: false
+      },
+      durationByMonth: {
+        title: 'Duré',
+        filter: false,
+        valuePrepareFunction: (value) => {
+          if (value == null) {
+            return 'Indéterminée';
+          }
+          return value + ' mois';
+        }
+
         // sort: false
       }
+
     },
-    // actions: false,
+    // actions: false, durationByMonth
     pager: {
-      perPage: 5
+      perPage: 8
     },
   };
 

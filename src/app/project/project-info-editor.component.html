@@ -1,6 +1,6 @@
 
 <div class="container-fluid" style="width: 90%">
-  <div class="p-2  text-white " style="background-color: #48a0ff; box-shadow: 2px 2px 2px grey; border-radius: 5px; text-align: center;"><h5>Fiche projet - {{projectPos.needTitle}} : {{projectPos.resourceFullName}}</h5></div>
+  <div class="p-2  text-white " style="background-color: #4267b2; box-shadow: 2px 2px 2px grey; border-radius: 5px; text-align: center;"><h5>Fiche projet - {{projectPos.needTitle}} : {{projectPos.resourceFullName}}</h5></div>
 <br>
 
   <form #form="ngForm" (ngSubmit)="updateProject(form)">
@@ -9,7 +9,7 @@
   <div class="col-md-4">
 <!--{{ diff_years(projectPos.endDate, projectPos.startDate) }}-->
     <mdb-card>
-      <mdb-card-header><h4 style="color: #3f51b5"><mat-icon color="primary">info_outline</mat-icon> Informations générales</h4></mdb-card-header>
+      <mdb-card-header><h4><mat-icon>info_outline</mat-icon> Informations générales</h4></mdb-card-header>
       <!--{{projectPos.resourceFullName}} : {{ projectPos.needTitle}} {{projectPos.createdDate}}-->
       <mdb-card-body>
 
@@ -76,7 +76,7 @@
   </div>
   <div class="col-md-4">
     <mdb-card>
-      <mdb-card-header><h4 style="color: #3f51b5"><mat-icon color="primary">place</mat-icon> Lieu de la prestation</h4></mdb-card-header>
+      <mdb-card-header><h4><mat-icon>place</mat-icon> Lieu de la prestation</h4></mdb-card-header>
 
       <mdb-card-body>
         <div class="form-group">
@@ -362,7 +362,7 @@
   <div class="col-md-4">
 
     <mdb-card>
-      <mdb-card-header><h4 style="color: #3f51b5"><mat-icon color="primary">playlist_add</mat-icon> Informations complémentaires</h4></mdb-card-header>
+      <mdb-card-header><h4><mat-icon>playlist_add</mat-icon> Informations complémentaires</h4></mdb-card-header>
 
       <mdb-card-body>
 

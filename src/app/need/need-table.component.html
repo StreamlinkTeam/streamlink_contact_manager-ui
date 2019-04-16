@@ -1,6 +1,6 @@
-<div class="container">
+<div class="container-fluid" style="padding-right: 5%; padding-left: 5%">
 
-  <mdb-card bgColor="primary-color-dark" class="text-white">
+  <mdb-card class="text-white">
     <mdb-card-header><h4> <img style="width: 30px; height: 30px" src="../../assets/project-management.png"> Liste des besoins </h4></mdb-card-header>
     <mdb-card-body>
 
@@ -8,21 +8,21 @@
       <div class="form-row">
 
         <div class="form-group col-md-4">
-          <label>Etape</label>
+          <label style="color: #4267b2;">Etape</label>
           <select (change)="onSelectChange('stage',$event.target.value)" class="form-control" name="stage">
-            <option *ngFor="let stage of stages" [value]="stage.value">{{stage.label}}</option>
+            <option  *ngFor="let stage of stages" [value]="stage.value">{{stage.label}}</option>
           </select>
         </div>
 
         <div class="form-group col-md-4">
-          <label>Type</label>
+          <label style="color: #4267b2;">Type</label>
           <select (change)="onSelectChange('type',$event.target.value)" class="form-control" name="formation">
             <option *ngFor="let type of types" [value]="type.value">{{type.label}}</option>
           </select>
         </div>
 
         <div class="form-group col-md-4">
-          <label>Secteur d'activité </label>
+          <label style="color: #4267b2;">Secteur d'activité </label>
           <select (change)="onSelectChange('activityArea',$event.target.value)" class="form-control"
                   name="activityArea">
             <option value="">Tous</option>

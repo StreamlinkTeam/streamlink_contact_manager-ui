@@ -10,10 +10,11 @@ import {UserTableComponent} from './users-table.component';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {Ng2SmartTableModule} from 'ng2-smart-table';
+import {MatButtonModule, MatIconModule} from '@angular/material';
 
 @NgModule({
   imports: [
-    SharedModule,
+    SharedModule, MatButtonModule, MatIconModule,
     BrowserModule,
     NgSelectModule,
     BrowserAnimationsModule,

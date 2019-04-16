@@ -6,6 +6,10 @@ export class Positioning {
   needReference: string;
   responsibleFullName: string;
   responsibleReference: string;
+  clientReference: string;
+  needTitle: string;
+  resourceFullName: string;
+  client: string;
   stage: string;
   note: string;
   startDate: Date;

@@ -11,6 +11,7 @@ import {UserService} from '../shared/services/user.service';
 import Swal from 'sweetalert2';
 import {NeedService} from '../shared/services/need.service';
 import {Need} from '../shared/entities/need.model';
+import {SocietyService} from '../shared/services/society.service';
 
 @Component({
   selector: 'app-positioning-edit',
@@ -28,6 +29,8 @@ export class PositioningEditComponent implements OnInit {
   stages: any[];
   needs: any = [];
   resources: any = [];
+  societies: any = [];
+
 
 
   constructor(private router: Router,
@@ -37,6 +40,7 @@ export class PositioningEditComponent implements OnInit {
               private projectService: ProjectService,
               private needService: NeedService,
               private userService: UserService,
+              private societyService: SocietyService,
               private toastr: ToastrService
   ) {
   }
@@ -49,14 +53,13 @@ export class PositioningEditComponent implements OnInit {
     });
 
     this.stages = [
-      {label: 'Tous', value: ''},
-      {label: 'Non definie', value: 'NOT_DEFINED'},
-      {label: 'En attente', value: 'Waiting'},
-      {label: 'Présenter au client', value: 'PresentedToClient'},
+      // {label: 'Tous', value: ''},
+      {label: 'Positionné', value: 'Positioned'},
       {label: 'Envoye CV', value: 'SendingCV'},
+      {label: 'Présenter au client', value: 'PresentedToClient'},
       {label: 'Rejeter', value: 'Rejected'},
-      {label: 'Gagné', value: 'Won'},
-      {label: 'Positionné', value: 'Positioned'}];
+     // {label: 'Gagné', value: 'Won'},
+    ];
 
     const ref = this.route.snapshot.params.reference;
     console.log(this.route);
@@ -69,6 +72,11 @@ export class PositioningEditComponent implements OnInit {
     });
     this.needService.getNeeds().subscribe(res => {
       this.needs = res;
+
+    });
+
+    this.societyService.getSocieties().subscribe(res => {
+      this.societies = res;
 
     });
 

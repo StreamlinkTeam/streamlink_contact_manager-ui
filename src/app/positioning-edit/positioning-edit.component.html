@@ -1,130 +1,228 @@
-<div class="container" >
+<div class="container">
   <div class="row">
     <mdb-card style="width: 100%;">
-      <mdb-card-header>Informations de positionnement <span class="float-right">Crée le {{positioning.createdDate | date}} à {{positioning.createdDate | date:"HH:mm"}} </span></mdb-card-header>
+      <mdb-card-header><b>Informations de positionnement</b> <span
+        class="float-right"><b>Crée le {{positioning.createdDate | date}}
+        à {{positioning.createdDate | date:"HH:mm"}}</b> </span></mdb-card-header>
       <mdb-card-body>
         <form #form="ngForm" (ngSubmit)="updatePostioning(form)">
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                <ng-select [(ngModel)]="positioning.needReference"
-                           [items]="needs"
-                           [loading]="projectsLoading"
-                           [typeahead]="projectsInput$"
-                           bindLabel="title"
-                           bindValue="reference"
-                           name="project"
-                           notFoundText="Aucun élément trouvé"
-                           required
-                           typeToSearchText="tapez plus de 3 caractères pour trouver le projet">
-                </ng-select>
+
+                <mat-form-field class="example-container">
+                  <input [(ngModel)]="positioning.needTitle" name="project"
+                         placeholder="Nom de besoin"
+                         matInput readonly="true"
+                         type="text">
+                </mat-form-field>
+
+                <!--<ng-select [(ngModel)]="positioning.needReference"-->
+                           <!--[items]="needs"-->
+                           <!--[loading]="projectsLoading"-->
+                           <!--[typeahead]="projectsInput$"-->
+                           <!--bindLabel="title"-->
+                           <!--bindValue="reference"-->
+                           <!--disabled-->
+                           <!--name="project"-->
+                           <!--notFoundText="Aucun élément trouvé"-->
+                           <!--required-->
+                           <!--typeToSearchText="tapez plus de 3 caractères pour trouver le projet">-->
+                <!--</ng-select>-->
               </div>
 
               <div class="form-group">
-                <label>Resource</label>
+                <mat-form-field class="example-container">
+                  <input [(ngModel)]="positioning.resourceFullName" name="resource"
+                         placeholder="Resource"
+                         matInput readonly="true"
+                         type="text">
+                </mat-form-field>
 
-                <ng-select [(ngModel)]="positioning.resourceReference"
-                           [items]="resources"
-                           [loading]="resourcesLoading"
-                           [typeahead]="resourcesInput$"
-                           bindLabel="fullName"
-                           bindValue="reference"
-                           name="resource"
-                           notFoundText="Aucun élément trouvé"
-                           required
-                           typeToSearchText="tapez plus de 3 caractères pour trouver la resource">
-                </ng-select>
+                <!--<ng-select [(ngModel)]="positioning.resourceReference"-->
+                           <!--[items]="resources"-->
+                           <!--[loading]="resourcesLoading"-->
+                           <!--[typeahead]="resourcesInput$"-->
+                           <!--bindLabel="fullName"-->
+                           <!--bindValue="reference"-->
+                           <!--name="resource"-->
+                           <!--notFoundText="Aucun élément trouvé"-->
+                           <!--required-->
+                           <!--typeToSearchText="tapez plus de 3 caractères pour trouver la resource">-->
+                <!--</ng-select>-->
 
               </div>
 
               <div class="form-group">
-                <label>Responsable</label>
-                <select [(ngModel)]="positioning.responsibleReference"
-                        class="form-control"
-                        name="responsable"
-                        matInput
-                        placeholder="responsable">
 
-                  <option *ngFor="let user of users" [ngValue]="user.reference">{{user.firstname}}
-                    {{user.lastname}}
-                  </option>
-                </select>
+                <mat-form-field class="example-container">
+                  <input [(ngModel)]="positioning.responsibleFullName" name="responsable"
+                         placeholder="Responsable"
+                         matInput readonly="true"
+                         type="text">
+                </mat-form-field>
+
+                <!--<mat-form-field class="example-container">-->
+                  <!--<mat-select [(ngModel)]="positioning.responsibleReference"-->
+                              <!--name="responsable"-->
+                              <!--matInput-->
+                              <!--placeholder="Responsable">-->
+                    <!--<mat-option *ngFor="let user of users" [value]="user.reference">{{user.firstname}}-->
+                      <!--{{user.lastname}}-->
+                    <!--</mat-option>-->
+                  <!--</mat-select>-->
+                <!--</mat-form-field>-->
               </div>
 
               <div class="form-group">
-                <label>Stage</label> <select
-                [disabled]="positioning.stage == 'Won'"
-                [(ngModel)]="positioning.stage" class="form-control"
-                                             name="stage"
-                                             placeholder="stage"
-                                             required>
-                <option *ngFor="let stage of stages" [ngValue]="stage.value">{{stage.label}}</option>
-              </select>
 
+                <mat-form-field class="example-container">
+                  <input [(ngModel)]="positioning.client" name="society"
+                         placeholder="Client - Contact"
+                         matInput readonly="true"
+                         type="text">
+                </mat-form-field>
+                <!--<ng-select [(ngModel)]="positioning.clientReference"-->
+                           <!--[items]="societies"-->
+                           <!--bindLabel="label"-->
+                           <!--bindValue="reference"-->
+                           <!--name="society"-->
+                           <!--notFoundText="Aucun élément trouvé"-->
+                           <!--required-->
+                           <!--typeToSearchText="tapez plus de 3 caractères pour trouver la resource">-->
+                <!--</ng-select>-->
+
+              </div>
+
+              <!--<div class="form-group">-->
+                <!--<mat-form-field class="example-container">-->
+                  <!--<mat-select [(ngModel)]="positioning.client"-->
+                              <!--name="responsable"-->
+                              <!--matInput-->
+                              <!--placeholder="Client">-->
+                    <!--<mat-option *ngFor="let society of societies" [value]="society">{{society.label}}-->
+
+                    <!--</mat-option>-->
+                  <!--</mat-select>-->
+                <!--</mat-form-field>-->
+              <!--</div>-->
+
+              <div class="form-group">
+                <mat-form-field class="example-container">
+                  <mat-select
+                    [disabled]="positioning.stage == 'Won'"
+                    [(ngModel)]="positioning.stage"
+                    name="stage"
+                    [placeholder]="positioning.stage == 'Won' ? 'Gagné' : 'Gagné' "
+                    required>
+                    <mat-option *ngFor="let stage of stages" [value]="stage.value">{{stage.label}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
               </div>
 
 
               <div class="form-group">
-                <label>Free days</label>
-                <input [(ngModel)]="positioning.freeDays" class="form-control" name="freeDays"
-                       placeholder="freeDays"
-                       required
-                       type="number">
+                <mat-form-field class="example-container">
+
+                  <input [(ngModel)]="positioning.freeDays" name="freeDays"
+                         placeholder="Jours gratuits"
+                         required
+                         matInput
+                         type="number">
+                </mat-form-field>
               </div>
+
             </div>
 
             <div class="col-md-6">
 
 
               <div class="form-group">
-                <label>Jours facturés</label>
-                <input [(ngModel)]="positioning.invoicedDays" class="form-control" name="invoicedDays"
-                       placeholder="invoicedDays"
-                       required
-                       type="number">
+                <mat-form-field class="example-container">
+                  <input [(ngModel)]="positioning.invoicedDays" name="invoicedDays"
+                         placeholder="Jours facturés"
+                         required
+                         matInput
+                         type="number">
+                </mat-form-field>
               </div>
 
               <div class="form-group">
-                <label>Note</label>
-                <input [(ngModel)]="positioning.note" class="form-control" name="note"
-                       placeholder="note"
-                       required
-                       type="text">
-              </div>
-              <div class="form-group">
-                <label>Start Date</label>
-                <input [(ngModel)]="positioning.startDate" class="form-control" name="startDate"
-                       placeholder="startDate"
-                       required
-                       type="date">
-              </div>
-              <div class="form-group">
-                <label>Date de fin</label>
-                <input [(ngModel)]="positioning.endDate" class="form-control" name="endDate"
-                       placeholder="endDate"
-                       required
-                       type="date">
+                <mat-form-field class="example-container">
+                  <input [(ngModel)]="positioning.note" name="note"
+                         placeholder="Note"
+                         required
+                         matInput
+                         type="text">
+                </mat-form-field>
               </div>
 
               <div class="form-group">
-                <label>CJM</label>
-                <input [(ngModel)]="positioning.cjm" class="form-control" name="cjm"
-                       placeholder="CJM"
-                       required
-                       type="number">
+                <mat-form-field class="example-container">
+
+                  <input
+                    [matDatepicker]="picker"
+                    [(ngModel)]="positioning.startDate"
+                    matInput
+                    name="startDate"
+                    placeholder="Date de début"
+                    required>
+                  <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
               </div>
+
+
               <div class="form-group">
-                <label>TJM</label>
-                <input [(ngModel)]="positioning.tjm" class="form-control" name="tjm"
-                       placeholder="tjm"
-                       required
-                       type="number">
+                <mat-form-field class="example-container">
+                  <input [(ngModel)]="positioning.endDate"
+                         [matDatepicker]="picker2"
+                         name="endDate"
+                         placeholder="Date de fin"
+                         required
+                         matInput>
+                  <mat-datepicker-toggle [for]="picker2" matSuffix></mat-datepicker-toggle>
+                  <mat-datepicker #picker2></mat-datepicker>
+                </mat-form-field>
               </div>
+
+              <div class="form-group">
+                <mat-form-field class="example-container">
+                  <input [(ngModel)]="positioning.cjm"
+                         matInput
+                         name="cjm"
+                         placeholder="CJM"
+                         required
+                         type="number">
+                </mat-form-field>
+              </div>
+
+              <div class="form-group">
+                <mat-form-field class="example-container">
+                  <input [(ngModel)]="positioning.tjm" class="form-control" name="tjm"
+                         placeholder="TJM"
+                         required
+                         matInput
+                         type="number">
+                </mat-form-field>
+              </div>
+
             </div>
             <div class="form-group">
-              <button class="btn btn-primary" type="submit">Enregistrer</button>
-              <button class="btn btn-secondary" routerLink="/positionings" type="reset">Annuler</button>
-              <button [disabled]="positioning.stage == 'Won'" class="btn btn-warning"  type="button" (click)="convertToProject()">Convertit en projet</button>
+              <button mat-raised-button style="margin: 3px"
+                      color="primary" type="submit"><mat-icon>save_outline</mat-icon> Enregistrer
+              </button>
+
+              <button mat-raised-button style="margin: 3px" color="accent" [disabled]="positioning.stage == 'Won'"  type="button"
+                      (click)="convertToProject()"><mat-icon>directions</mat-icon> Convertit en projet
+              </button>
+
+              <button mat-raised-button style="margin: 3px"
+                      color="warn" routerLink="/positionings" type="reset"><mat-icon>cancel</mat-icon> Retour
+              </button>
+
+
+
             </div>
           </div>
         </form>
