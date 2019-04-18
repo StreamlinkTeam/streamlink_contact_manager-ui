@@ -7,6 +7,7 @@ import {Row} from 'ng2-smart-table/lib/data-set/row';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {CustomEnumRenderComponent} from '../shared/custom-ng2-smart-table-renderer/custom-enum-render.component';
+import {Society} from '../shared/entities/society.model';
 
 
 @Component({
@@ -19,6 +20,7 @@ export class SocietyTableComponent implements OnInit {
 
   url: string;
 
+  society: Society;
 
   settings = {
     attr: {
@@ -32,14 +34,14 @@ export class SocietyTableComponent implements OnInit {
     },
     noDataMessage: 'Pas de valeur disponible !',
     actions: {
-      columnTitle: '',
+      columnTitle: 'Actions',
       add: false,
       position: 'right'
     },
     mode: 'external',
     columns: {
       label: {
-        title: 'Nom',
+        title: 'Société',
         filter: false
       },
       activityArea: {
@@ -57,12 +59,19 @@ export class SocietyTableComponent implements OnInit {
       city: {
         title: 'Lieu',
         filter: false
+      },
+      tel1: {
+        title: 'Coordonnées',
+        filter: false
+      },
+      note: {
+        title: 'Information',
+        filter: false,
       }
     },
-    // actions: false,
     pager: {
       perPage: 5
-    },
+    }
   };
 
   stages: any[];

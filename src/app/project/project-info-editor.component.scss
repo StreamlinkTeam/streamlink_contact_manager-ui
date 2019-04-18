@@ -8,21 +8,26 @@
 }
 
 .mat-select {
-::ng-deep .mat-select-content {
-  width: 100%;
+  ::ng-deep .mat-select-content {
+    width: 100%;
+  }
+
+  ::ng-deep .mat-select-value {
+    color: green /*!important*/
+  ;
+  }
 }
-::ng-deep .mat-select-value {
-  color: green /*!important*/;
-}
-}
+
 .mat-select-disabled {
-::ng-deep .mat-select-value {
-  color: black /*!important*/;
-}
+  ::ng-deep .mat-select-value {
+    color: black /*!important*/
+  ;
+  }
 }
 
 .input-disabled {
   ::ng-deep input-value {
-    color: black /*!important*/;
+    color: black /*!important*/
+  ;
   }
 }

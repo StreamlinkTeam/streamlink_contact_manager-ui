@@ -11,7 +11,8 @@
           <form #form="ngForm" (ngSubmit)="save(form)" novalidate>
 
             <div class="form-group">
-              <label>Nom</label> <input #firstname_input="ngModel" [(ngModel)]="user.firstname" class="form-control" name="firstname"
+              <label>Nom</label> <input #firstname_input="ngModel" [(ngModel)]="user.firstname" class="form-control"
+                                        name="firstname"
                                         required/>
               <app-field-error-display
                 [displayError]="form.submitted && firstname_input.invalid"

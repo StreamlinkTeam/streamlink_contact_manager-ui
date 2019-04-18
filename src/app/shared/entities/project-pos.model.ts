@@ -5,6 +5,7 @@ export class ProjectPos {
   needReference: any;
   responsibleReference: any;
   client: any;
+  societyName: any;
   needTitle: any;
   resourceFullName: any;
   stage: any;

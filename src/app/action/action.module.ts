@@ -6,7 +6,7 @@ import {ActionEditorComponent} from './action-editor.component';
 import {FormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {BrowserModule} from '@angular/platform-browser';
-import { ButtonsModule, WavesModule, CardsFreeModule } from 'angular-bootstrap-md'
+import {ButtonsModule, CardsFreeModule, WavesModule} from 'angular-bootstrap-md';
 
 
 @NgModule({
@@ -15,7 +15,7 @@ import { ButtonsModule, WavesModule, CardsFreeModule } from 'angular-bootstrap-m
     BrowserModule,
     RouterModule,
     SharedModule,
-    ButtonsModule, WavesModule, CardsFreeModule  ],
+    ButtonsModule, WavesModule, CardsFreeModule],
   exports: [
     ActionEditorComponent,
     ActionTableComponent

@@ -26,6 +26,7 @@ export class ProjectEditorComponent implements OnInit {
 
   resourcesLoading = false;
   resourcesInput$ = new Subject<string>();
+
   // projectInfo: ProjectInformation = new ProjectInformation();
 
 

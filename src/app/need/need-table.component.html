@@ -1,7 +1,8 @@
 <div class="container-fluid" style="padding-right: 5%; padding-left: 5%">
 
   <mdb-card class="text-white">
-    <mdb-card-header><h4> <img style="width: 30px; height: 30px" src="../../assets/project-management.png"> Liste des besoins </h4></mdb-card-header>
+    <mdb-card-header><h4><img src="../../assets/project-management.png" style="width: 30px; height: 30px"> Liste des
+      besoins </h4></mdb-card-header>
     <mdb-card-body>
 
 
@@ -10,7 +11,7 @@
         <div class="form-group col-md-4">
           <label style="color: #4267b2;">Etape</label>
           <select (change)="onSelectChange('stage',$event.target.value)" class="form-control" name="stage">
-            <option  *ngFor="let stage of stages" [value]="stage.value">{{stage.label}}</option>
+            <option *ngFor="let stage of stages" [value]="stage.value">{{stage.label}}</option>
           </select>
         </div>
 
@@ -84,7 +85,7 @@
 
   <div class="form-group">
 
-    <button color="primary" routerLink="/needs/create" mat-raised-button>
+    <button color="primary" mat-raised-button routerLink="/needs/create">
       <mat-icon>add</mat-icon>
       Créer un besoin
     </button>

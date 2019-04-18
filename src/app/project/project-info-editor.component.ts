@@ -3,8 +3,6 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
 import {ToastrService} from 'ngx-toastr';
 import {ProjectService} from '../shared/services/project.service';
-import {ProjectInformation} from '../shared/entities/project.model';
-import {Positioning} from '../shared/entities/positioning.model';
 import {ProjectPos} from '../shared/entities/project-pos.model';
 import {ResourceService} from '../shared/services/resource.service';
 import {NeedService} from '../shared/services/need.service';
@@ -18,7 +16,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['project-info-editor.component.scss']
 
 })
-export class ProjectInfoEditorComponent  implements OnInit {
+export class ProjectInfoEditorComponent implements OnInit {
 
   editing = false;
 
@@ -28,6 +26,7 @@ export class ProjectInfoEditorComponent  implements OnInit {
   stages: any[];
   needs: any = [];
   resources: any = [];
+
   // projectInfo: ProjectInformation = new ProjectInformation();
 
 
@@ -83,6 +82,7 @@ export class ProjectInfoEditorComponent  implements OnInit {
       this.resources = ress;
     });
   }
+
   updateProject(form: NgForm) {
     this.projectService.updateProject(this.projectPos, this.projectPos.reference).subscribe(res => {
       this.projectPos = res;
@@ -97,14 +97,12 @@ export class ProjectInfoEditorComponent  implements OnInit {
   }
 
 
-   public diff_years(dt2, dt1) {
+  public diff_years(dt2, dt1) {
 
     let diff: any = (dt2.getTime() - dt1.getTime());
     diff /= (60 * 60 * 24);
     return Math.abs(Math.round(diff / 365.25)).toString();
   }
-
-
 
 
   // save(form: NgForm) {

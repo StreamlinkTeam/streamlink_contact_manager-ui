@@ -1,6 +1,7 @@
-
 <div class="container-fluid" style="width: 90%">
-  <div class="p-2  text-white " style="background-color: #48a0ff; box-shadow: 2px 2px 2px grey; border-radius: 5px; text-align: center;"><h5>Fiche projet - {{projectPos.needTitle}} : {{projectPos.resourceFullName}}</h5></div>
+  <div class="p-2  text-white "
+       style="background-color: #48a0ff; box-shadow: 2px 2px 2px grey; border-radius: 5px; text-align: center;"><h5>
+    Fiche projet - {{projectPos.needTitle}} : {{projectPos.resourceFullName}}</h5></div>
   <br>
 
   <form #form="ngForm" (ngSubmit)="createProject(form)">
@@ -9,47 +10,52 @@
       <div class="col-md-4">
         <!--{{ diff_years(projectPos.endDate, projectPos.startDate) }}-->
         <mdb-card>
-          <mdb-card-header><h4 style="color: #3f51b5"><mat-icon color="primary">info_outline</mat-icon> Informations générales</h4></mdb-card-header>
+          <mdb-card-header>
+            <h4 style="color: #3f51b5">
+              <mat-icon color="primary">info_outline</mat-icon>
+              Informations générales
+            </h4>
+          </mdb-card-header>
           <!--{{projectPos.resourceFullName}} : {{ projectPos.needTitle}} {{projectPos.createdDate}}-->
           <mdb-card-body>
 
             <div class="form-group">
-            <mat-form-field class="example-container">
-              <input [(ngModel)]="projectPos.needTitle" name="projectTitle"
-                     placeholder="Nom de projet"
-                     matInput
-                     type="text">
-            </mat-form-field>
-          </div>
+              <mat-form-field class="example-container">
+                <input [(ngModel)]="projectPos.needTitle" matInput
+                       name="projectTitle"
+                       placeholder="Nom de projet"
+                       type="text">
+              </mat-form-field>
+            </div>
             <div class="form-group">
               <mat-form-field class="example-container">
-                <input [(ngModel)]="projectPos.cjm" name="cjm"
+                <input [(ngModel)]="projectPos.cjm" matInput
+                       name="cjm"
                        placeholder="CJM"
-                       matInput
                        type="text">
               </mat-form-field>
             </div>
             <div class="form-group">
               <mat-form-field class="example-container">
-                <input [(ngModel)]="projectPos.tjm" name="tjm"
+                <input [(ngModel)]="projectPos.tjm" matInput
+                       name="tjm"
                        placeholder="TJM"
-                       matInput
                        type="text">
               </mat-form-field>
             </div>
             <div class="form-group">
               <mat-form-field class="example-container">
-                <input [(ngModel)]="projectPos.invoicedDays" name="invoicedDays"
+                <input [(ngModel)]="projectPos.invoicedDays" matInput
+                       name="invoicedDays"
                        placeholder="invoicedDays"
-                       matInput
                        type="text">
               </mat-form-field>
             </div>
             <div class="form-group">
               <mat-form-field class="example-container">
-                <input [(ngModel)]="projectPos.freeDays" name="freeDays"
+                <input [(ngModel)]="projectPos.freeDays" matInput
+                       name="freeDays"
                        placeholder="freeDays"
-                       matInput
                        type="text">
               </mat-form-field>
             </div>
@@ -100,12 +106,12 @@
 
             <div class="form-group">
               <mat-form-field class="example-container">
-            <textarea [(ngModel)]="projectPos.note"  name="note"
-                      placeholder="Commentaire"
-                      matInput
-                      cdkTextareaAutosize
+            <textarea [(ngModel)]="projectPos.note" cdkAutosizeMaxRows="5"
                       cdkAutosizeMinRows="5"
-                      cdkAutosizeMaxRows="5"></textarea>
+                      cdkTextareaAutosize
+                      matInput
+                      name="note"
+                      placeholder="Commentaire"></textarea>
               </mat-form-field>
             </div>
 
@@ -118,15 +124,20 @@
       </div>
       <div class="col-md-4">
         <mdb-card>
-          <mdb-card-header><h4 style="color: #3f51b5"><mat-icon color="primary">place</mat-icon> Lieu de la prestation</h4></mdb-card-header>
+          <mdb-card-header>
+            <h4 style="color: #3f51b5">
+              <mat-icon color="primary">place</mat-icon>
+              Lieu de la prestation
+            </h4>
+          </mdb-card-header>
 
           <mdb-card-body>
             <div class="form-group">
 
               <ng-select #place="ngModel" [(ngModel)]="projectPos.country"
                          [hideSelected]="true"
-                         bindValue="country" placeholder="Pays"
-                         id="place" name="place">
+                         bindValue="country" id="place"
+                         name="place" placeholder="Pays">
 
                 <ng-option value="monde">Monde</ng-option>
                 <ng-option value="Afghanistan">Afghanistan</ng-option>
@@ -364,29 +375,29 @@
 
             <div class="form-group">
               <mat-form-field class="example-container">
-                <input  name="address"
-                        [(ngModel)]="projectPos.address"
-                        placeholder="Adresse"
-                        required matInput
-                        type="text">
+                <input [(ngModel)]="projectPos.address"
+                       matInput
+                       name="address"
+                       placeholder="Adresse" required
+                       type="text">
               </mat-form-field>
             </div>
 
             <div class="form-group">
               <mat-form-field class="example-container">
-                <input name="poste"
-                       [(ngModel)]="projectPos.postal"
-                       placeholder="Code postal"
-                       required matInput
+                <input [(ngModel)]="projectPos.postal"
+                       matInput
+                       name="poste"
+                       placeholder="Code postal" required
                        type="number">
               </mat-form-field>
             </div>
             <div class="form-group">
               <mat-form-field class="example-container">
-                <input name="city"
-                       [(ngModel)]="projectPos.city"
-                       placeholder="Ville"
-                       required matInput
+                <input [(ngModel)]="projectPos.city"
+                       matInput
+                       name="city"
+                       placeholder="Ville" required
                        type="text">
               </mat-form-field>
             </div>
@@ -404,18 +415,23 @@
       <div class="col-md-4">
 
         <mdb-card>
-          <mdb-card-header><h4 style="color: #3f51b5"><mat-icon color="primary">playlist_add</mat-icon> Informations complémentaires</h4></mdb-card-header>
+          <mdb-card-header>
+            <h4 style="color: #3f51b5">
+              <mat-icon color="primary">playlist_add</mat-icon>
+              Informations complémentaires
+            </h4>
+          </mdb-card-header>
 
           <mdb-card-body>
 
             <div class="form-group">
               <mat-form-field class="example-container">
                 <input
+                  [(ngModel)]="projectPos.presentationDate"
                   [matDatepicker]="picker"
                   matInput
                   name="presentationDate"
-                  placeholder="Date de prestation"
-                  [(ngModel)]="projectPos.presentationDate">
+                  placeholder="Date de prestation">
 
                 <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
@@ -426,11 +442,11 @@
             <div class="form-group">
               <mat-form-field class="example-container">
                 <input
+                  [(ngModel)]="projectPos.startDate"
                   [matDatepicker]="picker2"
                   matInput
                   name="startDate"
-                  placeholder="Date de début"
-                  [(ngModel)]="projectPos.startDate">
+                  placeholder="Date de début">
 
                 <mat-datepicker-toggle [for]="picker2" matSuffix></mat-datepicker-toggle>
                 <mat-datepicker #picker2></mat-datepicker>
@@ -441,11 +457,11 @@
             <div class="form-group">
               <mat-form-field class="example-container">
                 <input
+                  [(ngModel)]="projectPos.endDate"
                   [matDatepicker]="picker3"
                   matInput
                   name="endDate"
-                  placeholder="Date de fin"
-                  [(ngModel)]="projectPos.endDate">
+                  placeholder="Date de fin">
 
                 <mat-datepicker-toggle [for]="picker3" matSuffix></mat-datepicker-toggle>
                 <mat-datepicker #picker3></mat-datepicker>
@@ -475,11 +491,18 @@
 
       </div>
 
-    </div><br/>
+    </div>
+    <br/>
     <div class="form-group">
-      <button  color="primary"
-               mat-raised-button style="margin: 10px"  type="submit"><mat-icon>save_outline</mat-icon> Enregistrer</button>
-      <button mat-raised-button color="warn"  routerLink="/projects" type="reset"><mat-icon>close</mat-icon> Annuler</button>
+      <button color="primary"
+              mat-raised-button style="margin: 10px" type="submit">
+        <mat-icon>save_outline</mat-icon>
+        Enregistrer
+      </button>
+      <button color="warn" mat-raised-button routerLink="/projects" type="reset">
+        <mat-icon>close</mat-icon>
+        Annuler
+      </button>
     </div>
   </form>
 </div>

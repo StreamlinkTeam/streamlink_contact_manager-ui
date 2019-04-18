@@ -6,6 +6,7 @@ body {
   padding-top: 80px;
 
 }
+
 .card-header:first-child {
   background-color: #4267b2;
   color: white;
@@ -18,30 +19,35 @@ tr.ng2-smart-titles {
   color: white;
 }
 
-a.ng2-smart-sort-link.sort{
+a.ng2-smart-sort-link.sort {
   color: white;
 }
+
 .starter-template {
   padding: 3rem 1.5rem;
   /*     text-align: center; */
 }
 
+tr.ng2-smart-filters {
+  display: none;
+}
+
 /*input.ng-dirty.ng-invalid {*/
-  /*border: 2px solid #ff0000*/
+/*border: 2px solid #ff0000*/
 /*}*/
 
 /*input.ng-dirty.ng-valid {*/
-  /*border: 2px solid #6bc502*/
+/*border: 2px solid #6bc502*/
 /*}*/
 
 /*.form-group.required .control-label:after {*/
-  /*content: "*";*/
-  /*color: red;*/
+/*content: "*";*/
+/*color: red;*/
 /*}*/
 
 /*.form-group.required .col-form-label:after {*/
-  /*content: "*";*/
-  /*color: red;*/
+/*content: "*";*/
+/*color: red;*/
 /*}*/
 
 

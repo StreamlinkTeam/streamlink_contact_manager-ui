@@ -6,7 +6,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Subject} from 'rxjs/Subject';
 import {Observable, of} from 'rxjs';
 import {User} from './../shared/entities/user.model';
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Need} from '../shared/entities/need.model';
 import {Society, SocietyView} from '../shared/entities/society.model';
 import {SocietyContactView} from '../shared/entities/society-contact.model';
@@ -14,7 +14,6 @@ import {SocietyService} from '../shared/services/society.service';
 import {SocietyContactService} from '../shared/services/society-contact.service';
 import {UserService} from '../shared/services/user.service';
 import {ToastrService} from 'ngx-toastr';
-import {MAT_DIALOG_DATA} from '@angular/material';
 
 @Component({
   moduleId: module.id,

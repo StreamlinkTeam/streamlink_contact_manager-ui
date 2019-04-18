@@ -30,7 +30,6 @@ import {ResourceTableComponent} from './resource/resource-table.component';
 import {ResourceEditorComponent} from './resource/resource-editor.component';
 import {ProjectTableComponent} from './project/project-table.component';
 import {ProjectEditorComponent} from './project/project-editor.component';
-import {ProjectComponent} from './project/project.component';
 import {PositioningTableComponent} from './positioning/positioning-table.component';
 import {PositioningAddComponent} from './positioning-add/positioning-add.component';
 import {PositioningEditComponent} from './positioning-edit/positioning-edit.component';

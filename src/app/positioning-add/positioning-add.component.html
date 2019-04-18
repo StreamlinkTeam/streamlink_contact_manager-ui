@@ -18,7 +18,7 @@
                            [(ngModel)]="positioning.needReference"
                            [class.is-invalid]="need.invalid && need.touched"
                            [items]="besoins"
-                           bindLabel="title"
+                           bindLabel="full"
                            bindValue="reference"
                            name="besoin"
                            notFoundText="Aucun élément trouvé"
@@ -80,7 +80,6 @@
                               [(ngModel)]="positioning.stage"
                               [class.is-invalid]="stage.invalid && stage.touched"
                               name="stage"
-
                               placeholder="Etat"
                               required>
                     <mat-option *ngFor="let stage of stages" [value]="stage.value">

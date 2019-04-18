@@ -10,6 +10,7 @@ export class Positioning {
   needTitle: string;
   resourceFullName: string;
   client: string;
+  societyName: string;
   stage: string;
   note: string;
   startDate: Date;
