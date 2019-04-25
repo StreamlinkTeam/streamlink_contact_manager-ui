@@ -19,6 +19,8 @@ import {MatButtonModule, MatIconModule} from '@angular/material';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+
 
 
 
@@ -28,6 +30,7 @@ import {ButtonsModule, CardsFreeModule, WavesModule} from 'angular-bootstrap-md'
 @NgModule({
   imports: [
     ButtonsModule, WavesModule, CardsFreeModule, MatButtonModule, MatSelectModule,
+    MatDatepickerModule,
     SharedModule,
     BrowserModule,
     NgSelectModule,

@@ -15,7 +15,7 @@ import Swal from 'sweetalert2';
   selector: 'app-project-info',
   moduleId: module.id,
   templateUrl: 'project-info-editor.component.html',
-  styleUrls: ['project-info-editor.component.css']
+  styleUrls: ['project-info-editor.component.scss']
 
 })
 export class ProjectInfoEditorComponent  implements OnInit {
@@ -49,6 +49,7 @@ export class ProjectInfoEditorComponent  implements OnInit {
     this.userService.getUsers().subscribe(response => {
       this.users = response;
     });
+
 
     this.stages = [
       {label: 'Tous', value: ''},
@@ -94,6 +95,18 @@ export class ProjectInfoEditorComponent  implements OnInit {
       this.toastr.error('Erreur lors de la modification de du Positionnement', 'Opération échoué !!!');
     });
   }
+
+
+   public diff_years(dt2, dt1) {
+
+    let diff: any = (dt2.getTime() - dt1.getTime());
+    diff /= (60 * 60 * 24);
+    return Math.abs(Math.round(diff / 365.25)).toString();
+  }
+
+
+
+
   // save(form: NgForm) {
   //
   //   if (form.valid) {

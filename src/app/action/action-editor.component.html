@@ -1,7 +1,8 @@
 <div class="container">
-  <div *ngIf="!isSocietyContact()" class="row bg-warning" role="tabpanel">
-    <h5 class="dropdown-header text-dark">Actions</h5>
-  </div>
+  <mdb-card>
+    <mdb-card-header *ngIf="!isSocietyContact()">Actions</mdb-card-header>
+    <!--{{projectPos.resourceFullName}} : {{ projectPos.needTitle}} {{projectPos.createdDate}}-->
+    <mdb-card-body>
   <div class="row">
     <div class="col border">
       <form #form="ngForm" (ngSubmit)="save(form)" novalidate>
@@ -125,4 +126,5 @@
       </form>
     </div>
   </div>
+    </mdb-card-body></mdb-card>
 </div>

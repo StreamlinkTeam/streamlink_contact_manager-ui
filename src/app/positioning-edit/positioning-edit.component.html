@@ -1,17 +1,12 @@
-<div class="container tab-pane fade show active" role="tabpanel">
+<div class="container" >
   <div class="row">
-    <div [class.bg-warning]="editing" class="col border">
-      <div class="row">
-        <div class="col border bg-info">
-          <h5 class="text-dark dropdown-header">Positionnement</h5>
-        </div>
-      </div>
-      <div class="container">
+    <mdb-card style="width: 100%;">
+      <mdb-card-header>Informations de positionnement <span class="float-right">Crée le {{positioning.createdDate | date}} à {{positioning.createdDate | date:"HH:mm"}} </span></mdb-card-header>
+      <mdb-card-body>
         <form #form="ngForm" (ngSubmit)="updatePostioning(form)">
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                <label>Besoin | Date de création: {{positioning.createdDate}} </label>
                 <ng-select [(ngModel)]="positioning.needReference"
                            [items]="needs"
                            [loading]="projectsLoading"
@@ -47,6 +42,7 @@
                 <select [(ngModel)]="positioning.responsibleReference"
                         class="form-control"
                         name="responsable"
+                        matInput
                         placeholder="responsable">
 
                   <option *ngFor="let user of users" [ngValue]="user.reference">{{user.firstname}}
@@ -81,7 +77,7 @@
 
 
               <div class="form-group">
-                <label>Invoiced Days</label>
+                <label>Jours facturés</label>
                 <input [(ngModel)]="positioning.invoicedDays" class="form-control" name="invoicedDays"
                        placeholder="invoicedDays"
                        required
@@ -132,8 +128,8 @@
             </div>
           </div>
         </form>
-      </div>
-    </div>
+      </mdb-card-body>
+    </mdb-card>
   </div>
 </div>
 
