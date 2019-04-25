@@ -36,6 +36,7 @@ export class NeedView {
   manager: User;
   rh: User;
   client: string;
+  societyName: string;
   societyContact: SocietyContact;
   type: string;
   stage: string;

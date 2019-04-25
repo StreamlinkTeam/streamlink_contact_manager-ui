@@ -7,27 +7,47 @@ body {
 
 }
 
+.card-header:first-child {
+  background-color: #4267b2;
+  color: white;
+  border-radius: calc(.25rem - 1px) calc(.25rem - 1px) 0 0;
+}
+
+
+tr.ng2-smart-titles {
+  background-color: #4267b2;
+  color: white;
+}
+
+a.ng2-smart-sort-link.sort {
+  color: white;
+}
+
 .starter-template {
   padding: 3rem 1.5rem;
   /*     text-align: center; */
 }
 
-input.ng-dirty.ng-invalid {
-  border: 2px solid #ff0000
+tr.ng2-smart-filters {
+  display: none;
 }
 
-input.ng-dirty.ng-valid {
-  border: 2px solid #6bc502
-}
+/*input.ng-dirty.ng-invalid {*/
+/*border: 2px solid #ff0000*/
+/*}*/
 
-.form-group.required .control-label:after {
-  content: "*";
-  color: red;
-}
+/*input.ng-dirty.ng-valid {*/
+/*border: 2px solid #6bc502*/
+/*}*/
 
-.form-group.required .col-form-label:after {
-  content: "*";
-  color: red;
-}
+/*.form-group.required .control-label:after {*/
+/*content: "*";*/
+/*color: red;*/
+/*}*/
+
+/*.form-group.required .col-form-label:after {*/
+/*content: "*";*/
+/*color: red;*/
+/*}*/
 
 

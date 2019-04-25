@@ -17,7 +17,8 @@
             </div>
 
             <div class="form-group">
-              <label>Nom</label> <input #firstname_input="ngModel" [(ngModel)]="societyContact.firstname" class="form-control" name="firstname"
+              <label>Nom</label> <input #firstname_input="ngModel" [(ngModel)]="societyContact.firstname"
+                                        class="form-control" name="firstname"
                                         required/>
               <app-field-error-display
                 [displayError]="form.submitted && firstname_input.invalid"
@@ -26,7 +27,8 @@
               </app-field-error-display>
             </div>
             <div class="form-group">
-              <label>Prénom</label> <input #lastname_input="ngModel" [(ngModel)]="societyContact.lastname" class="form-control" name="lastname"
+              <label>Prénom</label> <input #lastname_input="ngModel" [(ngModel)]="societyContact.lastname"
+                                           class="form-control" name="lastname"
                                            required/>
               <app-field-error-display
                 [displayError]="form.submitted && lastname_input.invalid"
@@ -36,7 +38,8 @@
             </div>
 
             <div class="form-group">
-              <label>Titre</label> <input #title_input="ngModel" [(ngModel)]="societyContact.title" class="form-control" name="title"
+              <label>Titre</label> <input #title_input="ngModel" [(ngModel)]="societyContact.title" class="form-control"
+                                          name="title"
                                           required/>
               <app-field-error-display
                 [displayError]="form.submitted && title_input.invalid"
@@ -55,8 +58,8 @@
               <div class="segmented-control " style="width: 100%; color: #4fa2d9">
                 <input [(ngModel)]="societyContact.gender" name="gender" type="radio"
                        value="M"> Mr <input [(ngModel)]="societyContact.gender"
-                                                                      name="gender" type="radio"
-                                                                      value="F">
+                                            name="gender" type="radio"
+                                            value="F">
                 Mme
               </div>
             </div>

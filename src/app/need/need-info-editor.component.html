@@ -2,61 +2,61 @@
   <mdb-card style="width: 100%">
 
     <mdb-card-header>Informations complémentaires</mdb-card-header>
-    <mdb-card-body  style="height: 695px">
+    <mdb-card-body style="height: 695px">
       <div class="row">
-          <form #form="ngForm" (ngSubmit)="save(form)" novalidate>
+        <form #form="ngForm" (ngSubmit)="save(form)" novalidate>
 
-            <div class="form-group">
+          <div class="form-group">
 
-              <mat-form-field class="example-container">
-                <input
-                  [matDatepicker]="picker"
-                  matInput
-                  name="startingDate"
-                  placeholder="Date de Début"
-                  [(ngModel)]="needInfo.startingDate">
+            <mat-form-field class="example-container">
+              <input
+                [(ngModel)]="needInfo.startingDate"
+                [matDatepicker]="picker"
+                matInput
+                name="startingDate"
+                placeholder="Date de démarrage">
 
-                <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-              </mat-form-field>
+              <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
 
 
-            </div>
+          </div>
 
-            <div class="form-group">
+          <div class="form-group">
 
-              <mat-form-field class="example-container">
-                <input
-                  [matDatepicker]="picker2"
-                  matInput
-                  name="responseDate"
-                  placeholder="Date de réponse"
-                  [(ngModel)]="needInfo.responseDate">
+            <mat-form-field class="example-container">
+              <input
+                [(ngModel)]="needInfo.responseDate"
+                [matDatepicker]="picker2"
+                matInput
+                name="responseDate"
+                placeholder="Date de réponse">
 
-                <mat-datepicker-toggle [for]="picker2" matSuffix></mat-datepicker-toggle>
-                <mat-datepicker #picker2></mat-datepicker>
-              </mat-form-field>
+              <mat-datepicker-toggle [for]="picker2" matSuffix></mat-datepicker-toggle>
+              <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
 
-            </div>
+          </div>
 
-            <div class="form-group">
-              <mat-form-field class="example-container">
-                <input
-                  [matDatepicker]="picker3"
-                  matInput
-                  name="closingDate"
-                  placeholder="date de clôture"
-                  [(ngModel)]="needInfo.closingDate">
+          <div class="form-group">
+            <mat-form-field class="example-container">
+              <input
+                [(ngModel)]="needInfo.closingDate"
+                [matDatepicker]="picker3"
+                matInput
+                name="closingDate"
+                placeholder="date de clôture">
 
-                <mat-datepicker-toggle [for]="picker3" matSuffix></mat-datepicker-toggle>
-                <mat-datepicker #picker3></mat-datepicker>
-              </mat-form-field>
+              <mat-datepicker-toggle [for]="picker3" matSuffix></mat-datepicker-toggle>
+              <mat-datepicker #picker3></mat-datepicker>
+            </mat-form-field>
 
-            </div>
+          </div>
 
-            <div class="form-group">
-              <mat-form-field class="example-container">
-                <mat-select [(ngModel)]="needInfo.activityArea" placeholder="Secteur d'activité" name="activityArea">
+          <div class="form-group">
+            <mat-form-field class="example-container">
+              <mat-select [(ngModel)]="needInfo.activityArea" name="activityArea" placeholder="Secteur d'activité">
                 <mat-option value="Other">Autres</mat-option>
                 <mat-option value="Aerospace">Aéronautique</mat-option>
                 <mat-option value="Aerospace">Aérospatial</mat-option>
@@ -88,48 +88,49 @@
                 <mat-option value="Services">Services</mat-option>
                 <mat-option value="Telecommunications">Télécommunications</mat-option>
               </mat-select>
-              </mat-form-field>
-            </div>
+            </mat-form-field>
+          </div>
 
 
-            <div class="form-group">
-              <mat-form-field class="example-container">
-              <input [(ngModel)]="needInfo.budget" placeholder="Budget" matInput name="budget" step="any"
+          <div class="form-group">
+            <mat-form-field class="example-container">
+              <input [(ngModel)]="needInfo.budget" matInput name="budget" placeholder="Budget" step="any"
                      type="number"/>
-              </mat-form-field>
-            </div>
+            </mat-form-field>
+          </div>
 
-            <div class="form-group">
-              <mat-form-field class="example-container">
-              <mat-select [(ngModel)]="needInfo.currency" placeholder="Devise"
-                      name="currency">
+          <div class="form-group">
+            <mat-form-field class="example-container">
+              <mat-select [(ngModel)]="needInfo.currency" name="currency"
+                          placeholder="Devise">
                 <mat-option value="EUR">EUR Euro</mat-option>
                 <mat-option value="USD">USD United States Dollars</mat-option>
                 <mat-option value="GPB">GPB United Kingdom Pounds</mat-option>
               </mat-select>
-              </mat-form-field>
-            </div>
+            </mat-form-field>
+          </div>
 
-            <div class="form-group">
-              <mat-form-field class="example-container">
+          <div class="form-group">
+            <mat-form-field class="example-container">
 
-              <input [(ngModel)]="needInfo.durationByMonth" matInput placeholder="Durée (Par Mois)" name="durationByMonth"
+              <input [(ngModel)]="needInfo.durationByMonth" matInput name="durationByMonth"
+                     placeholder="Durée (Par Mois)"
                      type="number"/>
-              </mat-form-field>
-            </div>
+            </mat-form-field>
+          </div>
 
 
-            <div class="form-group">
+          <div class="form-group">
 
 
-
-
-              <button mat-raised-button
-                      color="primary"
-                      type="submit"><mat-icon>save_outline</mat-icon> Enregistrer
-              </button>
-            </div>
-          </form>
+            <button color="primary"
+                    mat-raised-button
+                    type="submit">
+              <mat-icon>save_outline</mat-icon>
+              Enregistrer
+            </button>
+          </div>
+        </form>
       </div>
     </mdb-card-body>
   </mdb-card>

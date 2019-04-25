@@ -9,6 +9,7 @@ import {CustomEnumRenderComponent} from '../shared/custom-ng2-smart-table-render
 import {PositioningService} from '../shared/services/positioning.service';
 import {MatDialog, MatDialogConfig} from '@angular/material';
 import {PositioningAddComponent} from '../positioning-add/positioning-add.component';
+import {DatePipe} from '@angular/common';
 
 
 @Component({
@@ -35,14 +36,31 @@ export class PositioningTableComponent implements OnInit {
     },
     noDataMessage: 'Pas de valeur disponible !',
     actions: {
-      columnTitle: '',
+      columnTitle: 'Actions',
       add: false,
-      position: 'right'
+      position: 'right',
     },
     mode: 'external',
     columns: {
+      note: {
+        title: 'Commentaire',
+        filter: false,
+        sort: false
+      },
+      createdDate: {
+        title: 'Date de création',
+        type: 'date',
+        filter: false,
+        valuePrepareFunction: (date) => {
+          if (date) {
+            return new DatePipe('en-GB').transform(date, 'dd-MM-yyyy');
+          }
+          return null;
+        },
+        sort: false
+      },
       resourceFullName: {
-        title: 'Resource',
+        title: 'Ressource',
         filter: false,
         sort: false
       },
@@ -51,25 +69,22 @@ export class PositioningTableComponent implements OnInit {
         filter: false,
         sort: false
       },
+      client: {
+        title: 'Client - Contact',
+        filter: false,
+        sort: false
+      },
       stage: {
         title: 'Etat',
         filter: false,
-        // type: 'custom',
+        type: 'custom',
         renderComponent: CustomEnumRenderComponent
-      },
-      /*       note: {
-              title: 'Commentaire',
-              filter: false,
-            }, */
-      client: {
-        title: 'Client',
-        filter: false,
-        sort: false
       }
+
     },
     // actions: false,
     pager: {
-      perPage: 5
+      perPage: 8
     },
   };
 

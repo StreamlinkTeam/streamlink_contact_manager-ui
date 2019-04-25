@@ -7,9 +7,9 @@ import {CustomEnumRenderComponent} from './../shared/custom-ng2-smart-table-rend
 import {Component, OnInit} from '@angular/core';
 import {ServerDataSource} from 'ng2-smart-table';
 import {ToastrService} from 'ngx-toastr';
-import {MatDialog, MatDialogConfig} from '@angular/material';
-import {PositioningAddComponent} from '../positioning-add/positioning-add.component';
-import {NeedEditorComponent} from './need-editor.component';
+import {MatDialog} from '@angular/material';
+import {DatePipe} from '@angular/common';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-need-table',
@@ -35,15 +35,36 @@ export class NeedTableComponent implements OnInit {
     },
     noDataMessage: 'Pas de valeur disponible !',
     actions: {
-      columnTitle: '',
+      columnTitle: 'Actions',
       add: false,
       position: 'right'
     },
     mode: 'external',
     columns: {
-      title: {
-        title: 'Title',
+      reference: {
+        title: 'Réference',
         filter: false
+      },
+      createdDate: {
+        title: 'Date dépôt',
+        type: 'date',
+        filter: false,
+        valuePrepareFunction: (date) => {
+          if (date) {
+            return new DatePipe('en-GB').transform(date, 'dd-MM-yyyy');
+          }
+          return null;
+        },
+        sort: false
+      },
+      title: {
+        title: 'Titre de besoin',
+        filter: false
+      },
+      client: {
+        title: 'Client',
+        filter: false,
+        // sort: false
       },
       type: {
         title: 'Type',
@@ -52,26 +73,46 @@ export class NeedTableComponent implements OnInit {
         renderComponent: CustomEnumRenderComponent
       },
       activityArea: {
-        title: 'Secteur',
+        title: 'Secteur d\'activité',
         filter: false,
         type: 'custom',
         renderComponent: CustomEnumRenderComponent
       },
       stage: {
-        title: 'Etape',
+        title: 'Etat',
         filter: false,
         type: 'custom',
         renderComponent: CustomEnumRenderComponent
       },
-      client: {
-        title: 'Client',
+      startingDate: {
+        title: 'Date de démarrage',
+        type: 'date',
         filter: false,
+        valuePrepareFunction: (date) => {
+          if (date) {
+            return new DatePipe('en-GB').transform(date, 'dd-MM-yyyy');
+          }
+          return 'Non définie';
+        },
+        sort: false
+      },
+      durationByMonth: {
+        title: 'Duré',
+        filter: false,
+        valuePrepareFunction: (value) => {
+          if (value == null) {
+            return 'Indéterminée';
+          }
+          return value + ' mois';
+        }
+
         // sort: false
       }
+
     },
-    // actions: false,
+    // actions: false, durationByMonth
     pager: {
-      perPage: 5
+      perPage: 8
     },
   };
 
@@ -186,21 +227,35 @@ export class NeedTableComponent implements OnInit {
   }
 
   deleteNeed(rowData: Row) {
-
     const need = rowData.getData();
-    if (confirm('Suppression du Besoin ' + need.title)) {
+    Swal.fire({
+      title: 'Êtes-vous sûr?',
+      text: 'Supression du besoin ' + need.title,
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonText: 'annuler',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Oui, je confirme!'
+    }).then((result) => {
+      if (result.value) {
+        Swal.fire(
+          'Besoin supprimer avec sucées!',
+          'Besoin: ' + need.title,
+          'success'
+        );
 
-      this.service.deleteNeed(need.reference)
-        .subscribe(res => {
+        this.service.deleteNeed(need.reference)
+          .subscribe(res => {
 
-          this.source.remove(rowData);
-          this.toastr.success('Besoin Supprimé avec succés', 'Opération Réussite!');
+            this.source.remove(rowData);
+            this.toastr.success('Besoin Supprimé avec succés', 'Opération Réussite!');
 
-        }, error => {
-          this.toastr.error('Erreur lors de la suppression de du Besoin', 'Opération échoué !!!');
-        });
-
-    }
+          }, error => {
+            this.toastr.error('Erreur lors de la suppression de du Besoin', 'Opération échoué !!!');
+          });
+      }
+    });
   }
-
 }
+

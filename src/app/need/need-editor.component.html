@@ -17,7 +17,7 @@
                            [(ngModel)]="need.title"
                            matInput
                            name="title"
-                           required placeholder="Titre"/>
+                           placeholder="Titre" required/>
                   </mat-form-field>
                   <app-field-error-display
                     [displayError]="form.submitted && title_input.invalid"
@@ -39,19 +39,19 @@
                              [typeahead]="societiesInput$"
                              bindLabel="label"
                              bindValue="reference"
-                             placeholder="Societé"
                              name="society"
                              notFoundText="Aucun élément trouvé"
+                             placeholder="Societé"
                              typeToSearchText="tapez plus de 3 caractères pour trouver la société">
                   </ng-select>
                 </div>
 
 
-                <div class="form-group" >
+                <div class="form-group">
                   <mat-form-field class="example-container">
                     <mat-select [(ngModel)]="need.stage"
-                                placeholder="Etape"
-                                name="stage">
+                                name="stage"
+                                placeholder="Etape">
                       <mat-option *ngFor="let stage of stages"
                                   [value]="stage.value">{{stage.label}}
                       </mat-option>
@@ -79,8 +79,8 @@
                              [items]="contacts$ | async"
                              bindValue="reference"
                              name="contact"
-                             placeholder="Contact"
-                             notFoundText="Aucun élément trouvé">
+                             notFoundText="Aucun élément trouvé"
+                             placeholder="Contact">
                     <ng-template let-item="item" ng-label-tmp>
                       {{item.firstname}} {{item.lastname}}
                     </ng-template>
@@ -94,8 +94,8 @@
                   <mat-form-field class="example-container">
 
                     <mat-select [(ngModel)]="need.type"
-                                placeholder="Type"
-                                name="type">
+                                name="type"
+                                placeholder="Type">
                       <mat-option *ngFor="let type of types"
                                   [value]="type.value">{{type.label}}
                       </mat-option>
@@ -123,9 +123,9 @@
                 <div class="form-group">
                   <mat-form-field class="example-container">
                   <textarea [(ngModel)]="need.note"
-                            name="note"
                             matInput
-                            placeholder="Commentaire"
+                            name="note"
+                            placeholder="Description et critères requis"
                             rows="7"></textarea>
                   </mat-form-field>
                 </div>
@@ -147,18 +147,23 @@
         <form #form="ngForm" (ngSubmit)="save(form)" novalidate>
 
           <button
-            mat-raised-button
             color="primary"
-            type="submit"
-            style="margin: 10px"><mat-icon>save_outline</mat-icon> Enregistrer
+            mat-raised-button
+            style="margin: 10px"
+            type="submit">
+            <mat-icon>save_outline</mat-icon>
+            Enregistrer
 
           </button>
-          <button routerLink="/needs"
-                  color="warn"
+          <button color="warn"
                   mat-raised-button
-                  type="reset"><mat-icon>close</mat-icon> Retour
+                  routerLink="/needs"
+                  type="reset">
+            <mat-icon>close</mat-icon>
+            Retour
           </button>
         </form>
       </div>
     </div>
-  </div></div>
+  </div>
+</div>

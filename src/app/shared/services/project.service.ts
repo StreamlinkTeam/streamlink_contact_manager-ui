@@ -62,12 +62,12 @@ export class ProjectService {
   }
 
 
-  createProjects(project: Project): Observable<Project> {
+  createProject(projectPos: ProjectPos): Observable<ProjectPos> {
 
     this.loaderService.show();
-    const url = environment.API + '/ws/projects';
+    const url = environment.API + '/ws/projectspos';
 
-    return this.http.post<Project>(url, project)
+    return this.http.post<ProjectPos>(url, projectPos)
       ._finally(() => {
         this.loaderService.hide();
       });
