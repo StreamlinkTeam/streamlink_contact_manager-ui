@@ -58,9 +58,9 @@ export class ProjectTableComponent implements OnInit {
         // sort: false
       },
     },
-    // pager: {
-    //   perPage: 5
-    // },
+     pager: {
+       perPage: 5
+     },
   };
 
   stages: any[];
@@ -81,11 +81,18 @@ export class ProjectTableComponent implements OnInit {
 
 
   ngOnInit() {
-
-    this.url = environment.API + '/ws/projectspos/all';
+    // this.url = environment.API + '/ws/needs/search?fromAngular=true';
+    this.url = environment.API + '/ws/projectspos/search?fromAngular=true';
 
     this.source = new ServerDataSource(this.http, {
-      endPoint: this.url
+      endPoint: this.url,
+      dataKey: 'content',
+      totalKey: 'totalElements',
+      pagerLimitKey: 'size',
+      perPage: 'size',
+      sortFieldKey: 'sort',
+      sortDirKey: 'dir',
+      pagerPageKey: 'page'
     });
 
 
@@ -109,31 +116,31 @@ export class ProjectTableComponent implements OnInit {
   }
 
 
-  // onSelectChange(key: string = null, value: string = null) {
-  //
-  //   const parameters = new URLSearchParams(this.url);
-  //   if (value == null || value === '') {
-  //
-  //     parameters.delete(key);
-  //   } else {
-  //     parameters.set(key, value);
-  //
-  //   }
-  //
-  //   this.url = decodeURIComponent(parameters.toString());
-  //   this.source = new ServerDataSource(this.http, {
-  //     endPoint: this.url,
-  //     dataKey: 'content',
-  //     totalKey: 'totalElements',
-  //     pagerLimitKey: 'size',
-  //     perPage: 'size',
-  //     sortFieldKey: 'sort',
-  //     sortDirKey: 'dir',
-  //     pagerPageKey: 'page'
-  //   });
-  //
-  //   console.log(this.source);
-  // }
+  onSelectChange(key: string = null, value: string = null) {
+
+    const parameters = new URLSearchParams(this.url);
+    if (value == null || value === '') {
+
+      parameters.delete(key);
+    } else {
+      parameters.set(key, value);
+
+    }
+
+    this.url = decodeURIComponent(parameters.toString());
+    this.source = new ServerDataSource(this.http, {
+      endPoint: this.url,
+      dataKey: 'content',
+      totalKey: 'totalElements',
+      pagerLimitKey: 'size',
+      perPage: 'size',
+      sortFieldKey: 'sort',
+      sortDirKey: 'dir',
+      pagerPageKey: 'page'
+    });
+
+    console.log(this.source);
+  }
 
   onSearch(query: string = '') {
 

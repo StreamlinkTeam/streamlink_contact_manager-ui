@@ -1,135 +1,164 @@
-<div class="container tab-pane fade show active" role="tabpanel">
+<div class="container" role="tabpanel">
   <div class="row">
-    <div class="col border">
+    <div class="col">
       <div class="row">
-        <!--   <div class="col border" [class.bg-warning]="editing" [class.bg-info]="!editing">
-            <h5 class="text-dark dropdown-header">Informations</h5>
-          </div> -->
-        <mdb-card [ngStyle]="{'width':!editing ? '100%':'50%' }">
 
-          <mdb-card-header>Informations</mdb-card-header>
-          <mdb-card-body>
+        <mdb-card [ngStyle]="{'width':!editing ? '100%':'75%'}">
+
+          <mdb-card-header>Information du besoin <span *ngIf="editing" class="float-right">
+           Créer le {{need.createdDate | date}} à {{need.createdDate | date:"MM:ss"}}
+          </span></mdb-card-header>
+          <mdb-card-body [ngStyle]="{'height':editing ? '695px' : ''}">
             <div class="row">
-              <div class="col border">
-                <form #form="ngForm" (ngSubmit)="save(form)" novalidate>
-                  <div *ngIf="editing" class="form-group">
-                    <label>Date de Création: </label>
-                    <input class="form-control-plaintext" name="createdDate" readonly
-                           style="width: 70%" type="text"
-                           value="{{need.createdDate | date:'long'}}"/>
-                  </div>
-
-                  <div class="form-group">
-                    <label>Titre</label>
-
+              <div class="col-md-12">
+                <div class="form-group">
+                  <mat-form-field class="example-container">
                     <input #title_input="ngModel"
                            [(ngModel)]="need.title"
-                           class="form-control"
+                           matInput
                            name="title"
-                           required/>
-
-                    <app-field-error-display
-                      [displayError]="form.submitted && title_input.invalid"
-                      [model]="title_input"
-                      fieldName="Titre">
-                    </app-field-error-display>
-                  </div>
-
-                  <div class="form-group">
-                    <label>Type</label>
-
-                    <select [(ngModel)]="need.type"
-                            class="form-control"
-                            name="type">
-                      <option *ngFor="let type of types"
-                              [ngValue]="type.value">{{type.label}}</option>
-                    </select>
-                  </div>
-
-                  <div class="form-group">
-                    <label>Etape</label>
-                    <select [(ngModel)]="need.stage"
-                            class="form-control"
-                            name="stage">
-                      <option *ngFor="let stage of stages"
-                              [ngValue]="stage.value">{{stage.label}}</option>
-                    </select>
-                  </div>
-
-                  <div class="form-group">
-                    <label>Societé</label>
-
-                    <ng-select (change)="onSocietyChange($event)"
-                               [(ngModel)]="need.societyReference"
-                               [items]="societies$ | async"
-                               [loading]="societiesLoading"
-                               [typeahead]="societiesInput$"
-                               bindLabel="label"
-                               bindValue="reference"
-                               name="society"
-                               notFoundText="Aucun élément trouvé"
-                               typeToSearchText="tapez plus de 3 caractères pour trouver la société">
-                    </ng-select>
-                  </div>
-
-                  <div class="form-group">
-                    <label>Contact</label>
-
-                    <ng-select [(ngModel)]="need.societyContactReference"
-                               [items]="contacts$ | async"
-                               bindValue="reference"
-                               name="contact"
-                               notFoundText="Aucun élément trouvé">
-                      <ng-template let-item="item" ng-label-tmp>
-                        {{item.firstname}} {{item.lastname}}
-                      </ng-template>
-                      <ng-template let-item="item" ng-option-tmp>
-                        {{item.firstname}} {{item.lastname}}
-                      </ng-template>
-                    </ng-select>
-                  </div>
-
-                  <div class="form-group">
-                    <label>Responsable RH</label>
-
-                    <select [(ngModel)]="need.rhReference"
-                            class="form-control" name="rh">
-                      <option *ngFor="let user of users" [ngValue]="user.reference">{{user.firstname}}
-                        {{user.lastname}}
-                      </option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label>Responsable Manager</label> <select [(ngModel)]="need.managerReference"
-                                                               class="form-control" name="manager">
-                    <option *ngFor="let user of users" [ngValue]="user.reference">{{user.firstname}}
-                      {{user.lastname}}
-                    </option>
-                  </select></div>
-
-                  <div class="form-group">
-                    <label>Commentaires</label>
-                    <textarea [(ngModel)]="need.note" class="form-control" name="note"
-                              rows="5"></textarea>
-                  </div>
-
-
-                  <div class="form-group">
-                    <button [class.btn-warning]="editing" class="btn btn-primary"
-                            type="submit">Enregistrer
-                    </button>
-                    <button class="btn btn-secondary" routerLink="/needs"
-                            type="reset">Annuler
-                    </button>
-                  </div>
-                </form>
+                           required placeholder="Titre"/>
+                  </mat-form-field>
+                  <app-field-error-display
+                    [displayError]="form.submitted && title_input.invalid"
+                    [model]="title_input"
+                    fieldName="Titre">
+                  </app-field-error-display>
+                </div>
               </div>
             </div>
+            <div class="row">
+
+              <div class="col-md-6">
+
+                <div class="form-group">
+                  <ng-select (change)="onSocietyChange($event)"
+                             [(ngModel)]="need.societyReference"
+                             [items]="societies$ | async"
+                             [loading]="societiesLoading"
+                             [typeahead]="societiesInput$"
+                             bindLabel="label"
+                             bindValue="reference"
+                             placeholder="Societé"
+                             name="society"
+                             notFoundText="Aucun élément trouvé"
+                             typeToSearchText="tapez plus de 3 caractères pour trouver la société">
+                  </ng-select>
+                </div>
+
+
+                <div class="form-group" >
+                  <mat-form-field class="example-container">
+                    <mat-select [(ngModel)]="need.stage"
+                                placeholder="Etape"
+                                name="stage">
+                      <mat-option *ngFor="let stage of stages"
+                                  [value]="stage.value">{{stage.label}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+                <div class="form-group">
+                  <mat-form-field class="example-container">
+                    <mat-select [(ngModel)]="need.managerReference"
+                                name="manager"
+                                placeholder="Responsable manager">
+                      <mat-option *ngFor="let user of users" [value]="user.reference">{{user.firstname}}
+                        {{user.lastname}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <ng-select [(ngModel)]="need.societyContactReference"
+                             [items]="contacts$ | async"
+                             bindValue="reference"
+                             name="contact"
+                             placeholder="Contact"
+                             notFoundText="Aucun élément trouvé">
+                    <ng-template let-item="item" ng-label-tmp>
+                      {{item.firstname}} {{item.lastname}}
+                    </ng-template>
+                    <ng-template let-item="item" ng-option-tmp>
+                      {{item.firstname}} {{item.lastname}}
+                    </ng-template>
+                  </ng-select>
+                </div>
+
+                <div class="form-group">
+                  <mat-form-field class="example-container">
+
+                    <mat-select [(ngModel)]="need.type"
+                                placeholder="Type"
+                                name="type">
+                      <mat-option *ngFor="let type of types"
+                                  [value]="type.value">{{type.label}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+
+                <div class="form-group">
+                  <mat-form-field class="example-container">
+                    <mat-select [(ngModel)]="need.rhReference"
+                                name="rh" placeholder="Responsable RH">
+                      <mat-option *ngFor="let user of users" [value]="user.reference">{{user.firstname}}
+                        {{user.lastname}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+              </div>
+
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <mat-form-field class="example-container">
+                  <textarea [(ngModel)]="need.note"
+                            name="note"
+                            matInput
+                            placeholder="Commentaire"
+                            rows="7"></textarea>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+
+
+            <!--<div class="form-group" [ngStyle]="{'margin-top':editing ? '20%':'15%'}">-->
+
+
+            <!--</div>-->
           </mdb-card-body>
         </mdb-card>
-        <div *ngIf="editing" class="col border">
+
+
+        <div *ngIf="editing" class="col border" style="margin-left: 1px">
           <app-need-info></app-need-info>
         </div>
+        <form #form="ngForm" (ngSubmit)="save(form)" novalidate>
 
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            style="margin: 10px"><mat-icon>save_outline</mat-icon> Enregistrer
+
+          </button>
+          <button routerLink="/needs"
+                  color="warn"
+                  mat-raised-button
+                  type="reset"><mat-icon>close</mat-icon> Retour
+          </button>
+        </form>
       </div>
     </div>
+  </div></div>
