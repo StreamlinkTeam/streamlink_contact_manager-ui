@@ -10,6 +10,8 @@ import {UserService} from '../shared/services/user.service';
 import Swal from 'sweetalert2';
 import {NeedService} from '../shared/services/need.service';
 import {SocietyService} from '../shared/services/society.service';
+import * as jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 @Component({
   selector: 'app-positioning-edit',
@@ -133,5 +135,44 @@ export class PositioningEditComponent implements OnInit {
         }
       }
     });
+  }
+
+  downloadPDF() {
+
+    const pdf = new jsPDF('landscape');
+    pdf.text('Fiche de positionnement ' + this.positioning.reference, 70, 10);
+    // pdf.text('Titre de besoin  : ' + this.positioning.needTitle, 10, 20);
+    // pdf.text('Ressource        : ' + this.positioning.resourceFullName, 10, 30);
+    // pdf.text('Société          : ' + this.positioning.client, 10, 40);
+    // pdf.text('Notes            : ' + this.positioning.note, 10, 50);
+    // pdf.text('Début            : ' + this.positioning.startDate, 10, 60);
+    // pdf.text('Fin              : ' + this.positioning.endDate, 10, 70);
+    // pdf.text('Etat             : ' + this.positioning.stage, 10, 80);
+    // pdf.text('Nb Jrs Facturés  : ' + this.positioning.invoicedDays, 10, 90);
+    // pdf.text('Nb Jrs Gratuits  : ' + this.positioning.freeDays, 10, 100);
+    // pdf.text('CA de cette période  : ' + this.positioning.periodCA, 10, 110);
+    // pdf.text('Coût de cette période  : ' + this.positioning.periodCost, 10, 120);
+    // pdf.text('Marge de cette période  : ' + this.positioning.periodMargin, 10, 130);
+    // pdf.text('Rentabilité de cette période  : ' + this.positioning.periodProfitability + ' %', 10, 140);
+
+    pdf.autoTable({
+      head: [['Besoin', 'Ressource', 'Ste', 'Début', 'Fin', 'Etat', 'Jrs Fact', 'Jrs Grat', 'CA', 'Coût', 'Marge', 'Rentabilité %']],
+      body: [
+        [this.positioning.needTitle,
+          this.positioning.resourceFullName,
+          this.positioning.client,
+          this.positioning.startDate,
+          this.positioning.endDate,
+          this.positioning.stage,
+          this.positioning.invoicedDays,
+          this.positioning.freeDays,
+          this.positioning.periodCA,
+          this.positioning.periodCost,
+          this.positioning.periodMargin,
+          this.positioning.periodProfitability + ' %'
+        ],
+      ]
+    });
+    pdf.save('positioning.pdf');
   }
 }
