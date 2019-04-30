@@ -54,6 +54,12 @@ export class AuthService {
   public isAdmin(): boolean {
     return this.isAuthenticated() && this.roleMatch(['ROLE_ADMIN']);
   }
+  public isResource(): boolean {
+    return  this.isAuthenticated() && this.roleMatch(['ROLE_RESOURCE']);
+  }
+  public isClient(): boolean {
+    return  this.isAuthenticated() && this.roleMatch(['ROLE_CLIENT']);
+  }
 
 
 
@@ -64,9 +70,11 @@ export class AuthService {
     allowedRoles.forEach(element => {
       if (userRoles.indexOf(element) > -1) {
         isMatch = true;
+
         return false;
       }
-    });
+    }
+    );
     return isMatch;
 
   }

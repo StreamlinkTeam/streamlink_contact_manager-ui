@@ -34,6 +34,8 @@ import {ProjectComponent} from './project/project.component';
 import {PositioningTableComponent} from './positioning/positioning-table.component';
 import {PositioningAddComponent} from './positioning-add/positioning-add.component';
 import {PositioningEditComponent} from './positioning-edit/positioning-edit.component';
+import {ResourceDashboardComponent} from './resource-dashboard/resource-dashboard.component';
+
 
 export const appRoutes: Routes = [
   {path: 'auth', component: AuthComponent, canActivate: [LoginGuard]},
@@ -45,9 +47,8 @@ export const appRoutes: Routes = [
       {path: '**', redirectTo: 'general'}
     ]
   },
-
+  {path: 'dashboard', component: ResourceDashboardComponent, canActivate: [AuthGuard]},
   {path: 'actions', component: ActionTableComponent, canActivate: [AuthGuard]},
-
   {
     path: 'admin', component: AdminComponent, canActivate: [AuthGuard], data: {roles: ['ROLE_ADMIN']},
     children: [

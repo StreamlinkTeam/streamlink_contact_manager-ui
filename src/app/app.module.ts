@@ -7,7 +7,7 @@ import {AuthInterceptor} from './auth.interceptor';
 import {AuthModule} from './auth/auth.module';
 import {DeveloperModule} from './developer/developer.module';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import {RouterModule} from '@angular/router';
+import {RouterModule, Routes} from '@angular/router';
 import {registerLocaleData} from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import {ToastrModule} from 'ngx-toastr';
@@ -46,13 +46,16 @@ import {ButtonsModule, IconsModule, MDBBootstrapModule, NavbarModule, WavesModul
 
 import {InputTextModule} from 'primeng/inputtext';
 import {FooterComponent} from './footer/footer.component';
+import { ResourceDashboardComponent } from './resource-dashboard/resource-dashboard.component';
+
+
 
 
 registerLocaleData(localeFr, 'fr');
 
 
 @NgModule({
-  declarations: [AppComponent, PositioningAddComponent, PositioningEditComponent, FooterComponent,],
+  declarations: [AppComponent, PositioningAddComponent, PositioningEditComponent, FooterComponent, ResourceDashboardComponent],
   imports: [
     MDBBootstrapModule, NavbarModule, ButtonsModule, WavesModule, IconsModule,
     BrowserModule, HttpClientModule, AppNavbarModule,
