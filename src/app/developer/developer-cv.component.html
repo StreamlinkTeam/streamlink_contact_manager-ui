@@ -12,7 +12,7 @@
     <tr *ngFor="let cv of cvs; let i=index">
       <td>{{i + 1}}</td>
       <td>
-        <a [href]="cv.url" class="card-link" type="text/html">{{cv.label}}</a>
+        <a target="_blank" [href]="cv.url" class="card-link" type="text/html">{{cv.label}}</a>
 
       </td>
       <td>

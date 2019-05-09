@@ -48,6 +48,8 @@ export class DeveloperCVComponent {
           this.cvs.push(data);
           this.fileToUpload = null;
           this.f = null;
+          console.log(this.urlToReturn);
+
         }, error => {
           this.toastr.error('Erreur lors de la Création du CV', 'Opération échoué !!!');
         });

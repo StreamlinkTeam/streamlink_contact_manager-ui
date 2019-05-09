@@ -13,6 +13,8 @@ import {UserService} from '../shared/services/user.service';
 import {User} from '../shared/entities/user.model';
 import Swal from 'sweetalert2';
 import {MatDialogRef} from '@angular/material';
+import {MailService} from '../shared/services/mail.service';
+import {Email} from '../shared/entities/mail.model';
 
 @Component({
   selector: 'app-positioning-add',
@@ -20,6 +22,8 @@ import {MatDialogRef} from '@angular/material';
   styleUrls: ['./positioning-add.component.css']
 })
 export class PositioningAddComponent implements OnInit {
+  email: Email = new Email();
+
   editing = false;
 
   positioning: Positioning = new Positioning;
@@ -43,6 +47,7 @@ export class PositioningAddComponent implements OnInit {
     private projectService: ProjectService,
     private needService: NeedService,
     private userService: UserService,
+    private mailService: MailService,
     private activeRoute: ActivatedRoute,
     private router: Router,
     public dialogRef: MatDialogRef<PositioningAddComponent>) {
@@ -99,13 +104,21 @@ export class PositioningAddComponent implements OnInit {
       .subscribe(
         response => {
           this.dialogRef.close();
-          Swal.fire('Positionnement crée avec succés', 'Opération Réussite!', 'success');
           this.router.navigateByUrl('/positionings');
-          console.log(response);
+          console.log(response.email);
+
+          this.email.to = response.email;
+          this.email.messageSubject = 'Positionnement';
+          this.email.messageBody = 'Vous ete positionné dans le besoin ' + response.needTitle;
+          this.mailService.sendMail(this.email).subscribe();
+
+          Swal.fire('Positionnement crée avec succés', 'Opération Réussite!', 'success');
+
         }, err => {
           Swal.fire('Erreur de création du positionnement', 'Opération Echouée!', 'error');
 
         });
+
 
   }
 

@@ -213,5 +213,55 @@ export class ActionService {
       });
   }
 
+  public getNeedActions(needReference: string): Observable<Action[]> {
+    this.loaderService.show();
+    const url = environment.API + '/ws/needs/actions';
+
+    const options = {params: new HttpParams().set('needReference', needReference)};
+
+
+    return this.http.get<Action[]>(url, options)
+      ._finally(() => {
+        this.loaderService.hide();
+      });
+  }
+
+
+  public createNeedAction(action: Action, needReference: string): Observable<Action> {
+    this.loaderService.show();
+    const url = environment.API + '/ws/needs/actions';
+
+    const options = {params: new HttpParams().set('needReference', needReference)};
+
+    return this.http.post<Action>(url, action, options)
+      ._finally(() => {
+        this.loaderService.hide();
+      });
+  }
+
+  updateNeedAction(action: Action, reference: string, needReference: string): Observable<Action> {
+    this.loaderService.show();
+    const url = environment.API + '/ws/needs/actions';
+
+    const options = {params: new HttpParams().set('needReference', needReference).set('reference', reference)};
+
+
+    return this.http.put<Action>(url, action, options)
+      ._finally(() => {
+        this.loaderService.hide();
+      });
+  }
+
+  deleteNeedAction(reference: string, needReference: string) {
+    this.loaderService.show();
+    const url = environment.API + '/ws/needs/actions';
+
+    const options = {params: new HttpParams().set('needReference', needReference).set('reference', reference)};
+
+    return this.http.delete(url, options)
+      ._finally(() => {
+        this.loaderService.hide();
+      });
+  }
 
 }
