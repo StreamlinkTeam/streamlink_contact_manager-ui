@@ -1,5 +1,6 @@
 import {AuthService} from '../shared/services/auth.service';
 import {Injectable} from '@angular/core';
+
 import {ActivatedRouteSnapshot, Router, RouterStateSnapshot} from '@angular/router';
 
 @Injectable()
@@ -17,13 +18,14 @@ export class AuthGuard {
       return false;
     }
 
-    let roles = route.data['roles'] as Array<string>;
+    const roles = route.data['roles'] as Array<string>;
+
     if (roles) {
-      var match = this.auth.roleMatch(roles);
+      const match = this.auth.roleMatch(roles);
       if (match) {
         return true;
       } else {
-        this.router.navigate(['/developers', 'forbidden']);
+        this.router.navigate(['/societies', 'forbidden']);
         return false;
       }
     }
@@ -42,11 +44,23 @@ export class LoginGuard {
 
   canActivate(route: ActivatedRouteSnapshot,
               state: RouterStateSnapshot): boolean {
-    if (this.auth.isAuthenticated()) {
-      this.router.navigate(['/developers']);
+
+
+
+
+    if (this.auth.isAuthenticated() ) {
+      if (this.auth.isResource()) {
+        this.router.navigate(['/dashboard']);
+      } else {
+        this.router.navigate(['/developers']);
       return false;
-    }
-    return true;
+      }
+      } return true;
+
   }
 
 }
+
+
+
+

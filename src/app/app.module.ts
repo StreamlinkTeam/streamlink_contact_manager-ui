@@ -7,7 +7,7 @@ import {AuthInterceptor} from './auth.interceptor';
 import {AuthModule} from './auth/auth.module';
 import {DeveloperModule} from './developer/developer.module';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import {RouterModule} from '@angular/router';
+import {RouterModule, Routes} from '@angular/router';
 import {registerLocaleData} from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import {ToastrModule} from 'ngx-toastr';

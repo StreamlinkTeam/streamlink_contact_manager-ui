@@ -34,7 +34,6 @@ import { PositioningTableComponent } from './positioning/positioning-table.compo
 import { PositioningAddComponent } from './positioning-add/positioning-add.component';
 import { PositioningEditComponent } from './positioning-edit/positioning-edit.component';
 import { ProjectInfoEditorComponent } from './project/project-info-editor.component';
-import { DeveloperTimeSheetComponent } from './developer/developer-time-sheet/developer-time-sheet.component';
 import { CalendarComponent } from './calendar/calendar.component';
 
 export const appRoutes: Routes = [
@@ -50,6 +49,7 @@ export const appRoutes: Routes = [
 
   { path: 'actions', component: ActionTableComponent, canActivate: [AuthGuard] },
 
+  {path: 'actions', component: ActionTableComponent, canActivate: [AuthGuard]},
   {
     path: 'admin', component: AdminComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN'] },
     children: [
@@ -101,7 +101,7 @@ export const appRoutes: Routes = [
   { path: 'developers/create/from-cv', component: DeveloperCVScannerComponent, canActivate: [AuthGuard] },
   { path: 'developers/create', component: DeveloperEditorComponent, canActivate: [AuthGuard] },
   {
-    path: 'developers/timesheet', loadChildren :'app/calendar/calendar.module#CalendarModule',canLoad:[AuthGuard]
+    path: 'developers/timesheet', loadChildren : 'app/calendar/calendar.module#CalendarModule',canLoad:[AuthGuard]
   },
 
   { path: 'developers/:error', component: DeveloperTableComponent, canActivate: [AuthGuard] },

@@ -26,7 +26,13 @@ export class AuthComponent {
       this.auth.authenticate(this.username, this.password)
         .subscribe(response => {
           if (response) {
-            this.router.navigate(['/developers']);
+            if (this.auth.isAdmin()) {
+               this.router.navigate(['/needs']);
+            } else if (this.auth.isResource())  { this.router.navigate(['/dashboard']);
+              } else {
+              this.router.navigate(['/developers']);
+            }
+
           }
           this.errorMessage = 'Erreur d\'authentification';
         }, err => {

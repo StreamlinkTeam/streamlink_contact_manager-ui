@@ -1,13 +1,15 @@
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" >
 
 <div>
-  <app-navbar></app-navbar>
+  <app-navbar *ngIf="display"></app-navbar>
+
+
 
   <!--   <angular-loader></angular-loader>
    -->
-  <router-outlet></router-outlet>
-  <div style="margin-bottom: 25%">
+  <router-outlet ></router-outlet>
+  <div style="margin-bottom: 50%">
   </div>
-  <app-footer></app-footer>
+  <app-footer *ngIf="display"></app-footer>
 </div>
 
