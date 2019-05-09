@@ -96,11 +96,11 @@ export const appRoutes: Routes = [
       { path: '**', redirectTo: 'general' }
     ]
   },
-  { path: 'developers', component: DeveloperTableComponent, canActivate: [AuthGuard] },
+  { path: 'developers', component: DeveloperTableComponent },
   { path: 'developers/create/from-cv', component: DeveloperCVScannerComponent, canActivate: [AuthGuard] },
   { path: 'developers/create', component: DeveloperEditorComponent, canActivate: [AuthGuard] },
   {
-    path: 'developers/timesheet', loadChildren : 'app/calendar/calendar.module#CalendarModule',canLoad:[AuthGuard]
+    path: 'developers/timesheet', loadChildren : 'app/calendar/calendar.module#CalendarModule'
   },
 
   { path: 'developers/:error', component: DeveloperTableComponent, canActivate: [AuthGuard] },
