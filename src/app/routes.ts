@@ -34,7 +34,6 @@ import { PositioningTableComponent } from './positioning/positioning-table.compo
 import { PositioningAddComponent } from './positioning-add/positioning-add.component';
 import { PositioningEditComponent } from './positioning-edit/positioning-edit.component';
 import { ProjectInfoEditorComponent } from './project/project-info-editor.component';
-import { CalendarComponent } from './calendar/calendar.component';
 
 export const appRoutes: Routes = [
   { path: 'auth', component: AuthComponent, canActivate: [LoginGuard] },
