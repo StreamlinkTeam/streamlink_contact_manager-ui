@@ -1,12 +1,9 @@
 <!--Main Navigation-->
 <header>
-  <nav class="navbar fixed-top navbar-expand-lg navbar-dark  scrolling-navbar" style="background-color: #4267b2">
-
-    <a class="navbar-brand" routerLink="/developers" style="color: #ffffff"><i class="fa fa-home"></i><strong>&nbsp;Streamlink</strong>
-    </a>
-
-    <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
-            class="navbar-toggler"
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark blue-gradient scrolling-navbar">
+    <a class="navbar-brand" routerLink="/dashboard" style="color: #ffffff"><i class="fa fa-home"></i><strong>&nbsp;Streamlink
+      </strong></a>
+    <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"
             data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -19,7 +16,6 @@
         <li *ngIf="isLoggedIn()" class="nav-item" routerLinkActive="active">
           <a class="nav-link" routerLink="/developers" routerLinkActive="active"><b>Candidats</b></a>
         </li>
-
 
 
         <li class="nav-item" routerLinkActive="active">

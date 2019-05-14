@@ -7,7 +7,7 @@ import {AuthInterceptor} from './auth.interceptor';
 import {AuthModule} from './auth/auth.module';
 import {DeveloperModule} from './developer/developer.module';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import {RouterModule, Routes} from '@angular/router';
+import {RouterModule} from '@angular/router';
 import {registerLocaleData} from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import {ToastrModule} from 'ngx-toastr';
@@ -33,7 +33,7 @@ import {SweetAlert2Module} from '@toverux/ngx-sweetalert2';
 import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatButtonModule} from '@angular/material';
+import {MatButtonModule, MatTabsModule} from '@angular/material';
 import {MatInputModule} from '@angular/material/input';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatMomentDateModule} from '@angular/material-moment-adapter';
@@ -46,26 +46,25 @@ import {ButtonsModule, IconsModule, MDBBootstrapModule, NavbarModule, WavesModul
 
 import {InputTextModule} from 'primeng/inputtext';
 import {FooterComponent} from './footer/footer.component';
-import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { FakeDbService } from './fake-db/fake-db.service';
-import { CalendarModule } from 'angular-calendar';
-import { CalendarComponent } from './calendar/calendar.component';
-import { FuseModule } from '../@fuse/fuse.module';
-import { fuseConfig } from './fuse-config';
-
+import {InMemoryWebApiModule} from 'angular-in-memory-web-api';
+import {FakeDbService} from './fake-db/fake-db.service';
+import {CalendarModule} from 'angular-calendar';
+import {FuseModule} from '../@fuse/fuse.module';
+import {fuseConfig} from './fuse-config';
+import {ResourceNavbarModule} from './resource-navbar/resource-navbar.module';
 
 
 registerLocaleData(localeFr, 'fr');
 
 
 @NgModule({
-  declarations: [AppComponent, PositioningAddComponent, PositioningEditComponent, FooterComponent],
+  declarations: [AppComponent, PositioningAddComponent, PositioningEditComponent, FooterComponent, ResourceDashboardComponent],
   imports: [
     MDBBootstrapModule, NavbarModule, ButtonsModule, WavesModule, IconsModule,
     BrowserModule, HttpClientModule, AppNavbarModule,
     LoaderModule, SocietyModule, AdminModule, ProfilModule, PositioningModule,
     DeveloperModule, AuthModule, SocietyContactModule, ResourceModule,
-    ProjectModule, NeedModule,CalendarModule,
+    ProjectModule, NeedModule, ResourceNavbarModule, CalendarModule,
     ToastrModule.forRoot({positionClass: 'toast-bottom-right'}),
     RouterModule.forRoot(appRoutes),
     FormsModule, ReactiveFormsModule,
@@ -73,13 +72,13 @@ registerLocaleData(localeFr, 'fr');
     BsDatepickerModule,
     [SweetAlert2Module.forRoot()],
     InMemoryWebApiModule.forRoot(FakeDbService, {
-      delay             : 0,
+      delay: 0,
       passThruUnknownUrl: true
-  }),
+    }),
     BrowserAnimationsModule,
     InputTextModule,
     MatButtonModule, MatIconModule, MatInputModule, MatDatepickerModule,
-    MatProgressSpinnerModule, MatMomentDateModule, MatSelectModule, MatToolbarModule,
+    MatProgressSpinnerModule, MatMomentDateModule, MatSelectModule, MatToolbarModule, MatTabsModule,
     FuseModule.forRoot(fuseConfig),
 
   ],

@@ -85,4 +85,15 @@ export class PositioningService {
       });
   }
 
+  getPositioningsRsource(): Observable<Positioning[]> {
+
+    this.loaderService.show();
+    const url = environment.API + '/ws/positionings/posRes';
+
+    return this.http.get<Positioning[]>(url)
+      ._finally(() => {
+        this.loaderService.hide();
+      });
+  }
+
 }
