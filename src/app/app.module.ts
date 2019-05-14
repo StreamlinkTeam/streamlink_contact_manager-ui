@@ -7,7 +7,7 @@ import {AuthInterceptor} from './auth.interceptor';
 import {AuthModule} from './auth/auth.module';
 import {DeveloperModule} from './developer/developer.module';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import {RouterModule} from '@angular/router';
+import {RouterModule, Routes} from '@angular/router';
 import {registerLocaleData} from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import {ToastrModule} from 'ngx-toastr';
@@ -46,29 +46,42 @@ import {ButtonsModule, IconsModule, MDBBootstrapModule, NavbarModule, WavesModul
 
 import {InputTextModule} from 'primeng/inputtext';
 import {FooterComponent} from './footer/footer.component';
+import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { FakeDbService } from './fake-db/fake-db.service';
+import { CalendarModule } from 'angular-calendar';
+import { CalendarComponent } from './calendar/calendar.component';
+import { FuseModule } from '../@fuse/fuse.module';
+import { fuseConfig } from './fuse-config';
+
 
 
 registerLocaleData(localeFr, 'fr');
 
 
 @NgModule({
-  declarations: [AppComponent, PositioningAddComponent, PositioningEditComponent, FooterComponent,],
+  declarations: [AppComponent, PositioningAddComponent, PositioningEditComponent, FooterComponent],
   imports: [
     MDBBootstrapModule, NavbarModule, ButtonsModule, WavesModule, IconsModule,
     BrowserModule, HttpClientModule, AppNavbarModule,
     LoaderModule, SocietyModule, AdminModule, ProfilModule, PositioningModule,
     DeveloperModule, AuthModule, SocietyContactModule, ResourceModule,
-    ProjectModule, NeedModule,
+    ProjectModule, NeedModule,CalendarModule,
     ToastrModule.forRoot({positionClass: 'toast-bottom-right'}),
     RouterModule.forRoot(appRoutes),
     FormsModule, ReactiveFormsModule,
     NgSelectModule,
     BsDatepickerModule,
     [SweetAlert2Module.forRoot()],
+    InMemoryWebApiModule.forRoot(FakeDbService, {
+      delay             : 0,
+      passThruUnknownUrl: true
+  }),
     BrowserAnimationsModule,
     InputTextModule,
     MatButtonModule, MatIconModule, MatInputModule, MatDatepickerModule,
-    MatProgressSpinnerModule, MatMomentDateModule, MatSelectModule, MatToolbarModule
+    MatProgressSpinnerModule, MatMomentDateModule, MatSelectModule, MatToolbarModule,
+    FuseModule.forRoot(fuseConfig),
+
   ],
   schemas: [NO_ERRORS_SCHEMA],
   providers: [
