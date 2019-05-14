@@ -33,7 +33,7 @@ import {SweetAlert2Module} from '@toverux/ngx-sweetalert2';
 import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatButtonModule} from '@angular/material';
+import {MatButtonModule, MatTabsModule} from '@angular/material';
 import {MatInputModule} from '@angular/material/input';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatMomentDateModule} from '@angular/material-moment-adapter';
@@ -47,6 +47,7 @@ import {ButtonsModule, IconsModule, MDBBootstrapModule, NavbarModule, WavesModul
 import {InputTextModule} from 'primeng/inputtext';
 import {FooterComponent} from './footer/footer.component';
 import { ResourceDashboardComponent } from './resource-dashboard/resource-dashboard.component';
+import {ResourceNavbarModule} from './resource-navbar/resource-navbar.module';
 
 
 
@@ -61,7 +62,7 @@ registerLocaleData(localeFr, 'fr');
     BrowserModule, HttpClientModule, AppNavbarModule,
     LoaderModule, SocietyModule, AdminModule, ProfilModule, PositioningModule,
     DeveloperModule, AuthModule, SocietyContactModule, ResourceModule,
-    ProjectModule, NeedModule,
+    ProjectModule, NeedModule,ResourceNavbarModule,
     ToastrModule.forRoot({positionClass: 'toast-bottom-right'}),
     RouterModule.forRoot(appRoutes),
     FormsModule, ReactiveFormsModule,
@@ -71,7 +72,7 @@ registerLocaleData(localeFr, 'fr');
     BrowserAnimationsModule,
     InputTextModule,
     MatButtonModule, MatIconModule, MatInputModule, MatDatepickerModule,
-    MatProgressSpinnerModule, MatMomentDateModule, MatSelectModule, MatToolbarModule
+    MatProgressSpinnerModule, MatMomentDateModule, MatSelectModule, MatToolbarModule, MatTabsModule
   ],
   schemas: [NO_ERRORS_SCHEMA],
   providers: [

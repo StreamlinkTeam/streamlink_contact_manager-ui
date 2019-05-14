@@ -10,10 +10,10 @@ import {ValidatorService} from './shared/services/validator.service';
 })
 export class AppComponent {
   title = 'app';
-  display: boolean;
+  display = true;
 
   constructor(private router: Router, private auth: AuthService, private validator: ValidatorService) {
-    if (this.auth.isResource()) {
+    if (this.auth.isResource() ) {
       this.display = false;
     }
   }

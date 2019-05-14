@@ -1,0 +1,36 @@
+<app-resource-navbar></app-resource-navbar>
+
+<div class="mat-paginator-page-size">
+
+  <div class="container custom-container-2">
+    <!-- Show it when there is no employee -->
+
+    <!-- Employees list table, it hides when there is no employee -->
+
+
+    <div>
+      <h3 class="mb-3 text-center">Projects List</h3>
+      <div class="col-md-12">
+        <table mdbTable class="z-depth-2 ">
+          <thead>
+          <tr>
+            <th *ngFor="let head of headElements" scope="col">{{head}} </th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr mdbTableCol *ngFor="let el of Positioning">
+            <th scope="row">{{el.needTitle}}</th>
+            <td>{{el.client}}</td>
+            <td>{{el.startDate}}</td>
+            <td>{{el.endDate}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+
