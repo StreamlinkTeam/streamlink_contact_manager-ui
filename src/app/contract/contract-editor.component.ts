@@ -18,15 +18,16 @@ export class ContractEditorComponent implements OnInit {
   contract: Contract = new Contract();
   haveContract = false;
   urlToReturn = '';
+  cjm;
 
 
   constructor(private service: ContractService, private router: Router, private toastr: ToastrService,
               private activeRoute: ActivatedRoute) {
     this.urlToReturn = '/' + this.activeRoute.snapshot.parent.url[0].toString();
-
   }
 
   ngOnInit(): void {
+
     this.editing = this.activeRoute.snapshot.parent.params['mode'] === 'edit';
 
     if (this.editing) {
@@ -40,12 +41,12 @@ export class ContractEditorComponent implements OnInit {
       this.service.getContract(this.activeRoute.snapshot.parent.params['reference'])
         .subscribe(response => {
           this.contract = response;
+          this.cjm = (this.contract.salary * this.contract.coefficient) / this.contract.businessDays;
+
           this.haveContract = this.contract != null && this.contract.reference != null;
         }, error => {
           this.router.navigate([this.urlToReturn, 'error']);
         });
-
-
     }
   }
 
@@ -60,8 +61,6 @@ export class ContractEditorComponent implements OnInit {
       }, error => {
         this.toastr.error('Erreur lors de la création du Contrat', 'Opération échoué !!!');
       });
-
-
   }
 
   deleteContract() {
@@ -83,6 +82,9 @@ export class ContractEditorComponent implements OnInit {
       if (this.editing) {
         this.service.updateContract(this.contract, this.contract.developerReference)
           .subscribe(response => {
+            this.cjm = (this.contract.salary * this.contract.coefficient) / this.contract.businessDays;
+
+
             this.toastr.success('Contrat Mis à jour avec succés', 'Opération Réussite!');
 
           }, error => {
