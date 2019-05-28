@@ -10,8 +10,10 @@ import {ResourceService} from '../shared/services/resource.service';
 
 @Component({
   selector: 'app-contract',
-  moduleId: module.id,
-  templateUrl: 'contract-editor.component.html'
+  // moduleId: module.id,
+  templateUrl: 'contract-editor.component.html',
+  styleUrls: ['contract-editor.component.css']
+
 })
 export class ContractEditorComponent implements OnInit {
 

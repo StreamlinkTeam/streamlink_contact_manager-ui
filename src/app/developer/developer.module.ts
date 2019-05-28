@@ -25,6 +25,7 @@ import {MatButtonModule} from '@angular/material/button';
 
 
 import {ButtonsModule, CardsFreeModule, WavesModule} from 'angular-bootstrap-md';
+import {MatDatepickerModule, MatFormFieldModule, MatInputModule} from '@angular/material';
 
 
 @NgModule({
@@ -42,7 +43,7 @@ import {ButtonsModule, CardsFreeModule, WavesModule} from 'angular-bootstrap-md'
     EvaluationModule,
     ActionModule,
     ContactModule,
-    MatButtonModule],
+    MatButtonModule, MatFormFieldModule, MatDatepickerModule, MatInputModule],
   declarations: [DeveloperTableComponent, DeveloperEditorComponent, PersonalInfoEditorComponent, SkillsEditorComponent,
     DeveloperComponent, ContractEditorComponent, DeveloperCVComponent, DeveloperCVScannerComponent],
   exports: [DeveloperTableComponent, DeveloperEditorComponent, SkillsEditorComponent, PersonalInfoEditorComponent, DeveloperComponent

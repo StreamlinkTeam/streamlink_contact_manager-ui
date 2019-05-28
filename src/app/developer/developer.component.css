@@ -48,7 +48,7 @@ a, a:hover, a:focus {
   color: #fff;
   transition: all 0.3s;
   border-radius: 5px;
-}
+  box-shadow: 6px 5px 5px grey;}
 
 #sidebar.active {
   margin-left: -250px;
