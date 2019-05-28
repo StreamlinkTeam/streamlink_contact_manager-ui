@@ -11,6 +11,7 @@ export class Contract {
   trialPeriodeEndDate: Date;
   trialPeriodeRenewalEndDate: Date;
   cjm: any;
+  tjm: any;
   coefficient: any;
   businessDays: any;
   contractCategory: string;

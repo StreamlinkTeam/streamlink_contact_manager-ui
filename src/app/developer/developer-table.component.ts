@@ -22,7 +22,7 @@ export class DeveloperTableComponent implements OnInit {
 
   settings = {
     attr: {
-      class: ''
+      class: 'table table-striped'
     },
     edit: {
       editButtonContent: '<a class="btn btn-info" title="Modifier ou consulter"><i class="fa fa-pencil-square-o"></i></a>',
@@ -188,6 +188,13 @@ export class DeveloperTableComponent implements OnInit {
     });
 
 
+  }
+  onSelectRow(event: any) {
+    if (event.data.resource) {
+
+      this.router.navigate(['/resources/edit', event.data.reference]);
+    }
+    this.router.navigate(['/developers/edit', event.data.reference]);
   }
 
   showDeveloper(rowData: Row) {

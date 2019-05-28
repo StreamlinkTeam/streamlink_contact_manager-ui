@@ -21,6 +21,8 @@ import {DeveloperCVScannerComponent} from './developer-cv-scanner.component';
 import {EvaluationModule} from '../evaluation/evaluation.module';
 import {ActionModule} from '../action/action.module';
 import {ContactModule} from '../contact/contact.module';
+import {MatButtonModule} from '@angular/material/button';
+
 
 import {ButtonsModule, CardsFreeModule, WavesModule} from 'angular-bootstrap-md';
 
@@ -39,7 +41,8 @@ import {ButtonsModule, CardsFreeModule, WavesModule} from 'angular-bootstrap-md'
     Ng2SmartTableModule,
     EvaluationModule,
     ActionModule,
-    ContactModule],
+    ContactModule,
+    MatButtonModule],
   declarations: [DeveloperTableComponent, DeveloperEditorComponent, PersonalInfoEditorComponent, SkillsEditorComponent,
     DeveloperComponent, ContractEditorComponent, DeveloperCVComponent, DeveloperCVScannerComponent],
   exports: [DeveloperTableComponent, DeveloperEditorComponent, SkillsEditorComponent, PersonalInfoEditorComponent, DeveloperComponent

@@ -103,33 +103,9 @@
         <div class="col border">
           <form #contractForm="ngForm" (ngSubmit)="saveContract(contractForm)"
                 novalidate>
-
+            <br>
             <div class="form-group row">
-              <label class="col-sm-4 col-form-label" for=salary>Salaire :
-              </label>
-              <div class="col-sm-8">
-                <input [(ngModel)]="contract.salary" class="form-control" id="salary" name="salary"
-                       required step="any" type="number">
-              </div>
-            </div>
-
-
-            <div class="form-group row">
-              <label class="col-sm-4 col-form-label" for=currency>Devise:
-              </label>
-              <div class="col-sm-8">
-                <select [(ngModel)]="contract.currency" class="form-control" id="currency"
-                        name="currency">
-                  <option value="EUR">EUR Euro</option>
-                  <option value="USD">USD United States Dollars</option>
-                  <option value="GPB">GPB United Kingdom Pounds</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="form-group row">
-              <label class="col-sm-4 col-form-label" for=contractType>Contrat
-                RH: </label>
+              <label class="col-sm-4 col-form-label" for=contractType>Contrat</label>
               <div class="col-sm-8">
                 <select [(ngModel)]="contract.type" class="form-control" id="contractType"
                         name="contractType">
@@ -142,6 +118,23 @@
                 </select>
               </div>
             </div>
+
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label" for=startDate>Début</label>
+              <div class="col-sm-8">
+                <input [(ngModel)]="contract.startDate" class="form-control" id="startDate"
+                       name="startDate" required type="date">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label" for=endDate>Fin</label>
+              <div class="col-sm-8">
+                <input [(ngModel)]="contract.endDate" class="form-control" id="endDate"
+                       name="endDate" required type="date">
+              </div>
+            </div>
+            <hr>
 
             <div class="form-group row">
               <label class="col-sm-4 col-form-label" for=contractType>Catégorie: </label>
@@ -185,6 +178,7 @@
                 </select>
               </div>
             </div>
+
             <div class="form-group row">
               <label class="col-sm-4 col-form-label" for=workTime>Temps
                 de travail: </label>
@@ -198,28 +192,30 @@
                 </select>
               </div>
             </div>
-
+            <hr>
             <div class="form-group row">
-              <label class="col-sm-4 col-form-label" for=startDate>Date
-                de Début:</label>
+              <label class="col-sm-4 col-form-label" for=currency>Devise
+              </label>
               <div class="col-sm-8">
-                <input [(ngModel)]="contract.startDate" class="form-control" id="startDate"
-                       name="startDate" required type="date">
+                <select [(ngModel)]="contract.currency" class="form-control" id="currency"
+                        name="currency">
+                  <option value="EUR">EUR Euro</option>
+                  <option value="USD">USD United States Dollars</option>
+                  <option value="GPB">GPB United Kingdom Pounds</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row" *ngIf="!externalConsultant">
+              <label class="col-sm-4 col-form-label" for=salary>Salaire annuel
+              </label>
+              <div class="col-sm-8">
+                <input [(ngModel)]="contract.salary" class="form-control" id="salary" name="salary"
+                       required step="any" type="number">
               </div>
             </div>
 
-            <div class="form-group row">
-              <label class="col-sm-4 col-form-label" for=endDate>Date de
-                Fin:</label>
-              <div class="col-sm-8">
-                <input [(ngModel)]="contract.endDate" class="form-control" id="endDate"
-                       name="endDate" required type="date">
-              </div>
-            </div>
-
-
-            <div class="form-group row">
-              <label class="col-sm-4 col-form-label" for=salary>Coefficient de charge:
+            <div class="form-group row" *ngIf="!externalConsultant">
+              <label class="col-sm-4 col-form-label" for=salary>Coefficient de charge
               </label>
               <div class="col-sm-8">
                 <input [(ngModel)]="contract.coefficient" class="form-control" id="coef" name="coef"
@@ -228,7 +224,7 @@
             </div>
 
             <div class="form-group row">
-              <label class="col-sm-4 col-form-label" for=salary>Nb Jours Ouvrés Annuel:
+              <label class="col-sm-4 col-form-label" for=salary>Nb Jours Ouvrés Annuel
               </label>
               <div class="col-sm-8">
                 <input [(ngModel)]="contract.businessDays" class="form-control" id="businessDays" name="businessDays"
@@ -236,7 +232,16 @@
               </div>
             </div>
 
-            <div class="form-group row">
+            <div class="form-group row" *ngIf="externalConsultant">
+              <label class="col-sm-4 col-form-label" for=salary>Tarif Journalier HT:
+              </label>
+              <div class="col-sm-8">
+                <input [(ngModel)]="contract.salary" class="form-control" id="cjm" name="cjm"
+                       required step="any" type="number">
+              </div>
+            </div>
+
+            <div class="form-group row" *ngIf="!externalConsultant">
               <label class="col-sm-4 col-form-label" for=salary>CJM Contrat :
               </label>
               <div class="col-sm-8">
