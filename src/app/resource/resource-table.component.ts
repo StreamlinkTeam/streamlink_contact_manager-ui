@@ -222,4 +222,11 @@ export class ResourceTableComponent implements OnInit {
     }
   }
 
+  onSelectRow(event: any) {
+    if (event.data.resource) {
+
+      this.router.navigate(['/resources/edit', event.data.reference]);
+    }
+    this.router.navigate(['/developers/edit', event.data.reference]);
+  }
 }
