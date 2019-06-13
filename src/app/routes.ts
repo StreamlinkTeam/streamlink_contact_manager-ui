@@ -34,6 +34,8 @@ import {PositioningTableComponent} from './positioning/positioning-table.compone
 import {PositioningAddComponent} from './positioning-add/positioning-add.component';
 import {PositioningEditComponent} from './positioning-edit/positioning-edit.component';
 import {ProjectInfoEditorComponent} from './project/project-info-editor.component';
+import {DeveloperRecordComponent} from './developer/developer-record.component';
+import {ResourceRecordComponent} from './resource/resource-record.component';
 
 export const appRoutes: Routes = [
   {path: 'auth', component: AuthComponent, canActivate: [LoginGuard]},
@@ -63,26 +65,13 @@ export const appRoutes: Routes = [
   {path: 'positionings/:error', component: PositioningTableComponent, canActivate: [AuthGuard]},
   {
     path: 'positionings/edit/:reference', component: PositioningEditComponent, canActivate: [AuthGuard],
-    // path: 'positionings/:mode/:reference', component: PositioningAddComponent, canActivate: [AuthGuard],
-    // children: [
-    // {path: 'positionings/edit', component: PositioningAddComponent},
-    // {path: 'general', component: PositioningAddComponent},
-    // {path: 'action', component: ActionEditorComponent},
-    // {path: '**', redirectTo: 'general'}
-    // ]
+
   },
   {path: 'projects', component: ProjectTableComponent, canActivate: [AuthGuard]},
   {path: 'projects/create', component: ProjectEditorComponent, canActivate: [AuthGuard]},
   {path: 'projects/:error', component: ProjectTableComponent, canActivate: [AuthGuard]},
   {path: 'projects/edit/:reference', component: ProjectInfoEditorComponent, canActivate: [AuthGuard]},
-  // {
-  //   path: 'projects/:mode/:reference', component: ProjectComponent, canActivate: [AuthGuard],
-  //   children: [
-  //     {path: 'general', component: ProjectEditorComponent},
-  //     {path: 'action', component: ActionEditorComponent},
-  //     {path: '**', redirectTo: 'general'}
-  //   ]
-  // },
+
 
   {path: 'needs', component: NeedTableComponent, canActivate: [AuthGuard]},
   {path: 'needs/create', component: NeedEditorComponent, canActivate: [AuthGuard]},
@@ -109,6 +98,7 @@ export const appRoutes: Routes = [
       {path: 'contract', component: ContractEditorComponent},
       {path: 'action', component: ActionEditorComponent},
       {path: 'evaluation', component: EvaluationEditorComponent},
+      {path: 'record', component: DeveloperRecordComponent},
       {path: '**', redirectTo: 'general'}
     ]
   },
@@ -125,6 +115,7 @@ export const appRoutes: Routes = [
       {path: 'contract', component: ContractEditorComponent},
       {path: 'action', component: ActionEditorComponent},
       {path: 'evaluation', component: EvaluationEditorComponent},
+      {path: 'record', component: ResourceRecordComponent},
       {path: '**', redirectTo: 'general'}
     ]
   },
