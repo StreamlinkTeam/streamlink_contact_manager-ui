@@ -30,7 +30,10 @@ export class PositioningEditComponent implements OnInit {
   needs: any = [];
   resources: any = [];
   societies: any = [];
-
+  periodCA: any;
+  periodCost: any;
+  periodMargin: any;
+  periodProfitability: any;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -66,6 +69,13 @@ export class PositioningEditComponent implements OnInit {
     this.service.getPositioning(ref).subscribe(res => {
       this.positioning = res;
       this.positioning.projectReference = res.projectReference;
+      this.periodCA = this.positioning.tjm * this.positioning.invoicedDays;
+      this.periodCost = this.positioning.cjm * (this.positioning.freeDays + this.positioning.invoicedDays);
+      this.periodMargin = this.periodCA - this.periodCost;
+      this.periodProfitability = (this.periodMargin / (this.periodCA * 100)) * 10000;
+
+      //getPeriodMargin().divide(getPeriodCA()).multiply(BigDecimal.valueOf(100));
+
       console.log(this.positioning.projectReference);
 
     });
@@ -88,6 +98,7 @@ export class PositioningEditComponent implements OnInit {
       });
       this.resources = ress;
     });
+
   }
 
   updatePostioning(form: NgForm) {
