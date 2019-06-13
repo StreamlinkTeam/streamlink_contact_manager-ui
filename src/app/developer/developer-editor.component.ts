@@ -7,6 +7,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
 import {ToastrService} from 'ngx-toastr';
 import {ResourceService} from '../shared/services/resource.service';
+import {Contact} from '../shared/entities/contact.model';
 
 @Component({
   moduleId: module.id,
@@ -18,9 +19,11 @@ export class DeveloperEditorComponent implements OnInit {
   developer: Developer = new Developer();
   users: User[];
   stages: any[];
+contacts: Contact;
 
-
-  constructor(private service: DeveloperService, private resourceService: ResourceService,
+  constructor(private service: DeveloperService,
+              private resourceService: ResourceService,
+              private developerService: DeveloperService,
               private userService: UserService,
               private toastr: ToastrService,
               private router: Router,
@@ -32,22 +35,27 @@ export class DeveloperEditorComponent implements OnInit {
 
     this.editing = this.activeRoute.snapshot.parent.params['mode'] === 'edit';
 
+    // this.developerService.getDeveloperContact(this.activeRoute.snapshot.parent.params['reference']).subscribe(res => {
+    //   this.contacts = res;
+    // });
+
     this.userService.getUsers().subscribe(response => this.users = response);
     if (this.editing) {
       this.service.getDeveloper(this.activeRoute.snapshot.parent.params['reference'])
-        .subscribe(response => {
-            this.developer = response;
-            if (this.developer.resource) {
-              this.router.navigate(['/resources/edit', this.developer.reference]);
-            }
+      .subscribe(response => {
+          this.developer = response;
+          if (this.developer.resource) {
+            this.router.navigate(['/resources/edit', this.developer.reference]);
           }
-          , error =>
-            this.router.navigate(['/developers', 'error']));
-    }
+        }
+        , error =>
+          this.router.navigate(['/developers', 'error']));
+  }
 
     this.stages = [
       {label: 'A traiter', value: 'ToTreat'},
       {label: 'En Cours de Qualif', value: 'InTheProcessOfQualifying'},
+      {label: 'Attente qualif manager', value: 'InTheProcessOfQualifying'},
       {label: 'Vivier', value: 'Vivier'},
       {label: 'Vivier ++', value: 'VivierPlus'},
       {label: 'Converti en Ressource', value: 'ConvertedToResource'},
