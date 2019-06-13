@@ -47,8 +47,11 @@ import {ButtonsModule, IconsModule, MDBBootstrapModule, NavbarModule, WavesModul
 import {InputTextModule} from 'primeng/inputtext';
 import {FooterComponent} from './footer/footer.component';
 
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+
 
 registerLocaleData(localeFr, 'fr');
+
 
 
 @NgModule({
@@ -68,7 +71,9 @@ registerLocaleData(localeFr, 'fr');
     BrowserAnimationsModule,
     InputTextModule,
     MatButtonModule, MatIconModule, MatInputModule, MatDatepickerModule,
-    MatProgressSpinnerModule, MatMomentDateModule, MatSelectModule, MatToolbarModule
+    MatProgressSpinnerModule, MatMomentDateModule, MatSelectModule, MatToolbarModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule
   ],
   schemas: [NO_ERRORS_SCHEMA],
   providers: [
