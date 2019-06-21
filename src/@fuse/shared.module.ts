@@ -1,34 +1,31 @@
-import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {CommonModule} from '@angular/common';
 
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { FuseDirectivesModule } from './directives/directives';
-import { FusePipesModule } from './pipes/pipes.module';
+import {FlexLayoutModule} from '@angular/flex-layout';
+import {FuseDirectivesModule} from './directives/directives';
+import {FusePipesModule} from './pipes/pipes.module';
 
 
 @NgModule({
-    imports  : [
-        CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    FlexLayoutModule,
+    FuseDirectivesModule,
+    FusePipesModule
+  ],
+  exports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
 
-        FlexLayoutModule,
+    FlexLayoutModule,
 
-        FuseDirectivesModule,
-        FusePipesModule
-    ],
-    exports  : [
-        CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
-
-        FlexLayoutModule,
-
-        FuseDirectivesModule,
-        FusePipesModule
-    ]
+    FuseDirectivesModule,
+    FusePipesModule
+  ]
 })
-export class FuseSharedModule
-{
+export class FuseSharedModule {
 }

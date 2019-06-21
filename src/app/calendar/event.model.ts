@@ -1,11 +1,14 @@
 import { CalendarEventAction } from 'angular-calendar';
 import { startOfDay, endOfDay } from 'date-fns';
 
-export class CalendarEventModel
-{
+export class CalendarEventModel {
     start: Date;
     end?: Date;
     title: string;
+    project: string;
+    note: string;
+    reference: string;
+    timeWork: number;
     color: {
         primary: string;
         secondary: string;
@@ -28,12 +31,15 @@ export class CalendarEventModel
      *
      * @param data
      */
-    constructor(data?)
-    {
+    constructor(data?) {
         data = data || {};
+        this.project = data.project;
+        this.note = data.note;
+        this.reference = data.reference;
         this.start = new Date(data.start) || startOfDay(new Date());
         this.end = new Date(data.end) || endOfDay(new Date());
         this.title = data.title || '';
+        this.timeWork = data.timeWork || '';
         this.color = {
             primary  : data.color && data.color.primary || '#1e90ff',
             secondary: data.color && data.color.secondary || '#D1E8FF'

@@ -34,6 +34,11 @@ import { PositioningTableComponent } from './positioning/positioning-table.compo
 import { PositioningAddComponent } from './positioning-add/positioning-add.component';
 import { PositioningEditComponent } from './positioning-edit/positioning-edit.component';
 import { ProjectInfoEditorComponent } from './project/project-info-editor.component';
+import {ResourceDashboardComponent} from './resource-dashboard/resource-dashboard.component';
+import {AbsenceComponent} from './absence/absence.component';
+import {AbsenceDemandeComponent} from './absence/absence-demande/absence-demande.component';
+import {ListAbsencesComponent} from './absence/list-absences/list-absences.component';
+import {CalendarComponent} from './calendar/calendar.component';
 
 export const appRoutes: Routes = [
   { path: 'auth', component: AuthComponent, canActivate: [LoginGuard] },
@@ -47,7 +52,14 @@ export const appRoutes: Routes = [
   },
 
   { path: 'actions', component: ActionTableComponent, canActivate: [AuthGuard] },
-
+  {
+    path: 'absence', component: AbsenceComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_RESOURCE'] },
+    children: [
+      { path: 'demande', component: AbsenceDemandeComponent },
+      { path: 'list', component: ListAbsencesComponent },
+      { path: '**', redirectTo: 'demande' }
+    ]
+  },
   {path: 'actions', component: ActionTableComponent, canActivate: [AuthGuard]},
   {
     path: 'admin', component: AdminComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN'] },
@@ -84,7 +96,7 @@ export const appRoutes: Routes = [
   //     {path: '**', redirectTo: 'general'}
   //   ]
   // },
-
+  { path: 'dashboard', component: ResourceDashboardComponent, canActivate: [AuthGuard] },
   { path: 'needs', component: NeedTableComponent, canActivate: [AuthGuard] },
   { path: 'needs/create', component: NeedEditorComponent, canActivate: [AuthGuard] },
   { path: 'needs/:error', component: NeedTableComponent, canActivate: [AuthGuard] },
@@ -100,7 +112,7 @@ export const appRoutes: Routes = [
   { path: 'developers/create/from-cv', component: DeveloperCVScannerComponent, canActivate: [AuthGuard] },
   { path: 'developers/create', component: DeveloperEditorComponent, canActivate: [AuthGuard] },
   {
-    path: 'developers/timesheet', loadChildren : 'app/calendar/calendar.module#CalendarModule'
+    path: 'timesheet', loadChildren : 'app/calendar/calendar.module#CalendarModule', component: CalendarComponent
   },
 
   { path: 'developers/:error', component: DeveloperTableComponent, canActivate: [AuthGuard] },

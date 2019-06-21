@@ -11,6 +11,7 @@ import {MatDialog} from '@angular/material';
 })
 export class ResourceDashboardComponent implements OnInit {
 
+  test;
   headElements = ['project title', 'Client', 'Start Date', 'End Date'];
   Positioning: any = [];
   constructor(private service: PositioningService,

@@ -48,10 +48,20 @@ import {InputTextModule} from 'primeng/inputtext';
 import {FooterComponent} from './footer/footer.component';
 import {InMemoryWebApiModule} from 'angular-in-memory-web-api';
 import {FakeDbService} from './fake-db/fake-db.service';
-import {CalendarModule} from 'angular-calendar';
+// import {CalendarModule} from 'angular-calendar';
 import {FuseModule} from '../@fuse/fuse.module';
 import {fuseConfig} from './fuse-config';
 import {ResourceNavbarModule} from './resource-navbar/resource-navbar.module';
+import {ResourceDashboardComponent} from './resource-dashboard/resource-dashboard.component';
+import {CalendarModule} from './calendar/calendar.module';
+// import {FuseSidebarModule} from '../@fuse/components';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import {SidebarModule} from './sidebar/sidebar.module';
+import { AbsenceComponent } from './absence/absence.component';
+import { AbsenceDemandeComponent } from './absence/absence-demande/absence-demande.component';
+import {AbsenceModule} from './absence/absence.module';
+
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 
 registerLocaleData(localeFr, 'fr');
@@ -63,12 +73,13 @@ registerLocaleData(localeFr, 'fr');
     MDBBootstrapModule, NavbarModule, ButtonsModule, WavesModule, IconsModule,
     BrowserModule, HttpClientModule, AppNavbarModule,
     LoaderModule, SocietyModule, AdminModule, ProfilModule, PositioningModule,
-    DeveloperModule, AuthModule, SocietyContactModule, ResourceModule,
-    ProjectModule, NeedModule, ResourceNavbarModule, CalendarModule,
+    DeveloperModule, AuthModule, SocietyContactModule, ResourceModule, AbsenceModule,
+    ProjectModule, NeedModule, ResourceNavbarModule, CalendarModule, SidebarModule,
     ToastrModule.forRoot({positionClass: 'toast-bottom-right'}),
     RouterModule.forRoot(appRoutes),
     FormsModule, ReactiveFormsModule,
     NgSelectModule,
+    NgxMatSelectSearchModule,
     BsDatepickerModule,
     [SweetAlert2Module.forRoot()],
     InMemoryWebApiModule.forRoot(FakeDbService, {
@@ -91,6 +102,9 @@ registerLocaleData(localeFr, 'fr');
     }, {provide: LOCALE_ID, useValue: 'fr'}
   ],
   bootstrap: [AppComponent],
+  exports: [
+    ResourceDashboardComponent
+  ],
   entryComponents: [PositioningAddComponent]
 })
 export class AppModule {

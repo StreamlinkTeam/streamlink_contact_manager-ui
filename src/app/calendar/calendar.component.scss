@@ -1,5 +1,5 @@
-@import "src/@fuse/scss/fuse";
-@import "node_modules/angular-calendar/scss/angular-calendar";
+@import "../../@fuse/scss/fuse";
+@import "../../../node_modules/angular-calendar/scss/angular-calendar";
 
 .cal-month-view {
 
@@ -188,14 +188,14 @@
 #calendar {
 
     .header {
-        height: 200px;
-        min-height: 200px;
-        max-height: 200px;
+        height: 100px;
+        min-height: 100px;
+        max-height: 100px;
         position: relative;
         background-size: 100% auto;
         background-position: 0 50%;
         background-repeat: no-repeat;
-        background-color: #FAFAFA;
+        background-color: #5179ca;
         color: #FFFFFF;
 
         @include media-breakpoint(xs) {
@@ -215,7 +215,7 @@
             background: rgba(0, 0, 0, 0.45);
         }
 
-        &.Jan {
+        /*&.Jan {
             background-image: url('/assets/images/calendar/winter.jpg');
             background-position: 0 85%;
         }
@@ -262,7 +262,7 @@
         &.Dec {
             background-image: url('/assets/images/calendar/winter.jpg');
             background-position: 0 85%;
-        }
+        }*/
 
         .header-content {
             height: 100%;
@@ -305,6 +305,11 @@
     }
 
     .content {
-        padding: 24px;
+        padding: 50px;
     }
+
+  .mat-card {
+    background: #dee2e6;
+    color: rgba(0,0,0,.87);
+  }
 }

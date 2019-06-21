@@ -19,6 +19,7 @@ import {ResourceService} from './services/resource.service';
 import {ProjectService} from './services/project.service';
 import {PositioningService} from './services/positioning.service';
 import {NeedService} from './services/need.service';
+import {EventService} from './services/event.service';
 
 @NgModule({
   imports: [HttpClientModule, CommonModule],
@@ -27,7 +28,7 @@ import {NeedService} from './services/need.service';
   exports: [FieldErrorDisplayComponent, CustomEnumRenderComponent, EqualValidator],
   providers: [DeveloperService, EvaluationService, ActionService, ResourceService, PositioningService,
     UserService, LanguageService, AuthService, SocietyService, ProjectService,
-    ContractService, ValidatorService, LoaderService, SocietyContactService, NeedService],
+    ContractService, ValidatorService, LoaderService, SocietyContactService, NeedService,EventService],
 })
 export class SharedModule {
 

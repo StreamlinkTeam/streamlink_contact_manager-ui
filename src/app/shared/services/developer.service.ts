@@ -36,6 +36,20 @@ export class DeveloperService {
 
   }
 
+  getDeveloperByEmail(email: string): Observable<Developer> {
+
+    this.loaderService.show();
+    const url = environment.API + '/ws/developers/mail';
+
+    const options = {params: new HttpParams().set('developerEmail', email)};
+
+    return this.http.get<Developer>(url, options)
+      ._finally(() => {
+        this.loaderService.hide();
+      });
+
+  }
+
   getDevelopers(): Observable<DeveloperView[]> {
 
     this.loaderService.show();
