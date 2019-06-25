@@ -16,7 +16,7 @@
 
 
 
-       <!--<ng-select
+       <ng-select
          [(ngModel)]="event.project"
          bindLabel="title"
          bindValue="needTitle"
@@ -28,7 +28,7 @@
          <ng-option *ngFor="let el of positionings" [value]="el.needTitle">{{el.needTitle}}</ng-option>
          <ng-option [value]="Interne"> Interne</ng-option>
          <ng-option [value]="Absence"> Absence</ng-option>
-       </ng-select>-->
+       </ng-select>
 
       <!--<ng-select [items]="positionings"
                  bindLabel="needTitle"
@@ -37,9 +37,9 @@
                  [(ngModel)]="prj">
       </ng-select>-->
 
-      <select [(ngModel)]="prj">
+     <!-- <select [(ngModel)]="prj">
         <option *ngFor="let c of positionings" [ngValue]="c.needTitle">{{c.needTitle}}</option>
-      </select>
+      </select-->
 
 
 

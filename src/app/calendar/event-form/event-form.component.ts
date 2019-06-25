@@ -159,10 +159,10 @@ export class CalendarEventFormDialogComponent implements OnInit {
   save() {
 
     console.log('EVENT :: ', this.prj);
-    /*let dt = new Date(this.startD);
+    let dt = new Date(this.startD);
     this.timeLine.start = new Date(dt.setDate(dt.getDate()+ 2));
     this.timeLine.timeListReference = 'KYFIf7Byl6oySmM';
-   // this.timeLine.project = 'rrrr';
+   this.timeLine.project = 'rrrr';
     this.timeLine.note = this.event.note;
     this.eventService.createTimeLine(this.timeLine).subscribe(response => {
 
@@ -173,7 +173,6 @@ export class CalendarEventFormDialogComponent implements OnInit {
       Swal.fire('Erreur de création de Timesheet', 'Opération Echouée!', 'error');
 
     });
-*/
   }
 
   deleteEvent() {
