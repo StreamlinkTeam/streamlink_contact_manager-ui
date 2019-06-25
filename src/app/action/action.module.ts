@@ -9,11 +9,14 @@ import {BrowserModule} from '@angular/platform-browser';
 import {ButtonsModule, CardsFreeModule, WavesModule} from 'angular-bootstrap-md';
 import {OwlDateTimeModule} from 'ng-pick-datetime';
 import {MatIconModule} from '@angular/material';
+import {MatButtonModule} from '@angular/material/button';
+
 
 
 @NgModule({
   imports: [
     FormsModule,
+    MatButtonModule,
     BrowserModule,
     RouterModule,
     SharedModule,

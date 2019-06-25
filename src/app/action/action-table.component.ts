@@ -1,6 +1,7 @@
 import {Action} from './../shared/entities/action.model';
 import {ActionService} from './../shared/services/action.service';
 import {Component, OnInit} from '@angular/core';
+import {Observable} from 'rxjs';
 
 
 @Component({
@@ -11,17 +12,18 @@ import {Component, OnInit} from '@angular/core';
 export class ActionTableComponent implements OnInit {
 
   actions: Action[];
+  action: Observable<Action[]>;
 
   constructor(private service: ActionService) {
 
   }
 
   ngOnInit() {
-
     this.service.getAllActions().subscribe(res => {
       this.actions = res;
+      console.log(res.map(value => value.date));
     });
+
+
   }
-
-
 }

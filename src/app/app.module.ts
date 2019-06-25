@@ -47,15 +47,18 @@ import {ButtonsModule, IconsModule, MDBBootstrapModule, NavbarModule, WavesModul
 import {InputTextModule} from 'primeng/inputtext';
 import {FooterComponent} from './footer/footer.component';
 
-import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import {OwlDateTimeModule, OwlNativeDateTimeModule} from 'ng-pick-datetime';
+import {NeedAddDialogComponent} from './need/need-add-dialog.component';
+import {SharedModule} from './shared/shared.module';
+import {SocietyAddDialogComponent} from './society/society-add-dialog.component';
+import {UserAddDialogComponent} from './users/user-add-dialog.component';
 
 
 registerLocaleData(localeFr, 'fr');
 
 
-
 @NgModule({
-  declarations: [AppComponent, PositioningAddComponent, PositioningEditComponent, FooterComponent,],
+  declarations: [AppComponent, PositioningAddComponent, PositioningEditComponent, FooterComponent, NeedAddDialogComponent, SocietyAddDialogComponent, UserAddDialogComponent,],
   imports: [
     MDBBootstrapModule, NavbarModule, ButtonsModule, WavesModule, IconsModule,
     BrowserModule, HttpClientModule, AppNavbarModule,
@@ -73,7 +76,7 @@ registerLocaleData(localeFr, 'fr');
     MatButtonModule, MatIconModule, MatInputModule, MatDatepickerModule,
     MatProgressSpinnerModule, MatMomentDateModule, MatSelectModule, MatToolbarModule,
     OwlDateTimeModule,
-    OwlNativeDateTimeModule
+    OwlNativeDateTimeModule, SharedModule
   ],
   schemas: [NO_ERRORS_SCHEMA],
   providers: [
@@ -84,7 +87,11 @@ registerLocaleData(localeFr, 'fr');
     }, {provide: LOCALE_ID, useValue: 'fr'}
   ],
   bootstrap: [AppComponent],
-  entryComponents: [PositioningAddComponent]
+  entryComponents: [
+    PositioningAddComponent,
+    NeedAddDialogComponent,
+    SocietyAddDialogComponent,
+    UserAddDialogComponent]
 })
 export class AppModule {
 }

@@ -1,8 +1,17 @@
 Liste des actions : <br>
 
-
-<div *ngFor="let a of actions"> {{a.createdDate}}<br> {{a.responsibleFullName}} <br> {{a.societyContactFullName}}
-  <br> {{a.note}}
-
-
-</div>
+<table class="table table-striped">
+  <thead></thead>
+  <tbody>
+  <tr>
+    <td>Date de creation</td>
+    <td>Responsable</td>
+    <td>Note</td>
+  </tr>
+  <tr *ngFor="let a of actions">
+    <td>{{a.createdDate}}</td>
+    <td>{{a.responsibleFullName}}</td>
+    <td>{{a.note}}</td>
+  </tr>
+  </tbody>
+</table>
