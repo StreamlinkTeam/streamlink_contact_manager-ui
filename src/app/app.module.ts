@@ -55,21 +55,27 @@ import {ResourceNavbarModule} from './resource-navbar/resource-navbar.module';
 import {ResourceDashboardComponent} from './resource-dashboard/resource-dashboard.component';
 import {CalendarModule} from './calendar/calendar.module';
 // import {FuseSidebarModule} from '../@fuse/components';
-import { SidebarComponent } from './sidebar/sidebar.component';
+import {SidebarComponent} from './sidebar/sidebar.component';
 import {SidebarModule} from './sidebar/sidebar.module';
-import { AbsenceComponent } from './absence/absence.component';
-import { AbsenceDemandeComponent } from './absence/absence-demande/absence-demande.component';
+import {AbsenceComponent} from './absence/absence.component';
+import {AbsenceDemandeComponent} from './absence/absence-demande/absence-demande.component';
 import {AbsenceModule} from './absence/absence.module';
 
-import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import {NgxMatSelectSearchModule} from 'ngx-mat-select-search';
+import {NeedAddDialogComponent} from './need/need-add-dialog.component';
+import {SharedModule} from './shared/shared.module';
+import {SocietyAddDialogComponent} from './society/society-add-dialog.component';
+import {UserAddDialogComponent} from './users/user-add-dialog.component';
 
 
 registerLocaleData(localeFr, 'fr');
 
 
-
 @NgModule({
-  declarations: [AppComponent, PositioningAddComponent, PositioningEditComponent, FooterComponent, ResourceDashboardComponent],
+  declarations: [AppComponent, PositioningAddComponent,
+    PositioningEditComponent, FooterComponent,
+    ResourceDashboardComponent, NeedAddDialogComponent,
+    SocietyAddDialogComponent, UserAddDialogComponent],
   imports: [
     MDBBootstrapModule, NavbarModule, ButtonsModule, WavesModule, IconsModule,
     BrowserModule, HttpClientModule, AppNavbarModule,
@@ -91,8 +97,7 @@ registerLocaleData(localeFr, 'fr');
     InputTextModule,
     MatButtonModule, MatIconModule, MatInputModule, MatDatepickerModule,
     MatProgressSpinnerModule, MatMomentDateModule, MatSelectModule, MatToolbarModule, MatTabsModule,
-    FuseModule.forRoot(fuseConfig),
-
+    FuseModule.forRoot(fuseConfig), OwlDateTimeModule, OwlNativeDateTimeModule, SharedModule
   ],
   schemas: [NO_ERRORS_SCHEMA],
   providers: [
@@ -106,7 +111,11 @@ registerLocaleData(localeFr, 'fr');
   exports: [
     ResourceDashboardComponent
   ],
-  entryComponents: [PositioningAddComponent]
+  entryComponents: [
+    PositioningAddComponent,
+    NeedAddDialogComponent,
+    SocietyAddDialogComponent,
+    UserAddDialogComponent]
 })
 export class AppModule {
 }

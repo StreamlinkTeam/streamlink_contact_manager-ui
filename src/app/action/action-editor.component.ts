@@ -37,7 +37,7 @@ export class ActionEditorComponent {
               activeRoute: ActivatedRoute) {
 
     this.contactType = activeRoute.snapshot.parent.url[0].toString();
-
+    
     if (this.isDeveloper() || this.isResource()) {
       this.reference = activeRoute.snapshot.parent.params['reference'];
       this.service.getActions(this.reference)

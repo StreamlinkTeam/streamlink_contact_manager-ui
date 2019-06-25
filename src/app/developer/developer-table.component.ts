@@ -7,6 +7,7 @@ import {Row} from 'ng2-smart-table/lib/data-set/row';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {CustomEnumRenderComponent} from '../shared/custom-ng2-smart-table-renderer/custom-enum-render.component';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -189,6 +190,7 @@ export class DeveloperTableComponent implements OnInit {
 
 
   }
+
   onSelectRow(event: any) {
     if (event.data.resource) {
 
@@ -209,20 +211,32 @@ export class DeveloperTableComponent implements OnInit {
   }
 
   deleteDeveloper(rowData: Row) {
-
     const developer = rowData.getData();
-    if (confirm('Suppression du Developpeur ' + developer.firstname + ' ' + developer.lastname)) {
+    Swal.fire({
+      title: 'Êtes-vous sûr?',
+      text: 'Supprimer le candidat ' + developer.firstname + ' ' + developer.lastname,
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonText: 'Annuler',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Oui, je confirme!'
+    }).then((result) => {
+      if (result.value) {
+        Swal.fire(
+          'Supprimer!',
+          'Le candidat ' + developer.firstname + ' ' + developer.lastname + ' supprimer avec sucées',
+          'success'
+        );
+        this.service.deleteDeveloper(developer.reference)
+          .subscribe(res => {
+            this.source.remove(rowData);
+          }, error => {
+            this.toastr.error('Erreur lors de la suppression du candidat', 'Opération échoué !!!');
+          });
+      }
+    });
 
-      this.service.deleteDeveloper(developer.reference).subscribe(res => {
-
-        this.source.remove(rowData);
-        this.toastr.success('Candidats Supprimé avec succés', 'Opération Réussite!');
-
-      }, error => {
-        this.toastr.error('Erreur lors de la suppression du candidats', 'Opération échoué !!!');
-      });
-
-    }
   }
 
 }

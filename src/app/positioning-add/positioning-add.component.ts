@@ -105,7 +105,7 @@ export class PositioningAddComponent implements OnInit {
         response => {
           this.dialogRef.close();
           this.router.navigateByUrl('/positionings');
-          console.log(response.email);
+         // console.log(response.email);
 
           this.email.to = response.email;
           this.email.messageSubject = 'Positionnement';

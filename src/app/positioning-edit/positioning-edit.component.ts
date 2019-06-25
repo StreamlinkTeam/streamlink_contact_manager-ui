@@ -12,6 +12,7 @@ import {NeedService} from '../shared/services/need.service';
 import {SocietyService} from '../shared/services/society.service';
 import * as jsPDF from 'jspdf';
 import 'jspdf-autotable';
+import {Need} from '../shared/entities/need.model';
 
 @Component({
   selector: 'app-positioning-edit',
@@ -28,12 +29,14 @@ export class PositioningEditComponent implements OnInit {
   users: any[];
   stages: any[];
   needs: any = [];
+  need: Need;
   resources: any = [];
   societies: any = [];
   periodCA: any;
   periodCost: any;
   periodMargin: any;
   periodProfitability: any;
+  isProject = false;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -64,7 +67,7 @@ export class PositioningEditComponent implements OnInit {
     ];
 
     const ref = this.route.snapshot.params.reference;
-    console.log(this.route);
+    // console.log(this.route);
 
     this.service.getPositioning(ref).subscribe(res => {
       this.positioning = res;
@@ -76,7 +79,7 @@ export class PositioningEditComponent implements OnInit {
 
       //getPeriodMargin().divide(getPeriodCA()).multiply(BigDecimal.valueOf(100));
 
-      console.log(this.positioning.projectReference);
+    //  console.log(this.positioning.projectReference);
 
     });
     this.needService.getNeeds().subscribe(res => {
@@ -106,12 +109,14 @@ export class PositioningEditComponent implements OnInit {
       this.positioning = res;
       Swal.fire('Données Mise à jour avec succés', 'Opération Réussite!', 'success');
       this.toastr.success('Données Mise à jour avec succés', 'Opération Réussite!');
-      this.router.navigateByUrl('/positionings');
+    //  this.router.navigateByUrl('/positionings');
 
     }, error => {
       Swal.fire('Erreur lors de la modification de du Positionnement', 'Opération échoué !!!', 'error');
       this.toastr.error('Erreur lors de la modification de du Positionnement', 'Opération échoué !!!');
     });
+    this.reloadInfo();
+
   }
 
   convertToProject() {
@@ -135,6 +140,9 @@ export class PositioningEditComponent implements OnInit {
           this.projectService.createProjectFromPositioning(this.positioning.reference)
             .subscribe(
               response => {
+                this.isProject = true;
+                this.stages.push({label: 'Gagné', value: 'Won'})
+                this.positioning.stage = this.stages[5];
                 this.router.navigate(['/projects/edit', response.reference]);
                 this.toastr.success('Projet crée avec succés', 'Opération Réussite!');
               }, error => {
@@ -185,5 +193,21 @@ export class PositioningEditComponent implements OnInit {
       ]
     });
     pdf.save('positioning.pdf');
+  }
+
+  reloadInfo(){
+    this.service.getPositioning(this.route.snapshot.params.reference).subscribe(res => {
+      this.positioning = res;
+      this.positioning.projectReference = res.projectReference;
+      this.periodCA = this.positioning.tjm * this.positioning.invoicedDays;
+      this.periodCost = this.positioning.cjm * (this.positioning.freeDays + this.positioning.invoicedDays);
+      this.periodMargin = this.periodCA - this.periodCost;
+      this.periodProfitability = (this.periodMargin / (this.periodCA * 100)) * 10000;
+
+      //getPeriodMargin().divide(getPeriodCA()).multiply(BigDecimal.valueOf(100));
+
+      //  console.log(this.positioning.projectReference);
+
+    });
   }
 }

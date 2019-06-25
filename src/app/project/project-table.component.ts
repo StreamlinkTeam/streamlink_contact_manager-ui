@@ -8,6 +8,7 @@ import {ToastrService} from 'ngx-toastr';
 import {CustomEnumRenderComponent} from '../shared/custom-ng2-smart-table-renderer/custom-enum-render.component';
 import {ProjectService} from '../shared/services/project.service';
 import {DatePipe} from '@angular/common';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -199,21 +200,40 @@ export class ProjectTableComponent implements OnInit {
   }
 
   deleteProject(rowData: Row) {
-
     const project = rowData.getData();
-    if (confirm('Suppression du Projet ' + project.title)) {
-
-      this.service.deleteProject(project.reference)
-        .subscribe(res => {
-
-          this.source.remove(rowData);
-          this.toastr.success('Projet Supprimé avec succés', 'Opération Réussite!');
-
-        }, error => {
-          this.toastr.error('Erreur lors de la suppression de du Projet', 'Opération échoué !!!');
-        });
-
-    }
+    Swal.fire({
+      title: 'Êtes-vous sûr?',
+      text: 'Suppression de projet ' + project.needTitle,
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonText: 'annuler',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Oui, je confirme!'
+    }).then((result) => {
+      if (result.value) {
+        Swal.fire(
+          'Suppression!' + project.needTitle,
+          'projet' + project.needTitle + 'supprimer avec sucées',
+          'success'
+        );
+        this.service.deleteProject(project.reference)
+          .subscribe(res => {
+            this.source.remove(rowData);
+          }, error => {
+            this.toastr.error('Erreur lors de la suppression de du Projet', 'Opération échoué !!!');
+          });
+      }
+    });
   }
+
+  onSelectRow(event: any) {
+    if (event.data.resource) {
+
+      this.router.navigate(['/projects/edit', event.data.reference]);
+    }
+    this.router.navigate(['/projects/edit', event.data.reference]);
+  }
+
 
 }

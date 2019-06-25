@@ -11,11 +11,14 @@ import {NgSelectModule} from '@ng-select/ng-select';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {Ng2SmartTableModule} from 'ng2-smart-table';
 import {MatButtonModule, MatIconModule} from '@angular/material';
+import {MatInputModule} from '@angular/material/input';
+import {ButtonsModule, CardsFreeModule, WavesModule} from 'angular-bootstrap-md';
+
 
 @NgModule({
   imports: [
-    SharedModule, MatButtonModule, MatIconModule,
-    BrowserModule,
+    SharedModule, MatButtonModule, MatIconModule, MatInputModule,
+    BrowserModule, ButtonsModule, CardsFreeModule, WavesModule,
     NgSelectModule,
     BrowserAnimationsModule,
     FormsModule,

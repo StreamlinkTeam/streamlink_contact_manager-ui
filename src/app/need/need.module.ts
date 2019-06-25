@@ -23,6 +23,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 
 import {ButtonsModule, CardsFreeModule, WavesModule} from 'angular-bootstrap-md';
+import {ActionModule} from '../action/action.module';
 
 
 @NgModule({
@@ -34,7 +35,7 @@ import {ButtonsModule, CardsFreeModule, WavesModule} from 'angular-bootstrap-md'
     BrowserAnimationsModule,
     SharedModule,
     CommonModule,
-    BrowserModule],
+    BrowserModule, ActionModule],
   declarations: [NeedEditorComponent, NeedInfoEditorComponent, NeedTableComponent, NeedComponent],
   exports: [NeedEditorComponent, NeedInfoEditorComponent, NeedTableComponent, NeedComponent]
 })

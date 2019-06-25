@@ -8,6 +8,9 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {CustomEnumRenderComponent} from '../shared/custom-ng2-smart-table-renderer/custom-enum-render.component';
 import {Society} from '../shared/entities/society.model';
+import {MatDialog, MatDialogConfig} from '@angular/material';
+import {SocietyAddDialogComponent} from './society-add-dialog.component';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -81,7 +84,8 @@ export class SocietyTableComponent implements OnInit {
               private toastr: ToastrService,
               private http: HttpClient,
               private router: Router,
-              private activeRoute: ActivatedRoute) {
+              private activeRoute: ActivatedRoute,
+              private dialog: MatDialog) {
 
     if (activeRoute.snapshot.params['error'] === 'error') {
       this.toastr.warning('Erreur lors de la récupération de données', 'Opération échoué!');
@@ -171,21 +175,49 @@ export class SocietyTableComponent implements OnInit {
   }
 
   deleteSociety(rowData: Row) {
-
     const society = rowData.getData();
-    if (confirm('Suppression de la Société ' + society.label)) {
-
-
-      this.service.deleteSociety(society.reference).subscribe(res => {
-
-        this.source.remove(rowData);
-        this.toastr.success('Société Supprimée avec succés', 'Opération Réussite!');
-
-      }, error => {
-        this.toastr.error('Erreur lors de la suppression de la Société', 'Opération échoué !!!');
-      });
-
-    }
+    Swal.fire({
+      title: 'Êtes-vous sûr?',
+      text: 'Supprimer de la société ' + society.label,
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonText: 'Annuler',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Oui, je confirme!'
+    }).then((result) => {
+      if (result.value) {
+        Swal.fire(
+          'Supprimer!',
+          'La société' + society.label + 'supprimer avec sucées',
+          'success'
+        );
+        this.service.deleteSociety(society.reference)
+          .subscribe(res => {
+            this.source.remove(rowData);
+          }, error => {
+            this.toastr.error('Erreur lors de la suppression de la société', 'Opération échoué !!!');
+          });
+      }
+    });
   }
 
+  onCreate() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '50%';
+    dialogConfig.panelClass = 'dialog';
+    this.dialog.open(SocietyAddDialogComponent, dialogConfig).afterClosed().subscribe(result => {
+      this.source.refresh();
+    });
+  }
+
+  onSelectRow(event: any) {
+    if (event.data.resource) {
+
+      this.router.navigate(['/societies/edit', event.data.reference]);
+    }
+    this.router.navigate(['/societies/edit', event.data.reference]);
+  }
 }

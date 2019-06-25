@@ -15,6 +15,8 @@ import {Ng2SmartTableModule} from 'ng2-smart-table';
 import {ActionModule} from '../action/action.module';
 import {ContactModule} from '../contact/contact.module';
 import {SocietyContactComponent} from './society-contact.component';
+import {MatButtonModule, MatIconModule} from '@angular/material';
+import {CardsFreeModule} from 'angular-bootstrap-md';
 
 
 @NgModule({
@@ -28,7 +30,8 @@ import {SocietyContactComponent} from './society-contact.component';
     CommonModule,
     Ng2SmartTableModule,
     ActionModule,
-    ContactModule],
+    MatButtonModule, MatIconModule,
+    ContactModule, CardsFreeModule],
   declarations: [SocietyContactTableComponent, SocietyContactComponent, SocietyContactEditorComponent],
   exports: [SocietyContactTableComponent, SocietyContactComponent, SocietyContactEditorComponent]
 })

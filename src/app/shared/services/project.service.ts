@@ -89,7 +89,7 @@ export class ProjectService {
 
   deleteProject(projectReference: string) {
     this.loaderService.show();
-    const url = environment.API + '/ws/projects';
+    const url = environment.API + '/ws/projectspos';
 
     const options = {params: new HttpParams().set('projectReference', projectReference)};
 

@@ -1,13 +1,25 @@
 <div class="container tab-pane fade show active" role="tabpanel">
   <div class="row">
-    <div class="col border">
+    <div class="col">
+      <mdb-card>
+
       <div class="row">
-        <div [class.bg-info]="!editing && !currentUser" [class.bg-warning]="editing || currentUser" class="col border">
-          <h5 class="text-dark dropdown-header">Détails De L'utilisateur</h5>
+        <div class="col">
+          <mdb-card>
+            <mdb-card-header>Détails De L'utilisateur </mdb-card-header>
+          </mdb-card>
         </div>
+
       </div>
-      <div class="row">
-        <div class="col border">
+<!--      <div class="row">-->
+<!--        <div [class.bg-info]="!editing && !currentUser" [class.bg-warning]="editing || currentUser" class="col border">-->
+<!--          <h5 class="text-dark dropdown-header">Détails De L'utilisateur</h5>-->
+<!--        </div>-->
+<!--      </div>-->
+        <mdb-card-body>
+
+        <div class="row">
+        <div class="col">
           <form #form="ngForm" (ngSubmit)="save(form)" novalidate>
 
             <div class="form-group">
@@ -81,17 +93,24 @@
             </div>
 
             <div class="form-group">
-              <button [class.btn-warning]="editing || currentUser" class="btn btn-primary"
-                      type="submit">Enregistrer
+              <button style="margin: 5px" color="primary" mat-raised-button type="submit">
+                <mat-icon>save</mat-icon>
+                Enregistrer
               </button>
-              <button *ngIf="!currentUser" class="btn btn-secondary" routerLink="/admin/users"
-                      type="reset">Annuler
+
+
+              <button color="warn" mat-raised-button  routerLink="/admin/users"
+                      type="reset">
+                <mat-icon>cancel</mat-icon>
+                Annuler
               </button>
 
             </div>
           </form>
         </div>
       </div>
-    </div>
+        </mdb-card-body>
+      </mdb-card>
   </div>
+</div>
 </div>

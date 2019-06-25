@@ -6,6 +6,9 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {environment} from '../../environments/environment';
 import {UserService} from '../shared/services/user.service';
+import {MatDialog, MatDialogConfig} from '@angular/material';
+import {UserAddDialogComponent} from './user-add-dialog.component';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -60,7 +63,8 @@ export class UserTableComponent implements OnInit {
               private toastr: ToastrService,
               private http: HttpClient,
               private router: Router,
-              private activeRoute: ActivatedRoute) {
+              private activeRoute: ActivatedRoute,
+              private dialog: MatDialog) {
 
     if (activeRoute.snapshot.params['error'] === 'error') {
       this.toastr.warning('Erreur lors de la récupération de données', 'Opération échoué!');
@@ -87,21 +91,51 @@ export class UserTableComponent implements OnInit {
   }
 
   deleteUser(rowData: Row) {
-
     const user = rowData.getData();
-    if (confirm('Suppression de l\'utilisateur ' + user.firstname + ' ' + user.lastname)) {
+    Swal.fire({
+      title: 'Êtes-vous sûr?',
+      text: 'Supprimer l\'utilisateur ' + user.firstname + ' ' + user.lastname,
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonText: 'annuler',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Oui, je confirme!'
+    }).then((result) => {
+      if (result.value) {
+        Swal.fire(
+          'Supprimer!',
+          'L\'utilisateur' + user.firstname + ' ' + user.lastname + ' supprimer avec sucées',
+          'success'
+        );
+        this.service.deleteUser(user.reference)
+          .subscribe(res => {
 
-      this.service.deleteUser(user.reference)
-        .subscribe(res => {
+            this.source.remove(rowData);
+          }, error => {
+            this.toastr.error('Erreur lors de la suppression de l\'Utilisateur', 'Opération échoué !!!');
+          });
+      }
+    });
+  }
 
-          this.source.remove(rowData);
-          this.toastr.success('Utilisateur Supprimé avec succés', 'Opération Réussite!');
+  onCreate() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '20%';
+    dialogConfig.panelClass = 'dialog';
+    this.dialog.open(UserAddDialogComponent, dialogConfig).afterClosed().subscribe(result => {
+      this.source.refresh();
+    });
+  }
 
-        }, error => {
-          this.toastr.error('Erreur lors de la suppression de l\'Utilisateur', 'Opération échoué !!!');
-        });
+  onSelectRow(event: any) {
+    if (event.data.resource) {
 
+      this.router.navigate(['/admin/users/edit', event.data.reference]);
     }
+    this.router.navigate(['/admin/users/edit', event.data.reference]);
   }
 
 }

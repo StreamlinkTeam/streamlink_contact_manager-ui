@@ -4,7 +4,7 @@
     <!--{{projectPos.resourceFullName}} : {{ projectPos.needTitle}} {{projectPos.createdDate}}-->
     <mdb-card-body>
       <div class="row">
-        <div class="col border">
+        <div class="col">
           <form #form="ngForm" (ngSubmit)="save(form)" novalidate>
 
             <div *ngIf="editing" class="form-group">
@@ -97,13 +97,22 @@
 <!--            </div>-->
 
             <div class="form-group">
-              <button class="btn btn-warning" type="submit">Enregistrer</button>
+              <button
+                color="primary"
+                mat-raised-button
+                style="margin: 10px"
+                type="submit">
+                <mat-icon>save_outline</mat-icon>
+                Enregistrer
+
+              </button>
+<!--              <button class="btn btn-warning" type="submit">Enregistrer</button>-->
               <button *ngIf="isDeveloper()" class="btn btn-secondary" routerLink="/developers"
                       type="reset">Annuler
               </button>
-              <button *ngIf="isResource()" class="btn btn-secondary" routerLink="/resources"
-                      type="reset">Annuler
-              </button>
+<!--              <button *ngIf="isResource()" class="btn btn-secondary" routerLink="/resources"-->
+<!--                      type="reset">Annuler-->
+<!--              </button>-->
               <button *ngIf="isSocietyContact()" class="btn btn-secondary"
                       routerLink="/societies/edit/{{societyReference}}/contacts"
                       type="reset">Annuler
@@ -121,9 +130,9 @@
                       type="reset">Annuler
               </button>
 
-              <button (click)="newAction(form)" *ngIf="editing" class="btn btn-primary"
-                      type="button">Nouveau
-              </button>
+<!--              <button (click)="newAction(form)" *ngIf="editing" class="btn btn-primary"-->
+<!--                      type="button">Nouveau-->
+<!--              </button>-->
             </div>
 
             <table *ngIf="actions?.length > 0"
