@@ -40,6 +40,11 @@ tr.ng2-smart-filters {
   display: none;
 }
 
+.dialog > mat-dialog-container {
+  padding: 2px;
+}
+
+
 /*input.ng-dirty.ng-invalid {*/
 /*border: 2px solid #ff0000*/
 /*}*/

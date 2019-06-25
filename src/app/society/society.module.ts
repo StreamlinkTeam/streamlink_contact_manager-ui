@@ -18,15 +18,20 @@ import {SocietyLegalInfoEditorComponent} from './society-legal-info-editor.compo
 import {ActionModule} from '../action/action.module';
 import {MatButtonModule, MatIconModule} from '@angular/material';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material';
+import {MatSelectModule} from '@angular/material/select';
+
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 
 import {ButtonsModule, CardsFreeModule, WavesModule} from 'angular-bootstrap-md';
 
 @NgModule({
   imports: [
-    ButtonsModule, WavesModule, CardsFreeModule, MatButtonModule, MatIconModule, MatTabsModule,
-    SharedModule,
-    BrowserModule,
+    ButtonsModule, WavesModule, CardsFreeModule, MatButtonModule, MatIconModule, MatTabsModule,MatInputModule,
+    SharedModule, MatFormFieldModule, MatSelectModule,
+    BrowserModule, MatDatepickerModule,
     NgSelectModule,
     BrowserAnimationsModule,
     FormsModule,

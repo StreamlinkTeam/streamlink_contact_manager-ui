@@ -1,11 +1,25 @@
 <div class="container tab-pane fade show active" role="tabpanel">
   <div class="row">
-    <div class="col border">
-      <div *ngIf="!editing" class="row">
-        <div class="col border bg-info">
-          <h5 class="text-dark dropdown-header">Informations Général du Contact</h5>
+    <div class="col">
+
+      <mdb-card>
+
+
+      <div class="row">
+        <div class="col">
+          <mdb-card>
+            <mdb-card-header>Informations Général du Contact
+              </mdb-card-header>
+          </mdb-card>
         </div>
       </div>
+<!--      <div *ngIf="!editing" class="row">-->
+<!--        <div class="col border bg-info">-->
+<!--          <h5 class="text-dark dropdown-header">Informations Général du Contact</h5>-->
+<!--        </div>-->
+<!--      </div>-->
+      <mdb-card-body>
+
       <div class="row">
         <div class="col border">
           <form #form="ngForm" (ngSubmit)="save(form)" novalidate>
@@ -93,16 +107,36 @@
 
 
             <div class="form-group">
-              <button [class.btn-warning]="editing" class="btn btn-primary"
-                      type="submit">Enregistrer
+
+              <button
+                style="margin: 10px" type="submit"
+                color="primary"
+                mat-raised-button
+                type="submit">Enregistrer
               </button>
-              <button class="btn btn-secondary" routerLink="/societies/edit/{{societyReference}}/contacts"
-                      type="reset">Annuler
+
+<!--              <button [class.btn-warning]="editing" class="btn btn-primary"-->
+<!--                      type="submit">Enregistrer-->
+<!--              </button>-->
+
+              <button
+                style="margin: 10px" type="submit"
+                color="warn"
+                mat-raised-button
+                routerLink="/societies/edit/{{societyReference}}/contacts"
+                type="reset">Annuler
               </button>
+
+
+<!--              <button class="btn btn-secondary" routerLink="/societies/edit/{{societyReference}}/contacts"-->
+<!--                      type="reset">Annuler-->
+<!--              </button>-->
             </div>
           </form>
         </div>
       </div>
+      </mdb-card-body>
+      </mdb-card>
     </div>
 
   </div>
