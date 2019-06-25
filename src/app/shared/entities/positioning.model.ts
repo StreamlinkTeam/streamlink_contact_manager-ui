@@ -9,6 +9,7 @@ export class Positioning {
   clientReference: string;
   needTitle: string;
   resourceFullName: string;
+  email: string;
   client: string;
   societyName: string;
   stage: string;

@@ -207,6 +207,19 @@
                 </mat-form-field>
               </div>
 
+              <div style="position: absolute; position: absolute; margin-top: -102.5%; margin-left: -170%;" >
+                <mdb-card>
+                  <mdb-card-header><b>Informations complémentaires</b></mdb-card-header>
+                  <mdb-card-body>
+                    CA de cette période	 = {{ positioning.periodCA }} €<br>
+                    Coût de cette période	= {{ positioning.periodCost }} €<br>
+                    Marge de cette période = {{ positioning.periodMargin }} €<br>
+                    Rentabilité de cette période = {{positioning.periodProfitability}} %
+                  </mdb-card-body>
+                </mdb-card>
+              </div>
+
+
             </div>
             <div class="form-group">
               <button color="primary" mat-raised-button
@@ -226,6 +239,13 @@
                       routerLink="/positionings" style="margin: 3px" type="reset">
                 <mat-icon>cancel</mat-icon>
                 Retour
+              </button>
+
+              <button color="primary" mat-raised-button
+                      (click)="downloadPDF()" style="margin: 3px" type="button">
+                <i class="fa-file-pdf"></i>
+                <mat-icon>file_copy</mat-icon>
+                Exporter en PDF
               </button>
 
 

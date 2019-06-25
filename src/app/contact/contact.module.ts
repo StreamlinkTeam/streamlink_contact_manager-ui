@@ -6,6 +6,8 @@ import {ContactEditorComponent} from './contact-editor.component';
 import {FormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {BrowserModule} from '@angular/platform-browser';
+import {CardsFreeModule} from 'angular-bootstrap-md';
+import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
   imports: [
@@ -14,6 +16,8 @@ import {BrowserModule} from '@angular/platform-browser';
     BrowserModule,
     RouterModule,
     SharedModule,
+    CardsFreeModule,
+    MatButtonModule
   ],
   exports: [
     ContactEditorComponent

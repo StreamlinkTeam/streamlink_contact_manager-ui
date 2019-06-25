@@ -85,6 +85,10 @@
                       type="reset">Annuler
               </button>
 
+              <button *ngIf="isNeed()" class="btn btn-secondary" routerLink="/needs"
+                      type="reset">Annuler
+              </button>
+
               <button (click)="newAction(form)" *ngIf="editing" class="btn btn-primary"
                       type="button">Nouveau
               </button>

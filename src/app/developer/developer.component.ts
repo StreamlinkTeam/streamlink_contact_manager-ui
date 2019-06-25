@@ -3,7 +3,9 @@ import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   moduleId: module.id,
-  templateUrl: 'developer.component.html'
+  templateUrl: 'developer.component.html',
+  styleUrls: ['developer.component.css']
+
 })
 export class DeveloperComponent {
 

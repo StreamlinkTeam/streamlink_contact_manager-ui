@@ -22,7 +22,9 @@ tr.ng2-smart-titles {
 a.ng2-smart-sort-link.sort {
   color: white;
 }
-
+tr:hover{
+  cursor: pointer;
+}
 .starter-template {
   padding: 3rem 1.5rem;
   /*     text-align: center; */

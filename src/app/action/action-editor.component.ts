@@ -69,6 +69,13 @@ export class ActionEditorComponent {
         .subscribe(response => this.actions = response,
           error =>
             this.router.navigate(['/' + activeRoute.snapshot.parent.url[0].toString(), 'error']));
+
+    } else if (this.isNeed()) {
+      this.reference = activeRoute.snapshot.parent.params['reference'];
+      this.service.getNeedActions(this.reference)
+        .subscribe(response => this.actions = response,
+          error =>
+            this.router.navigate(['/' + activeRoute.snapshot.parent.url[0].toString(), 'error']));
     }
 
 
@@ -87,6 +94,9 @@ export class ActionEditorComponent {
     return this.contactType === 'projects';
   }
 
+  isNeed() {
+    return this.contactType === 'needs';
+  }
 
   isSociety() {
     return this.contactType === 'societies';
@@ -164,6 +174,16 @@ export class ActionEditorComponent {
       } else if (this.isProject()) {
 
         this.service.deleteProjectAction(act.reference, this.reference).subscribe(response => {
+
+          this.actions.splice(index, 1);
+          this.toastr.success('Action supprimée avec succés', 'Opération Réussite!');
+
+        }, error => {
+          this.toastr.error('Erreur lors de la suppression de l\'Action', 'Opération échoué !!!');
+        });
+      } else if (this.isNeed()) {
+
+        this.service.deleteNeedAction(act.reference, this.reference).subscribe(response => {
 
           this.actions.splice(index, 1);
           this.toastr.success('Action supprimée avec succés', 'Opération Réussite!');
@@ -255,6 +275,33 @@ export class ActionEditorComponent {
             .subscribe(response => {
 
               this.service.getProjectActions(this.reference).subscribe(res => this.actions = res);
+              this.action = new Action();
+              this.toastr.success('Action Créé avec succés', 'Opération Réussite!');
+
+            }, error => {
+              this.toastr.error('Erreur lors de la création de l\'Action', 'Opération échoué !!!');
+            });
+        }
+      } else if (this.isNeed()) {
+        if (this.editing) {
+
+          this.service.updateNeedAction(this.action, this.action.reference, this.reference)
+            .subscribe(response => {
+
+              this.service.getNeedActions(this.reference).subscribe(res => this.actions = res);
+              this.action = new Action();
+              this.editing = false;
+              this.toastr.success('Action Mise à jour avec succés', 'Opération Réussite!');
+
+
+            }, error => {
+              this.toastr.error('Erreur lors de la mise à jour de l\'Action', 'Opération échoué !!!');
+            });
+        } else {
+          this.service.createNeedAction(this.action, this.reference)
+            .subscribe(response => {
+
+              this.service.getNeedActions(this.reference).subscribe(res => this.actions = res);
               this.action = new Action();
               this.toastr.success('Action Créé avec succés', 'Opération Réussite!');
 

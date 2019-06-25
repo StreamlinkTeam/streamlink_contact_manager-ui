@@ -21,7 +21,7 @@ export class ResourceTableComponent implements OnInit {
 
   settings = {
     attr: {
-      class: ''
+      class: 'table table-striped'
     },
     edit: {
       editButtonContent: '<a class="btn btn-info" title="Modifier ou consulter"><i class="fa fa-pencil-square-o"></i></a>'
