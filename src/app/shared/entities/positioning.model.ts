@@ -6,6 +6,7 @@ export class Positioning {
   needReference: string;
   responsibleFullName: string;
   responsibleReference: string;
+  managerReference: string;
   clientReference: string;
   needTitle: string;
   resourceFullName: string;

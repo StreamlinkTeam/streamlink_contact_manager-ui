@@ -46,6 +46,7 @@
   </mdb-card>
   <br>
   <ng2-smart-table (delete)="deletePositioning($event)"
+                   (userRowSelect)="onSelectRow($event)"
                    (edit)="showPositioning($event)"
                    [settings]="settings"
                    [source]="source"

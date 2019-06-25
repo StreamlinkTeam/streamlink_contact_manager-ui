@@ -10,12 +10,113 @@
             <div class="col-md-6">
               <div class="form-group">
 
-                <mat-form-field class="example-container">
-                  <input [(ngModel)]="positioning.needTitle" matInput
-                         name="project"
-                         placeholder="Nom de besoin" readonly="true"
-                         type="text">
-                </mat-form-field>
+                <table class="table table-striped">
+                  <thead></thead>
+                  <tbody>
+
+                  <tr *ngIf="positioning.stage == 'Won'">
+                    <th scope="row"><b>Etat</b></th>
+                    <td>
+                      <input matInput
+                             name="stg"
+                             readonly="true"
+                             type="text">Gagné
+                    </td>
+                  </tr>
+
+                  <tr *ngIf="positioning.stage != 'Won'">
+                    <th scope="row"><b>Etat</b></th>
+                    <td>
+                      <select [(ngModel)]="positioning.stage" class="form-control"
+                              name="stage">
+<!--                        <ng-container *ngIf="!isProject">-->
+<!--                          <option *ngFor="let stage of stages" [value]="stage.value">Gagné</option>-->
+<!--                        </ng-container>-->
+                        <option *ngFor="let stage of stages" [value]="stage.value">{{stage.label}}</option>
+                      </select>
+<!--                      <mat-form-field class="example-container">-->
+<!--&lt;!&ndash;                        [placeholder]="positioning.stage == 'Won' ? 'Gagné' : 'Etat' "&ndash;&gt;-->
+<!--                        <mat-select-->
+<!--                          [(ngModel)]="positioning.stage"-->
+<!--                          [disabled]="positioning.stage == 'Won'"-->
+
+<!--                          name="stage"-->
+<!--                          required>-->
+<!--                          <mat-option *ngFor="let stage of stages" [value]="stage.value">{{stage.label}}</mat-option>-->
+<!--                        </mat-select>-->
+<!--                      </mat-form-field>-->
+                    </td>
+                  </tr>
+
+
+                  <tr>
+                    <th scope="row"><b>Titre du besoin	</b></th>
+                    <td>
+                      <input [(ngModel)]="positioning.needTitle" matInput
+                             name="project"
+                             placeholder="Nom de besoin" readonly="true"
+                             type="text">
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <th scope="row"><b>Ressource</b></th>
+                    <td>
+                      <input [(ngModel)]="positioning.resourceFullName" matInput
+                             name="resource"
+                             placeholder="Resource" readonly="true"
+                             type="text">
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <th scope="row"><b>Client</b></th>
+                    <td>
+                      <input [(ngModel)]="positioning.client" matInput
+                             name="society"
+                             placeholder="Client - Contact" readonly="true"
+                             type="text">
+                    </td>
+                  </tr>
+                  <tr>
+
+<!--                  <tr>-->
+<!--                    <th scope="row"><b>Etat</b></th>-->
+<!--                    <td>-->
+<!--                      <select [(ngModel)]="positioning.stage" class="form-control"-->
+<!--                              name="stage">-->
+<!--                        <option *ngFor="let stage of stages" [value]="stage.value">{{stage.label}}</option>-->
+<!--                      </select>-->
+
+
+
+                    <th scope="row"><b>Responsable</b></th>
+                    <td>
+                      <select [(ngModel)]="positioning.responsibleFullName" class="form-control"
+                              name="responsible">
+                        <option *ngFor="let user of users" [value]="user.value">{{user.firstname}} {{user.lastname}}</option>
+                      </select>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <th scope="row"><b>Commentaire</b></th>
+                    <td>
+                      <textarea style="border: 1px solid #c4cfe7; border-radius: 5px" rows="10" [(ngModel)]="positioning.note" matInput
+                             name="note"
+                             placeholder="Commentaire"
+                                type="text"></textarea>
+                    </td>
+                  </tr>
+
+                  </tbody></table>
+
+<!--                <mat-form-field class="example-container">-->
+<!--                  <input [(ngModel)]="positioning.needTitle" matInput-->
+<!--                         name="project"-->
+<!--                         placeholder="Nom de besoin" readonly="true"-->
+<!--                         type="text">-->
+<!--                </mat-form-field>-->
 
                 <!--<ng-select [(ngModel)]="positioning.needReference"-->
                 <!--[items]="needs"-->
@@ -29,15 +130,15 @@
                 <!--required-->
                 <!--typeToSearchText="tapez plus de 3 caractères pour trouver le projet">-->
                 <!--</ng-select>-->
-              </div>
+<!--              </div>-->
 
-              <div class="form-group">
-                <mat-form-field class="example-container">
-                  <input [(ngModel)]="positioning.resourceFullName" matInput
-                         name="resource"
-                         placeholder="Resource" readonly="true"
-                         type="text">
-                </mat-form-field>
+<!--              <div class="form-group">-->
+<!--                <mat-form-field class="example-container">-->
+<!--                  <input [(ngModel)]="positioning.resourceFullName" matInput-->
+<!--                         name="resource"-->
+<!--                         placeholder="Resource" readonly="true"-->
+<!--                         type="text">-->
+<!--                </mat-form-field>-->
 
                 <!--<ng-select [(ngModel)]="positioning.resourceReference"-->
                 <!--[items]="resources"-->
@@ -51,16 +152,43 @@
                 <!--typeToSearchText="tapez plus de 3 caractères pour trouver la resource">-->
                 <!--</ng-select>-->
 
+
+
+
+
+
+
+<!--                <div class="form-group">-->
+<!--                  <mat-form-field class="example-container">-->
+<!--                    <input [(ngModel)]="positioning.note" matInput-->
+<!--                           name="note"-->
+<!--                           placeholder="Note"-->
+<!--                           required-->
+<!--                           type="text">-->
+<!--                  </mat-form-field>-->
+<!--                </div>-->
               </div>
 
-              <div class="form-group">
+<!--              <div class="form-group">-->
 
-                <mat-form-field class="example-container">
-                  <input [(ngModel)]="positioning.responsibleFullName" matInput
-                         name="responsable"
-                         placeholder="Responsable" readonly="true"
-                         type="text">
-                </mat-form-field>
+<!--                <mat-form-field class="example-container">-->
+<!--                  <mat-select [(ngModel)]="positioning.responsibleReference"-->
+<!--                              name="manager"-->
+<!--                              placeholder="Responsable manager">-->
+<!--                    <mat-option *ngFor="let user of users" [value]="user.reference">{{user.firstname}}-->
+<!--                      {{user.lastname}}-->
+<!--                    </mat-option>-->
+<!--                  </mat-select>-->
+<!--                </mat-form-field>-->
+
+
+<!--                <mat-form-field class="example-container">-->
+<!--                  -->
+<!--                  <input [(ngModel)]="positioning.responsibleFullName" matInput-->
+<!--                         name="responsable"-->
+<!--                         placeholder="Responsable"-->
+<!--                         type="text">-->
+<!--                </mat-form-field>-->
 
                 <!--<mat-form-field class="example-container">-->
                 <!--<mat-select [(ngModel)]="positioning.responsibleReference"-->
@@ -72,27 +200,27 @@
                 <!--</mat-option>-->
                 <!--</mat-select>-->
                 <!--</mat-form-field>-->
-              </div>
+<!--              </div>-->
 
-              <div class="form-group">
+<!--              <div class="form-group">-->
 
-                <mat-form-field class="example-container">
-                  <input [(ngModel)]="positioning.client" matInput
-                         name="society"
-                         placeholder="Client - Contact" readonly="true"
-                         type="text">
-                </mat-form-field>
-                <!--<ng-select [(ngModel)]="positioning.clientReference"-->
-                <!--[items]="societies"-->
-                <!--bindLabel="label"-->
-                <!--bindValue="reference"-->
-                <!--name="society"-->
-                <!--notFoundText="Aucun élément trouvé"-->
-                <!--required-->
-                <!--typeToSearchText="tapez plus de 3 caractères pour trouver la resource">-->
-                <!--</ng-select>-->
+<!--                <mat-form-field class="example-container">-->
+<!--                  <input [(ngModel)]="positioning.client" matInput-->
+<!--                         name="society"-->
+<!--                         placeholder="Client - Contact" readonly="true"-->
+<!--                         type="text">-->
+<!--                </mat-form-field>-->
+<!--                &lt;!&ndash;<ng-select [(ngModel)]="positioning.clientReference"&ndash;&gt;-->
+<!--                &lt;!&ndash;[items]="societies"&ndash;&gt;-->
+<!--                &lt;!&ndash;bindLabel="label"&ndash;&gt;-->
+<!--                &lt;!&ndash;bindValue="reference"&ndash;&gt;-->
+<!--                &lt;!&ndash;name="society"&ndash;&gt;-->
+<!--                &lt;!&ndash;notFoundText="Aucun élément trouvé"&ndash;&gt;-->
+<!--                &lt;!&ndash;required&ndash;&gt;-->
+<!--                &lt;!&ndash;typeToSearchText="tapez plus de 3 caractères pour trouver la resource">&ndash;&gt;-->
+<!--                &lt;!&ndash;</ng-select>&ndash;&gt;-->
 
-              </div>
+<!--              </div>-->
 
               <!--<div class="form-group">-->
               <!--<mat-form-field class="example-container">-->
@@ -107,55 +235,25 @@
               <!--</mat-form-field>-->
               <!--</div>-->
 
-              <div class="form-group">
-                <mat-form-field class="example-container">
-                  <mat-select
-                    [(ngModel)]="positioning.stage"
-                    [disabled]="positioning.stage == 'Won'"
-                    [placeholder]="positioning.stage == 'Won' ? 'Gagné' : 'Etat' "
-                    name="stage"
-                    required>
-                    <mat-option *ngFor="let stage of stages" [value]="stage.value">{{stage.label}}</mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </div>
+<!--              <div class="form-group">-->
+<!--                <mat-form-field class="example-container">-->
+<!--                  <mat-select-->
+<!--                    [(ngModel)]="positioning.stage"-->
+<!--                    [disabled]="positioning.stage == 'Won'"-->
+<!--                    [placeholder]="positioning.stage == 'Won' ? 'Gagné' : 'Etat' "-->
+<!--                    name="stage"-->
+<!--                    required>-->
+<!--                    <mat-option *ngFor="let stage of stages" [value]="stage.value">{{stage.label}}</mat-option>-->
+<!--                  </mat-select>-->
+<!--                </mat-form-field>-->
+<!--              </div>-->
 
 
-              <div class="form-group">
-                <mat-form-field class="example-container">
 
-                  <input [(ngModel)]="positioning.freeDays" matInput
-                         name="freeDays"
-                         placeholder="Jours gratuits"
-                         required
-                         type="number">
-                </mat-form-field>
-              </div>
 
             </div>
 
             <div class="col-md-6">
-
-
-              <div class="form-group">
-                <mat-form-field class="example-container">
-                  <input [(ngModel)]="positioning.invoicedDays" matInput
-                         name="invoicedDays"
-                         placeholder="Jours facturés"
-                         required
-                         type="number">
-                </mat-form-field>
-              </div>
-
-              <div class="form-group">
-                <mat-form-field class="example-container">
-                  <input [(ngModel)]="positioning.note" matInput
-                         name="note"
-                         placeholder="Note"
-                         required
-                         type="text">
-                </mat-form-field>
-              </div>
 
               <div class="form-group">
                 <mat-form-field class="example-container">
@@ -183,6 +281,27 @@
                          required>
                   <mat-datepicker-toggle [for]="picker2" matSuffix></mat-datepicker-toggle>
                   <mat-datepicker #picker2></mat-datepicker>
+                </mat-form-field>
+              </div>
+
+              <div class="form-group">
+                <mat-form-field class="example-container">
+
+                  <input [(ngModel)]="positioning.freeDays" matInput
+                         name="freeDays"
+                         placeholder="Jours gratuits"
+                         required
+                         type="number">
+                </mat-form-field>
+              </div>
+
+              <div class="form-group">
+                <mat-form-field class="example-container">
+                  <input [(ngModel)]="positioning.invoicedDays" matInput
+                         name="invoicedDays"
+                         placeholder="Jours facturés"
+                         required
+                         type="number">
                 </mat-form-field>
               </div>
 

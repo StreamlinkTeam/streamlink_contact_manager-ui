@@ -10,6 +10,7 @@ import {PositioningService} from '../shared/services/positioning.service';
 import {MatDialog, MatDialogConfig} from '@angular/material';
 import {PositioningAddComponent} from '../positioning-add/positioning-add.component';
 import {DatePipe} from '@angular/common';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -42,11 +43,6 @@ export class PositioningTableComponent implements OnInit {
     },
     mode: 'external',
     columns: {
-      note: {
-        title: 'Commentaire',
-        filter: false,
-        sort: false
-      },
       createdDate: {
         title: 'Date de création',
         type: 'date',
@@ -213,28 +209,50 @@ export class PositioningTableComponent implements OnInit {
   }
 
   deletePositioning(rowData: Row) {
-
     const positioning = rowData.getData();
-    if (confirm('Suppression du Positionnement ' + positioning.title)) {
-      this.service.deletePositioning(positioning.reference)
-        .subscribe(res => {
-          this.source.remove(rowData);
-          // this.toastr.success('Positionnement Supprimé avec succés', 'Opération Réussite!');
-        }, error => {
-          //  this.toastr.error('Erreur lors de la suppression de du Positionnement', 'Opération échoué !!!');
-        });
-    }
+    Swal.fire({
+      title: 'Êtes-vous sûr?',
+      text: 'Suppression de Positionnement ' + positioning.needTitle,
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonText: 'annuler',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Oui, je confirme!'
+    }).then((result) => {
+      if (result.value) {
+        Swal.fire(
+          'Suppression!',
+          'Positionnement' + positioning.needTitle + 'supprimer avec sucées',
+          'success'
+        );
+        this.service.deletePositioning(positioning.reference)
+          .subscribe(res => {
+            this.source.remove(rowData);
+          }, error => {
+            alert('Erreur lors de la suppression de du Positionnement !!');
+          });
+      }
+    });
   }
 
   onCreate() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = '60%';
+    dialogConfig.width = '50%';
+    dialogConfig.panelClass = 'dialog';
     this.dialog.open(PositioningAddComponent, dialogConfig).afterClosed().subscribe(result => {
       this.source.refresh();
     });
   }
 
+  onSelectRow(event: any) {
+    if (event.data.resource) {
+
+      this.router.navigate(['/positionings/edit', event.data.reference]);
+    }
+    this.router.navigate(['/positionings/edit', event.data.reference]);
+  }
 
 }
