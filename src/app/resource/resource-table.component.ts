@@ -7,6 +7,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {CustomEnumRenderComponent} from '../shared/custom-ng2-smart-table-renderer/custom-enum-render.component';
 import {ResourceService} from '../shared/services/resource.service';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -206,20 +207,31 @@ export class ResourceTableComponent implements OnInit {
   }
 
   deleteResource(rowData: Row) {
-
     const resource = rowData.getData();
-    if (confirm('Suppression De La resource' + resource.firstname + ' ' + resource.lastname)) {
-
-      this.service.deleteResource(resource.reference).subscribe(res => {
-
-        this.source.remove(rowData);
-        this.toastr.success('Resource Supprimé avec succés', 'Opération Réussite!');
-
-      }, error => {
-        this.toastr.error('Erreur lors de la suppression de la Resource', 'Opération échoué !!!');
-      });
-
-    }
+    Swal.fire({
+      title: 'Êtes-vous sûr?',
+      text: 'Supprimer de la ressource ' + resource.firstname + ' ' + resource.lastname,
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonText: 'Annuler',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Oui, je confirme!'
+    }).then((result) => {
+      if (result.value) {
+        Swal.fire(
+          'Supprimer!',
+          'La ressource ' + resource.firstname + ' ' + resource.lastname + ' supprimer avec sucées',
+          'success'
+        );
+        this.service.deleteResource(resource.reference)
+          .subscribe(res => {
+            this.source.remove(rowData);
+          }, error => {
+            this.toastr.error('Erreur lors de la suppression de la ressource', 'Opération échoué !!!');
+          });
+      }
+    });
   }
 
   onSelectRow(event: any) {

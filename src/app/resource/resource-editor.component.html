@@ -31,7 +31,7 @@
                   <thead></thead>
                   <tbody>
                   <tr>
-                    <th scope="row"><b>Nom</b></th>
+                    <th scope="row"><b>Nom</b><label *ngIf="!editing">*</label></th>
                     <td><input #firstname_input="ngModel" [(ngModel)]="resource.firstname"
                                class="form-control" name="firstname"
                                required/>
@@ -44,7 +44,7 @@
                   </tr>
 
                   <tr>
-                    <th scope="row"><b>Prénom</b></th>
+                    <th scope="row"><b>Prénom</b><label *ngIf="!editing">*</label></th>
                     <td><input #lastname_input="ngModel" [(ngModel)]="resource.lastname"
                                class="form-control" name="lastname"
                                required/>
@@ -74,30 +74,30 @@
                   </tr>
 
                   <tr>
-                    <th scope="row"><b>Etat</b></th>
+                    <th scope="row"><b>Etat</b><label *ngIf="!editing">*</label></th>
                     <td>
                       <select [(ngModel)]="resource.resourceStage" class="form-control"
-                              name="resourceStage">
+                              name="resourceStage" required>
                         <option *ngFor="let stage of resourceStages" [ngValue]="stage.value">{{stage.label}}</option>
                       </select>
                     </td>
                   </tr>
 
                   <tr>
-                    <th scope="row"><b>Type</b></th>
+                    <th scope="row"><b>Type</b><label *ngIf="!editing">*</label></th>
                     <td>
                       <select [(ngModel)]="resource.resourceType" class="form-control"
-                              name="resourceType">
+                              name="resourceType" required>
                         <option *ngFor="let type of resourceTypes" [ngValue]="type.value">{{type.label}}</option>
                       </select>
                     </td>
                   </tr>
 
                   <tr>
-                    <th scope="row"><b>Responsable RH</b></th>
+                    <th scope="row"><b>Responsable RH</b><label *ngIf="!editing">*</label></th>
                     <td>
                       <select [(ngModel)]="resource.rhReference"
-                              class="form-control" name="rh">
+                              class="form-control" name="rh" required>
                         <option *ngFor="let user of users" [ngValue]="user.reference">{{user.firstname}}
                           {{user.lastname}}
                         </option>
@@ -106,10 +106,10 @@
                   </tr>
 
                   <tr>
-                    <th scope="row"><b>Responsable Manager</b></th>
+                    <th scope="row"><b>Responsable Manager</b><label *ngIf="!editing">*</label></th>
                     <td>
                       <select [(ngModel)]="resource.managerReference"
-                              class="form-control" name="manager">
+                              class="form-control" name="manager" required>
                         <option *ngFor="let user of users" [ngValue]="user.reference">{{user.firstname}}
                           {{user.lastname}}
                         </option>
@@ -396,7 +396,7 @@
 
                 <div class="form-group">
 
-                  <button type="submit"  color="primary" mat-raised-button style="margin-right: 5px">Enregistrer
+                  <button type="submit" [disabled]="form.form.invalid"  color="primary" mat-raised-button style="margin-right: 5px">Enregistrer
                   </button>
 
                   <button type="reset" routerLink="/resources" color="warn" mat-raised-button>Annuler
