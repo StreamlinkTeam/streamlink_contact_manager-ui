@@ -76,6 +76,7 @@
 
   <br>
   <ng2-smart-table (delete)="deleteProject($event)"
+                   (userRowSelect)="onSelectRow($event)"
                    (edit)="showProject($event)"
                    [settings]="settings"
                    [source]="source">
