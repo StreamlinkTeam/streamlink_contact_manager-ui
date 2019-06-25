@@ -25,6 +25,7 @@ import {FuseSharedModule} from '../../@fuse/shared.module';
 import {SidebarModule} from '../sidebar/sidebar.module';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {MDBRootModule} from 'angular-bootstrap-md';
+import { PiecesJointesComponent } from './pieces-jointes/pieces-jointes.component';
 
 
 
@@ -43,7 +44,8 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     CalendarComponent,
-    CalendarEventFormDialogComponent
+    CalendarEventFormDialogComponent,
+    PiecesJointesComponent
   ],
   imports: [
     RouterModule.forChild(routes),
