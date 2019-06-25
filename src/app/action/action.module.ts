@@ -7,6 +7,8 @@ import {FormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {BrowserModule} from '@angular/platform-browser';
 import {ButtonsModule, CardsFreeModule, WavesModule} from 'angular-bootstrap-md';
+import {OwlDateTimeModule} from 'ng-pick-datetime';
+import {MatIconModule} from '@angular/material';
 
 
 @NgModule({
@@ -15,7 +17,7 @@ import {ButtonsModule, CardsFreeModule, WavesModule} from 'angular-bootstrap-md'
     BrowserModule,
     RouterModule,
     SharedModule,
-    ButtonsModule, WavesModule, CardsFreeModule],
+    ButtonsModule, WavesModule, CardsFreeModule, OwlDateTimeModule, MatIconModule],
   exports: [
     ActionEditorComponent,
     ActionTableComponent

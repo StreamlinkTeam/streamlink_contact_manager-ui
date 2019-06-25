@@ -80,6 +80,7 @@ export class ActionEditorComponent {
 
 
     this.types = [
+      {label: '', value: 'NOTE'},
       {label: 'Note', value: 'NOTE'},
       {label: 'Rappel / To do', value: 'RECALL'},
       {label: 'Présentation Client', value: 'CUSTOMER_PRESENTATION'},

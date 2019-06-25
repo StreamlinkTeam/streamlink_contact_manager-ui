@@ -15,25 +15,41 @@
             </div>
 
             <div class="form-row">
-              <div class="form-group col-md-6 required">
-                <label class="col-form-label">Type</label>
-                <select #type_input="ngModel" [(ngModel)]="action.type" class="form-control"
-                        name="type" required>
-                  <option *ngFor="let ff of types" [ngValue]="ff.value">{{ff.label}}</option>
-                </select>
-                <app-field-error-display
-                  [displayError]="form.submitted && type_input.invalid"
-                  [model]="type_input">
-                </app-field-error-display>
+<!--              <div class="form-group col-md-6 required">-->
+<!--                <label class="col-form-label">Type</label>-->
+<!--                <select #type_input="ngModel" [(ngModel)]="action.type" class="form-control"-->
+<!--                        name="type" required >-->
 
-              </div>
+<!--                  <option *ngFor="let ff of types" [ngValue]="ff.value">{{ff.label}}</option>-->
+<!--                </select>-->
+<!--                <app-field-error-display-->
+<!--                  [displayError]="form.submitted && type_input.invalid"-->
+<!--                  [model]="type_input">-->
+<!--                </app-field-error-display>-->
 
-              <div class="form-group col-md-6">
-                <label class="col-form-label">Date</label>
-                <input [(ngModel)]="action.date"
-                       class="form-control" name="date" type="datetime-local"/>
-              </div>
-            </div>
+<!--              </div>-->
+              <table class="table table-striped">
+                <thead></thead>
+                <tbody>
+                <tr>
+                  <th scope="row"><b>Date et heure</b></th>
+                  <td>
+                    <input [(ngModel)]="action.date"
+                    [owlDateTimeTrigger]="dt"  [owlDateTime]="dt"
+                    class="form-control" name="date" placeHolder="Cliquez pour choisir une date et heure" />
+                    <owl-date-time #dt></owl-date-time>
+                  </td>
+                </tr>
+
+<!--             <div class="form-group col-md-6">-->
+<!--                <label class="col-form-label">Date-->
+<!--                <input [(ngModel)]="action.date"-->
+<!--                       [owlDateTimeTrigger]="dt"  [owlDateTime]="dt"-->
+<!--                       class="form-control" name="date" placeHolder="Date/Time" />-->
+<!--                  <owl-date-time #dt></owl-date-time>-->
+<!--                </label>-->
+<!--              </div>-->
+<!--            </div>-->
 
             <div *ngIf="isSociety()" class="form-group">
               <label>Contact</label> <select #contact_input="ngModel" [(ngModel)]="action.societyContactReference"
@@ -51,18 +67,34 @@
 
             </div>
 
-            <div class="form-group required">
-              <label class="col-form-label">Note</label>
-              <textarea #note_input="ngModel" [(ngModel)]="action.note" class="form-control" name="note"
-                        required rows="5">
+            <tr>
+              <th scope="row"><b>Note</b></th>
+              <td>
+                <textarea #note_input="ngModel" [(ngModel)]="action.note" class="form-control" name="note"
+                          required rows="5" placeholder="Notes">
+                  </textarea>
+                <app-field-error-display
+                  [displayError]="form.submitted && note_input.invalid"
+                  [model]="note_input">
+                </app-field-error-display>
+                <owl-date-time #dt></owl-date-time>
+              </td>
+            </tr>
+            </tbody>
+              </table></div>
 
-			</textarea>
+<!--            <div class="form-group required">-->
+<!--              <label class="col-form-label">Note</label>-->
+<!--              <textarea #note_input="ngModel" [(ngModel)]="action.note" class="form-control" name="note"-->
+<!--                        required rows="5">-->
 
-              <app-field-error-display
-                [displayError]="form.submitted && note_input.invalid"
-                [model]="note_input">
-              </app-field-error-display>
-            </div>
+<!--			</textarea>-->
+
+<!--              <app-field-error-display-->
+<!--                [displayError]="form.submitted && note_input.invalid"-->
+<!--                [model]="note_input">-->
+<!--              </app-field-error-display>-->
+<!--            </div>-->
 
             <div class="form-group">
               <button class="btn btn-warning" type="submit">Enregistrer</button>
@@ -98,26 +130,25 @@
                    class="table table-striped table-sm">
               <thead>
               <tr>
-                <th scope="col">#</th>
-                <th scope="col">Type</th>
+                <th scope="col">Date</th>
+<!--                <th scope="col">Type</th>-->
                 <th scope="col">Note</th>
                 <th scope="col">Responsable</th>
                 <th *ngIf="isSociety()" scope="col">Contact</th>
-                <th scope="col">Date</th>
                 <th scope="col"></th>
               </tr>
               </thead>
               <tbody>
               <tr *ngFor="let act of actions; let i=index">
-                <td>{{i + 1}}</td>
-                <td>
-                  <app-custom-enum-render [value]="act.type"></app-custom-enum-render>
+<!--                <td>{{i + 1}}</td>-->
+<!--                <td>-->
+<!--                  <app-custom-enum-render [value]="act.type"></app-custom-enum-render>-->
 
-                </td>
+<!--                </td>-->
+                <td>{{act.date | date: 'short' : 'GMT+4'}}</td>
                 <td>{{act.note}}</td>
                 <td>{{act.responsibleFullName}}</td>
                 <td *ngIf="isSociety()">{{act.societyContactFullName}}</td>
-                <td>{{act.date | date:'short'}}</td>
                 <td>
                   <button (click)="showAction(i,form)" class="btn btn-sm btn-info fa fa-edit"
                           type="button">

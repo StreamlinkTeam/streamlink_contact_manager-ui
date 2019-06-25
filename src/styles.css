@@ -1,11 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import "~bootstrap/dist/css/bootstrap.css";
+@import "~ng-pick-datetime/assets/style/picker.min.css";
+
 
 body {
   padding-top: 80px;
 
 }
+
+
 
 .card-header:first-child {
   background-color: #4267b2;
@@ -22,9 +26,11 @@ tr.ng2-smart-titles {
 a.ng2-smart-sort-link.sort {
   color: white;
 }
-tr:hover{
+
+tr:hover {
   cursor: pointer;
 }
+
 .starter-template {
   padding: 3rem 1.5rem;
   /*     text-align: center; */

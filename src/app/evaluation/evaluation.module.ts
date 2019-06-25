@@ -6,6 +6,7 @@ import {EvaluationEditorComponent} from './evaluation-editor.component';
 import {FormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {BrowserModule} from '@angular/platform-browser';
+import {CardsFreeModule} from 'angular-bootstrap-md';
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import {BrowserModule} from '@angular/platform-browser';
     BrowserModule,
     RouterModule,
     SharedModule,
+    CardsFreeModule,
   ],
   exports: [
     EvaluationEditorComponent

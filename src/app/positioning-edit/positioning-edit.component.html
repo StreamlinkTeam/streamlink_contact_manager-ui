@@ -112,7 +112,7 @@
                   <mat-select
                     [(ngModel)]="positioning.stage"
                     [disabled]="positioning.stage == 'Won'"
-                    [placeholder]="positioning.stage == 'Won' ? 'Gagné' : 'Gagné' "
+                    [placeholder]="positioning.stage == 'Won' ? 'Gagné' : 'Etat' "
                     name="stage"
                     required>
                     <mat-option *ngFor="let stage of stages" [value]="stage.value">{{stage.label}}</mat-option>
@@ -211,10 +211,10 @@
                 <mdb-card>
                   <mdb-card-header><b>Informations complémentaires</b></mdb-card-header>
                   <mdb-card-body>
-                    CA de cette période	 = {{ positioning.periodCA }} €<br>
-                    Coût de cette période	= {{ positioning.periodCost }} €<br>
-                    Marge de cette période = {{ positioning.periodMargin }} €<br>
-                    Rentabilité de cette période = {{positioning.periodProfitability}} %
+                    CA de cette période	 = {{ periodCA }} €<br>
+                    Coût de cette période	= {{ periodCost }} €<br>
+                    Marge de cette période = {{ periodMargin }} €<br>
+                    Rentabilité de cette période = {{periodProfitability | number:'2.1-2'}} %
                   </mdb-card-body>
                 </mdb-card>
               </div>

@@ -22,10 +22,12 @@ import {EvaluationModule} from '../evaluation/evaluation.module';
 import {ActionModule} from '../action/action.module';
 import {ContactModule} from '../contact/contact.module';
 import {MatButtonModule} from '@angular/material/button';
+import {MatTabsModule} from '@angular/material/tabs';
 
 
 import {ButtonsModule, CardsFreeModule, WavesModule} from 'angular-bootstrap-md';
 import {MatDatepickerModule, MatFormFieldModule, MatInputModule} from '@angular/material';
+import { DeveloperRecordComponent } from './developer-record.component';
 
 
 @NgModule({
@@ -43,9 +45,10 @@ import {MatDatepickerModule, MatFormFieldModule, MatInputModule} from '@angular/
     EvaluationModule,
     ActionModule,
     ContactModule,
+    MatTabsModule,
     MatButtonModule, MatFormFieldModule, MatDatepickerModule, MatInputModule],
   declarations: [DeveloperTableComponent, DeveloperEditorComponent, PersonalInfoEditorComponent, SkillsEditorComponent,
-    DeveloperComponent, ContractEditorComponent, DeveloperCVComponent, DeveloperCVScannerComponent],
+    DeveloperComponent, ContractEditorComponent, DeveloperCVComponent, DeveloperCVScannerComponent, DeveloperRecordComponent],
   exports: [DeveloperTableComponent, DeveloperEditorComponent, SkillsEditorComponent, PersonalInfoEditorComponent, DeveloperComponent
     , ContractEditorComponent, DeveloperCVComponent, DeveloperCVScannerComponent]
 })

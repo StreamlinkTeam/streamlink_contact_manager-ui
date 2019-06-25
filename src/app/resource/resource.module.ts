@@ -15,6 +15,9 @@ import {DeveloperModule} from '../developer/developer.module';
 import {ResourceEditorComponent} from './resource-editor.component';
 
 import {ButtonsModule, CardsFreeModule, WavesModule} from 'angular-bootstrap-md';
+import { ResourceRecordComponent } from './resource-record.component';
+import {ActionModule} from '../action/action.module';
+import {MatButtonModule} from '@angular/material/button';
 
 
 @NgModule({
@@ -29,8 +32,9 @@ import {ButtonsModule, CardsFreeModule, WavesModule} from 'angular-bootstrap-md'
     Ng2FileSizeModule,
     CommonModule,
     Ng2SmartTableModule,
-    DeveloperModule],
-  declarations: [ResourceTableComponent, ResourceEditorComponent],
+    MatButtonModule,
+    DeveloperModule, ActionModule],
+  declarations: [ResourceTableComponent, ResourceEditorComponent, ResourceRecordComponent],
   exports: [ResourceTableComponent, ResourceEditorComponent]
 })
 export class ResourceModule {

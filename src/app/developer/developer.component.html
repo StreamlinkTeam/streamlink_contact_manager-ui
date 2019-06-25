@@ -5,31 +5,39 @@
 
 <div class="wrapper">
   <!-- Sidebar Holder -->
-  <nav id="sidebar">
+<!--  <nav id="sidebar">-->
 
-    <ul class="list-unstyled components nav-pills" id="pills-tab" role="tablist">
-      <p>  </p>
-      <li class="nav-item">
-        <a class="nav-link" data-toggle="pill" routerLink="general" routerLinkActive="active">Informations Général</a>
-      </li>
+<!--    <ul class="list-unstyled components nav-pills" id="pills-tab" role="tablist">-->
+<!--      <p style="font-size: x-large"> {{ developer.firstname + ' ' + developer.lastname }}  </p>-->
+<!--      <li class="nav-item">-->
+<!--        <a class="nav-link" data-toggle="pill" routerLink="record" routerLinkActive="active">Fiche candidat</a>-->
+<!--      </li>-->
 
-      <li class="nav-item">
-        <a class="nav-link" data-toggle="pill" routerLink="contact" routerLinkActive="active">Coordonnées</a>
-      </li>
-      <li class="nav-item"><a class="nav-link" data-toggle="pill"
-                              role="tab" routerLink="skills" routerLinkActive="active">Compétences</a></li>
+<!--      <li class="nav-item">-->
+<!--      <a class="nav-link" data-toggle="pill" routerLink="general" routerLinkActive="active">Informations Général</a>-->
+<!--    </li>-->
 
-      <li class="nav-item"><a class="nav-link" data-toggle="pill"
-                              role="tab" routerLink="contract" routerLinkActive="active">Contrat</a></li>
+<!--      <li class="nav-item">-->
+<!--        <a class="nav-link" data-toggle="pill" routerLink="general" routerLinkActive="active">Informations Général 2</a>-->
+<!--      </li>-->
 
-      <li class="nav-item"><a class="nav-link" data-toggle="pill"
-                              role="tab" routerLink="action" routerLinkActive="active">Actions</a></li>
+<!--      <li class="nav-item">-->
+<!--        <a class="nav-link" data-toggle="pill" routerLink="contact" routerLinkActive="active">Coordonnées</a>-->
+<!--      </li>-->
+<!--      <li class="nav-item"><a class="nav-link" data-toggle="pill"-->
+<!--                              role="tab" routerLink="skills" routerLinkActive="active">Compétences</a></li>-->
 
-      <li class="nav-item"><a class="nav-link" data-toggle="pill"
-                              role="tab" routerLink="evaluation" routerLinkActive="active">Evaluations</a></li>
-    </ul>
+<!--      <li class="nav-item"><a class="nav-link" data-toggle="pill"-->
+<!--                              role="tab" routerLink="contract" routerLinkActive="active">Contrat</a></li>-->
 
-  </nav>
+<!--      <li class="nav-item"><a class="nav-link" data-toggle="pill"-->
+<!--                              role="tab" routerLink="action" routerLinkActive="active">Actions</a></li>-->
+
+<!--      <li class="nav-item"><a class="nav-link" data-toggle="pill"-->
+<!--                              role="tab" routerLink="evaluation" routerLinkActive="active">Evaluations</a></li>-->
+<!--    </ul>-->
+
+<!--  </nav>-->
 
   <!-- Page Content Holder -->
 
@@ -40,9 +48,56 @@
 <!-- jQuery Custom Scroller CDN -->
 <script
   src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
-<!--<div class="container">-->
+<div class="container-fluid">
+
+  <nav mat-tab-nav-bar>
+
+    <a #gle="routerLinkActive" [active]="gle.isActive"
+       animationDuration="2000ms"
+       mat-tab-link routerLink="general"
+       routerLinkActive>
+      Informations Général
+    </a>
+    <a #coor="routerLinkActive" [active]="coor.isActive"
+
+       animationDuration="2000ms"
+       mat-tab-link routerLink="contact"
+       routerLinkActive>
+      Coordonnées
+    </a>
+    <a #skill="routerLinkActive" [active]="skill.isActive"
+       animationDuration="2000ms"
+       mat-tab-link routerLink="skills"
+       routerLinkActive>
+      Compétences
+    </a>
+    <a #contr="routerLinkActive" [active]="contr.isActive"
+       animationDuration="2000ms"
+       mat-tab-link routerLink="contract"
+       routerLinkActive>
+      Contrat
+    </a>
+    <a #act="routerLinkActive" [active]="act.isActive"
+       animationDuration="2000ms"
+       mat-tab-link routerLink="action"
+       routerLinkActive>
+      Actions
+    </a>
+    <a #eva="routerLinkActive" [active]="eva.isActive"
+       animationDuration="2000ms"
+       mat-tab-link routerLink="evaluation"
+       routerLinkActive>
+      Evaluations
+    </a>
+  </nav>
+
+
+
 
 <!--  <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">-->
+<!--&lt;!&ndash;          <li class="nav-item">&ndash;&gt;-->
+<!--&lt;!&ndash;            <a class="nav-link" data-toggle="pill" routerLink="record" routerLinkActive="active">Fiche candidat</a>&ndash;&gt;-->
+<!--&lt;!&ndash;          </li>&ndash;&gt;-->
 <!--    <li class="nav-item"><a class="nav-link" data-toggle="pill"-->
 <!--                            role="tab" routerLink="general" routerLinkActive="active">-->
 <!--      Informations Général</a></li>-->
@@ -62,7 +117,8 @@
 <!--                            role="tab" routerLink="evaluation" routerLinkActive="active">Evaluations</a></li>-->
 
 <!--  </ul>-->
+  <br/>
 <div class="tab-content" id="pills-tabContent">
   <router-outlet></router-outlet>
 </div>
-<!--</div>-->
+</div>

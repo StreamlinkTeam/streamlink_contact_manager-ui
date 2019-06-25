@@ -5,6 +5,7 @@ export class PersonalInformation {
   nationality: string;
   socialSecurityNumber: string;
   familySituation: string;
+  originCv: string;
   role: string;
   tjm: number;
 

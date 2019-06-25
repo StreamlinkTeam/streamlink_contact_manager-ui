@@ -67,6 +67,7 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 registerLocaleData(localeFr, 'fr');
 
 
+
 @NgModule({
   declarations: [AppComponent, PositioningAddComponent, PositioningEditComponent, FooterComponent, ResourceDashboardComponent],
   imports: [
