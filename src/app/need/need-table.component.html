@@ -76,6 +76,7 @@
 
   <br>
   <ng2-smart-table (delete)="deleteNeed($event)"
+                   (userRowSelect)="onSelectRow($event)"
                    (edit)="showNeed($event)"
                    [settings]="settings"
                    [source]="source">
@@ -85,10 +86,16 @@
 
   <div class="form-group">
 
-    <button color="primary" mat-raised-button routerLink="/needs/create">
+    <button color="primary" mat-raised-button (click)="onCreate()">
       <mat-icon>add</mat-icon>
       Créer un besoin
     </button>
+
+
+<!--    <button color="primary" mat-raised-button routerLink="/needs/create">-->
+<!--      <mat-icon>add</mat-icon>-->
+<!--      Créer un besoin-->
+<!--    </button>-->
 
   </div>
 </div>

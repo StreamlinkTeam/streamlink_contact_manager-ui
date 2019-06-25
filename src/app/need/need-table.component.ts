@@ -7,13 +7,17 @@ import {CustomEnumRenderComponent} from './../shared/custom-ng2-smart-table-rend
 import {Component, OnInit} from '@angular/core';
 import {ServerDataSource} from 'ng2-smart-table';
 import {ToastrService} from 'ngx-toastr';
-import {MatDialog} from '@angular/material';
+import {MatDialog, MatDialogConfig} from '@angular/material';
 import {DatePipe} from '@angular/common';
 import Swal from 'sweetalert2';
+import {PositioningAddComponent} from '../positioning-add/positioning-add.component';
+import {NeedEditorComponent} from './need-editor.component';
+import {NeedAddDialogComponent} from './need-add-dialog.component';
 
 @Component({
   selector: 'app-need-table',
   templateUrl: 'need-table.component.html',
+  styleUrls: ['./need-table.component.css'],
   moduleId: module.id,
 })
 export class NeedTableComponent implements OnInit {
@@ -149,9 +153,6 @@ export class NeedTableComponent implements OnInit {
       pagerPageKey: 'page'
     });
 
-
-    console.log(this.source);
-
     this.stages = [
       {label: 'Tous', value: ''},
       {label: 'En cours', value: 'InProgress'},
@@ -193,7 +194,6 @@ export class NeedTableComponent implements OnInit {
       pagerPageKey: 'page'
     });
 
-    // console.log(this.source);
   }
 
   onSearch(query: string = '') {
@@ -214,7 +214,6 @@ export class NeedTableComponent implements OnInit {
       pagerPageKey: 'page'
     });
 
-    // console.log(this.source);
 
   }
 
@@ -257,5 +256,26 @@ export class NeedTableComponent implements OnInit {
       }
     });
   }
+
+  onCreate() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '50%';
+dialogConfig.panelClass = 'dialog';
+    this.dialog.open(NeedAddDialogComponent, dialogConfig).afterClosed().subscribe(result => {
+      this.source.refresh();
+    });
+  }
+
+
+  onSelectRow(event: any) {
+    if (event.data.resource) {
+
+      this.router.navigate(['/needs/edit', event.data.reference]);
+    }
+    this.router.navigate(['/needs/edit', event.data.reference]);
+  }
+
 }
 
