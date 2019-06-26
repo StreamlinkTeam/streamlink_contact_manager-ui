@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, Inject, OnInit, ViewEncapsulation, Input} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, NgForm} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {CalendarEvent} from 'angular-calendar';
@@ -34,6 +34,8 @@ export class CalendarEventFormDialogComponent implements OnInit {
   resourcesInput$ = new Subject<string>();
   positionings: any = [];
   private  startD:any = null
+
+  @Input() dateClicked: any;
   /**
    * Constructor
    *
@@ -48,10 +50,9 @@ export class CalendarEventFormDialogComponent implements OnInit {
     private router: Router,
     public matDialogRef: MatDialogRef<CalendarEventFormDialogComponent>,
     private eventService: EventService,
-
     @Inject(MAT_DIALOG_DATA) private _data: any,
-    private _formBuilder: FormBuilder
-  ) {
+    private _formBuilder: FormBuilder) {
+    console.log("DAY CLICKED :: ", this.dateClicked)
 
     this.event = _data.event;
     this.action = _data.action;
@@ -88,7 +89,7 @@ export class CalendarEventFormDialogComponent implements OnInit {
   }*/
 
   ngOnInit() {
-    console.log("hjghjg" , this._data)
+    console.log("hjghjg" , this.dateClicked)
     this.loadPosistionning();
     this.service.getPositioningsRsource().subscribe(res => {
       let ress: any[];
@@ -162,17 +163,16 @@ export class CalendarEventFormDialogComponent implements OnInit {
     let dt = new Date(this.startD);
     this.timeLine.start = new Date(dt.setDate(dt.getDate()+ 2));
     this.timeLine.timeListReference = 'KYFIf7Byl6oySmM';
-   this.timeLine.project = 'rrrr';
+   // this.timeLine.project = 'rrrr';
     this.timeLine.note = this.event.note;
     this.eventService.createTimeLine(this.timeLine).subscribe(response => {
 
       Swal.fire('Timesheet crée avec succés', 'Opération Réussite!', 'success');
       this.router.navigateByUrl('/timesheet');
-      console.log(response);
     }, err => {
       Swal.fire('Erreur de création de Timesheet', 'Opération Echouée!', 'error');
-
     });
+
   }
 
   deleteEvent() {

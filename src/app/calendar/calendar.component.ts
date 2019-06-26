@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation, Output, EventEmitter} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {MatDialog, MatDialogRef} from '@angular/material';
 import {Observable, Subject} from 'rxjs';
@@ -17,6 +17,8 @@ import {User} from '../shared/entities/user.model';
 import {DeveloperService} from '../shared/services/developer.service';
 import {Developer} from '../shared/entities/developer.model';
 import {UserService} from '../shared/services/user.service';
+import { HolidayComponent } from '../holiday/holiday.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @Component({
@@ -31,7 +33,7 @@ export class CalendarComponent implements OnInit {
   activeDayIsOpen: boolean;
   confirmDialogRef: MatDialogRef<FuseConfirmDialogComponent>;
   dialogRef: any;
-  events: any[];
+  events: CalendarEvent[];
   refresh: Subject<any> = new Subject();
   selectedDay: any;
   view: string;
@@ -43,6 +45,10 @@ export class CalendarComponent implements OnInit {
   emailUser: any;
   userRef: any;
   eventsCount;
+
+  holiday: HolidayComponent = new HolidayComponent();
+
+  @Output() dateClicked: EventEmitter<any> = new EventEmitter();
 
   constructor(
     private auth: AuthService,
@@ -56,40 +62,15 @@ export class CalendarComponent implements OnInit {
     // Set the defaults
     this.view = 'month';
     this.viewDate = new Date();
-    this.activeDayIsOpen = true;
+    this.activeDayIsOpen = false;
     this.selectedDay = {date: startOfDay(new Date())};
 
-    this.actions = [
-      {
-        label: '<i class="material-icons s-16">edit</i>',
-        onClick: ({event}: { event: CalendarEvent }): void => {
-          this.editEvent('edit', event);
-        }
-      },
-      {
-        label: '<i class="material-icons s-16">delete</i>',
-        onClick: ({event}: { event: CalendarEvent }): void => {
-          this.deleteEvent(event);
-        }
-      }
-    ];
-
-    /**
-     * Get events from service/server
-     */
+    this.actions = [];
     this.setEvents();
   }
 
-  // -----------------------------------------------------------------------------------------------------
-  // @ Lifecycle hooks
-  // -----------------------------------------------------------------------------------------------------
-
-  /**
-   * On init
-   */
   ngOnInit(): void {
-
-
+    
     if (this.auth.isAuthenticated()) {
 
       this.user$ = this.auth.getCurrentUser();
@@ -99,9 +80,7 @@ export class CalendarComponent implements OnInit {
       });
 
     }
-    /**
-     * Watch re-render-refresh for updating db
-     */
+
     this.refresh.subscribe(updateDB => {
       if (updateDB) {
         this._calendarService.updateEvents(this.events);
@@ -112,22 +91,47 @@ export class CalendarComponent implements OnInit {
       this.setEvents();
       this.refresh.next();
     });
+    
     this.user$.subscribe(res => {
       const email = res.email;
       this.emailUser = email;
-    });
+      this.devService.getDeveloperByEmail(this.emailUser).subscribe(response => {
+        this.developer = response;
+        this.userRef = response.managerReference;
 
-    this.devService.getDeveloperByEmail(this.emailUser).subscribe(response => {
-      this.developer = response;
-      this.userRef = response.managerReference;
-
-      this.userService.getUser(this.developer.managerReference).subscribe(res => {
-        this.manager = res;
+        this.userService.getUser(this.developer.managerReference).subscribe(res => {
+          this.manager = res;
+        });
       });
     });
+  }
 
-
-
+  resetMonth(): void{
+    this.events = [];
+    const month = this.viewDate.getMonth();
+    const newDate = new Date();
+    newDate.setDate(1);
+    let dayOfMonth = 1;
+    while (newDate.getMonth() === this.viewDate.getMonth() && dayOfMonth < 31) {
+      const startDate = new Date(); 
+      startDate.setDate(dayOfMonth);
+      const ev: CalendarEvent = {
+        start: startDate,
+        end: startDate,
+        title: 'Event of ' + startDate.getDay(),
+        //color: colors.yellow,
+        actions: this.actions,
+        resizable: {
+          beforeStart: true,
+          afterEnd: true
+        },
+        draggable: false
+      }
+      dayOfMonth++;
+      if (startDate.getDay() !== 6 && startDate.getDay() !== 0 && !this.holiday.isHoliday(startDate)){
+        this.events.push(ev);
+      }
+    }
   }
 
   isLoggedIn() {
@@ -139,25 +143,11 @@ export class CalendarComponent implements OnInit {
     return this.auth.isAdmin();
   }
 
-  // -----------------------------------------------------------------------------------------------------
-  // @ Public methods
-  // -----------------------------------------------------------------------------------------------------
-
-  /**
-   * Set events
-   */
   setEvents(): void {
-    /*this.events = this._calendarService.events.map(item => {
-      item.actions = this.actions;
-      return new CalendarEventModel(item);
-    });*/
-
-
     this._calendarService.getAllEvents().subscribe(res => {
       const newRes = res as any[];
 
       const newEv = newRes.map(item => new CalendarEventModel(item));
-      console.log("EVENTS :: ",newEv);
       this.events = newEv;
 
     });
@@ -188,25 +178,26 @@ export class CalendarComponent implements OnInit {
 
   }
 
+  findEventByDate(date){
+    for(let i=0;i<this.events.length;i++){
+      if(this.events[i].start == date){
+        return this.events[i];
+      }
+    }
+    return null;
+  }
+
   /**
    * Day clicked
    *
    * @param {MonthViewDay} day
    */
   dayClicked(day: CalendarMonthViewDay): void {
-    const date: Date = day.date;
-    const events: CalendarEvent[] = day.events;
-
-    if (isSameMonth(date, this.viewDate)) {
-      if ((isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) || events.length === 0) {
-        this.activeDayIsOpen = false;
-      } else {
-        this.activeDayIsOpen = true;
-        this.viewDate = date;
-      }
+    let ev = this.findEventByDate(day.date);
+    this.dateClicked.emit(day.date);
+    if(ev !== null){
+      console.log(ev);
     }
-    this.selectedDay = day;
-    this.refresh.next();
   }
 
   /**

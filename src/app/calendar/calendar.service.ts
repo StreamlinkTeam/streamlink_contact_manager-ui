@@ -3,34 +3,17 @@ import {HttpClient} from '@angular/common/http';
 import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from '@angular/router';
 import {Observable, Subject} from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class CalendarService implements Resolve<any> {
   events: any;
   onEventsUpdated: Subject<any>;
+  url = environment.API;
 
-  /**
-   * Constructor
-   *
-   * @param {HttpClient} _httpClient
-   */
-  constructor(
-    private _httpClient: HttpClient) {
-    // Set the defaults
+  constructor(private _httpClient: HttpClient) {
     this.onEventsUpdated = new Subject();
   }
-
-  // -----------------------------------------------------------------------------------------------------
-  // @ Public methods
-  // -----------------------------------------------------------------------------------------------------
-
-  /**
-   * Resolver
-   *
-   * @param {ActivatedRouteSnapshot} route
-   * @param {RouterStateSnapshot} state
-   * @returns {Observable<any> | Promise<any> | any}
-   */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> | any {
     return new Promise((resolve, reject) => {
       Promise.all([
@@ -44,20 +27,14 @@ export class CalendarService implements Resolve<any> {
     });
   }
 
-  /**
-   * Get events
-   *
-   * @returns {Promise<any>}
-   */
-
   getAllEvents() {
-    return this._httpClient.get('http://localhost:9090/ws/time_line/all').pipe(
+    return this._httpClient.get(this.url + '/ws/time_line/all').pipe(
       map(this.extractData)
     );
   }
-
+  
   getEventByRef(ref: string) {
-    return this._httpClient.get('http://localhost:9090/ws/time_line?ligneTempsReference='+ref).pipe(
+    return this._httpClient.get(this.url + '/ws/time_line?ligneTempsReference='+ref).pipe(
       map(this.extractData)
     );
   }
@@ -69,7 +46,7 @@ export class CalendarService implements Resolve<any> {
   getEvents(): Promise<any> {
     return new Promise((resolve, reject) => {
 
-      this._httpClient.get('http://localhost:9090/ws/time_line/all')
+      this._httpClient.get(this.url + '/ws/time_line/all')
         .subscribe((response: any) => {
           this.events = response.data;
 
@@ -100,7 +77,7 @@ export class CalendarService implements Resolve<any> {
 
 
   deleteEvent(event){
-    return this._httpClient.delete("http://localhost:9090/ws/time_line?ligneTempsReference="+event.reference);
+    return this._httpClient.delete(this.url + 'ws/time_line?ligneTempsReference=' + event.reference);
   }
 
 }

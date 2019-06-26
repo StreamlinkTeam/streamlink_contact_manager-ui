@@ -54,15 +54,20 @@ import {fuseConfig} from './fuse-config';
 import {ResourceNavbarModule} from './resource-navbar/resource-navbar.module';
 import {ResourceDashboardComponent} from './resource-dashboard/resource-dashboard.component';
 import {CalendarModule} from './calendar/calendar.module';
+<<<<<<< Updated upstream
 import {AbsenceComponent} from './absence/absence.component';
 import {AbsenceDemandeComponent} from './absence/absence-demande/absence-demande.component';
+=======
+// import {FuseSidebarModule} from '../@fuse/components';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import {SidebarModule} from './sidebar/sidebar.module';
+import { AbsenceComponent } from './absence/absence.component';
+import { AbsenceDemandeComponent } from './absence/absence-demande/absence-demande.component';
+>>>>>>> Stashed changes
 import {AbsenceModule} from './absence/absence.module';
 
-import {NgxMatSelectSearchModule} from 'ngx-mat-select-search';
-import {NeedAddDialogComponent} from './need/need-add-dialog.component';
-import {SharedModule} from './shared/shared.module';
-import {SocietyAddDialogComponent} from './society/society-add-dialog.component';
-import {UserAddDialogComponent} from './users/user-add-dialog.component';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { HolidayComponent } from './holiday/holiday.component';
 
  import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 
@@ -70,10 +75,7 @@ registerLocaleData(localeFr, 'fr');
 
 
 @NgModule({
-  declarations: [AppComponent, PositioningAddComponent,
-    PositioningEditComponent, FooterComponent,
-    ResourceDashboardComponent, NeedAddDialogComponent,
-    SocietyAddDialogComponent, UserAddDialogComponent],
+  declarations: [AppComponent, PositioningAddComponent, PositioningEditComponent, FooterComponent, ResourceDashboardComponent, HolidayComponent],
   imports: [
     MDBBootstrapModule, NavbarModule, ButtonsModule, WavesModule, IconsModule,
     BrowserModule, HttpClientModule, AppNavbarModule,
@@ -95,7 +97,8 @@ registerLocaleData(localeFr, 'fr');
     InputTextModule,
     MatButtonModule, MatIconModule, MatInputModule, MatDatepickerModule,
     MatProgressSpinnerModule, MatMomentDateModule, MatSelectModule, MatToolbarModule, MatTabsModule,
-    FuseModule.forRoot(fuseConfig), OwlDateTimeModule, OwlNativeDateTimeModule, SharedModule
+    FuseModule.forRoot(fuseConfig),
+
   ],
   schemas: [NO_ERRORS_SCHEMA],
   providers: [
@@ -109,11 +112,7 @@ registerLocaleData(localeFr, 'fr');
   exports: [
     ResourceDashboardComponent
   ],
-  entryComponents: [
-    PositioningAddComponent,
-    NeedAddDialogComponent,
-    SocietyAddDialogComponent,
-    UserAddDialogComponent]
+  entryComponents: [PositioningAddComponent]
 })
 export class AppModule {
 }
