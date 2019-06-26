@@ -34,11 +34,11 @@ import { PositioningTableComponent } from './positioning/positioning-table.compo
 import { PositioningAddComponent } from './positioning-add/positioning-add.component';
 import { PositioningEditComponent } from './positioning-edit/positioning-edit.component';
 import { ProjectInfoEditorComponent } from './project/project-info-editor.component';
-import {ResourceDashboardComponent} from './resource-dashboard/resource-dashboard.component';
-import {AbsenceComponent} from './absence/absence.component';
-import {AbsenceDemandeComponent} from './absence/absence-demande/absence-demande.component';
-import {ListAbsencesComponent} from './absence/list-absences/list-absences.component';
-import {CalendarComponent} from './calendar/calendar.component';
+import { ResourceDashboardComponent } from './resource-dashboard/resource-dashboard.component';
+import { AbsenceComponent } from './absence/absence.component';
+import { AbsenceDemandeComponent } from './absence/absence-demande/absence-demande.component';
+import { ListAbsencesComponent } from './absence/list-absences/list-absences.component';
+import { CalendarComponent } from './calendar/calendar.component';
 
 export const appRoutes: Routes = [
   { path: 'auth', component: AuthComponent, canActivate: [LoginGuard] },
@@ -60,7 +60,7 @@ export const appRoutes: Routes = [
       { path: '**', redirectTo: 'demande' }
     ]
   },
-  {path: 'actions', component: ActionTableComponent, canActivate: [AuthGuard]},
+  { path: 'actions', component: ActionTableComponent, canActivate: [AuthGuard] },
   {
     path: 'admin', component: AdminComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN'] },
     children: [
@@ -76,7 +76,13 @@ export const appRoutes: Routes = [
   { path: 'positionings/:error', component: PositioningTableComponent, canActivate: [AuthGuard] },
   {
     path: 'positionings/edit/:reference', component: PositioningEditComponent, canActivate: [AuthGuard],
-
+    // path: 'positionings/:mode/:reference', component: PositioningAddComponent, canActivate: [AuthGuard],
+    // children: [
+    // {path: 'positionings/edit', component: PositioningAddComponent},
+    // {path: 'general', component: PositioningAddComponent},
+    // {path: 'action', component: ActionEditorComponent},
+    // {path: '**', redirectTo: 'general'}
+    // ]
   },
   { path: 'projects', component: ProjectTableComponent, canActivate: [AuthGuard] },
   { path: 'projects/create', component: ProjectEditorComponent, canActivate: [AuthGuard] },
@@ -102,11 +108,11 @@ export const appRoutes: Routes = [
       { path: '**', redirectTo: 'general' }
     ]
   },
-  { path: 'developers', component: DeveloperTableComponent },
+  { path: 'developers', component: DeveloperTableComponent, canActivate: [AuthGuard] },
   { path: 'developers/create/from-cv', component: DeveloperCVScannerComponent, canActivate: [AuthGuard] },
   { path: 'developers/create', component: DeveloperEditorComponent, canActivate: [AuthGuard] },
   {
-    path: 'timesheet', loadChildren : 'app/calendar/calendar.module#CalendarModule', component: CalendarComponent
+    path: 'timesheet', loadChildren: 'app/calendar/calendar.module#CalendarModule', component: CalendarComponent, canActivate: [AuthGuard]
   },
 
   { path: 'developers/:error', component: DeveloperTableComponent, canActivate: [AuthGuard] },
@@ -120,8 +126,7 @@ export const appRoutes: Routes = [
       { path: 'contract', component: ContractEditorComponent },
       { path: 'action', component: ActionEditorComponent },
       { path: 'evaluation', component: EvaluationEditorComponent },
-      { path: 'record', component: DeveloperRecordComponent},
-      {path: '**', redirectTo: 'general' }
+      { path: '**', redirectTo: 'general' }
     ]
   },
   { path: 'resources', component: ResourceTableComponent, canActivate: [AuthGuard] },
@@ -137,8 +142,7 @@ export const appRoutes: Routes = [
       { path: 'contract', component: ContractEditorComponent },
       { path: 'action', component: ActionEditorComponent },
       { path: 'evaluation', component: EvaluationEditorComponent },
-      { path: 'record', component: ResourceRecordComponent},
-      {path: '**', redirectTo: 'general' }
+      { path: '**', redirectTo: 'general' }
     ]
   },
   { path: 'societies', component: SocietyTableComponent, canActivate: [AuthGuard] },
@@ -154,7 +158,7 @@ export const appRoutes: Routes = [
       { path: 'contacts/create', component: SocietyContactEditorComponent },
       { path: 'contacts/:error', component: SocietyContactTableComponent },
       {
-        path: 'contacts/:mode/:societyContactReference', component: SocietyContactComponent,
+        path: 'contacts/:mode/:societyContactReference', component: SocietyContactComponent, canActivate: [AuthGuard],
         children: [
           { path: 'general', component: SocietyContactEditorComponent },
           { path: 'contact', component: ContactEditorComponent },
@@ -165,5 +169,5 @@ export const appRoutes: Routes = [
       { path: '**', redirectTo: 'general' }
     ]
   },
-  { path: '**', redirectTo: '/developers' }
+  { path: '**', redirectTo: 'auth' }
 ];

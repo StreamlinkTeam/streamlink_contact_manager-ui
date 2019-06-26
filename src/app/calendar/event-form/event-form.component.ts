@@ -26,7 +26,7 @@ export class CalendarEventFormDialogComponent implements OnInit {
   timeLine: TimeLine = new TimeLine;
   prj: string;
   action: string;
-  event: CalendarEvent;
+  event: any;
   eventForm: FormGroup;
   dialogTitle: string;
   presetColors = MatColors.presets;
@@ -197,4 +197,3 @@ export class CalendarEventFormDialogComponent implements OnInit {
     //console.log(event.reference);
   }
 }
-

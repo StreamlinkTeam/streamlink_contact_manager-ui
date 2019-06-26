@@ -10,8 +10,8 @@ import {UserService} from '../shared/services/user.service';
 import Swal from 'sweetalert2';
 import {NeedService} from '../shared/services/need.service';
 import {SocietyService} from '../shared/services/society.service';
-import * as jsPDF from 'jspdf';
-import 'jspdf-autotable';
+//import * as jsPDF from 'jspdf';
+//import 'jspdf-autotable';
 import {Need} from '../shared/entities/need.model';
 
 @Component({
@@ -158,8 +158,8 @@ export class PositioningEditComponent implements OnInit {
 
   downloadPDF() {
 
-    const pdf = new jsPDF('landscape');
-    pdf.text('Fiche de positionnement ' + this.positioning.reference, 70, 10);
+    //const pdf = new jsPDF('landscape');
+    //pdf.text('Fiche de positionnement ' + this.positioning.reference, 70, 10);
     // pdf.text('Titre de besoin  : ' + this.positioning.needTitle, 10, 20);
     // pdf.text('Ressource        : ' + this.positioning.resourceFullName, 10, 30);
     // pdf.text('Société          : ' + this.positioning.client, 10, 40);
@@ -174,7 +174,7 @@ export class PositioningEditComponent implements OnInit {
     // pdf.text('Marge de cette période  : ' + this.positioning.periodMargin, 10, 130);
     // pdf.text('Rentabilité de cette période  : ' + this.positioning.periodProfitability + ' %', 10, 140);
 
-    pdf.autoTable({
+    /*pdf.autoTable({
       head: [['Besoin', 'Ressource', 'Ste', 'Début', 'Fin', 'Etat', 'Jrs Fact', 'Jrs Grat', 'CA', 'Coût', 'Marge', 'Rentabilité %']],
       body: [
         [this.positioning.needTitle,
@@ -192,7 +192,7 @@ export class PositioningEditComponent implements OnInit {
         ],
       ]
     });
-    pdf.save('positioning.pdf');
+    pdf.save('positioning.pdf');*/
   }
 
   reloadInfo(){

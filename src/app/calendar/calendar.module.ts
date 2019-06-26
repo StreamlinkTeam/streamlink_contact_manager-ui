@@ -22,7 +22,6 @@ import {CalendarService} from './calendar.service';
 import {CalendarEventFormDialogComponent} from './event-form/event-form.component';
 import {FuseConfirmDialogModule, FuseSidebarModule, FuseThemeOptionsModule} from '../../@fuse/components';
 import {FuseSharedModule} from '../../@fuse/shared.module';
-import {SidebarModule} from '../sidebar/sidebar.module';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {MDBRootModule} from 'angular-bootstrap-md';
 import { PiecesJointesComponent } from './pieces-jointes/pieces-jointes.component';
@@ -68,9 +67,7 @@ const routes: Routes = [
     FuseSharedModule,
     FuseConfirmDialogModule,
     MatSelectModule,
-    FuseSidebarModule,
     FuseThemeOptionsModule,
-    SidebarModule,
     NgSelectModule,
     MatCardModule,
     MatTabsModule,
