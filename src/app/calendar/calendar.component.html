@@ -1,167 +1,196 @@
 <body>
-  <div class="container">
-    <mdb-card>
-      <mdb-card-header> Nouvelle feuille de temps</mdb-card-header>
+<div class="container">
+  <mdb-card>
+    <mdb-card-header> Nouvelle feuille de temps</mdb-card-header>
 
-      <mdb-card-body>
-        <mat-form-field>
-          <mat-label>Choisir un projet</mat-label>
-          <mat-select>
-            <mat-option *ngFor="let p of projects" [value]="p.value">
-              {{p.viewValue}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        <button mat-flat-button color="primary" (click)="resetMonth()">Remplir</button>
-        <div id="calendar" class="page-layout simple fullwidth"><br />
+    <mdb-card-body>
+<div id="calendar" class="page-layout simple fullwidth">
 
 
-          <!-- HEADER -->
-          <div class="header p-16 p-sm-24" [ngClass]="viewDate | date:'MMM'">
+  <!-- HEADER -->
+  <div class="header p-16 p-sm-24" [ngClass]="viewDate | date:'MMM'">
 
-            <div class="header-content" fxLayout="column" fxLayoutAlign="space-between">
+    <div class="header-content" fxLayout="column" fxLayoutAlign="space-between">
 
-              <div class="header-top" fxLayout="row" fxLayoutAlign="space-between center" fxLayout.xs="column">
-
-
-                <!-- TOOLBAR -->
-
-              </div>
-              <!-- / TOOLBAR -->
-
-              <!-- HEADER BOTTOM -->
-              <div class="header-bottom" fxLayout="row" fxLayoutAlign="center center"
-                [@animate]="{value:'*',params:{delay:'150ms'}}">
-
-                <button mat-icon-button class="arrow" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"
-                  (viewDateChange)="selectedDay = {date:$event}" aria-label="Previous">
-                  <mat-icon>chevron_left</mat-icon>
-                </button>
-
-                <div class="title">
-                  {{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}
-                </div>
-
-                <button mat-icon-button class="arrow" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate"
-                  (viewDateChange)="selectedDay = {date:$event}" aria-label="Next">
-                  <mat-icon>chevron_right</mat-icon>
-                </button>
-              </div>
-              <!-- / HEADER BOTTOM -->
-            </div>
-
-    
-          </div>
-          <!-- / HEADER -->
-
-          <!-- CONTENT -->
-          <div class="content" fusePerfectScrollbar [@animate]="{value:'*',params:{delay:'200ms',y:'50px'}}">
-            <div [ngSwitch]="view">
-              <mwl-calendar-month-view *ngSwitchCase="'month'" [viewDate]="viewDate" [events]="events"
-                [refresh]="refresh" [activeDayIsOpen]="activeDayIsOpen" (dayClicked)="dayClicked($event.day) ;
-         addEvent()" (eventClicked)="editEvent('edit', $event.event)" (eventTimesChanged)="eventTimesChanged($event)"
-                (beforeViewRender)="beforeMonthViewRender($event)">
-              </mwl-calendar-month-view>
-              <mwl-calendar-week-view *ngSwitchCase="'week'" [viewDate]="viewDate"
-                (viewDateChange)="selectedDay = {date:$event}" [events]="events" [refresh]="refresh"
-                (dayClicked)="dayClicked($event.day)" (eventClicked)="editEvent('edit', $event.event)"
-                (eventTimesChanged)="eventTimesChanged($event)">
-              </mwl-calendar-week-view>
-              <mwl-calendar-day-view *ngSwitchCase="'day'" [viewDate]="viewDate"
-                (viewDateChange)="selectedDay = {date:$event}" [events]="events" [refresh]="refresh"
-                (dayClicked)="dayClicked($event.day)" (eventClicked)="editEvent('edit', $event.event)"
-                (eventTimesChanged)="eventTimesChanged($event)">
-              </mwl-calendar-day-view>
-            </div>
-          </div>
-          <!-- / CONTENT -->
+      <div class="header-top" fxLayout="row" fxLayoutAlign="space-between center" fxLayout.xs="column">
 
 
-          <div class="row">
-            <div class="col-xs-12 col-sm-12 ">
+        <!-- TOOLBAR -->
 
-              <mat-card style="background-color: #dee2e6">
-                <div class="title">
-                  <strong>Totaux</strong>
-                </div>
-                <table style="background-color:#FFFFFF" border="1">
-                  <thead>
-                    <tr>
-                      <th colspan="3">Production</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <th>
-                        <strong>Total</strong>
-                      </th>
-                      <th>
-                        <strong>Total</strong>
-                      </th>
-                      <th>
-                        <strong>Total</strong>
-                      </th>
-                    </tr>
-                  </tbody>
+      </div>
+      <!-- / TOOLBAR -->
 
-                </table>
-              </mat-card>
+      <!-- HEADER BOTTOM -->
+      <div class="header-bottom" fxLayout="row" fxLayoutAlign="center center"
+           [@animate]="{value:'*',params:{delay:'150ms'}}">
 
-            </div>
-          </div>
+        <button mat-icon-button class="arrow"
+                mwlCalendarPreviousView
+                [view]="view"
+                [(viewDate)]="viewDate"
+                (viewDateChange)="selectedDay = {date:$event}"
+                aria-label="Previous">
+          <mat-icon>chevron_left</mat-icon>
+        </button>
 
-          <div class="row" style="margin-top: 20px">
-            <div class="col-xs-12 col-sm-6 ">
-              <mat-card>
-                <div class="title">
-                  <strong>Commentaires</strong>
-
-                </div>
-                <textarea class="form-control" name="note" rows="5"></textarea>
-
-
-              </mat-card>
-
-            </div>
-
-
-            <div class="col-xs-12 col-sm-6 ">
-              <mat-card>
-                <div class="title">
-                  <strong>Piéces jointes</strong>
-
-
-                </div>
-                <textarea class="form-control" name="note" rows="5"></textarea>
-              </mat-card>
-
-            </div>
-          </div>
+        <div class="title">
+          {{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}
         </div>
 
-        <div class="row" style="margin-top: 20px">
-          <div class="col-xs-12 col-sm-12 ">
+        <button mat-icon-button class="arrow"
+                mwlCalendarNextView
+                [view]="view"
+                [(viewDate)]="viewDate"
+                (viewDateChange)="selectedDay = {date:$event}"
+                aria-label="Next">
+          <mat-icon>chevron_right</mat-icon>
+        </button>
+      </div>
+      <!-- / HEADER BOTTOM -->
+    </div>
 
-            <mat-card style="background-color: #dee2e6">
-              <div class="title">
-                <strong>Validations</strong>
-              </div>
-              <div>
+    <!-- ADD EVENT BUTTON -->
+    <!-- <button mat-fab class="add-event-button mat-accent" (click)="addEvent()" aria-label="Add event"
+             [@animate]="{value:'*',params:{delay:'300ms',scale:'0.2'}}">
+       <mat-icon>add</mat-icon>
+     </button>-->
+    <!-- / ADD EVENT BUTTON -->
+    <button mat-fab class="add-event-button mat-accent" (click)="addEvent()" aria-label="Add event"
+            [@animate]="{value:'*',params:{delay:'300ms',scale:'0.2'}}">
+      <mat-icon>add</mat-icon>
+    </button>
 
-
-                <!--<li *ngIf="isLoggedIn() && !isAdmin() && user$">
-                  <a> Circuit de validation en cours : {{user.firstname }} {{user.lastname}} > {{ manager.firstname }} {{ manager.lastname }} </a>
-                </li>
-                -->
-              </div>
-            </mat-card>
-
-          </div>
-        </div>
-
-
-      </mdb-card-body>
-
-    </mdb-card>
   </div>
+  <!-- / HEADER -->
+
+  <!-- CONTENT -->
+  <div class="content" fusePerfectScrollbar [@animate]="{value:'*',params:{delay:'200ms',y:'50px'}}">
+    <div [ngSwitch]="view">
+      <mwl-calendar-month-view
+        *ngSwitchCase="'month'"
+        [viewDate]="viewDate"
+        [events]="events"
+        [refresh]="refresh"
+        [activeDayIsOpen]="activeDayIsOpen"
+        (dayClicked)="dayClicked($event.day) ;
+         addEvent()"
+        (eventClicked)="editEvent('edit', $event.event)"
+        (eventTimesChanged)="eventTimesChanged($event)"
+        (beforeViewRender)="beforeMonthViewRender($event)">
+      </mwl-calendar-month-view>
+      <mwl-calendar-week-view
+        *ngSwitchCase="'week'"
+        [viewDate]="viewDate"
+        (viewDateChange)="selectedDay = {date:$event}"
+        [events]="events"
+        [refresh]="refresh"
+        (dayClicked)="dayClicked($event.day)"
+        (eventClicked)="editEvent('edit', $event.event)"
+        (eventTimesChanged)="eventTimesChanged($event)">
+      </mwl-calendar-week-view>
+      <mwl-calendar-day-view
+        *ngSwitchCase="'day'"
+        [viewDate]="viewDate"
+        (viewDateChange)="selectedDay = {date:$event}"
+        [events]="events"
+        [refresh]="refresh"
+        (dayClicked)="dayClicked($event.day)"
+        (eventClicked)="editEvent('edit', $event.event)"
+        (eventTimesChanged)="eventTimesChanged($event)">
+      </mwl-calendar-day-view>
+    </div>
+  </div>
+  <!-- / CONTENT -->
+
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 ">
+
+      <mat-card style="background-color: #dee2e6">
+        <div class="title">
+          <strong>Totaux</strong>
+        </div>
+        <table style="background-color:#FFFFFF" border="1">
+          <thead>
+          <tr>
+            <th colspan="3">Production</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <th>
+              <strong>Total</strong>
+            </th>
+            <th>
+              <strong>Total</strong>
+            </th>
+            <th>
+              <strong>Total</strong>
+            </th>
+          </tr>
+          </tbody>
+
+        </table>
+      </mat-card>
+
+    </div>
+  </div>
+
+  <div class="row" style="margin-top: 20px">
+    <div class="col-xs-12 col-sm-6 ">
+      <mat-card>
+        <div class="title">
+          <strong>Commentaires</strong>
+
+        </div>
+        <textarea class="form-control" name="note"
+                  rows="5"></textarea>
+
+
+      </mat-card>
+
+    </div>
+
+
+    <div class="col-xs-12 col-sm-6 ">
+      <mat-card>
+        <div class="title">
+          <strong>Piéces jointes</strong>
+
+          <app-pieces-jointes></app-pieces-jointes>
+        </div>
+
+      </mat-card>
+
+    </div>
+  </div>
+</div>
+
+      <div class="row" style="margin-top: 20px">
+        <div class="col-xs-12 col-sm-12 ">
+
+          <mat-card style="background-color: #dee2e6">
+            <div class="title">
+              <strong>Validations</strong>
+            </div>
+            <div>
+
+
+              <li *ngIf="isLoggedIn() && !isAdmin() && user$ | async as user">
+                <a> Circuit de validation en cours :   {{user.firstname }} {{user.lastname}}
+                  > {{ manager.firstname }} {{ manager.lastname }}   </a>
+              </li>
+
+            </div>
+          </mat-card>
+
+        </div>
+      </div>
+
+
+    </mdb-card-body>
+
+  </mdb-card>
+</div>
+
 </body>
