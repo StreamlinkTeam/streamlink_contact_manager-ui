@@ -1,7 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {LOCALE_ID, NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
 
-
 import {AppComponent} from './app.component';
 import {AuthInterceptor} from './auth.interceptor';
 import {AuthModule} from './auth/auth.module';
@@ -70,16 +69,39 @@ registerLocaleData(localeFr, 'fr');
 
 
 @NgModule({
-  declarations: [AppComponent, PositioningAddComponent,
-    PositioningEditComponent, FooterComponent,
-    ResourceDashboardComponent, NeedAddDialogComponent,
-    SocietyAddDialogComponent, UserAddDialogComponent],
+  declarations: [
+    AppComponent,
+    PositioningAddComponent,
+    PositioningEditComponent,
+    FooterComponent,
+    ResourceDashboardComponent,
+    NeedAddDialogComponent,
+    SocietyAddDialogComponent,
+    UserAddDialogComponent
+  ],
   imports: [
-    MDBBootstrapModule, NavbarModule, ButtonsModule, WavesModule, IconsModule,
-    BrowserModule, HttpClientModule, AppNavbarModule,
-    LoaderModule, SocietyModule, AdminModule, ProfilModule, PositioningModule,
-    DeveloperModule, AuthModule, SocietyContactModule, ResourceModule, AbsenceModule,
-    ProjectModule, NeedModule, ResourceNavbarModule, CalendarModule,
+    MDBBootstrapModule,
+    NavbarModule,
+    ButtonsModule,
+    WavesModule,
+    IconsModule,
+    BrowserModule,
+    HttpClientModule,
+    AppNavbarModule,
+    LoaderModule,
+    SocietyModule,
+    AdminModule,
+    ProfilModule,
+    PositioningModule,
+    DeveloperModule,
+    AuthModule,
+    SocietyContactModule,
+    ResourceModule,
+    AbsenceModule,
+    ProjectModule,
+    NeedModule,
+    ResourceNavbarModule,
+    CalendarModule,
     ToastrModule.forRoot({positionClass: 'toast-bottom-right'}),
     RouterModule.forRoot(appRoutes),
     FormsModule, ReactiveFormsModule,
@@ -93,9 +115,19 @@ registerLocaleData(localeFr, 'fr');
     }),
     BrowserAnimationsModule,
     InputTextModule,
-    MatButtonModule, MatIconModule, MatInputModule, MatDatepickerModule,
-    MatProgressSpinnerModule, MatMomentDateModule, MatSelectModule, MatToolbarModule, MatTabsModule,
-    FuseModule.forRoot(fuseConfig), OwlDateTimeModule, OwlNativeDateTimeModule, SharedModule
+    MatButtonModule,
+    MatIconModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatProgressSpinnerModule,
+    MatMomentDateModule,
+    MatSelectModule,
+    MatToolbarModule,
+    MatTabsModule,
+    FuseModule.forRoot(fuseConfig),
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
+    SharedModule
   ],
   schemas: [NO_ERRORS_SCHEMA],
   providers: [
@@ -103,7 +135,7 @@ registerLocaleData(localeFr, 'fr');
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true
-    }, {provide: LOCALE_ID, useValue: 'fr'}
+    }, { provide: LOCALE_ID, useValue: 'fr' }
   ],
   bootstrap: [AppComponent],
   exports: [

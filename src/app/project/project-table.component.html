@@ -1,7 +1,7 @@
 <div class="container-fluid" style="padding-right: 5%; padding-left: 5%">
 
   <mdb-card class="text-white">
-    <mdb-card-header><h4><img src="../../assets/folder.png" style="width: 30px; height: 30px"> Liste des projets</h4>
+    <mdb-card-header><h4> Liste des projets</h4>
     </mdb-card-header>
     <mdb-card-body>
 
@@ -76,7 +76,6 @@
 
   <br>
   <ng2-smart-table (delete)="deleteProject($event)"
-                   (userRowSelect)="onSelectRow($event)"
                    (edit)="showProject($event)"
                    [settings]="settings"
                    [source]="source">
@@ -84,10 +83,10 @@
 
   <div class="dropdown-divider"></div>
 
-<!--  <div class="form-group">-->
-<!--    <button color="primary" mat-raised-button routerLink="/projects/create">-->
-<!--      <mat-icon>add</mat-icon>-->
-<!--      Créer un projet-->
-<!--    </button>-->
-<!--  </div>-->
+  <div class="form-group">
+    <button color="primary" mat-raised-button routerLink="/projects/create">
+      <mat-icon>add</mat-icon>
+      Créer un projet
+    </button>
+  </div>
 </div>

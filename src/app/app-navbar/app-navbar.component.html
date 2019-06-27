@@ -1,12 +1,9 @@
 <!--Main Navigation-->
-<header>
-  <nav class="navbar fixed-top navbar-expand-lg navbar-dark  scrolling-navbar" style="background-color: #4267b2">
-
-    <a class="navbar-brand" routerLink="/developers" style="color: #ffffff"><i class="fa fa-home"></i><strong>&nbsp;Streamlink</strong>
-    </a>
-
-    <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
-            class="navbar-toggler"
+<header *ngIf="isAdmin()">
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
+    <a class="navbar-brand" routerLink="/dashboard" style="color: #ffffff"><i class="fa fa-home"></i><strong>&nbsp;Streamlink
+      </strong></a>
+    <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"
             data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -20,8 +17,9 @@
           <a class="nav-link" routerLink="/developers" routerLinkActive="active"><b>Candidats</b></a>
         </li>
 
-        <li *ngIf="isLoggedIn()" class="nav-item" routerLinkActive="active">
-          <a class="nav-link" routerLink="/resources" routerLinkActive="active"><b>Resources</b> </a>
+
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="/resources" routerLinkActive="active">Resources </a>
         </li>
 
         <li *ngIf="isLoggedIn()" class="nav-item" routerLinkActive="active">
@@ -56,6 +54,60 @@
           <li *ngIf="isLoggedIn()" class="nav-item">
             <a (click)="logout()" class="dropdown-item text-warning"><i class="fa fa-power-off"></i></a>
           </li>
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+</header>
+
+
+<header *ngIf="isResource()">
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
+    <a class="navbar-brand" routerLink="/dashboard" style="color: #ffffff"><i class="fa fa-home"></i><strong>STREAMLINK
+      </strong></a>
+    <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+      class="navbar-toggler" data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto" routerLinkActive="active">
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="/dashboard" routerLinkActive="active">Projets</a>
+        </li>
+
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="/timesheet" routerLinkActive="active">Timesheet</a>
+        </li>
+
+
+
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="/absence" routerLinkActive="active">Absence </a>
+        </li>
+
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="/profil" routerLinkActive="active">Profile</a>
+        </li>
+
+
+
+
+      </ul>
+      <div class="md-form my-0">
+        <ul class="navbar-nav mr-auto">
+          <li *ngIf="isLoggedIn() && isAdmin() && user$ | async as user" class="nav-item" routerLinkActive="active">
+            <a class="dropdown-item  text-warning" routerLink="/profil" routerLinkActive="active"><i
+                class="fa fa-user"></i> &nbsp;{{user.firstname }} {{user.lastname}}</a>
+          </li>
+          <li *ngIf="isLoggedIn() && !isAdmin() && user$ | async as user" class="nav-item" routerLinkActive="active">
+            <a class="dropdown-item  text-warning">{{user.firstname }} {{user.lastname}}</a>
+          </li>
+          <li *ngIf="isLoggedIn()" class="nav-item">
+            <a (click)="logout()" class="dropdown-item text-warning"><i class="fa fa-power-off"></i></a>
+          </li>
+
 
         </ul>
       </div>

@@ -39,7 +39,11 @@ export class AppNavbarComponent implements OnInit {
 
   isAdmin() {
 
-    return this.auth.isAdmin();
+    return this.isLoggedIn() && this.auth.isAdmin();
+  }
+
+  isResource() {
+    return this.isLoggedIn() && this.auth.isResource();
   }
 
 

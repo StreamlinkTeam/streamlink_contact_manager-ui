@@ -9,8 +9,6 @@ body {
 
 }
 
-
-
 .card-header:first-child {
   background-color: #4267b2;
   color: white;
@@ -44,6 +42,9 @@ tr.ng2-smart-filters {
   padding: 2px;
 }
 
+.navbar {
+  background-color: #4267b2;
+}
 
 /*input.ng-dirty.ng-invalid {*/
 /*border: 2px solid #ff0000*/
@@ -62,5 +63,3 @@ tr.ng2-smart-filters {
 /*content: "*";*/
 /*color: red;*/
 /*}*/
-
-
