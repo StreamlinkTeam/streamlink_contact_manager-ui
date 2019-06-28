@@ -42,6 +42,11 @@ export class AppNavbarComponent implements OnInit {
     return this.isLoggedIn() && this.auth.isAdmin();
   }
 
+  isClient() {
+
+    return this.isLoggedIn() && this.auth.isClient();
+  }
+
   isResource() {
     return this.isLoggedIn() && this.auth.isResource();
   }

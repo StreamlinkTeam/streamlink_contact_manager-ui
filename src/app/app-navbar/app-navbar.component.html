@@ -1,5 +1,5 @@
 <!--Main Navigation-->
-<header *ngIf="isAdmin()">
+<header *ngIf="isAdmin() || isClient()">
   <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
     <a class="navbar-brand" routerLink="/dashboard" style="color: #ffffff"><i class="fa fa-home"></i><strong>&nbsp;Streamlink
       </strong></a>
