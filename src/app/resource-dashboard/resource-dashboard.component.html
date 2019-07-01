@@ -1,47 +1,33 @@
-
-
 <app-resource-navbar></app-resource-navbar>
 
 <body>
-<div class="container">
-  <mdb-card>
-    <mdb-card-header >List des Projetss </mdb-card-header>
-
-
-
-<div class="mat-paginator-page-size">
-
-  <div class="container custom-container-2">
-
-    <div>
-      <div class="col-md-12">
-        <table mdbTable class="z-depth-2 ">
-          <thead>
-          <tr>
-            <th *ngFor="let head of headElements" scope="col">{{head}} </th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr mdbTableCol *ngFor="let el of Positioning">
-            <th scope="row">{{el.needTitle}}</th>
-            <td>{{el.client}}</td>
-            <td>{{el.startDate}}</td>
-            <td>{{el.endDate}}</td>
-          </tr>
-          </tbody>
-        </table>
+  <div class="container">
+    <mdb-card>
+      <mdb-card-header>List des Projetss </mdb-card-header>
+      <div class="mat-paginator-page-size">
+        <div>
+          <div class="col-md-12">
+            <table mdbTable>
+              <thead>
+                <tr>
+                  <th *ngFor="let head of headElements" scope="col">{{head}}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let el of Positioning">
+                  <th>{{el.needTitle}}</th>
+                  <td>{{el.client}}</td>
+                  <td>{{el.startDate}}</td>
+                  <td>{{el.endDate}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
-    </div>
-
+    </mdb-card>
   </div>
 
-</div>
-
-
-
-
-
-  </mdb-card>
-</div>
+  
 
 </body>
