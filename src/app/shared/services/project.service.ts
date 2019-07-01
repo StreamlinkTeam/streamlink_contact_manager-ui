@@ -22,7 +22,7 @@ export class ProjectService {
   }
 
   createProjectFromPositioning(positioningReference: string): Observable<ProjectPos> {
-    this.loaderService.show();
+    //this.loaderService.show();
     const url = environment.API + '/ws/projectspos/from-positioning';
 
     const options = {params: new HttpParams().set('positioningReference', positioningReference)};
@@ -31,50 +31,50 @@ export class ProjectService {
     return this.http
       .post<ProjectPos>(url, null, options)
       ._finally(() => {
-        this.loaderService.hide();
+        //this.loaderService.hide();
       });
   }
 
 
   getProject(projectReference: string): Observable<ProjectPos> {
 
-    this.loaderService.show();
+    //this.loaderService.show();
     const url = environment.API + '/ws/projectspos';
 
     const options = {params: new HttpParams().set('projectReference', projectReference)};
 
     return this.http.get<ProjectPos>(url, options)
       ._finally(() => {
-        this.loaderService.hide();
+        //this.loaderService.hide();
       });
 
   }
 
   getProjects(): Observable<ProjectPos[]> {
 
-    this.loaderService.show();
+    //this.loaderService.show();
     const url = environment.API + '/ws/projectspos/all';
 
     return this.http.get<ProjectPos[]>(url)
       ._finally(() => {
-        this.loaderService.hide();
+        //this.loaderService.hide();
       });
   }
 
 
   createProject(projectPos: ProjectPos): Observable<ProjectPos> {
 
-    this.loaderService.show();
+    //this.loaderService.show();
     const url = environment.API + '/ws/projectspos';
 
     return this.http.post<ProjectPos>(url, projectPos)
       ._finally(() => {
-        this.loaderService.hide();
+        //this.loaderService.hide();
       });
   }
 
   updateProject(project: ProjectPos, projectReference: string): Observable<ProjectPos> {
-    this.loaderService.show();
+    //this.loaderService.show();
     const url = environment.API + '/ws/projectspos';
 
     const options = {params: new HttpParams().set('projectReference', projectReference)};
@@ -83,12 +83,12 @@ export class ProjectService {
     return this.http
       .put<ProjectPos>(url, project, options)
       ._finally(() => {
-        this.loaderService.hide();
+        //this.loaderService.hide();
       });
   }
 
   deleteProject(projectReference: string) {
-    this.loaderService.show();
+    //this.loaderService.show();
     const url = environment.API + '/ws/projectspos';
 
     const options = {params: new HttpParams().set('projectReference', projectReference)};
@@ -98,13 +98,13 @@ export class ProjectService {
       .delete(url, options)
       .map((res: HttpResponse<any>) => res.body)
       ._finally(() => {
-        this.loaderService.hide();
+        //this.loaderService.hide();
       });
   }
 
 
   getProjectInformation(projectReference: string): Observable<ProjectInformation> {
-    this.loaderService.show();
+    //this.loaderService.show();
     const url = environment.API + '/ws/projects/information';
 
 
@@ -115,12 +115,12 @@ export class ProjectService {
       .http
       .get<ProjectInformation>(url, options)
       ._finally(() => {
-        this.loaderService.hide();
+        //this.loaderService.hide();
       });
   }
 
   updateProjectInformation(info: ProjectInformation, projectReference: string): Observable<ProjectInformation> {
-    this.loaderService.show();
+    //this.loaderService.show();
     const url = environment.API + '/ws/projects/information';
 
     const options = {params: new HttpParams().set('projectReference', projectReference)};
@@ -129,19 +129,19 @@ export class ProjectService {
     return this.http
       .put<ProjectInformation>(url, info, options)
       ._finally(() => {
-        this.loaderService.hide();
+        //this.loaderService.hide();
       });
   }
 
   searchProjects(term: string): Observable<ProjectView[]> {
 
-    this.loaderService.show();
+    //this.loaderService.show();
     const url = environment.API + '/ws/projects/auto-complete';
     const options = {params: new HttpParams().set('term', term)};
 
     return this.http.get<ProjectView[]>(url, options)
       ._finally(() => {
-        this.loaderService.hide();
+        //this.loaderService.hide();
       });
   }
 
