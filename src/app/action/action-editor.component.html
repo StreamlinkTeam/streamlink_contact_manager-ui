@@ -1,6 +1,24 @@
 <div class="container">
   <mdb-card>
-    <mdb-card-header *ngIf="!isSocietyContact()">Actions</mdb-card-header>
+
+    <div class="row"  *ngIf="!isSocietyContact()">
+      <div class="col">
+        <mdb-card>
+          <mdb-card-header>Actions</mdb-card-header>
+        </mdb-card>
+      </div>
+    </div>
+
+
+    <div class="row" *ngIf="isSocietyContact()">
+      <div class="col">
+        <mdb-card>
+          <mdb-card-header >Contact-Actions</mdb-card-header>
+        </mdb-card>
+      </div>
+    </div>
+
+
     <!--{{projectPos.resourceFullName}} : {{ projectPos.needTitle}} {{projectPos.createdDate}}-->
     <mdb-card-body>
       <div class="row">
@@ -113,10 +131,10 @@
 <!--              <button *ngIf="isResource()" class="btn btn-secondary" routerLink="/resources"-->
 <!--                      type="reset">Annuler-->
 <!--              </button>-->
-              <button *ngIf="isSocietyContact()" class="btn btn-secondary"
-                      routerLink="/societies/edit/{{societyReference}}/contacts"
-                      type="reset">Annuler
-              </button>
+<!--              <button *ngIf="isSocietyContact()" class="btn btn-secondary"-->
+<!--                      routerLink="/societies/edit/{{societyReference}}/contacts"-->
+<!--                      type="reset">Annuler-->
+<!--              </button>-->
 
               <button *ngIf="isSociety()" class="btn btn-secondary" routerLink="/societies"
                       type="reset">Annuler

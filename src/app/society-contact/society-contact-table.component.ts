@@ -7,6 +7,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {SocietyContactService} from '../shared/services/society-contact.service';
 import {CustomEnumRenderComponent} from '../shared/custom-ng2-smart-table-renderer/custom-enum-render.component';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -175,22 +176,36 @@ export class SocietyContactTableComponent implements OnInit {
 
   }
 
+
   deleteSocietyContact(rowData: Row) {
 
     const societyContact = rowData.getData();
-    if (confirm('Suppression du Contact ' + societyContact.firstname + ' ' + societyContact.lastname)) {
+    Swal.fire({
+      title: 'Êtes-vous sûr?',
+      text: 'Supression du conatct ' + societyContact.firstname + ' ' + societyContact.lastname,
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonText: 'annuler',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Oui, je confirme!'
+    }).then((result) => {
+      if (result.value) {
+        Swal.fire(
+          'Contact supprimer avec sucées!',
+          'Conatct: ' + societyContact.firstname + ' ' + societyContact.lastname,
+          'success'
+        );
 
-      this.service.deleteSocietyContact(societyContact.reference, this.societyReference)
-        .subscribe(res => {
+        this.service.deleteSocietyContact(societyContact.reference, this.societyReference)
+          .subscribe(res => {
 
-          this.source.remove(rowData);
-          this.toastr.success('Contact Supprimé avec succés', 'Opération Réussite!');
-
-        }, error => {
-          this.toastr.error('Erreur lors de la suppression de du contact', 'Opération échoué !!!');
-        });
-
-    }
+            this.source.remove(rowData);
+          }, error => {
+            this.toastr.error('Erreur lors de la suppression de du contact', 'Opération échoué !!!');
+          });
+      }
+    });
   }
 
   onSelectRow(event: any) {

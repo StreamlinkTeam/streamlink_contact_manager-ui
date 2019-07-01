@@ -28,6 +28,7 @@ export class AuthComponent {
       sessionStorage.setItem('username', this.username);
       this.auth.authenticate(this.username, this.password)
         .subscribe(response => {
+          console.log(response);
           this.devService.getDeveloperByEmail(this.username).subscribe(res => {
             sessionStorage['ref'] = res.reference;
           });

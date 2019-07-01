@@ -6,6 +6,16 @@
         <mdb-card-header>Coordonnées du Développeur</mdb-card-header>
       </mdb-card>
     </div>
+
+    <div class="row" *ngIf="isSocietyContact()">
+      <div class="col">
+        <mdb-card>
+          <mdb-card-header>Coordonnées de la société
+          </mdb-card-header>
+        </mdb-card>
+      </div>
+    </div>
+
     <mdb-card-body>
       <div class="row">
         <div class="col">
