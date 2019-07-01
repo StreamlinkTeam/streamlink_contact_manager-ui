@@ -33,19 +33,7 @@
             </div>
 
             <div class="form-row">
-<!--              <div class="form-group col-md-6 required">-->
-<!--                <label class="col-form-label">Type</label>-->
-<!--                <select #type_input="ngModel" [(ngModel)]="action.type" class="form-control"-->
-<!--                        name="type" required >-->
 
-<!--                  <option *ngFor="let ff of types" [ngValue]="ff.value">{{ff.label}}</option>-->
-<!--                </select>-->
-<!--                <app-field-error-display-->
-<!--                  [displayError]="form.submitted && type_input.invalid"-->
-<!--                  [model]="type_input">-->
-<!--                </app-field-error-display>-->
-
-<!--              </div>-->
               <table class="table table-striped">
                 <thead></thead>
                 <tbody>
@@ -53,37 +41,30 @@
                   <th scope="row"><b>Date et heure</b></th>
                   <td>
                     <input [(ngModel)]="action.date"
-                    [owlDateTimeTrigger]="dt"  [owlDateTime]="dt"
-                    class="form-control" name="date" placeHolder="Cliquez pour choisir une date et heure" />
+                           [owlDateTimeTrigger]="dt"  [owlDateTime]="dt"
+                           class="form-control" name="date" placeHolder="Cliquez pour choisir une date et heure" />
                     <owl-date-time #dt></owl-date-time>
                   </td>
                 </tr>
 
-<!--             <div class="form-group col-md-6">-->
-<!--                <label class="col-form-label">Date-->
-<!--                <input [(ngModel)]="action.date"-->
-<!--                       [owlDateTimeTrigger]="dt"  [owlDateTime]="dt"-->
-<!--                       class="form-control" name="date" placeHolder="Date/Time" />-->
-<!--                  <owl-date-time #dt></owl-date-time>-->
-<!--                </label>-->
-<!--              </div>-->
-<!--            </div>-->
 
-            <div *ngIf="isSociety()" class="form-group">
-              <label>Contact</label> <select #contact_input="ngModel" [(ngModel)]="action.societyContactReference"
-                                             class="form-control"
-                                             name="societyContactReference" required>
-              <option *ngFor="let contact of contacts" [ngValue]="contact.reference">{{contact.firstname}}
-                {{contact.lastname}}
-              </option>
-            </select>
-              <app-field-error-display
-                [displayError]="form.submitted && contact_input.invalid"
-                [model]="contact_input"
-                fieldName="Contact">
-              </app-field-error-display>
-
-            </div>
+                <tr *ngIf="isSociety()">
+                  <th scope="row"><b>Contact</b></th>
+                  <td>
+                    <select #contact_input="ngModel" [(ngModel)]="action.societyContactReference"
+                            class="form-control"
+                            name="societyContactReference" required>
+                      <option *ngFor="let contact of contacts" [ngValue]="contact.reference">{{contact.firstname}}
+                        {{contact.lastname}}
+                      </option>
+                    </select>
+                    <app-field-error-display
+                      [displayError]="form.submitted && contact_input.invalid"
+                      [model]="contact_input"
+                      fieldName="Contact">
+                    </app-field-error-display>
+                  </td>
+                </tr>
 
             <tr>
               <th scope="row"><b>Note</b></th>
@@ -101,19 +82,6 @@
             </tbody>
               </table></div>
 
-<!--            <div class="form-group required">-->
-<!--              <label class="col-form-label">Note</label>-->
-<!--              <textarea #note_input="ngModel" [(ngModel)]="action.note" class="form-control" name="note"-->
-<!--                        required rows="5">-->
-
-<!--			</textarea>-->
-
-<!--              <app-field-error-display-->
-<!--                [displayError]="form.submitted && note_input.invalid"-->
-<!--                [model]="note_input">-->
-<!--              </app-field-error-display>-->
-<!--            </div>-->
-
             <div class="form-group">
               <button
                 color="primary"
@@ -124,17 +92,9 @@
                 Enregistrer
 
               </button>
-<!--              <button class="btn btn-warning" type="submit">Enregistrer</button>-->
               <button *ngIf="isDeveloper()" class="btn btn-secondary" routerLink="/developers"
                       type="reset">Annuler
               </button>
-<!--              <button *ngIf="isResource()" class="btn btn-secondary" routerLink="/resources"-->
-<!--                      type="reset">Annuler-->
-<!--              </button>-->
-<!--              <button *ngIf="isSocietyContact()" class="btn btn-secondary"-->
-<!--                      routerLink="/societies/edit/{{societyReference}}/contacts"-->
-<!--                      type="reset">Annuler-->
-<!--              </button>-->
 
               <button *ngIf="isSociety()" class="btn btn-secondary" routerLink="/societies"
                       type="reset">Annuler
@@ -148,9 +108,6 @@
                       type="reset">Annuler
               </button>
 
-<!--              <button (click)="newAction(form)" *ngIf="editing" class="btn btn-primary"-->
-<!--                      type="button">Nouveau-->
-<!--              </button>-->
             </div>
 
             <table *ngIf="actions?.length > 0"
