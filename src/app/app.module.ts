@@ -64,6 +64,7 @@ import {SocietyAddDialogComponent} from './society/society-add-dialog.component'
 import {UserAddDialogComponent} from './users/user-add-dialog.component';
 
  import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import {Ng2FileSizeModule} from 'ng2-file-size';
 
 registerLocaleData(localeFr, 'fr');
 
@@ -77,7 +78,7 @@ registerLocaleData(localeFr, 'fr');
     ResourceDashboardComponent,
     NeedAddDialogComponent,
     SocietyAddDialogComponent,
-    UserAddDialogComponent
+    UserAddDialogComponent,
   ],
   imports: [
     MDBBootstrapModule,
@@ -127,7 +128,7 @@ registerLocaleData(localeFr, 'fr');
     FuseModule.forRoot(fuseConfig),
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
-    SharedModule
+    SharedModule, Ng2FileSizeModule
   ],
   schemas: [NO_ERRORS_SCHEMA],
   providers: [
@@ -139,7 +140,7 @@ registerLocaleData(localeFr, 'fr');
   ],
   bootstrap: [AppComponent],
   exports: [
-    ResourceDashboardComponent
+    ResourceDashboardComponent,
   ],
   entryComponents: [
     PositioningAddComponent,
