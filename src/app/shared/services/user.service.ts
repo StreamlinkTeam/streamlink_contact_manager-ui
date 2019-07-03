@@ -3,11 +3,11 @@ import {Observable} from 'rxjs/Observable';
 import {environment} from '../../../environments/environment';
 import {Token} from '../entities/token.model';
 import {User} from '../entities/user.model';
-import {HttpClient, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpParams, HttpResponse} from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import {LoaderService} from "./loader.service";
-import {HttpResponse} from '@angular/common/http';
+import {LoaderService} from './loader.service';
+import {Photo} from '../entities/photo.model';
 
 
 @Injectable()
@@ -19,11 +19,12 @@ export class UserService {
   authenticate(username: string, password: string): Observable<boolean> {
 
     this.loaderService.show();
-    const url = environment.API + '/ws/users/login';    //http://localhost:9090
+    const url = environment.API + '/ws/users/login';    // http://localhost:9090
 
-    const options = {params: new HttpParams().set('username', username)
-                                             .set('password', password)
-                    };
+    const options = {
+      params: new HttpParams().set('username', username)
+        .set('password', password)
+    };
 
     return this.http.get<Token>(url, options)
       .map(token => {
@@ -136,4 +137,99 @@ export class UserService {
       });
   }
 
+  // __________________Photo_Services_______________________________
+
+  getUsersAvatars(userReference: string): Observable<Photo[]> {
+    this.loaderService.show();
+    const url = environment.API + '/ws/users/avatar';
+
+    const options = {params: new HttpParams().set('userReference', userReference)};
+
+
+    return this
+      .http
+      .get<Photo[]>(url, options)
+      ._finally(() => {
+        this.loaderService.hide();
+      });
+  }
+
+  getUserAvatar(reference: string, userReference: string): Observable<Photo> {
+    this.loaderService.show();
+    const url = environment.API + '/ws/users/userAvatar';
+
+    const options = {
+      params: new HttpParams()
+        .set('reference', reference)
+        .set('UserReference', userReference)
+    };
+
+    return this.http.get<Photo>(url, options)
+      ._finally(() => {
+        this.loaderService.hide();
+      });
+  }
+
+
+  getPhotoByUserReference(userReference: string): Observable<Photo> {
+    this.loaderService.show();
+    const url = environment.API + '/ws/users/userAvatarByUser';
+
+    const options = {
+      params: new HttpParams().set('userReference', userReference)
+    };
+
+    return this.http.get<Photo>(url, options)
+      ._finally(() => {
+        this.loaderService.hide();
+      });
+  }
+
+  getUserAvatar2(userReference: string): Observable<Photo> {
+    this.loaderService.show();
+    const url = environment.API + '/ws/users/avatar';
+
+    const options = {
+      params: new HttpParams().set('userReference', userReference)
+    };
+
+
+    return this
+      .http
+      .get<Photo>(url, options)
+      ._finally(() => {
+        this.loaderService.hide();
+      });
+  }
+
+  createUserAvatar(fileToUpload: File, userReference: string): Observable<Photo> {
+    this.loaderService.show();
+    const url = environment.API + '/ws/users/avatar';
+
+    const formData: FormData = new FormData();
+    formData.append('avatar', fileToUpload, fileToUpload.name);
+
+    const options = {params: new HttpParams().set('userReference', userReference)};
+
+
+    return this.http
+      .put<Photo>(url, formData, options)
+      ._finally(() => {
+        this.loaderService.hide();
+      });
+  }
+
+  deleteAvatar(reference: string, userReference: string) {
+    this.loaderService.show();
+    const url = environment.API + '/ws/users/avatar';
+
+    const options = {params: new HttpParams().set('userReference', userReference).set('reference', reference)};
+
+
+    return this.http
+      .delete(url, options)
+      ._finally(() => {
+        this.loaderService.hide();
+      });
+  }
 }

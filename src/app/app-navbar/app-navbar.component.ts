@@ -30,7 +30,6 @@ export class AppNavbarComponent implements OnInit {
       });
 
     }
-
   }
 
   isLoggedIn() {
