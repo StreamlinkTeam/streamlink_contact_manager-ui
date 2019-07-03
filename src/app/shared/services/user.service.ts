@@ -18,7 +18,7 @@ export class UserService {
 
   authenticate(username: string, password: string): Observable<boolean> {
 
-    this.loaderService.show();
+    //this.loaderService.show();
     const url = environment.API + '/ws/users/login';    //http://localhost:9090
 
     const options = {params: new HttpParams().set('username', username)
@@ -31,22 +31,22 @@ export class UserService {
         return true;
       })
       ._finally(() => {
-        this.loaderService.hide();
+        //this.loaderService.hide();
       });
   }
 
   getCurrentUser(): Observable<User> {
-    this.loaderService.show();
+    //this.loaderService.show();
     const url = environment.API + '/ws/users/current';
     return this.http.get<User>(url)
       ._finally(() => {
-        this.loaderService.hide();
+        //this.loaderService.hide();
       });
   }
 
   changePassword(oldPassword: string, newPassword: string): Observable<any> {
 
-    this.loaderService.show();
+    //this.loaderService.show();
     const url = environment.API + '/ws/users/current/password';
 
     const options = {
@@ -56,7 +56,7 @@ export class UserService {
 
     return this.http.put<any>(url, options)
       ._finally(() => {
-        this.loaderService.hide();
+        //this.loaderService.hide();
       });
 
   }
@@ -75,40 +75,40 @@ export class UserService {
 
   getUsers(): Observable<User[]> {
 
-    this.loaderService.show();
+    //this.loaderService.show();
     const url = environment.API + '/ws/users/all';
 
     return this.http.get<User[]>(url)
       ._finally(() => {
-        this.loaderService.hide();
+        //this.loaderService.hide();
       });
   }
 
   getUser(reference: string): Observable<User> {
 
-    this.loaderService.show();
+    //this.loaderService.show();
     const url = environment.API + '/ws/users';
 
     const options = {params: new HttpParams().set('userReference', reference)};
 
     return this.http.get<User>(url, options)
       ._finally(() => {
-        this.loaderService.hide();
+        //this.loaderService.hide();
       });
 
   }
 
   createUser(user: User): Observable<User> {
-    this.loaderService.show();
+    //this.loaderService.show();
     const url = environment.API + '/ws/users';
     return this.http.post<User>(url, user)
       ._finally(() => {
-        this.loaderService.hide();
+        //this.loaderService.hide();
       });
   }
 
   updateUser(user: User, reference: string): Observable<User> {
-    this.loaderService.show();
+    //this.loaderService.show();
     const url = environment.API + '/ws/users';
 
     const options = {params: new HttpParams().set('userReference', reference)};
@@ -117,12 +117,12 @@ export class UserService {
     return this.http
       .put<User>(url, user, options)
       ._finally(() => {
-        this.loaderService.hide();
+        //this.loaderService.hide();
       });
   }
 
   deleteUser(reference: string) {
-    this.loaderService.show();
+    //this.loaderService.show();
     const url = environment.API + '/ws/users';
 
     const options = {params: new HttpParams().set('userReference', reference)};
@@ -132,7 +132,7 @@ export class UserService {
       .delete(url, options)
       .map((res: HttpResponse<any>) => res.body)
       ._finally(() => {
-        this.loaderService.hide();
+        //this.loaderService.hide();
       });
   }
 

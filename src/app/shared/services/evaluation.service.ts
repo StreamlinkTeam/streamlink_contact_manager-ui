@@ -16,7 +16,7 @@ export class EvaluationService {
   }
 
   getEvaluations(developerReference: string): Observable<Evaluation[]> {
-    this.loaderService.show();
+    //this.loaderService.show();
     const url = environment.API + '/ws/developers/evaluations';
 
     const options = {params: new HttpParams().set('developerReference', developerReference)};
@@ -24,13 +24,13 @@ export class EvaluationService {
 
     return this.http.get<Evaluation[]>(url, options)
       ._finally(() => {
-        this.loaderService.hide();
+        //this.loaderService.hide();
       });
   }
 
 
   createEvaluation(evaluation: Evaluation, developerReference: string): Observable<Evaluation> {
-    this.loaderService.show();
+    //this.loaderService.show();
     const url = environment.API + '/ws/developers/evaluations';
 
     const options = {params: new HttpParams().set('developerReference', developerReference)};
@@ -38,12 +38,12 @@ export class EvaluationService {
     return this.http
       .post<Evaluation>(url, evaluation, options)
       ._finally(() => {
-        this.loaderService.hide();
+        //this.loaderService.hide();
       });
   }
 
   updateEvaluation(evaluation: Evaluation, reference: string, developerReference: string): Observable<Evaluation> {
-    this.loaderService.show();
+    //this.loaderService.show();
     const url = environment.API + '/ws/developers/evaluations';
 
     const options = {params: new HttpParams().set('developerReference', developerReference).set('reference', reference)};
@@ -52,12 +52,12 @@ export class EvaluationService {
     return this.http
       .put<Evaluation>(url, evaluation, options)
       ._finally(() => {
-        this.loaderService.hide();
+        //this.loaderService.hide();
       });
   }
 
   deleteEvaluation(reference: string, developerReference: string) {
-    this.loaderService.show();
+    //this.loaderService.show();
     const url = environment.API + '/ws/developers/evaluations';
 
     const options = {params: new HttpParams().set('developerReference', developerReference).set('reference', reference)};
@@ -66,7 +66,7 @@ export class EvaluationService {
     return this.http
       .delete(url, options)
       ._finally(() => {
-        this.loaderService.hide();
+        //this.loaderService.hide();
       });
   }
 

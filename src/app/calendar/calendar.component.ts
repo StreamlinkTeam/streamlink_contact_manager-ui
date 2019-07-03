@@ -1,24 +1,25 @@
-import {Component, OnInit, ViewEncapsulation, Output, EventEmitter} from '@angular/core';
-import {FormGroup} from '@angular/forms';
-import {MatDialog, MatDialogRef} from '@angular/material';
-import {Observable, Subject} from 'rxjs';
-import {isSameDay, isSameMonth, startOfDay} from 'date-fns';
-import {CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarMonthViewDay} from 'angular-calendar';
+import { Component, OnInit, ViewEncapsulation, Output, EventEmitter } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { MatDialog, MatDialogRef } from '@angular/material';
+import { Observable, Subject } from 'rxjs';
+import { isSameDay, isSameMonth, startOfDay } from 'date-fns';
+import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarMonthViewDay } from 'angular-calendar';
 
-import {FuseConfirmDialogComponent} from '../../@fuse/components/confirm-dialog/confirm-dialog.component';
-import {fuseAnimations} from '../../@fuse/animations';
-import {CalendarService} from './calendar.service';
-import {CalendarEventModel} from './event.model';
-import {CalendarEventFormDialogComponent} from './event-form/event-form.component';
-import {FuseSidebarService} from '../../@fuse/components/sidebar/sidebar.service';
-import {AuthService} from '../shared/services/auth.service';
-import {ResourceNavbarService} from '../resource-navbar/rousource-navbar.service';
-import {User} from '../shared/entities/user.model';
-import {DeveloperService} from '../shared/services/developer.service';
-import {Developer} from '../shared/entities/developer.model';
-import {UserService} from '../shared/services/user.service';
+import { FuseConfirmDialogComponent } from '../../@fuse/components/confirm-dialog/confirm-dialog.component';
+import { fuseAnimations } from '../../@fuse/animations';
+import { CalendarService } from './calendar.service';
+import { CalendarEventModel } from './event.model';
+import { CalendarEventFormDialogComponent } from './event-form/event-form.component';
+import { FuseSidebarService } from '../../@fuse/components/sidebar/sidebar.service';
+import { AuthService } from '../shared/services/auth.service';
+import { ResourceNavbarService } from '../resource-navbar/rousource-navbar.service';
+import { User } from '../shared/entities/user.model';
+import { DeveloperService } from '../shared/services/developer.service';
+import { Developer } from '../shared/entities/developer.model';
+import { UserService } from '../shared/services/user.service';
 import { HolidayComponent } from '../holiday/holiday.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { PositioningService } from '../shared/services/positioning.service';
 
 
 @Component({
@@ -55,23 +56,23 @@ export class CalendarComponent implements OnInit {
     private devService: DeveloperService,
     private userService: UserService,
     private resourceNavbarService: ResourceNavbarService,
-    private  _fuseSidebarService: FuseSidebarService,
+    private _fuseSidebarService: FuseSidebarService,
     private _matDialog: MatDialog,
-    private _calendarService: CalendarService
-  ) {
-    // Set the defaults
-    this.view = 'month';
-    this.viewDate = new Date();
-    this.activeDayIsOpen = false;
-    this.selectedDay = {date: startOfDay(new Date())};
+    private _calendarService: CalendarService,
+    private positionningService: PositioningService) {
+      this.view = 'month';
+      this.viewDate = new Date();
+      this.activeDayIsOpen = false;
+      this.selectedDay = { date: startOfDay(new Date()) };
 
-    this.actions = [];
-    this.setEvents();
+      this.actions = [];
+      this.setEvents();
   }
 
   ngOnInit(): void {
 
     if (this.auth.isAuthenticated()) {
+      this.positionningService.getPositioningsRsource().subscribe( res => console.log(res));
 
       this.user$ = this.auth.getCurrentUser();
 
@@ -106,7 +107,7 @@ export class CalendarComponent implements OnInit {
     });
   }
 
-  resetMonth(): void{
+  resetMonth(): void {
     this.events = [];
     const month = this.viewDate.getMonth();
     const newDate = new Date();
@@ -128,7 +129,7 @@ export class CalendarComponent implements OnInit {
         draggable: false
       }
       dayOfMonth++;
-      if (startDate.getDay() !== 6 && startDate.getDay() !== 0 && !this.holiday.isHoliday(startDate)){
+      if (startDate.getDay() !== 6 && startDate.getDay() !== 0 && !this.holiday.isHoliday(startDate)) {
         this.events.push(ev);
       }
     }
@@ -160,7 +161,7 @@ export class CalendarComponent implements OnInit {
    * @param {any} header
    * @param {any} body
    */
-  beforeMonthViewRender({header, body}): void {
+  beforeMonthViewRender({ header, body }): void {
     /**
      * Get the selected day
      */
@@ -178,9 +179,9 @@ export class CalendarComponent implements OnInit {
 
   }
 
-  findEventByDate(date){
-    for(let i=0;i<this.events.length;i++){
-      if(this.events[i].start == date){
+  findEventByDate(date) {
+    for (let i = 0; i < this.events.length; i++) {
+      if (this.events[i].start == date) {
         return this.events[i];
       }
     }
@@ -195,7 +196,7 @@ export class CalendarComponent implements OnInit {
   dayClicked(day: CalendarMonthViewDay): void {
     let ev = this.findEventByDate(day.date);
     this.dateClicked.emit(day.date);
-    if(ev !== null){
+    if (ev !== null) {
       console.log(ev);
     }
   }
@@ -208,7 +209,7 @@ export class CalendarComponent implements OnInit {
    * @param {Date} newStart
    * @param {Date} newEnd
    */
-  eventTimesChanged({event, newStart, newEnd}: CalendarEventTimesChangedEvent): void {
+  eventTimesChanged({ event, newStart, newEnd }: CalendarEventTimesChangedEvent): void {
     event.start = newStart;
     event.end = newEnd;
     this.refresh.next(true);
