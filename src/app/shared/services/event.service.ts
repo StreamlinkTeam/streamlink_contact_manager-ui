@@ -40,6 +40,20 @@ export class EventService {
       });
   }*/
 
+  saveTimeLine(event: any){
+    const url = environment.API + '/ws/time_line/save';
+    const ref = sessionStorage['ref'];
+    const timeLine: TimeLine = {
+      reference: '',
+      timeListReference: '',
+      project : event.project,
+      note: event.note,
+      timeWork: event.temp,
+      start: event.start,
+      resourceReference: ref
+    };
+    return this.http.post<TimeLine>(url, timeLine);
+  }
 
   createTimeLine(timeLine: TimeLine): any{
 

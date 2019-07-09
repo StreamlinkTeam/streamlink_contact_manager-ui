@@ -65,6 +65,7 @@ import {UserAddDialogComponent} from './users/user-add-dialog.component';
 
  import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import {Ng2FileSizeModule} from 'ng2-file-size';
+import { Globals } from './shared/global/globals';
 
 registerLocaleData(localeFr, 'fr');
 
@@ -132,6 +133,7 @@ registerLocaleData(localeFr, 'fr');
   ],
   schemas: [NO_ERRORS_SCHEMA],
   providers: [
+    Globals,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

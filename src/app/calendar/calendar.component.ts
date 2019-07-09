@@ -21,6 +21,8 @@ import { HolidayComponent } from '../holiday/holiday.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { PositioningService } from '../shared/services/positioning.service';
 import { SharingService } from '../shared/services/sharing.service';
+import { Globals } from '../shared/global/globals';
+import { EventService } from '../shared/services/event.service';
 
 
 @Component({
@@ -61,7 +63,9 @@ export class CalendarComponent implements OnInit {
     private _matDialog: MatDialog,
     private _calendarService: CalendarService,
     private positionningService: PositioningService,
-    private sharingService: SharingService) {
+    private sharingService: SharingService,
+    private globals: Globals,
+    private eventService: EventService) {
       this.view = 'month';
       this.viewDate = new Date();
       this.activeDayIsOpen = false;
@@ -73,7 +77,7 @@ export class CalendarComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.auth.isAuthenticated()) {
-      this.positionningService.getPositioningsRsource().subscribe( res => console.log(res));
+      //this.positionningService.getPositioningsRsource().subscribe( res => console.log(res));
 
       this.user$ = this.auth.getCurrentUser();
 
@@ -101,6 +105,7 @@ export class CalendarComponent implements OnInit {
     this.user$.subscribe(res => {
       const email = res.email;
       this.emailUser = email;
+      /*
       this.devService.getDeveloperByEmail(this.emailUser).subscribe(response => {
         this.developer = response;
         this.userRef = response.managerReference;
@@ -109,6 +114,7 @@ export class CalendarComponent implements OnInit {
           this.manager = res;
         });
       });
+      */
     });
   }
 
@@ -136,6 +142,7 @@ export class CalendarComponent implements OnInit {
         this.events.push(ev);
       }
     }
+    this.globals.events = this.events;
   }
 
   isLoggedIn() {
@@ -200,27 +207,21 @@ export class CalendarComponent implements OnInit {
     let d = -1;
     
     for(let i=0; i < this.events.length; i++) {
-      console.log(JSON.stringify(this.events[i].start).substring(1,11));
-      console.log(JSON.stringify(event.day.date).substring(1,11));
-      let ndate = new Date(this.events[i].start);
-      ndate = new Date(ndate.getDate() + 1);
-      console.log(new Date(event.day.date).getTime() == ndate.getTime())
-      console.log('--------------------------------------------------------')
-      let dt = new Date(JSON.stringify(this.events[i].start).substring(1,11));
-      let evDt = new Date(JSON.stringify(event.day.date).substring(1,11));
-      if(dt.getTime() == evDt.getTime()){
+
+      let ndate = event.day.date;
+      if(ndate.toDateString() == this.events[i].start.toDateString()){
         d = i;
         break;
       }
     }
-    console.log(d);
     let ev = {
-      index: d, 
+      index: d,
       date: event.day.date,
       project: this.selectedProject,
       events: this.events
     }
     this.sharingService.changeMessage(JSON.stringify(ev));
+    this.globals.events = this.events;
   }
 
   /**
@@ -348,6 +349,16 @@ export class CalendarComponent implements OnInit {
   }
 
   validateTimeSheet() {
-    console.log(this.events)
+    this.eventService.saveTimeLine(this.globals.events[0]).subscribe(res => {
+      console.log(res)
+    })
+    /*
+    for(let i = 0;i < this.globals.events.length; i++) {
+      this.eventService.saveTimeLine(this.globals.events[i]).subscribe(res =>
+        {
+          console.log(res);
+        })
+    }
+    */
   }
 }

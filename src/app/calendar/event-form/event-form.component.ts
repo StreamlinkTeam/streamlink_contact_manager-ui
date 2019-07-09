@@ -12,6 +12,7 @@ import {EventService} from '../../shared/services/event.service';
 import {Router} from '@angular/router';
 import Swal from 'sweetalert2';
 import { SharingService } from '../../shared/services/sharing.service';
+import { Globals } from '../../shared/global/globals';
 
 
 @Component({
@@ -67,7 +68,8 @@ export class CalendarEventFormDialogComponent implements OnInit {
     private sharingService: SharingService,
     private positionningService: PositioningService,
     @Inject(MAT_DIALOG_DATA) private _data: any,
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    private globals: Globals
   ) {
     this.action = _data.action;
 
@@ -103,20 +105,13 @@ export class CalendarEventFormDialogComponent implements OnInit {
   }*/
 
   ngOnInit() {
-    
+    console.log(this.globals.events[0])
     this.positionningService.getPositionings().subscribe(data => {
       this.positionings = data as [];
       this.sharingService.currentMessage.subscribe(res => {
         const ev = JSON.parse(res);
-        this.event.start = ev.date;
-        this.event.project = ev.project;
-        this.event.timeWorked = this.temps[3];
-        this.timeWorked = {
-          value : 1,
-          label : 'Journée'
-        };
-        
-        //this.event = ev.event;
+        this.event = this.globals.events[ev.index];
+
         this.selectedProject = this.event.project;
         this.importedEvent = ev;
       });
@@ -164,37 +159,17 @@ export class CalendarEventFormDialogComponent implements OnInit {
   loadPosistionning() {
     return this.service.getPositioningsRsource().subscribe((data: {}) => {
       this.positionings = data as [];
-      console.log("POSITIONNING :: ",data);
 
     });
   }
 
 
   save() {
-    console.log("NOTE :: ",this.note)
-    let newEvent = this.event;
-    newEvent.project = this.selectedProject;
-    newEvent.timeWork = this.timeWorked;
-    newEvent.note = this.note;
-    this.importedEvent.event = newEvent;
+    this.importedEvent.events[this.importedEvent.index] = this.event;
+
+    this.globals.events = this.importedEvent.events;
+
     this.sharingService.changeMessage(JSON.stringify(this.importedEvent));
-
-    let dt = new Date(this.startD);
-    this.timeLine.start = new Date(dt.setDate(dt.getDate()+ 2));
-    this.timeLine.timeListReference = 'KYFIf7Byl6oySmM';
-    this.timeLine.project = 'rrrr';
-    this.timeLine.note = this.event.note;
-    /*
-    this.eventService.createTimeLine(this.timeLine).subscribe(response => {
-
-      Swal.fire('Timesheet crée avec succés', 'Opération Réussite!', 'success');
-      this.router.navigateByUrl('/timesheet');
-      console.log(response);
-    }, err => {
-      Swal.fire('Erreur de création de Timesheet', 'Opération Echouée!', 'error');
-
-    });
-    */
   }
 
   deleteEvent() {
