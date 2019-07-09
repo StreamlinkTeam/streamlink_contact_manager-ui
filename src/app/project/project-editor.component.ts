@@ -8,6 +8,7 @@ import {ProjectPos} from '../shared/entities/project-pos.model';
 import {ResourceService} from '../shared/services/resource.service';
 import {NeedService} from '../shared/services/need.service';
 import {Subject} from 'rxjs';
+import * as moment from 'moment';
 
 @Component({
   moduleId: module.id,
@@ -86,7 +87,11 @@ export class ProjectEditorComponent implements OnInit {
     });
   }
 
-  createProject(form: NgForm) {
+  createProject() {
+    this.projectPos.createdDate = moment(this.projectPos.createdDate).toDate();
+    this.projectPos.presentationDate = moment(this.projectPos.presentationDate).toDate();
+    this.projectPos.endDate = moment(this.projectPos.endDate).toDate();
+    this.projectPos.societyName = "Streamlink";
     this.projectService.createProject(this.projectPos)
       .subscribe(res => {
 
@@ -94,6 +99,7 @@ export class ProjectEditorComponent implements OnInit {
         this.router.navigateByUrl('/projects');
 
       }, error => {
+        console.log(error);
         this.toastr.error('Erreur !! ', 'Opération échoué !!!');
       });
   }

@@ -11,6 +11,7 @@ import {TimeLine} from '../../shared/entities/time-line.model';
 import {EventService} from '../../shared/services/event.service';
 import {Router} from '@angular/router';
 import Swal from 'sweetalert2';
+import { SharingService } from '../../shared/services/sharing.service';
 
 
 @Component({
@@ -33,7 +34,22 @@ export class CalendarEventFormDialogComponent implements OnInit {
   resourcesLoading = false;
   resourcesInput$ = new Subject<string>();
   positionings: any = [];
-  private  startD:any = null
+  private  startD:any = null;
+  selectedProject;
+  importedEvent;
+  note;
+  temps = [{
+    value : -1,
+    label : 'Absent'
+  },{
+    value : 0.5,
+    label : 'Demi Journée'
+  },{
+    value : 1,
+    label : 'Journée'
+  }];
+
+  timeWorked;
   /**
    * Constructor
    *
@@ -48,12 +64,11 @@ export class CalendarEventFormDialogComponent implements OnInit {
     private router: Router,
     public matDialogRef: MatDialogRef<CalendarEventFormDialogComponent>,
     private eventService: EventService,
-
+    private sharingService: SharingService,
+    private positionningService: PositioningService,
     @Inject(MAT_DIALOG_DATA) private _data: any,
     private _formBuilder: FormBuilder
   ) {
-
-    this.event = _data.event;
     this.action = _data.action;
 
     if (this.action === 'edit') {
@@ -88,17 +103,23 @@ export class CalendarEventFormDialogComponent implements OnInit {
   }*/
 
   ngOnInit() {
-    console.log("hjghjg" , this._data)
-    this.loadPosistionning();
-    this.service.getPositioningsRsource().subscribe(res => {
-      let ress: any[];
-      ress = res;
-      ress.map((i) => {
-
-      /*  i.fullName = i.needTitle + ' '+ i.lastname;*/
-        return  i.needTitle;
+    
+    this.positionningService.getPositionings().subscribe(data => {
+      this.positionings = data as [];
+      this.sharingService.currentMessage.subscribe(res => {
+        const ev = JSON.parse(res);
+        this.event.start = ev.date;
+        this.event.project = ev.project;
+        this.event.timeWorked = this.temps[3];
+        this.timeWorked = {
+          value : 1,
+          label : 'Journée'
+        };
+        
+        //this.event = ev.event;
+        this.selectedProject = this.event.project;
+        this.importedEvent = ev;
       });
-      this.resources = ress;
     });
   }
   // -----------------------------------------------------------------------------------------------------
@@ -131,17 +152,10 @@ export class CalendarEventFormDialogComponent implements OnInit {
 
       return new FormGroup({
 
-      // title: new FormControl(this.timeLine.project),
+      title: new FormControl(this.timeLine.project),
       start: new FormControl(this.timeLine.start),
       timeWork: new FormControl(this.timeLine.timeWork),
-      color: this._formBuilder.group({
-        primary: new FormControl(this.event.color.primary),
-        secondary: new FormControl(this.event.color.secondary)
-      }),
-      meta:
-        this._formBuilder.group({
-          notes: new FormControl(this.timeLine.note)
-        })
+      firstName: new FormControl()
     });
 
 
@@ -157,13 +171,20 @@ export class CalendarEventFormDialogComponent implements OnInit {
 
 
   save() {
+    console.log("NOTE :: ",this.note)
+    let newEvent = this.event;
+    newEvent.project = this.selectedProject;
+    newEvent.timeWork = this.timeWorked;
+    newEvent.note = this.note;
+    this.importedEvent.event = newEvent;
+    this.sharingService.changeMessage(JSON.stringify(this.importedEvent));
 
-    console.log('EVENT :: ', this.prj);
     let dt = new Date(this.startD);
     this.timeLine.start = new Date(dt.setDate(dt.getDate()+ 2));
     this.timeLine.timeListReference = 'KYFIf7Byl6oySmM';
-   this.timeLine.project = 'rrrr';
+    this.timeLine.project = 'rrrr';
     this.timeLine.note = this.event.note;
+    /*
     this.eventService.createTimeLine(this.timeLine).subscribe(response => {
 
       Swal.fire('Timesheet crée avec succés', 'Opération Réussite!', 'success');
@@ -173,6 +194,7 @@ export class CalendarEventFormDialogComponent implements OnInit {
       Swal.fire('Erreur de création de Timesheet', 'Opération Echouée!', 'error');
 
     });
+    */
   }
 
   deleteEvent() {

@@ -105,6 +105,7 @@ export class PositioningEditComponent implements OnInit {
   }
 
   updatePostioning(form: NgForm) {
+    console.log('POS :: ', this.positioning)
     this.service.updatePositioning(this.positioning, this.positioning.reference).subscribe(res => {
       this.positioning = res;
       Swal.fire('Données Mise à jour avec succés', 'Opération Réussite!', 'success');

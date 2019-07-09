@@ -16,15 +16,15 @@ export class ProjectPos {
   invoicedDays: any;
   freeDays: any;
   note: any;
-  createdDate: any;
-  modifiedDate: any;
+  createdDate: Date;
+  modifiedDate: Date;
   country: any;
   address: any;
   city: any;
   postal: any;
   comment: any;
   currency: any;
-  presentationDate: any;
+  presentationDate: Date;
   periodMargin: any;
   periodCA: any;
   periodCost: any;

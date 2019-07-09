@@ -19,6 +19,8 @@ import {Developer} from '../shared/entities/developer.model';
 import {UserService} from '../shared/services/user.service';
 import { HolidayComponent } from '../holiday/holiday.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { PositioningService } from '../shared/services/positioning.service';
+import { SharingService } from '../shared/services/sharing.service';
 
 
 @Component({
@@ -33,7 +35,7 @@ export class CalendarComponent implements OnInit {
   activeDayIsOpen: boolean;
   confirmDialogRef: MatDialogRef<FuseConfirmDialogComponent>;
   dialogRef: any;
-  events: CalendarEvent[];
+  events: any[];
   refresh: Subject<any> = new Subject();
   selectedDay: any;
   view: string;
@@ -44,12 +46,12 @@ export class CalendarComponent implements OnInit {
   developer: Developer;
   emailUser: any;
   userRef: any;
+  selectedProject;
   eventsCount;
 
   holiday: HolidayComponent = new HolidayComponent();
 
-  @Output() dateClicked: EventEmitter<any> = new EventEmitter();
-
+  projects = [];
   constructor(
     private auth: AuthService,
     private devService: DeveloperService,
@@ -57,20 +59,19 @@ export class CalendarComponent implements OnInit {
     private resourceNavbarService: ResourceNavbarService,
     private  _fuseSidebarService: FuseSidebarService,
     private _matDialog: MatDialog,
-    private _calendarService: CalendarService
-  ) {
-    // Set the defaults
-    this.view = 'month';
-    this.viewDate = new Date();
-    this.activeDayIsOpen = false;
-    this.selectedDay = {date: startOfDay(new Date())};
+    private _calendarService: CalendarService,
+    private positionningService: PositioningService,
+    private sharingService: SharingService) {
+      this.view = 'month';
+      this.viewDate = new Date();
+      this.activeDayIsOpen = false;
+      this.selectedDay = { date: startOfDay(new Date()) };
 
     this.actions = [];
     this.setEvents();
   }
 
   ngOnInit(): void {
-
     if (this.auth.isAuthenticated()) {
 
       this.user$ = this.auth.getCurrentUser();
@@ -78,6 +79,10 @@ export class CalendarComponent implements OnInit {
       this.resourceNavbarService.update.subscribe(() => {
         this.user$ = this.auth.getCurrentUser();
       });
+
+      this.positionningService.getPositionings().subscribe(res => {
+        this.projects = res;
+      }); 
 
     }
 
@@ -115,17 +120,15 @@ export class CalendarComponent implements OnInit {
     while (newDate.getMonth() === this.viewDate.getMonth() && dayOfMonth < 31) {
       const startDate = new Date();
       startDate.setDate(dayOfMonth);
-      const ev: CalendarEvent = {
+      const ev = {
         start: startDate,
-        end: startDate,
-        title: 'Event of ' + startDate.getDay(),
-        //color: colors.yellow,
-        actions: this.actions,
-        resizable: {
-          beforeStart: true,
-          afterEnd: true
-        },
-        draggable: false
+        title: this.selectedProject,
+        project: this.selectedProject,
+        note : '',
+        temp : {
+          value : 1,
+          label : 'Journée'
+        }
       }
       dayOfMonth++;
       if (startDate.getDay() !== 6 && startDate.getDay() !== 0 && !this.holiday.isHoliday(startDate)){
@@ -192,12 +195,31 @@ export class CalendarComponent implements OnInit {
    *
    * @param {MonthViewDay} day
    */
-  dayClicked(day: CalendarMonthViewDay): void {
-    let ev = this.findEventByDate(day.date);
-    this.dateClicked.emit(day.date);
-    if(ev !== null){
-      console.log(ev);
+  dayClicked(event): void {
+    let d = -1;
+    
+    for(let i=0; i < this.events.length; i++) {
+      console.log(JSON.stringify(this.events[i].start).substring(1,11));
+      console.log(JSON.stringify(event.day.date).substring(1,11));
+      let ndate = new Date(this.events[i].start);
+      ndate = new Date(ndate.getDate() + 1);
+      console.log(new Date(event.day.date).getTime() == ndate.getTime())
+      console.log('--------------------------------------------------------')
+      let dt = new Date(JSON.stringify(this.events[i].start).substring(1,11));
+      let evDt = new Date(JSON.stringify(event.day.date).substring(1,11));
+      if(dt.getTime() == evDt.getTime()){
+        d = i;
+        break;
+      }
     }
+    console.log(d);
+    let ev = {
+      index: d, 
+      date: event.day.date,
+      project: this.selectedProject,
+      events: this.events
+    }
+    this.sharingService.changeMessage(JSON.stringify(ev));
   }
 
   /**
@@ -255,6 +277,7 @@ export class CalendarComponent implements OnInit {
     });
   }
   editEvent(action: string, event: any): void {
+    this.dayClicked(event);
     sessionStorage.setItem('event', JSON.stringify(event));
     const eventIndex = this.events.indexOf(event);
     this.dialogRef = this._matDialog.open(CalendarEventFormDialogComponent, {
@@ -310,14 +333,20 @@ export class CalendarComponent implements OnInit {
 
     this.dialogRef.afterClosed()
       .subscribe((response: FormGroup) => {
-        const newEvent = response.getRawValue();
+        if(typeof response != 'undefined'){
+          const newEvent = response.getRawValue();
         newEvent.actions = this.actions;
         this.events.push(newEvent);
         this.refresh.next(true);
+        }
       });
   }
 
   toggleSidebar(): void {
     this._fuseSidebarService.getSidebar('my-left-sidebar').toggleOpen();
+  }
+
+  validateTimeSheet() {
+    console.log(this.events)
   }
 }

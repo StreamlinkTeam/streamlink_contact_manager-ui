@@ -4,15 +4,9 @@
       <mdb-card-header> Nouvelle feuille de temps</mdb-card-header>
 
       <mdb-card-body>
-        <mat-form-field>
-          <mat-label>Choisir un projet</mat-label>
-          <mat-select>
-            <mat-option *ngFor="let p of projects" [value]="p.value">
-              {{p.viewValue}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        <button mat-flat-button color="primary" (click)="resetMonth()">Remplir</button>
+        <ng-select [items]="projects" bindLabel="client" [(ngModel)]="selectedProject" placeholder="Choisir un projet">
+        </ng-select>
+        <button class="btn btn-primary" (click)="resetMonth()">Remplir</button>
         <div id="calendar" class="page-layout simple fullwidth"><br />
 
 
@@ -58,13 +52,14 @@
           <div class="content" fusePerfectScrollbar [@animate]="{value:'*',params:{delay:'200ms',y:'50px'}}">
             <div [ngSwitch]="view">
               <mwl-calendar-month-view *ngSwitchCase="'month'" [viewDate]="viewDate" [events]="events"
-                [refresh]="refresh" [activeDayIsOpen]="activeDayIsOpen" (dayClicked)="dayClicked($event.day) ;
+                [refresh]="refresh" [activeDayIsOpen]="activeDayIsOpen" (dayClicked)="dayClicked($event) ;
          addEvent()" (eventClicked)="editEvent('edit', $event.event)" (eventTimesChanged)="eventTimesChanged($event)"
                 (beforeViewRender)="beforeMonthViewRender($event)">
               </mwl-calendar-month-view>
+              <!-- removed (eventClicked)="editEvent('edit', $event)" --> 
               <mwl-calendar-week-view *ngSwitchCase="'week'" [viewDate]="viewDate"
                 (viewDateChange)="selectedDay = {date:$event}" [events]="events" [refresh]="refresh"
-                (dayClicked)="dayClicked($event.day)" (eventClicked)="editEvent('edit', $event.event)"
+                (dayClicked)="dayClicked($event)" 
                 (eventTimesChanged)="eventTimesChanged($event)">
               </mwl-calendar-week-view>
               <mwl-calendar-day-view *ngSwitchCase="'day'" [viewDate]="viewDate"
@@ -74,6 +69,7 @@
               </mwl-calendar-day-view>
             </div>
           </div>
+          <button class="btn btn-primary" (click)="validateTimeSheet()">Valider</button>
           <!-- / CONTENT -->
 
 
@@ -82,7 +78,7 @@
 
               <mat-card style="background-color: #dee2e6">
                 <div class="title">
-                  <strong>Totaux</strong>
+                  <strong>Total</strong>
                 </div>
                 <table style="background-color:#FFFFFF" border="1">
                   <thead>

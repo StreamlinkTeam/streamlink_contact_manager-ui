@@ -34,7 +34,7 @@
                 <div class="form-group">
                   <ng-select (change)="onSocietyChange($event)"
                              [(ngModel)]="need.societyReference"
-                             [items]="societies$ | async"
+                             [items]="societies | async"
                              [loading]="societiesLoading"
                              [typeahead]="societiesInput$"
                              bindLabel="label"
