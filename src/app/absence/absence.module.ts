@@ -22,7 +22,8 @@ import {NgbButtonsModule, NgbDatepickerModule} from '@ng-bootstrap/ng-bootstrap'
 import {TableModule} from 'primeng/table';
 import {ButtonModule} from 'primeng/button';
 import { ListAbsencesComponent } from './list-absences/list-absences.component';
-import {MatTabsModule} from '@angular/material';
+import {MatFormFieldModule, MatSelectModule, MatTabsModule} from '@angular/material';
+import { AbsenceCountComponent } from './absence-count/absence-count.component';
 
 @NgModule({
   imports: [
@@ -38,9 +39,9 @@ import {MatTabsModule} from '@angular/material';
     Ng2SmartTableModule,
     EvaluationModule,
     ActionModule,
-    ContactModule, NgbDatepickerModule, TableModule, NgbButtonsModule, ButtonModule, MatTabsModule],
+    ContactModule, NgbDatepickerModule, TableModule, NgbButtonsModule, ButtonModule, MatTabsModule, MatFormFieldModule, MatSelectModule],
   declarations: [
-    AbsenceComponent, AbsenceDemandeComponent, MultiDatePickerComponent, ListAbsencesComponent ],
+    AbsenceComponent, AbsenceDemandeComponent, MultiDatePickerComponent, ListAbsencesComponent, AbsenceCountComponent ],
   exports: [AbsenceComponent, AbsenceDemandeComponent, MultiDatePickerComponent, ListAbsencesComponent ]
 })
 export class AbsenceModule {

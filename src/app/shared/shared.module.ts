@@ -20,6 +20,8 @@ import {ProjectService} from './services/project.service';
 import {PositioningService} from './services/positioning.service';
 import {NeedService} from './services/need.service';
 import {MailService} from './services/mail.service';
+import {AbsenceService} from './services/AbsenceService';
+import {AbsenceListService} from './services/AbsenceListService';
 
 @NgModule({
   imports: [HttpClientModule, CommonModule],
@@ -28,7 +30,7 @@ import {MailService} from './services/mail.service';
   exports: [FieldErrorDisplayComponent, CustomEnumRenderComponent, EqualValidator],
   providers: [DeveloperService, EvaluationService, ActionService, ResourceService, PositioningService, MailService,
     UserService, LanguageService, AuthService, SocietyService, ProjectService,
-    ContractService, ValidatorService, LoaderService, SocietyContactService, NeedService],
+    ContractService, ValidatorService, LoaderService, SocietyContactService, NeedService, AbsenceService, AbsenceListService],
 })
 export class SharedModule {
 

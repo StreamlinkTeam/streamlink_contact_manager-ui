@@ -9,6 +9,7 @@ import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 export class AbsenceDemandeComponent implements OnInit {
   test;
   type;
+  duration;
   datesSelected: NgbDateStruct[] = [];
   change(value: NgbDateStruct[]) {
     this.datesSelected = value;

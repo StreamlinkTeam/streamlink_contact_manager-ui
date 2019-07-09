@@ -20,10 +20,22 @@
                                                                      name="npa"[(ngModel)]="test"/>
           </div>
 
+            <div class="form-group col-md-4">
+            <label class="col-form-label">Nombre des jours</label> <output class="form-control" name="npa">{{datesSelected.length }}  {{duration}}</output>
+          </div>
+
+           <!-- <div class="form-group col-md-4">
+              <label class="col-form-label">Durée</label>
+              <select class="form-control" name="pays" [(ngModel)]="duration">
+                <option value="1">Journée</option>
+                <option value="0.5">Demi-journée</option>
+
+              </select>
+            </div>-->
 
 
 
-          <div class="form-group col-md-4">
+            <div class="form-group col-md-4">
             <label class="col-form-label">Type d'absence</label>
             <select class="form-control" name="pays" [(ngModel)]="type">
             <option value="CP">CP</option>
@@ -36,11 +48,7 @@
         </div>
 
 
-        <div class="form-row">
 
-          <p-button   class="btn btn-primary fa fa-plus" label="+Ajouter ces périodes d'absences"> </p-button>
-
-        </div>
 
         <div class="form-row">
 
@@ -55,10 +63,11 @@
           <thead>
           <tr>
             <th scope="col">#</th>
-            <th  scope="col">Duré</th>
+            <th  scope="col">Date</th>
             <th  scope="col">Type d'absence</th>
             <th  scope="col">Description</th>
-            <th  scope="col">Nombre</th>
+            <th  scope="col">Durée</th>
+            <!--<th  scope="col">Nombre</th>-->
             <th scope="col">Action </th>
           </tr>
           </thead>
@@ -68,7 +77,14 @@
             <td>{{tt.day}}/{{tt.month}}/{{tt.year}}</td>
             <td>{{type}}</td>
             <td>{{test}}</td>
-            <td>{{datesSelected.length }}</td>
+            <td><mat-form-field>
+
+              <mat-select [(ngModel)]="duration">
+                <mat-option  value="1"> Journée </mat-option>
+                <mat-option value="0.5"> Demi-journée</mat-option>
+              </mat-select>
+            </mat-form-field></td>
+            <!--<td>{{datesSelected.length }}</td>-->
             <td>
               <button (click)="removeQualification(i)" class="btn btn-sm btn-danger">Delete
               </button>
@@ -78,7 +94,11 @@
         </table>
 
 
+        <!--<div class="form-row">
 
+          <p-button   class="btn btn-primary fa fa-plus" label="+Ajouter ces périodes d'absences" > </p-button>
+
+        </div>-->
 
 
         <div class="form-row">

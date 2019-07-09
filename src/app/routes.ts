@@ -39,6 +39,7 @@ import { AbsenceComponent } from './absence/absence.component';
 import { AbsenceDemandeComponent } from './absence/absence-demande/absence-demande.component';
 import { ListAbsencesComponent } from './absence/list-absences/list-absences.component';
 import { CalendarComponent } from './calendar/calendar.component';
+import {AbsenceCountComponent} from './absence/absence-count/absence-count.component';
 
 export const appRoutes: Routes = [
   { path: 'auth', component: AuthComponent, canActivate: [LoginGuard] },
@@ -57,6 +58,7 @@ export const appRoutes: Routes = [
     children: [
       { path: 'demande', component: AbsenceDemandeComponent },
       { path: 'list', component: ListAbsencesComponent },
+      { path: 'count', component: AbsenceCountComponent },
       { path: '**', redirectTo: 'demande' }
     ]
   },
