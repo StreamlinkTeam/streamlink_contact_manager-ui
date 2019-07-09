@@ -16,28 +16,28 @@ export class LanguageService {
   }
 
   getLanguages(): Observable<Language[]> {
-    this.loaderService.show();
+    //this.loaderService.show();
     const url = environment.API + '/ws/languages';
 
     return this.http.get<Language[]>(url)
       ._finally(() => {
-        this.loaderService.hide();
+        //this.loaderService.hide();
       });
   }
 
 
   createLanguages(language: Language) {
-    this.loaderService.show();
+    //this.loaderService.show();
     const url = environment.API + '/ws/languages';
     return this.http
       .post<Language>(url, language)
       ._finally(() => {
-        this.loaderService.hide();
+        //this.loaderService.hide();
       });
   }
 
   updateLanguage(language: Language, reference: string) {
-    this.loaderService.show();
+    //this.loaderService.show();
     const url = environment.API + '/ws/languages';
 
     const params: HttpParams = new HttpParams();
@@ -48,12 +48,12 @@ export class LanguageService {
       .put(url, language, {params: params})
       .map((res: HttpResponse<Language>) => res.body)
       ._finally(() => {
-        this.loaderService.hide();
+        //this.loaderService.hide();
       });
   }
 
   deleteLanguage(reference: string) {
-    this.loaderService.show();
+    //this.loaderService.show();
     const url = environment.API + '/ws/languages';
 
     const params: HttpParams = new HttpParams();
@@ -64,7 +64,7 @@ export class LanguageService {
       .delete(url, {params: params})
       .map((res: HttpResponse<any>) => res.body)
       ._finally(() => {
-        this.loaderService.hide();
+        //this.loaderService.hide();
       });
   }
 
