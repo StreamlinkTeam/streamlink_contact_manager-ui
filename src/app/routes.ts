@@ -43,6 +43,7 @@ import {BillTableComponent} from './bill/bill-table.component';
 import {BillEditorComponent} from './bill/bill-editor.component';
 import {BillComponent} from './bill/bill.component';
 import {BillAddDialogComponent} from './bill/bill-add-dialog.component';
+import {AbsenceCountComponent} from './absence/absence-count/absence-count.component';
 
 export const appRoutes: Routes = [
   {path: 'auth', component: AuthComponent, canActivate: [LoginGuard]},
@@ -63,6 +64,7 @@ export const appRoutes: Routes = [
     children: [
       {path: 'general', component: BillEditorComponent},
       {path: '**', redirectTo: 'general'}
+     
     ]
   },
 
@@ -75,6 +77,7 @@ export const appRoutes: Routes = [
     children: [
       {path: 'demande', component: AbsenceDemandeComponent},
       {path: 'list', component: ListAbsencesComponent},
+       { path: 'count', component: AbsenceCountComponent },
       {path: '**', redirectTo: 'demande'}
     ]
   },
