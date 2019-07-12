@@ -23,6 +23,9 @@ import { PositioningService } from '../shared/services/positioning.service';
 import { SharingService } from '../shared/services/sharing.service';
 import { Globals } from '../shared/global/globals';
 import { EventService } from '../shared/services/event.service';
+import { ProjectService } from '../shared/services/project.service';
+import Swal from 'sweetalert2';
+
 
 
 @Component({
@@ -52,8 +55,14 @@ export class CalendarComponent implements OnInit {
   eventsCount;
 
   holiday: HolidayComponent = new HolidayComponent();
+  total = {
+    production: 0,
+    interne: 0,
+    absence: 0
+  }
 
   projects = [];
+  allProject = [];
   constructor(
     private auth: AuthService,
     private devService: DeveloperService,
@@ -65,17 +74,23 @@ export class CalendarComponent implements OnInit {
     private positionningService: PositioningService,
     private sharingService: SharingService,
     private globals: Globals,
-    private eventService: EventService) {
+    private eventService: EventService,
+    private projectService: ProjectService) {
       this.view = 'month';
       this.viewDate = new Date();
       this.activeDayIsOpen = false;
       this.selectedDay = { date: startOfDay(new Date()) };
 
       this.actions = [];
-      this.setEvents();
   }
 
   ngOnInit(): void {
+    this.projectService.getProjects().subscribe(
+      res => {
+        this.allProject = res;
+        this.setEvents();
+      }
+    )
     if (this.auth.isAuthenticated()) {
       //this.positionningService.getPositioningsRsource().subscribe( res => console.log(res));
 
@@ -117,18 +132,42 @@ export class CalendarComponent implements OnInit {
       */
     });
   }
+  resetMonth() {
+    this.events = [];
+    for (let i = 1; i <= 31; i++) {
+      let startDate = new Date();
+      startDate.setDate(i);
+      startDate.setMonth(this.viewDate.getMonth());
+      const ev = {
+        start: new Date(startDate),
+        title: this.selectedProject,
+        project: this.selectedProject,
+        note : '',
+        temp : {
+          value : 1,
+          label : 'Journée'
+        }
+      }
 
-  resetMonth(): void {
+      if (startDate.getDay() !== 6 && startDate.getDay() !== 0 && !this.holiday.isHoliday(startDate)) {
+        this.events.push(ev);
+      }
+    }
+    this.globals.events = this.events;
+  }
+  resetMonth2(): void {
     this.events = [];
     const month = this.viewDate.getMonth();
     const newDate = new Date();
+    //console.log(this.viewDate)
     newDate.setDate(1);
+    newDate.setMonth(this.viewDate.getMonth());
     let dayOfMonth = 1;
     while (newDate.getMonth() === this.viewDate.getMonth() && dayOfMonth < 31) {
       const startDate = new Date();
       startDate.setDate(dayOfMonth);
       const ev = {
-        start: startDate,
+        start: new Date(startDate),
         title: this.selectedProject,
         project: this.selectedProject,
         note : '',
@@ -154,12 +193,38 @@ export class CalendarComponent implements OnInit {
     return this.auth.isAdmin();
   }
 
+  getProjectByRef(ref) {
+    let p = null;
+    for(let i = 0; i < this.allProject.length; i++){
+      if(this.allProject[i].reference == ref) {
+        p = this.allProject[i];
+        break;
+      }
+    }
+    return p;
+  }
+
   setEvents(): void {
     this._calendarService.getAllEvents().subscribe(res => {
       const newRes = res as any[];
+      const newEv = newRes.map(item => {
+        let temp = {label: '', value: item.timeWork};
 
-      const newEv = newRes.map(item => new CalendarEventModel(item));
+        if(item.timeWork == -1) temp.label = 'Absent';
+        else if(item.timeWork == 1) temp.label = 'Journée';
+        else temp.label = 'Demi Journée';
+
+        console.log(this.getProjectByRef(item.project))
+
+        item.project = this.getProjectByRef(item.project);
+
+        item.temp = temp;
+        item.start = new Date(item.start);
+        return item;
+      });
       this.events = newEv;
+
+      console.log(this.events)
 
     });
   }
@@ -348,17 +413,33 @@ export class CalendarComponent implements OnInit {
     this._fuseSidebarService.getSidebar('my-left-sidebar').toggleOpen();
   }
 
-  validateTimeSheet() {
-    this.eventService.saveTimeLine(this.globals.events[0]).subscribe(res => {
-      console.log(res)
-    })
-    /*
-    for(let i = 0;i < this.globals.events.length; i++) {
-      this.eventService.saveTimeLine(this.globals.events[i]).subscribe(res =>
-        {
-          console.log(res);
-        })
+  getValueWorked(temp, project) {
+    if(temp.value == -1) this.total.absence++;
+    else {
+      if (project.client.toString().toLowerCase() == 'interne') {
+        this.total.interne += temp.value;
+      } else {
+        this.total.production += temp.value;
+      }
+      this.total.absence = this.total.absence + (1 - temp.value)
     }
-    */
+  }
+
+  validateTimeSheet() {
+    Swal.fire(
+      'TimeSheet Envoyée!',
+      '',
+      'success'
+    )
+    //this.eventService.saveTimeList().subscribe(res =>{
+      for(let i = 0; i < this.globals.events.length; i++) {
+        this.getValueWorked(this.globals.events[i].temp, this.globals.events[i].project);
+        this.events[i].start.setDate(this.events[i].start.getDate() + 1);
+        this.eventService.saveTimeLine(this.globals.events[i]).subscribe(res =>
+          {
+            //
+          })
+      }
+   // })
   }
 }
