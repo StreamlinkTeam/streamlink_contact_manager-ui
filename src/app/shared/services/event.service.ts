@@ -46,9 +46,9 @@ export class EventService {
     const timeLine: TimeLine = {
       reference: '',
       timeListReference: '',
-      project : event.project,
+      project : event.project.reference,
       note: event.note,
-      timeWork: event.temp,
+      timeWork: event.temp.value,
       start: event.start,
       resourceReference: ref
     };
@@ -72,6 +72,11 @@ export class EventService {
   updateEvent(reference, event) {
     console.log("SERVER :: ",event)
     return this.http.put("http://localhost:9090/ws/time_line?ligneTempsReference="+reference,event);
+  }
+
+  getPeriod(month, year){
+    //TO DO get all events from database by month and year
+    
   }
 
  /* updatePositioning(positioning: Positioning, positioningReference: string): Observable<Positioning> {

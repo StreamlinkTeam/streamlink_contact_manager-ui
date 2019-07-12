@@ -105,7 +105,6 @@ export class CalendarEventFormDialogComponent implements OnInit {
   }*/
 
   ngOnInit() {
-    console.log(this.globals.events[0])
     this.positionningService.getPositionings().subscribe(data => {
       this.positionings = data as [];
       this.sharingService.currentMessage.subscribe(res => {
@@ -165,11 +164,15 @@ export class CalendarEventFormDialogComponent implements OnInit {
 
 
   save() {
-    this.importedEvent.events[this.importedEvent.index] = this.event;
+    this.importedEvent.events[this.importedEvent.index].project = this.event.project;
+    this.importedEvent.events[this.importedEvent.index].note = this.event.note;
+    this.importedEvent.events[this.importedEvent.index].temp = this.event.temp;
+    const dt: Date = new Date(this.event.start);
+    this.importedEvent.events[this.importedEvent.index].start = dt;
 
-    this.globals.events = this.importedEvent.events;
-
-    this.sharingService.changeMessage(JSON.stringify(this.importedEvent));
+    this.globals.events[this.importedEvent.index] = this.importedEvent.events[this.importedEvent.index] ;
+    console.log('SAVE :: ', this.globals.events[0])
+    //this.sharingService.changeMessage(JSON.stringify(this.importedEvent));
   }
 
   deleteEvent() {
