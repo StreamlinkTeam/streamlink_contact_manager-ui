@@ -236,21 +236,13 @@ export class CalendarComponent implements OnInit {
    * @param {any} header
    * @param {any} body
    */
-  beforeMonthViewRender({ header, body }): void {
-    /**
-     * Get the selected day
-     */
-    const _selectedDay = body.find((_day) => {
-      return _day.date.getTime() === this.selectedDay.date.getTime();
+  beforeMonthViewRender({ body }): void {
+    body.forEach(day => {
+      if(day.events.length > 0) {
+        day.badgeTotal = day.events[0].temp.value;
+        console.log(day.events[0].temp.value)
+      }
     });
-
-    if (_selectedDay) {
-      /**
-       * Set selected day style
-       * @type {string}
-       */
-      _selectedDay.cssClass = 'cal-selected';
-    }
 
   }
 
@@ -322,7 +314,7 @@ export class CalendarComponent implements OnInit {
         const eventIndex = this.events.indexOf(event);
         //this.events.splice(eventIndex, 1);
         this._calendarService.deleteEvent(event).subscribe(res => {
-          console.log(res);
+          // console.logconsole.log(res);
         });
         this.refresh.next(true);
       }

@@ -3,6 +3,7 @@ import {PositioningService} from '../shared/services/positioning.service';
 import {HttpClient} from '@angular/common/http';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MatDialog} from '@angular/material';
+import { ProjectService } from '../shared/services/project.service';
 
 @Component({
   selector: 'app-resource-dashboard',
@@ -13,13 +14,12 @@ export class ResourceDashboardComponent implements OnInit {
 
   test;
   headElements = ['project title', 'Client', 'Start Date', 'End Date'];
-  Positioning: any = [];
-  constructor(private service: PositioningService,
-              // private toastr: ToastrService,
-              private http: HttpClient,
+  positioning: any = [];
+  
+  constructor(private positionningservice: PositioningService,
               private router: Router,
               private activeRoute: ActivatedRoute,
-              private dialog: MatDialog) {
+              private projectService: ProjectService) {
 
     if (activeRoute.snapshot.params['error'] === 'error') {
       // this.toastr.warning('Erreur lors de la récupération de données', 'Opération échoué!');
@@ -32,8 +32,8 @@ export class ResourceDashboardComponent implements OnInit {
   }
 
   loadPosistionning() {
-    return this.service.getPositioningsRsource().subscribe((data: {}) => {
-      this.Positioning = data;
+    return this.positionningservice.getPositionings().subscribe((data: {}) => {
+      this.positioning = data;
 
     });
   }

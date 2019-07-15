@@ -5,6 +5,7 @@ import {User} from '../shared/entities/user.model';
 import {AppNavbarService} from './app-navbar.service';
 import {Observable} from 'rxjs';
 
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './app-navbar.component.html',

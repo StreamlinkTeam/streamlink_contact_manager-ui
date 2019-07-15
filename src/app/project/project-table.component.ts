@@ -92,13 +92,15 @@ export class ProjectTableComponent implements OnInit {
 
   stages: any[];
   types: any[];
+  projects;
 
 
   constructor(private service: ProjectService,
               private toastr: ToastrService,
               private http: HttpClient,
               private router: Router,
-              private activeRoute: ActivatedRoute) {
+              private activeRoute: ActivatedRoute,
+              private projectService: ProjectService) {
 
     if (activeRoute.snapshot.params['error'] === 'error') {
       this.toastr.warning('Erreur lors de la récupération de données', 'Opération échoué!');
@@ -121,6 +123,10 @@ export class ProjectTableComponent implements OnInit {
       sortDirKey: 'dir',
       pagerPageKey: 'page'
     });
+
+    this.projectService.getProjects().subscribe(res => {
+      this.projects = res;
+    })
 
 
     console.log(this.source);
