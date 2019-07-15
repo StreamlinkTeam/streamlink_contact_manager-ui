@@ -39,15 +39,45 @@
   
             </div>
             <!-- / HEADER -->
-  
+            
+            
+
             <!-- CONTENT -->
             <div class="content" fusePerfectScrollbar [@animate]="{value:'*',params:{delay:'200ms',y:'50px'}}">
+
+                <ng-template #customCellTemplate let-day="day" let-locale="locale">
+                    <div class="cal-cell-top">
+                      <span class="cal-day-badge" *ngIf="day.badgeTotal > 0">
+                        {{ day.badgeTotal }}
+                        </span>
+                      <span class="cal-day-number">
+                        {{ day.date | calendarDate:'monthViewDayNumber':locale }}
+                        </span>
+                    </div>
+
+                    <small style="margin: 5px" class="cal-day-badge ng-tns-c3-0 ng-star-inserted"
+                      style="max-width: 30px; margin-bottom: 2px; background-color: green" *ngIf="day.events.length > 0 && day.events[0].temp.value == 1">
+                      {{ day.events[0].temp.value }}
+                    </small>
+
+                    <small style="margin: 5px" class="cal-day-badge ng-tns-c3-0 ng-star-inserted"
+                        style="max-width: 30px; margin-bottom: 2px; background-color: blue" *ngIf="day.events.length > 0 && day.events[0].temp.value == 0.5">
+                        {{ day.events[0].temp.value }}
+                    </small>
+
+                    <small style="margin: 5px" class="cal-day-badge ng-tns-c3-0 ng-star-inserted"
+                        style="max-width: 30px; margin-bottom: 2px; background-color: red" *ngIf="day.events.length > 0 && day.events[0].temp.value == -1">
+                        {{ day.events[0].temp.value }}
+                    </small>
+
+                  </ng-template>
+
               <div [ngSwitch]="view">
                 
                 <mwl-calendar-month-view *ngSwitchCase="'month'" [viewDate]="viewDate" [events]="events"
                   [refresh]="refresh" [activeDayIsOpen]="activeDayIsOpen" (dayClicked)="dayClicked($event) ;
            addEvent()" (eventClicked)="editEvent('edit', $event.event)" (eventTimesChanged)="eventTimesChanged($event)"
-                  (beforeViewRender)="beforeMonthViewRender($event)">
+                  (beforeViewRender)="beforeMonthViewRender($event)" [cellTemplate]="customCellTemplate">
                 </mwl-calendar-month-view>
   
                 <!-- removed (eventClicked)="editEvent('edit', $event)" --> 
