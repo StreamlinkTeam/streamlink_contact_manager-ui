@@ -239,8 +239,7 @@ export class CalendarComponent implements OnInit {
   beforeMonthViewRender({ body }): void {
     body.forEach(day => {
       if(day.events.length > 0) {
-        day.badgeTotal = day.events[0].temp.value;
-        console.log(day.events[0].temp.value)
+        day.badgeTotal = -2;
       }
     });
 
