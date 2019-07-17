@@ -37,6 +37,9 @@
         <li *ngIf="isLoggedIn()" class="nav-item" routerLinkActive="active">
           <a class="nav-link" routerLink="/projects" routerLinkActive="active"><i class="f542"></i><b>Projets</b></a>
         </li>
+        <li *ngIf="isLoggedIn()" class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="/bills" routerLinkActive="active"><i class="f542"></i><b>Factures</b></a>
+        </li>
         <li *ngIf="isAdmin()" class="nav-item" routerLinkActive="active">
           <a class="nav-link" routerLink="/admin" routerLinkActive="active" style="color:azure"><b>Gestion
             d'utilisateurs</b></a>

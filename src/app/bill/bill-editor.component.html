@@ -1,0 +1,73 @@
+<div class="container-fluid">
+  <button (click)="generatePDF()">Génerer PDF</button>
+  <div id="divId" style="font-size: larger">
+    <div style="margin-left: 90%">Le {{ bill.createdDate }}</div>
+    <div style="margin-left: 50%; margin-top: 10%"><b>Société: {{ bill.societyName }}</b></div>
+
+
+<div>
+  <table>
+    <tr>
+      <td><b>Projet</b>: </td>
+      <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{bill.projectName}}</td>
+    </tr>
+    <tr>
+      <td><b>Facture</b>: </td>
+      <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{bill.reference}}</td>
+    </tr>
+    <tr>
+      <td><b>Période:</b> </td>
+      <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{bill.billStartDate}} à {{bill.billEndDate}}</td>
+    </tr>
+    <tr>
+      <td><b>Device:</b> </td>
+      <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{bill.currency}}</td>
+    </tr>
+  </table>
+</div>
+    <div style="margin-top: 2%" >
+      <table style="width: 100%" class="table-striped">
+        <tr>
+          <td>Description</td>
+          <td>Tarif HT</td>
+          <td>Q</td>
+          <td>TVA</td>
+          <td>Montant HT</td>
+          <td>Montant TTC</td>
+        </tr>
+        <tr>
+          <td>{{bill.note}}</td>
+          <td>{{bill.unitPrice}}</td>
+          <td>{{bill.quantity}}</td>
+          <td>{{bill.tva}}</td>
+          <td>{{bill.total}}</td>
+          <td>{{bill.totalTtc}}</td>
+        </tr>
+      </table>
+    </div>
+    <div style="margin-top: 5%">
+      <span>Règlement attendu le : {{bill.receiptDate}}</span><br/>
+      <span>Conditions de règlement : 30 jours net</span><br/>
+      <span>Mode de règlement  : {{bill.paymentType}}</span>
+    </div>
+    <div style="margin-top: 5%">
+      <span><b>Coordonnées bancaires</b></span><br/>
+      <span>Compte: A renseigner !</span>
+    </div>
+
+    <div style="margin-bottom: auto">
+      <span>
+        Escompte pour règlement anticipé : 0%
+En cas de retard de paiement, seront exigibles, conformément à l'article L441-6 du code du commerce, une indemnité calculée sur la base de 3 fois le taux d'intérêt
+légal en vigueur ainsi qu'une indemnité forfaitaire pour frais de recouvrement de 40 €
+      </span>
+      <hr>
+      <center>STREAMLINK </center>
+
+    </div>
+    </div>
+
+</div>
+
+
+

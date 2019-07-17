@@ -58,7 +58,7 @@ export class UserAvatarComponent {
           this.service.getPhotoByUserReference(this.referenceUser).subscribe(resp => {
             this.url = resp.url;
             this.photo = resp;
-          })
+          });
         }, error => {
           this.toastr.error('Erreur lors de la Création du Photo', 'Opération échoué !!!');
         });
