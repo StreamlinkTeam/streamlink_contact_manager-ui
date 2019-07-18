@@ -5,13 +5,15 @@ import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ButtonsModule, InputsModule, WavesModule} from 'angular-bootstrap-md';
+import {MatButtonModule} from '@angular/material/button';
+
 
 // MDB Angular Free
 // Angular Forms Modules
 
 @NgModule({
   imports: [SharedModule, CommonModule, FormsModule, ReactiveFormsModule,
-    InputsModule, WavesModule, ButtonsModule],
+    InputsModule, WavesModule, ButtonsModule, MatButtonModule],
   providers: [AuthGuard, LoginGuard],
   exports: [AuthComponent],
   declarations: [AuthComponent]
