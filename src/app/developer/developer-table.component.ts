@@ -70,7 +70,7 @@ export class DeveloperTableComponent implements OnInit {
     },
     // actions: false,
     pager: {
-      perPage: 5
+      perPage: 8
     },
   };
 

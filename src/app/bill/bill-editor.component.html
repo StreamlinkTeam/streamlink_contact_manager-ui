@@ -1,5 +1,7 @@
 <div class="container-fluid">
   <button (click)="generatePDF()">Génerer PDF</button>
+  <button (click)="sendMail()">Send Email</button>
+
   <div id="divId" style="font-size: larger">
     <div style="margin-left: 90%">Le {{ bill.createdDate }}</div>
     <div style="margin-left: 50%; margin-top: 10%"><b>Société: {{ bill.societyName }}</b></div>

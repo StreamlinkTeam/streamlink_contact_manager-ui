@@ -76,7 +76,7 @@ export class ResourceTableComponent implements OnInit {
     },
     // actions: false,
     pager: {
-      perPage: 5
+      perPage: 8
     },
   };
 

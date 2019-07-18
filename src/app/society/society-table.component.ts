@@ -73,7 +73,7 @@ export class SocietyTableComponent implements OnInit {
       }
     },
     pager: {
-      perPage: 5
+      perPage: 8
     }
   };
 
