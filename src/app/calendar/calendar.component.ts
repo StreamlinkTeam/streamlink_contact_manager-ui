@@ -134,10 +134,11 @@ export class CalendarComponent implements OnInit {
   }
   resetMonth() {
     this.events = [];
-    for (let i = 1; i <= 31; i++) {
-      let startDate = new Date();
+    let startDate = new Date();
+    let i = 1;
+    startDate.setMonth(this.viewDate.getMonth());
+    while (startDate.getMonth() == this.viewDate.getMonth()) {
       startDate.setDate(i);
-      startDate.setMonth(this.viewDate.getMonth());
       const ev = {
         start: new Date(startDate),
         title: this.selectedProject,
@@ -148,10 +149,11 @@ export class CalendarComponent implements OnInit {
           label : 'Journée'
         }
       }
-
-      if (startDate.getDay() !== 6 && startDate.getDay() !== 0 && !this.holiday.isHoliday(startDate)) {
+      if (startDate.getDay() !== 6 && startDate.getDay() !== 0 && !this.holiday.isHoliday(startDate) && 
+          startDate.getMonth() == this.viewDate.getMonth()) {
         this.events.push(ev);
       }
+      i++;
     }
     this.globals.events = this.events;
   }
@@ -426,7 +428,7 @@ export class CalendarComponent implements OnInit {
       for(let i = 0; i < this.globals.events.length; i++) {
         this.getValueWorked(this.globals.events[i].temp, this.globals.events[i].project);
         this.events[i].start.setDate(this.events[i].start.getDate() + 1);
-        this.eventService.saveTimeLine(this.globals.events[i]).subscribe(res =>
+        this.eventService.saveTimeLine(this.globals.events[i]).subscribe(() =>
           {
             //
           })

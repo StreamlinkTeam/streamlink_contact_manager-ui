@@ -14,6 +14,7 @@ import {Observable} from 'rxjs';
 export class AppNavbarComponent implements OnInit {
 
   user$: Observable<User>;
+  user;
 
   constructor(private router: Router, private auth: AuthService,
               private appNavbarService: AppNavbarService) {
@@ -22,14 +23,9 @@ export class AppNavbarComponent implements OnInit {
   ngOnInit(): void {
 
     if (this.auth.isAuthenticated()) {
-
-      this.user$ = this.auth.getCurrentUser();
-
-      this.appNavbarService.update.subscribe(() => {
-        this.user$ = this.auth.getCurrentUser();
-
+      this.auth.getCurrentUser().subscribe(res => {
+        this.user = res;
       });
-
     }
   }
 
