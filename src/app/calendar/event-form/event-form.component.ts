@@ -50,6 +50,23 @@ export class CalendarEventFormDialogComponent implements OnInit {
     label : 'Journée'
   }];
 
+  absences = [{
+    value: 'cp',
+    label: 'Congé payant'
+  },
+  {
+    value: 'cs',
+    label: 'Congé sans solde'
+  },
+  {
+    value: 'm',
+    label: 'Maladie'
+  },
+  {
+    value: 'e',
+    label: 'Exeptionnelle'
+  }];
+
   timeWorked;
   /**
    * Constructor
@@ -110,21 +127,13 @@ export class CalendarEventFormDialogComponent implements OnInit {
       this.sharingService.currentMessage.subscribe(res => {
         const ev = JSON.parse(res);
         this.event = this.globals.events[ev.index];
-
+        
         this.selectedProject = this.event.project;
         this.importedEvent = ev;
       });
     });
   }
-  // -----------------------------------------------------------------------------------------------------
-  // @ Public methods
-  // -----------------------------------------------------------------------------------------------------
 
-  /**
-   * Create the event form
-   *
-   * @returns {FormGroup}
-   */
   createEventForm1(): FormGroup {
     return new FormGroup({
       title: new FormControl(this.event.title),
