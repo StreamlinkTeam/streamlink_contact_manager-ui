@@ -1,8 +1,24 @@
-<div class="p-2  text-white "
-     style="background-color: #4267b2; width: auto; box-shadow: 2px 2px 2px grey; border-radius: 5px; text-align: center;">
-  <h5>Liste des utilisateurs</h5>
+<mdb-card class="text-white">
+  <mdb-card-header><h4><img src="../../assets/user.png" style="width: 30px; height: 30px"> Liste des utilisateurs</h4>
+  </mdb-card-header>
+  <mdb-card-body>
 
-</div><br><br>
+    <div class="form-row">
+      <div class="form-group col">
+        <input #search (keyup)="onSearch(search.value)" aria-label="Recherche"
+               class="form-control" placeholder="recherche..." type="search">
+      </div>
+    </div>
+
+    <div class="fixed-bottom"></div>
+  </mdb-card-body>
+</mdb-card>
+<br>
+<!--<div class="p-2  text-white "-->
+<!--     style="background-color: #4267b2; width: auto; box-shadow: 2px 2px 2px grey; border-radius: 5px; text-align: center;">-->
+<!--  <h5>Liste des utilisateurs</h5>-->
+
+<!--</div><br><br>-->
 <div class="container-fluid">
 
 
