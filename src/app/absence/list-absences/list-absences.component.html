@@ -11,34 +11,26 @@
         <thead>
         <tr>
 
-          <th  scope="col">Duré</th>
+          <th  scope="col">Date</th>
           <th  scope="col">Type d'absence</th>
           <th  scope="col">Description</th>
-          <th  scope="col">Nombre</th>
+          <th  scope="col">Durée</th>
           <th  scope="col">Etat</th>
-          <th scope="col">Action </th>
+
         </tr>
         </thead>
         <tbody>
-        <tr>
 
-          <td>ss</td>
-          <td>hh</td>
-          <td>zz</td>
-          <td>zz</td>
-          <td>ff</td>
-          <td>
-            <button  class="btn btn-sm btn-danger">Delete
-            </button>
-          </td>
+        <tr *ngFor="let el of absences">
+          <td>{{el.dateAbsence | date:'yyyy-MM-dd' }}</td>
+          <td>{{el.type}}</td>
+          <td>{{el.description}}</td>
+          <td>{{el.duration}}</td>
+          <td>{{el.state}}</td>
+
         </tr>
         </tbody>
       </table>
-
-<p>
-  list-absences works!
-</p>
-
     </mdb-card-body>
 
   </mdb-card>

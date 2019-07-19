@@ -32,7 +32,7 @@ import {SweetAlert2Module} from '@toverux/ngx-sweetalert2';
 import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatButtonModule, MatTabsModule} from '@angular/material';
+import {MatButtonModule, MatPaginatorModule, MatTableModule, MatTabsModule} from '@angular/material';
 import {MatInputModule} from '@angular/material/input';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatMomentDateModule} from '@angular/material-moment-adapter';
@@ -64,6 +64,8 @@ import {SocietyAddDialogComponent} from './society/society-add-dialog.component'
 import {UserAddDialogComponent} from './users/user-add-dialog.component';
 
  import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { AbsenceValidationComponent } from './absence-validation/absence-validation.component';
+
 
 registerLocaleData(localeFr, 'fr');
 
@@ -77,7 +79,8 @@ registerLocaleData(localeFr, 'fr');
     ResourceDashboardComponent,
     NeedAddDialogComponent,
     SocietyAddDialogComponent,
-    UserAddDialogComponent
+    UserAddDialogComponent,
+    AbsenceValidationComponent
   ],
   imports: [
     MDBBootstrapModule,
@@ -127,7 +130,7 @@ registerLocaleData(localeFr, 'fr');
     FuseModule.forRoot(fuseConfig),
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
-    SharedModule
+    SharedModule, MatTableModule, MatPaginatorModule
   ],
   schemas: [NO_ERRORS_SCHEMA],
   providers: [

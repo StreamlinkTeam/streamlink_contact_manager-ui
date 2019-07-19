@@ -40,11 +40,13 @@ import { AbsenceDemandeComponent } from './absence/absence-demande/absence-deman
 import { ListAbsencesComponent } from './absence/list-absences/list-absences.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import {AbsenceCountComponent} from './absence/absence-count/absence-count.component';
+import {AbsenceValidationComponent} from './absence-validation/absence-validation.component';
+
 
 export const appRoutes: Routes = [
   { path: 'auth', component: AuthComponent, canActivate: [LoginGuard] },
-  {
-    path: 'profil', component: ProfilComponent, canActivate: [AuthGuard],
+  { path: 'validation', component: AbsenceValidationComponent, canActivate: [AuthGuard]},
+  {path: 'profil', component: ProfilComponent, canActivate: [AuthGuard],
     children: [
       { path: 'general', component: UserEditorComponent },
       { path: 'changepassword', component: ProfilPasswordEditorComponent },
@@ -54,7 +56,7 @@ export const appRoutes: Routes = [
 
   { path: 'actions', component: ActionTableComponent, canActivate: [AuthGuard] },
   {
-    path: 'absence', component: AbsenceComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_RESOURCE'] },
+    path: 'absence', component: AbsenceComponent , canActivate: [AuthGuard], data: { roles: ['ROLE_RESOURCE']},
     children: [
       { path: 'demande', component: AbsenceDemandeComponent },
       { path: 'list', component: ListAbsencesComponent },

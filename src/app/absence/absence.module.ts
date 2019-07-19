@@ -25,6 +25,7 @@ import { ListAbsencesComponent } from './list-absences/list-absences.component';
 import {MatFormFieldModule, MatSelectModule, MatTabsModule} from '@angular/material';
 import { AbsenceCountComponent } from './absence-count/absence-count.component';
 
+
 @NgModule({
   imports: [
     ButtonsModule, WavesModule, CardsFreeModule,
