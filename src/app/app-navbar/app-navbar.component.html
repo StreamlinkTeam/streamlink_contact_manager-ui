@@ -44,6 +44,9 @@
           <a class="nav-link" routerLink="/admin" routerLinkActive="active" style="color:azure"><b>Gestion
             d'utilisateurs</b></a>
         </li>
+        <li *ngIf="!isResource()" class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="/validation" routerLinkActive="active">Gestion d'absence </a>
+        </li>
       </ul>
       <div class="md-form my-0">
         <ul class="navbar-nav mr-auto">

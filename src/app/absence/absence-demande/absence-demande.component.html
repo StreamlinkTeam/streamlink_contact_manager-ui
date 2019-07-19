@@ -1,7 +1,10 @@
 <body>
 <div class="container">
   <mdb-card>
-    <mdb-card-header >Demande d'absence </mdb-card-header>
+    <mdb-card-header >Demande d'absence {{today | date:'yyyy-MM-dd hh:mm:ss' }} </mdb-card-header>
+
+
+
 
     <mdb-card-body>
 
@@ -11,17 +14,18 @@
         <div class="form-group required row">
         </div>
         <div class="form-group col-md-10">
-          <app-multi-date-picker [datesSelected]="datesSelected" (datesSelectedChange)="change($event)"></app-multi-date-picker>
+          <app-multi-date-picker (datesSelectedChange)="change($event)"
+                                 [datesSelected]="datesSelected"></app-multi-date-picker>
 
           <div class="form-row">
 
           <div class="form-group col-md-4">
-            <label class="col-form-label">Description</label> <input  class="form-control"
-                                                                     name="npa"[(ngModel)]="test"/>
+            <label class="col-form-label">Description</label> <input  class="form-control" name="tel3" type="text" required
+                                                                      [(ngModel)]="absence.description" />
           </div>
 
             <div class="form-group col-md-4">
-            <label class="col-form-label">Nombre des jours</label> <output class="form-control" name="npa">{{datesSelected.length }}  {{duration}}</output>
+            <label class="col-form-label">Nombre des jours</label> <output class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="absence.sum" >{{datesSelected.length }}  </output>
           </div>
 
            <!-- <div class="form-group col-md-4">
@@ -37,11 +41,11 @@
 
             <div class="form-group col-md-4">
             <label class="col-form-label">Type d'absence</label>
-            <select class="form-control" name="pays" [(ngModel)]="type">
+            <select class="form-control" name="pays"  required [(ngModel)]="type">
+              <option value="Maladie">Maladie</option>
             <option value="CP">CP</option>
             <option value="Congé sans solde">Congé sans solde</option>
-            <option value="Maladie">Maladie</option>
-            <option value="Exceptionnelle">Exceptionnelle</option>
+              <option value="Exceptionnelle">Exceptionnelle</option>
             </select>
           </div>
 
@@ -74,20 +78,23 @@
           <tbody>
           <tr *ngFor="let tt of datesSelected; let i=index">
             <td>{{i + 1}}</td>
-            <td>{{tt.day}}/{{tt.month}}/{{tt.year}}</td>
+            <td >{{tt.year}}-{{tt.month}}-{{tt.day}}</td>
             <td>{{type}}</td>
-            <td>{{test}}</td>
+            <td>{{absence.description}}</td>
             <td><mat-form-field>
 
-              <mat-select [(ngModel)]="duration">
+              <mat-select
+                          name="title"
+                          (selectionChange)="log($event, i)"
+                          required>
                 <mat-option  value="1"> Journée </mat-option>
                 <mat-option value="0.5"> Demi-journée</mat-option>
               </mat-select>
             </mat-form-field></td>
             <!--<td>{{datesSelected.length }}</td>-->
             <td>
-              <button (click)="removeQualification(i)" class="btn btn-sm btn-danger">Delete
-              </button>
+              <button (click)="removeQualification(i)" class="btn btn-sm btn-danger">Delete</button>
+
             </td>
           </tr>
           </tbody>
@@ -103,8 +110,9 @@
 
         <div class="form-row">
           <div class="form-group col-md-6">
-            <label class="col-form-label">Objet de la demande d'absences</label> <input class ="form-control"
-                                                               name="tel3" type="text"/>
+            <label class="col-form-label">Objet de la demande d'absences</label>
+            <input class ="form-control" name="tel3" type="text" required
+                   [(ngModel)]="absenceList.subject"/>
           </div>
 
 
@@ -112,12 +120,13 @@
 
         <div class="form-group">
           <label class="col-form-label">Commentaire</label>
-          <textarea class="form-control"
-                    name="address"> </textarea>
+          <textarea class="form-control" [(ngModel)]="absenceList.comment"
+                    name="address"  required> </textarea>
         </div>
 
         <div class="form-group">
           <button class="btn btn-warning" type="submit">Enregistrer</button>
+
           <button  class="btn btn-secondary" routerLink="/developers" type="reset">Annuler</button>
 
         </div>

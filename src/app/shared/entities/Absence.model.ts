@@ -8,5 +8,8 @@ export class Absence {
   dateAbsence: Date;
   duration: number ;
   sum: number ;
+  state: string;
+  resourceReference: string;
+  absenceListDate: string;
 
 }
