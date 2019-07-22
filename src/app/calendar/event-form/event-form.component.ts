@@ -122,8 +122,8 @@ export class CalendarEventFormDialogComponent implements OnInit {
   }*/
 
   ngOnInit() {
-    this.positionningService.getPositionings().subscribe(data => {
-      this.positionings = data as [];
+    this.positionningService.getPositioningsRsource().subscribe(res => {
+      this.positionings = res;
       this.sharingService.currentMessage.subscribe(res => {
         const ev = JSON.parse(res);
         this.event = this.globals.events[ev.index];
