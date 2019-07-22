@@ -85,12 +85,17 @@ export class CalendarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.projectService.getProjects().subscribe(
+    this.positionningService.getPositioningsRsource().subscribe(res => {
+      this.projects = res;
+      this.allProject = res;
+      this.setEvents();
+    });
+    /* this.projectService.getProjects().subscribe(
       res => {
         this.allProject = res;
         this.setEvents();
       }
-    )
+    ) */
     if (this.auth.isAuthenticated()) {
       //this.positionningService.getPositioningsRsource().subscribe( res => console.log(res));
 
@@ -99,10 +104,6 @@ export class CalendarComponent implements OnInit {
       this.resourceNavbarService.update.subscribe(() => {
         this.user$ = this.auth.getCurrentUser();
       });
-
-      this.positionningService.getPositionings().subscribe(res => {
-        this.projects = res;
-      }); 
 
     }
 
@@ -134,7 +135,7 @@ export class CalendarComponent implements OnInit {
   }
   resetMonth() {
     this.events = [];
-    let startDate = new Date();
+    const startDate = new Date();
     let i = 1;
     startDate.setMonth(this.viewDate.getMonth());
     while (startDate.getMonth() == this.viewDate.getMonth()) {
@@ -143,6 +144,7 @@ export class CalendarComponent implements OnInit {
         start: new Date(startDate),
         title: this.selectedProject,
         project: this.selectedProject,
+        type: { label: '', value: '' },
         note : '',
         temp : {
           value : 1,
@@ -207,16 +209,20 @@ export class CalendarComponent implements OnInit {
   }
 
   setEvents(): void {
+
     this._calendarService.getAllEvents().subscribe(res => {
+      console.log("EVENTS :: ",res)
       const newRes = res as any[];
       const newEv = newRes.map(item => {
-        let temp = {label: '', value: item.timeWork};
+        const temp = {label: '', value: item.timeWork};
 
-        if(item.timeWork == -1) temp.label = 'Absent';
-        else if(item.timeWork == 1) temp.label = 'Journée';
-        else temp.label = 'Demi Journée';
-
-        console.log(this.getProjectByRef(item.project))
+        if(item.timeWork == -1) {
+          temp.label = 'Absent';
+        } else if(item.timeWork == 1) {
+          temp.label = 'Journée';
+        } else {
+          temp.label = 'Demi Journée';
+        }
 
         item.project = this.getProjectByRef(item.project);
 
@@ -225,9 +231,6 @@ export class CalendarComponent implements OnInit {
         return item;
       });
       this.events = newEv;
-
-      console.log(this.events)
-
     });
   }
 

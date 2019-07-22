@@ -19,6 +19,10 @@
         [(ngModel)]="event.temp" [ngModelOptions]="{standalone: true}">
       </ng-select>
 
+      <ng-select [items]="absences" [(ngModel)]="event.type" placeholder="Type d'absence" 
+        bindLabel="label" [multiple]="false" [ngModelOptions]="{standalone: true}" *ngIf="event.temp && event.temp.value == -1">
+      </ng-select>
+ 
       <div fxFlex="1 0 auto" fxLayout="column">
 
         <mat-form-field appearance="outline" class="pr-sm-8" fxFlex="100" style="display: none">
@@ -37,29 +41,31 @@
                 </textarea>
       </mat-form-field>
 
+      <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+
+          <button *ngIf="action ==='edit'" mat-button color="primary" class="mr-8"
+            (click)="matDialogRef.close(['delete',eventForm]); deleteEvent()" aria-label="Delete" matTooltip="Delete">
+            DELETE
+          </button>
+      
+          <button (click)="matDialogRef.close();save()" *ngIf="action !== 'edit'" [disabled]="eventForm.invalid" 
+          aria-label="save" class="save-button" color="primary" mat-flat-button>
+            Enregistrer
+          </button>
+      
+      
+          <button *ngIf="action === 'edit'" mat-button color="primary" class="save-button"
+            (click)="matDialogRef.close(['save', eventForm]); editEvent(event)" [disabled]="eventForm.invalid"
+            aria-label="SAVE">
+            SAVE
+          </button>
+      
+        </div>
+
     </form>
 
   </div>
 
-  <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
-
-    <button *ngIf="action ==='edit'" mat-button color="primary" class="mr-8"
-      (click)="matDialogRef.close(['delete',eventForm]); deleteEvent()" aria-label="Delete" matTooltip="Delete">
-      DELETE
-    </button>
-
-    <button (click)="matDialogRef.close();save()" *ngIf="action !== 'edit'" [disabled]="eventForm.invalid" aria-label="ADD" class="save-button"
-      color="primary" mat-button>
-      ADD
-    </button>
-
-
-    <button *ngIf="action === 'edit'" mat-button color="primary" class="save-button"
-      (click)="matDialogRef.close(['save', eventForm]); editEvent(event)" [disabled]="eventForm.invalid"
-      aria-label="SAVE">
-      SAVE
-    </button>
-
-  </div>
+  
 
 </div>
