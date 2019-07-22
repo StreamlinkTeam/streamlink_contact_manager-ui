@@ -23,9 +23,12 @@ export class AppNavbarComponent implements OnInit {
   ngOnInit(): void {
 
     if (this.auth.isAuthenticated()) {
+      /*
       this.auth.getCurrentUser().subscribe(res => {
         this.user = res;
       });
+      */
+     this.user = JSON.parse(sessionStorage.getItem('user'));
     }
   }
 

@@ -28,9 +28,9 @@ export class AuthComponent{
       sessionStorage.setItem('username', this.username);
       this.auth.authenticate(this.username, this.password)
         .subscribe(response => {
-          console.log(response);
           this.devService.getDeveloperByEmail(this.username).subscribe(res => {
             sessionStorage['ref'] = res.reference;
+            sessionStorage['user'] = JSON.stringify(res);
           });
           if (response) {
             if (this.auth.isAdmin()) {
@@ -54,5 +54,6 @@ export class AuthComponent{
 
   logOut() {
     sessionStorage.clear();
+    localStorage.clear();
   }
 }

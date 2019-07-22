@@ -85,12 +85,17 @@ export class CalendarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.projectService.getProjects().subscribe(
+    this.positionningService.getPositioningsRsource().subscribe(res => {
+      this.projects = res;
+      this.allProject = res;
+      this.setEvents();
+    });
+    /* this.projectService.getProjects().subscribe(
       res => {
         this.allProject = res;
         this.setEvents();
       }
-    )
+    ) */
     if (this.auth.isAuthenticated()) {
       //this.positionningService.getPositioningsRsource().subscribe( res => console.log(res));
 
@@ -99,10 +104,6 @@ export class CalendarComponent implements OnInit {
       this.resourceNavbarService.update.subscribe(() => {
         this.user$ = this.auth.getCurrentUser();
       });
-
-      this.positionningService.getPositionings().subscribe(res => {
-        this.projects = res;
-      }); 
 
     }
 
@@ -208,7 +209,9 @@ export class CalendarComponent implements OnInit {
   }
 
   setEvents(): void {
+
     this._calendarService.getAllEvents().subscribe(res => {
+      console.log("EVENTS :: ",res)
       const newRes = res as any[];
       const newEv = newRes.map(item => {
         const temp = {label: '', value: item.timeWork};
