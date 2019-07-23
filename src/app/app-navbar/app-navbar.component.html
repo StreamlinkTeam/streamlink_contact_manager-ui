@@ -51,9 +51,9 @@
             <a class="dropdown-item  text-warning" routerLink="/profil" routerLinkActive="active"><i
               class="fa fa-user"></i> &nbsp;{{user.firstname }} {{user.lastname}}</a>
           </li>
-          <li *ngIf="isLoggedIn() && !isAdmin() && user$ | async as user" class="nav-item" routerLinkActive="active">
-            <a class="dropdown-item  text-warning">{{user.firstname }} {{user.lastname}}</a>
-          </li>
+<!--          <li *ngIf="isLoggedIn() && !isAdmin() && user$ | async as user" class="nav-item" routerLinkActive="active">-->
+<!--            <a class="dropdown-item  text-warning">{{user.firstname }} {{user.lastname}}</a>-->
+<!--          </li>-->
           <li *ngIf="isLoggedIn()" class="nav-item">
             <a (click)="logout()" class="dropdown-item text-warning"><i class="fa fa-power-off"></i></a>
           </li>

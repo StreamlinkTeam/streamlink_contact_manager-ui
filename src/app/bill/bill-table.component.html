@@ -1,9 +1,14 @@
-<center><h4>Facturation</h4></center>
+<div class="p-2  text-white " style="font-size: 15px; height:40px; background-color: #4267b2; box-shadow: 2px 2px 2px grey; border-radius: 5px; text-align: center;">
+  <h5>Liste des factures</h5>
+</div>
+
+<br/>
 <div class="container-fluid">
   <ng2-smart-table
     [settings]="settings"
     [source]="source"
-    (edit)="showBill($event)">
+    (edit)="showBill($event)"
+    (userRowSelect)="onSelectRow($event)">
   </ng2-smart-table>
 </div>
 

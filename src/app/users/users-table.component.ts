@@ -112,7 +112,7 @@ export class UserTableComponent implements OnInit {
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
-      cancelButtonText: 'annuler',
+      cancelButtonText: 'Annuler',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Oui, je confirme!'
     }).then((result) => {

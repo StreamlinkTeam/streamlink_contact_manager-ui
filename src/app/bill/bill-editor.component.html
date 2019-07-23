@@ -1,33 +1,38 @@
 <div class="container-fluid">
-  <button (click)="generatePDF()">Génerer PDF</button>
-  <button (click)="sendMail()">Send Email</button>
+  <button (click)="generatePDF()" mat-raised-button color="primary" type="button" style="margin: 5px">
+    generer PDF
+  </button>
+
+  <button (click)="sendMail()" mat-raised-button color="primary" type="button" style="margin: 5px">
+    Envoyer Email
+  </button>
 
   <div id="divId" style="font-size: larger">
-    <div style="margin-left: 90%">Le {{ bill.createdDate }}</div>
+    <div style="margin-left: 90%">Le {{ bill.createdDate | date }}</div>
     <div style="margin-left: 50%; margin-top: 10%"><b>Société: {{ bill.societyName }}</b></div>
 
 
-<div>
-  <table>
-    <tr>
-      <td><b>Projet</b>: </td>
-      <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{bill.projectName}}</td>
-    </tr>
-    <tr>
-      <td><b>Facture</b>: </td>
-      <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{bill.reference}}</td>
-    </tr>
-    <tr>
-      <td><b>Période:</b> </td>
-      <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{bill.billStartDate}} à {{bill.billEndDate}}</td>
-    </tr>
-    <tr>
-      <td><b>Device:</b> </td>
-      <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{bill.currency}}</td>
-    </tr>
-  </table>
-</div>
-    <div style="margin-top: 2%" >
+    <div>
+      <table>
+        <tr>
+          <td><b>Projet</b>:</td>
+          <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{bill.projectName}}</td>
+        </tr>
+        <tr>
+          <td><b>Facture</b>:</td>
+          <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{bill.reference}}</td>
+        </tr>
+        <tr>
+          <td><b>Période:</b></td>
+          <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{bill.billStartDate}} à {{bill.billEndDate}}</td>
+        </tr>
+        <tr>
+          <td><b>Device:</b></td>
+          <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{bill.currency}}</td>
+        </tr>
+      </table>
+    </div>
+    <div style="margin-top: 2%">
       <table style="width: 100%" class="table-striped">
         <tr>
           <td>Description</td>
@@ -64,10 +69,10 @@ En cas de retard de paiement, seront exigibles, conformément à l'article L441-
 légal en vigueur ainsi qu'une indemnité forfaitaire pour frais de recouvrement de 40 €
       </span>
       <hr>
-      <center>STREAMLINK </center>
+      <center>STREAMLINK</center>
 
     </div>
-    </div>
+  </div>
 
 </div>
 

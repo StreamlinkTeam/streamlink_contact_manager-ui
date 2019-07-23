@@ -26,7 +26,7 @@ export class DeveloperTableComponent implements OnInit {
       class: 'table table-striped'
     },
     edit: {
-      editButtonContent: '<a class="btn btn-info" title="Modifier ou consulter"><i class="fa fa-pencil-square-o"></i></a>',
+      editButtonContent: '<a class="btn btn-info" title="Modifier ou consulter"><i class="fa fa-pencil-square-o"></i></a>&nbsp',
     },
     delete: {
       deleteButtonContent: '<a class="btn btn-danger" title="Supprimer"><i class="fa fa-trash-o"></i></a>'

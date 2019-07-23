@@ -66,10 +66,6 @@ export class SocietyTableComponent implements OnInit {
       tel1: {
         title: 'Coordonnées',
         filter: false
-      },
-      note: {
-        title: 'Information',
-        filter: false,
       }
     },
     pager: {

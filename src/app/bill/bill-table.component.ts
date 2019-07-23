@@ -4,6 +4,7 @@ import {environment} from '../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {Row} from 'ng2-smart-table/lib/data-set/row';
 import {Router} from '@angular/router';
+import {DatePipe} from '@angular/common';
 
 
 @Component({
@@ -38,6 +39,12 @@ export class BillTableComponent implements OnInit {
       createdDate: {
         title: 'Date de création',
         filter: false,
+        valuePrepareFunction: (date) => {
+          if (date) {
+            return new DatePipe('en-GB').transform(date, 'dd-MM-yyyy');
+          }
+          return 'Non définie';
+        },
       },
       projectName: {
         title: 'Projet',
@@ -128,9 +135,16 @@ export class BillTableComponent implements OnInit {
   showBill(rowData: Row) {
     const bill = rowData.getData();
     this.router.navigate(['/bills/edit', bill.reference]);
-     console.log(bill);
+    console.log(bill);
   }
 
+  onSelectRow(event: any) {
+    if (event.data.resource) {
+
+      this.router.navigate(['/bills/edit', event.data.reference]);
+    }
+    this.router.navigate(['/bills/edit', event.data.reference]);
+  }
 
 
 }
