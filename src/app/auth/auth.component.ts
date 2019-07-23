@@ -1,5 +1,5 @@
 import {AuthService} from '../shared/services/auth.service';
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {Router} from '@angular/router';
 import {ValidatorService} from '../shared/services/validator.service';
@@ -10,7 +10,7 @@ import {DeveloperService} from '../shared/services/developer.service';
   templateUrl: 'auth.component.html',
   styleUrls: ['./auth.component.css']
 })
-export class AuthComponent {
+export class AuthComponent{
 
   username: string;
   password: string;
@@ -18,10 +18,10 @@ export class AuthComponent {
   errorMessage: string;
   errorFields: string [];
 
+
   constructor(private router: Router, private auth: AuthService, private validator: ValidatorService,
               private devService: DeveloperService) {
   }
-
 
   authenticate(form: NgForm) {
     if (form.valid) {
