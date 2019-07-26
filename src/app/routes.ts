@@ -45,6 +45,7 @@ import {BillComponent} from './bill/bill.component';
 import {BillAddDialogComponent} from './bill/bill-add-dialog.component';
 import {AbsenceCountComponent} from './absence/absence-count/absence-count.component';
 import {AbsenceValidationComponent} from './absence-validation/absence-validation.component';
+import {StatComponent} from './stat/stat.component';
 
 
 export const appRoutes: Routes = [
@@ -57,6 +58,9 @@ export const appRoutes: Routes = [
       {path: '**', redirectTo: 'general'}
     ]
   },
+
+  {path: 'stats', component: StatComponent, canActivate: [AuthGuard]},
+
 
   {path: 'bills', component: BillTableComponent, canActivate: [AuthGuard]},
   {path: 'bills/create', component: BillAddDialogComponent, canActivate: [AuthGuard]},

@@ -232,4 +232,11 @@ export class UserService {
         this.loaderService.hide();
       });
   }
+
+  usersCount(): Observable<any> {
+    const url = environment.API + '/ws/users/count';
+    return this.http.get<any>(url)
+      ._finally(() => {
+      });
+  }
 }

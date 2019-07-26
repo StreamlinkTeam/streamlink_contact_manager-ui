@@ -1,6 +1,7 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {LOCALE_ID, NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
 
+import {ChartsModule} from 'ng2-charts';
 import {AppComponent} from './app.component';
 import {AuthInterceptor} from './auth.interceptor';
 import {AuthModule} from './auth/auth.module';
@@ -53,8 +54,6 @@ import {fuseConfig} from './fuse-config';
 import {ResourceNavbarModule} from './resource-navbar/resource-navbar.module';
 import {ResourceDashboardComponent} from './resource-dashboard/resource-dashboard.component';
 import {CalendarModule} from './calendar/calendar.module';
-import {AbsenceComponent} from './absence/absence.component';
-import {AbsenceDemandeComponent} from './absence/absence-demande/absence-demande.component';
 import {AbsenceModule} from './absence/absence.module';
 
 import {NgxMatSelectSearchModule} from 'ngx-mat-select-search';
@@ -63,7 +62,7 @@ import {SharedModule} from './shared/shared.module';
 import {SocietyAddDialogComponent} from './society/society-add-dialog.component';
 import {UserAddDialogComponent} from './users/user-add-dialog.component';
 
- import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import {OwlDateTimeModule, OwlNativeDateTimeModule} from 'ng-pick-datetime';
 import {Ng2FileSizeModule} from 'ng2-file-size';
 import { Globals } from './shared/global/globals';
 import { BillTableComponent } from './bill/bill-table.component';
@@ -72,6 +71,7 @@ import {Ng2SmartTableModule} from 'ng2-smart-table';
 import { BillEditorComponent } from './bill/bill-editor.component';
 import { BillAddDialogComponent } from './bill/bill-add-dialog.component';
 import { AbsenceValidationComponent } from './absence-validation/absence-validation.component';
+import {StatComponent} from './stat/stat.component';
 
 
 registerLocaleData(localeFr, 'fr');
@@ -91,6 +91,7 @@ registerLocaleData(localeFr, 'fr');
     BillComponent,
     BillEditorComponent,
     BillAddDialogComponent,
+    StatComponent,
     UserAddDialogComponent,
     AbsenceValidationComponent
   ],
@@ -142,7 +143,7 @@ registerLocaleData(localeFr, 'fr');
     FuseModule.forRoot(fuseConfig),
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
-    SharedModule, Ng2FileSizeModule, Ng2SmartTableModule,
+    SharedModule, Ng2FileSizeModule, Ng2SmartTableModule, ChartsModule
     MatTableModule, MatPaginatorModule
   ],
   schemas: [NO_ERRORS_SCHEMA],
@@ -152,7 +153,7 @@ registerLocaleData(localeFr, 'fr');
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true
-    }, { provide: LOCALE_ID, useValue: 'fr' }
+    }, {provide: LOCALE_ID, useValue: 'fr'}
   ],
   bootstrap: [AppComponent],
   exports: [
