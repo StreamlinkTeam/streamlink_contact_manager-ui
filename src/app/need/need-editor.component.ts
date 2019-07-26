@@ -48,7 +48,6 @@ export class NeedEditorComponent implements OnInit {
               private toastr: ToastrService,
               private router: Router,
               private activeRoute: ActivatedRoute) {
-
   }
 
   ngOnInit(): void {

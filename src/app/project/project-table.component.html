@@ -78,7 +78,8 @@
   <ng2-smart-table (delete)="deleteProject($event)"
                    (edit)="showProject($event)"
                    [settings]="settings"
-                   [source]="source">
+                   [source]="source"
+                   (userRowSelect)="onSelectRow($event)">
   </ng2-smart-table>
 
   <div class="dropdown-divider"></div>

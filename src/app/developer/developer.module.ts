@@ -26,7 +26,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 
 
 import {ButtonsModule, CardsFreeModule, WavesModule} from 'angular-bootstrap-md';
-import {MatDatepickerModule, MatFormFieldModule, MatInputModule} from '@angular/material';
+import {MatDatepickerModule, MatFormFieldModule, MatIconModule, MatInputModule} from '@angular/material';
 import { DeveloperRecordComponent } from './developer-record.component';
 
 
@@ -46,7 +46,7 @@ import { DeveloperRecordComponent } from './developer-record.component';
     ActionModule,
     ContactModule,
     MatTabsModule,
-    MatButtonModule, MatFormFieldModule, MatDatepickerModule, MatInputModule],
+    MatButtonModule, MatFormFieldModule, MatDatepickerModule, MatInputModule, MatIconModule],
   declarations: [DeveloperTableComponent, DeveloperEditorComponent, PersonalInfoEditorComponent, SkillsEditorComponent,
     DeveloperComponent, ContractEditorComponent, DeveloperCVComponent, DeveloperCVScannerComponent, DeveloperRecordComponent],
   exports: [DeveloperTableComponent, DeveloperEditorComponent, SkillsEditorComponent, PersonalInfoEditorComponent, DeveloperComponent

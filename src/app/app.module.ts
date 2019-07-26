@@ -66,6 +66,11 @@ import {UserAddDialogComponent} from './users/user-add-dialog.component';
  import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import {Ng2FileSizeModule} from 'ng2-file-size';
 import { Globals } from './shared/global/globals';
+import { BillTableComponent } from './bill/bill-table.component';
+import { BillComponent } from './bill/bill.component';
+import {Ng2SmartTableModule} from 'ng2-smart-table';
+import { BillEditorComponent } from './bill/bill-editor.component';
+import { BillAddDialogComponent } from './bill/bill-add-dialog.component';
 
 registerLocaleData(localeFr, 'fr');
 
@@ -80,6 +85,10 @@ registerLocaleData(localeFr, 'fr');
     NeedAddDialogComponent,
     SocietyAddDialogComponent,
     UserAddDialogComponent,
+    BillTableComponent,
+    BillComponent,
+    BillEditorComponent,
+    BillAddDialogComponent,
   ],
   imports: [
     MDBBootstrapModule,
@@ -129,7 +138,7 @@ registerLocaleData(localeFr, 'fr');
     FuseModule.forRoot(fuseConfig),
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
-    SharedModule, Ng2FileSizeModule
+    SharedModule, Ng2FileSizeModule, Ng2SmartTableModule
   ],
   schemas: [NO_ERRORS_SCHEMA],
   providers: [

@@ -22,6 +22,7 @@ import {NeedService} from './services/need.service';
 import {MailService} from './services/mail.service';
 import { EventService } from './services/event.service';
 import { SharingService } from './services/sharing.service';
+import {BillService} from './services/bill.service';
 
 @NgModule({
   imports: [HttpClientModule, CommonModule],
@@ -30,7 +31,7 @@ import { SharingService } from './services/sharing.service';
   exports: [FieldErrorDisplayComponent, CustomEnumRenderComponent, EqualValidator],
   providers: [DeveloperService, EvaluationService, ActionService, ResourceService, PositioningService, MailService,
     UserService, LanguageService, AuthService, SocietyService, ProjectService,
-    ContractService, ValidatorService, LoaderService, SocietyContactService, NeedService, EventService, SharingService],
+    ContractService, ValidatorService, LoaderService, SocietyContactService, NeedService, EventService, SharingService, BillService],
 })
 export class SharedModule {
 

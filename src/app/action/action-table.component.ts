@@ -22,6 +22,10 @@ export class ActionTableComponent implements OnInit {
     this.service.getAllActions().subscribe(res => {
       this.actions = res;
       console.log(res.map(value => value.date));
+      console.log(res.map(value => value.responsibleFullName));
+      console.log(res.map(value => value.responsibleReference));
+
+
     });
 
 

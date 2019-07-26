@@ -18,6 +18,7 @@ import Swal from 'sweetalert2';
 export class UserTableComponent implements OnInit {
 
   source: ServerDataSource;
+  url: string;
 
 
   settings = {
@@ -53,7 +54,10 @@ export class UserTableComponent implements OnInit {
         filter: false,
         sort: false
       }
-    }
+    },
+    pager: {
+      perPage: 8
+    },
   };
 
   stages: any[];
@@ -75,9 +79,19 @@ export class UserTableComponent implements OnInit {
 
   ngOnInit() {
 
-    const url = environment.API + '/ws/users/all';
 
-    this.source = new ServerDataSource(this.http, {endPoint: url});
+    this.url = environment.API + '/ws/users/search?fromAngular=true';
+
+    this.source = new ServerDataSource(this.http, {
+      endPoint: this.url,
+      dataKey: 'content',
+      totalKey: 'totalElements',
+      pagerLimitKey: 'size',
+      perPage: 'size',
+      sortFieldKey: 'sort',
+      sortDirKey: 'dir',
+      pagerPageKey: 'page'
+    });
 
   }
 
@@ -98,7 +112,7 @@ export class UserTableComponent implements OnInit {
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
-      cancelButtonText: 'annuler',
+      cancelButtonText: 'Annuler',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Oui, je confirme!'
     }).then((result) => {
@@ -136,6 +150,26 @@ export class UserTableComponent implements OnInit {
       this.router.navigate(['/admin/users/edit', event.data.reference]);
     }
     this.router.navigate(['/admin/users/edit', event.data.reference]);
+  }
+
+  onSearch(query: string = '') {
+
+    const parameters = new URLSearchParams(this.url);
+    parameters.set('value', query);
+
+    this.url = decodeURIComponent(parameters.toString());
+
+    this.source = new ServerDataSource(this.http, {
+      endPoint: this.url,
+      dataKey: 'content',
+      totalKey: 'totalElements',
+      pagerLimitKey: 'size',
+      perPage: 'size',
+      sortFieldKey: 'sort',
+      sortDirKey: 'dir',
+      pagerPageKey: 'page'
+    });
+
   }
 
 }
