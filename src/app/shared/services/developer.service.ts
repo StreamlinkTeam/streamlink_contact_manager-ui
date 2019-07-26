@@ -258,6 +258,28 @@ export class DeveloperService {
 
   }
 
+  getCurrentDeveloper(): Observable<Developer> {
+
+    this.loaderService.show();
+    const url = environment.API + '/ws/developers/currentResource';
+    return this.http.get<Developer>(url)
+      ._finally(() => {
+        this.loaderService.hide();
+      });
+
+  }
+
+
+  getCurrentLeave(): Observable<Developer> {
+
+    this.loaderService.show();
+    const url = environment.API + '/ws/developers/currentLeave';
+    return this.http.get<Developer>(url)
+      ._finally(() => {
+        this.loaderService.hide();
+      });
+
+  }
 
   getCurrentLeave(): Observable<Developer> {
 
