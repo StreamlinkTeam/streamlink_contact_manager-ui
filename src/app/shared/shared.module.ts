@@ -23,6 +23,8 @@ import {MailService} from './services/mail.service';
 import { EventService } from './services/event.service';
 import { SharingService } from './services/sharing.service';
 import {BillService} from './services/bill.service';
+import {AbsenceService} from './services/AbsenceService';
+import {AbsenceListService} from './services/AbsenceListService';
 
 @NgModule({
   imports: [HttpClientModule, CommonModule],
@@ -31,7 +33,8 @@ import {BillService} from './services/bill.service';
   exports: [FieldErrorDisplayComponent, CustomEnumRenderComponent, EqualValidator],
   providers: [DeveloperService, EvaluationService, ActionService, ResourceService, PositioningService, MailService,
     UserService, LanguageService, AuthService, SocietyService, ProjectService,
-    ContractService, ValidatorService, LoaderService, SocietyContactService, NeedService, EventService, SharingService, BillService],
+    ContractService, ValidatorService, LoaderService, SocietyContactService, NeedService, EventService, 
+    SharingService, BillService,AbsenceService, AbsenceListService],
 })
 export class SharedModule {
 

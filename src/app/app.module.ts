@@ -32,7 +32,7 @@ import {SweetAlert2Module} from '@toverux/ngx-sweetalert2';
 import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatButtonModule, MatTabsModule} from '@angular/material';
+import {MatButtonModule, MatPaginatorModule, MatTableModule, MatTabsModule} from '@angular/material';
 import {MatInputModule} from '@angular/material/input';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatMomentDateModule} from '@angular/material-moment-adapter';
@@ -71,6 +71,8 @@ import {Ng2SmartTableModule} from 'ng2-smart-table';
 import { BillEditorComponent } from './bill/bill-editor.component';
 import { BillAddDialogComponent } from './bill/bill-add-dialog.component';
 import { Globals } from './shared/global/globals';
+import { AbsenceValidationComponent } from './absence-validation/absence-validation.component';
+
 
 registerLocaleData(localeFr, 'fr');
 
@@ -89,6 +91,7 @@ registerLocaleData(localeFr, 'fr');
     BillComponent,
     BillEditorComponent,
     BillAddDialogComponent,
+    AbsenceValidationComponent
   ],
   imports: [
     MDBBootstrapModule,
@@ -138,7 +141,8 @@ registerLocaleData(localeFr, 'fr');
     FuseModule.forRoot(fuseConfig),
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
-    SharedModule, Ng2FileSizeModule, Ng2SmartTableModule
+    SharedModule, Ng2FileSizeModule, Ng2SmartTableModule,
+    MatTableModule, MatPaginatorModule
   ],
   schemas: [NO_ERRORS_SCHEMA],
   providers: [

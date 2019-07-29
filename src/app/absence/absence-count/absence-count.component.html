@@ -1,0 +1,24 @@
+<body>
+  <div class="container">
+    <mdb-card>
+      <mdb-card-header> Décompte d'absence </mdb-card-header>
+
+      <mdb-card-body>
+        <table class="table table-bordered table-sm">
+          <tr>
+            <td rowspan="3"  style="text-align: center;vertical-align: middle">CP</td>
+            <td colspan="2" style="text-align: center">Acquis <br /> {{ absence.total }}</td>
+          </tr>
+          <tr>
+            <td>Consommées <br /> {{ absence.consumed }}</td>
+            <td>Demandées <br /> {{ absence.asked }}</td>
+          </tr>
+          <tr>
+            <td>Solde Réel <br /> {{ absence.total }}</td>
+            <td>Solde Prévisionnel <br /></td>
+          </tr>
+        </table>
+      </mdb-card-body>
+    </mdb-card>
+  </div>
+</body>

@@ -55,7 +55,7 @@ export class EventService {
     return this.http.post<TimeLine>(url, timeLine);
   }
 
-  createTimeLine(timeLine: TimeLine): any{
+  createTimeLine(timeLine: TimeLine): any {
 
 
     //this.loaderService.show();
