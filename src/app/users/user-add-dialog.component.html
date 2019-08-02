@@ -49,7 +49,7 @@
                      #password_input="ngModel"
                      [(ngModel)]="user.password" minlength="8" name="mdp"
                      placeholder="Mot de Passe"
-                     required reverse="true" type="password" validateEqual="confirmPassword"/>
+                     required reverse="true" type="password"/>
               <app-field-error-display
                 [displayError]="form.submitted && password_input.invalid"
                 [model]="password_input"
@@ -64,7 +64,7 @@
               <input matInput #confirmPassword_input="ngModel" [(ngModel)]="user.confirmPassword"
                      minlength="8" placeholder="Confirmation du Mot de Passe"
                      name="confirmPassword" required type="password"
-                     validateEqual="mdp">
+                     validateEqual="mdp" >
               <app-field-error-display
                 [displayError]="form.submitted && confirmPassword_input.invalid"
                 [model]="confirmPassword_input"

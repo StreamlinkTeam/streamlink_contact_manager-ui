@@ -5,9 +5,9 @@
     <mdb-card-body>
       <div class="form-row">
 
-        <div class="form-group col-md-4">
+        <div class="form-group col">
 
-          <label>Etape</label>
+          <label style="color: #4267b2;">Etape</label>
           <select
             (change)="onSelectChange('stage',$event.target.value)"
             class="form-control"
@@ -20,19 +20,6 @@
           </select>
         </div>
 
-        <div class="form-group col-md-4">
-          <label>Etape du Besoin</label>
-          <select (change)="onSelectChange('projectStage',$event.target.value)" class="form-control" name="stage">
-            <option *ngFor="let stage of projectStages" [value]="stage.value">{{stage.label}}</option>
-          </select>
-        </div>
-
-        <div class="form-group col-md-4">
-          <label>Type du Besoin</label>
-          <select (change)="onSelectChange('projectType',$event.target.value)" class="form-control" name="stage">
-            <option *ngFor="let type of projectTypes" [value]="type.value">{{type.label}}</option>
-          </select>
-        </div>
       </div>
 
       <div class="form-row">

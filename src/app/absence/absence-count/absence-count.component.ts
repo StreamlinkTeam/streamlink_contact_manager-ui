@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { AbsenceService } from '../../shared/services/AbsenceService';
-import { DeveloperService } from '../../shared/services/developer.service';
+import {Component, OnInit} from '@angular/core';
+import {DeveloperService} from '../../shared/services/developer.service';
+import {AbsenceService} from '../../shared/services/AbsenceService';
+import {UserService} from '../../shared/services/user.service';
 
 @Component({
   selector: 'app-absence-count',
@@ -18,7 +19,14 @@ export class AbsenceCountComponent implements OnInit {
     asked : 0
   };
 
-  constructor(private absenceService: AbsenceService, private developerService: DeveloperService) { }
+  constructor(private developerService: DeveloperService,
+              private  absenceService: AbsenceService,
+              private userService: UserService) {
+  }
+
+
+
+
 
   ngOnInit() {
     this.developerService.getDeveloperByEmail(sessionStorage.getItem('username')).subscribe(res => {

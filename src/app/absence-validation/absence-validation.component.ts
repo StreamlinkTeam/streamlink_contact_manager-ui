@@ -1,20 +1,24 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {AbsenceService} from '../shared/services/AbsenceService';
+import {ToastrService} from 'ngx-toastr';
 @Component({
   selector: 'app-absence-validation',
   templateUrl: './absence-validation.component.html',
   styleUrls: ['./absence-validation.component.css']
 })
 export class AbsenceValidationComponent implements OnInit {
-
+  absences: any = [];
   displayedColumns = ['id', 'name', 'progress', 'color'];
   dataSource: MatTableDataSource<UserData>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor() {
+  constructor(private service: AbsenceService,
+              private toastr: ToastrService,
+              private absenceService: AbsenceService) {
     // Create 100 users
     const users: UserData[] = [];
     for (let i = 1; i <= 100; i++) { users.push(createNewUser(i)); }
@@ -23,8 +27,16 @@ export class AbsenceValidationComponent implements OnInit {
     this.dataSource = new MatTableDataSource(users);
   }
   ngOnInit() {
+    this.loadAbsences() ;
   }
 
+
+  loadAbsences() {
+    return this.service.getAllAbcense().subscribe((data: {}) => {
+      this.absences = data;
+
+    });
+  }
   /**
    * Set the paginator and sort after the view init since this component will
    * be able to query its view for the initialized paginator and sort.

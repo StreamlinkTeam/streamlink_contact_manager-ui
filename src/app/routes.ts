@@ -43,38 +43,64 @@ import {BillTableComponent} from './bill/bill-table.component';
 import {BillEditorComponent} from './bill/bill-editor.component';
 import {BillComponent} from './bill/bill.component';
 import {BillAddDialogComponent} from './bill/bill-add-dialog.component';
-import { AbsenceValidationComponent } from './absence-validation/absence-validation.component';
-import { AbsenceCountComponent } from './absence/absence-count/absence-count.component';
+import {AbsenceCountComponent} from './absence/absence-count/absence-count.component';
+import {AbsenceValidationComponent} from './absence-validation/absence-validation.component';
+import {StatComponent} from './stat/stat.component';
 
 
 export const appRoutes: Routes = [
-  { path: 'auth', component: AuthComponent, canActivate: [LoginGuard]},
   { path: 'auth', component: AuthComponent, canActivate: [LoginGuard] },
   { path: 'validation', component: AbsenceValidationComponent, canActivate: [AuthGuard]},
-
-  { path: 'profil', component: ProfilComponent, canActivate: [AuthGuard],
+  {path: 'profil', component: ProfilComponent, canActivate: [AuthGuard],
     children: [
-      { path: 'general', component: UserEditorComponent},
-      { path: 'changepassword', component: ProfilPasswordEditorComponent},
-      { path: '**', redirectTo: 'general'}
+      {path: 'general', component: UserEditorComponent},
+      {path: 'changepassword', component: ProfilPasswordEditorComponent},
+      {path: '**', redirectTo: 'general'}
+    ]
+  },
+
+  {path: 'stats', component: StatComponent, canActivate: [AuthGuard]},
+
+
+  {path: 'bills', component: BillTableComponent, canActivate: [AuthGuard]},
+  {path: 'bills/create', component: BillAddDialogComponent, canActivate: [AuthGuard]},
+ {
+    path: 'absence', component: AbsenceComponent , canActivate: [AuthGuard], data: { roles: ['ROLE_RESOURCE']},
+    children: [
+      { path: 'demande', component: AbsenceDemandeComponent },
+      { path: 'list', component: ListAbsencesComponent },
+      { path: 'count', component: AbsenceCountComponent },
+      { path: '**', redirectTo: 'demande' }
+    ]
+  },
+  {
+    path: 'bills/:mode/:reference', component: BillComponent, canActivate: [AuthGuard],
+    children: [
+      {path: 'general', component: BillEditorComponent},
+      {path: '**', redirectTo: 'general'}
     ]
   },
 
   { path: 'bills', component: BillTableComponent, canActivate: [AuthGuard]},
   { path: 'bills/create', component: BillAddDialogComponent, canActivate: [AuthGuard]},
 
-  { path: 'bills/:mode/:reference', component: BillComponent, canActivate: [AuthGuard],
-    children: [
-        { path: 'general', component: BillEditorComponent},
-        { path: '**', redirectTo: 'general'},
-  ]
-},
-  { path: 'absence', component: AbsenceComponent , canActivate: [AuthGuard], data: { roles: ['ROLE_RESOURCE']},
+
+  {path: 'actions', component: ActionTableComponent, canActivate: [AuthGuard]},
+  {
+<<<<<<<<< Temporary merge branch 1
+    path: 'absence', component: AbsenceComponent , canActivate: [AuthGuard], data: { roles: ['ROLE_RESOURCE']},
     children: [
       { path: 'demande', component: AbsenceDemandeComponent },
       { path: 'list', component: ListAbsencesComponent },
       { path: 'count', component: AbsenceCountComponent },
-      { path: '**', redirectTo: 'demande'},
+      { path: '**', redirectTo: 'demande' }
+=========
+    path: 'absence', component: AbsenceComponent, canActivate: [AuthGuard], data: {roles: ['ROLE_RESOURCE']},
+    children: [
+      {path: 'demande', component: AbsenceDemandeComponent},
+      {path: 'list', component: ListAbsencesComponent},
+      {path: '**', redirectTo: 'demande'}
+>>>>>>>>> Temporary merge branch 2
     ]
   },
   {path: 'actions', component: ActionTableComponent, canActivate: [AuthGuard]},

@@ -1,87 +1,82 @@
-/* Made with love by Mutiullah Samim*/
-@import url('https://fonts.googleapis.com/css?family=Numans');
 
-html, body {
-  /*background-image: url('../../assets/just-waves.png');*/
-  background-repeat: repeat;
-  font-family: 'Numans', sans-serif;
-  height: 100%;
-  margin-top: -40px;
+body {
+
+  margin: 0;
+  padding: 0;
+  background: url(../../assets/bg.jpg);
+  background-position: top;
+  font-family: sans-serif;
+  margin-top: -10%;
+
 }
 
-.container {
-  height: 100%;
-  align-content: center;
-}
-
-.card {
-  height: 370px;
-  margin-top: auto;
-  margin-bottom: auto;
-  width: 400px;
-  background-color: rgba(0, 0, 0, 0.5) !important;
-}
-
-.social_icon span {
-  font-size: 60px;
-  margin-left: 10px;
-  color: #FFC312;
-}
-
-.social_icon span:hover {
-  color: white;
-  cursor: pointer;
-}
-
-.card-header h3 {
-  color: white;
-}
-
-.social_icon {
+.box {
   position: absolute;
-  right: 20px;
-  top: -45px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 25rem;
+  padding: 2.5rem;
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 0.625rem;
 }
 
-.input-group-prepend span {
-  width: 50px;
-  background-color: #e3f2fd;
-  color: black;
-  border: 0 !important;
+.box h2 {
+  margin: 0 0 1.875rem;
+  padding: 0;
+  color: #fff;
+  text-align: center;
 }
 
-input:focus {
-  outline: 0 0 0 0 !important;
-  box-shadow: 0 0 0 0 !important;
-
+.box .inputBox {
+  position: relative;
 }
 
-.remember {
-  color: white;
+.box .inputBox input {
+  width: 100%;
+  padding: 0.625rem 0;
+  font-size: 1rem;
+  color: #fff;
+  letter-spacing: 0.062rem;
+  margin-bottom: 1.875rem;
+  border: none;
+  border-bottom: 0.065rem solid #fff;
+  outline: none;
+  background: transparent;
 }
 
-.remember input {
-  width: 20px;
-  height: 20px;
-  margin-left: 15px;
-  margin-right: 5px;
+.box .inputBox label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 0.625rem 0;
+  font-size: 1rem;
+  color: #fff;
+  pointer-events: none;
+  transition: 0.5s;
 }
 
-.login_btn {
-  color: black;
-  background-color: #e3f2fd;
-  width: 150px;
+.box .inputBox input:focus ~ label,
+.box .inputBox input:valid ~ label,
+.box .inputBox input:not([value=""]) ~ label {
+  top: -1.125rem;
+  left: 0;
+  color: #03a9f4;
+  font-size: 0.75rem;
 }
 
-.login_btn:hover {
-  color: black;
-  background-color: white;
+.box input[type="submit"] {
+  border: none;
+  outline: none;
+  color: #fff;
+  background-color: #03a9f4;
+  padding: 0.625rem 1.25rem;
+  cursor: pointer;
+  border-radius: 0.312rem;
+  font-size: 1rem;
 }
 
-.links {
-  color: white;
-}
-
-.links a {
-  margin-left: 4px;
+.box input[type="submit"]:hover {
+  background-color: #1cb1f5;
 }

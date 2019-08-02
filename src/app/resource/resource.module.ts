@@ -18,6 +18,7 @@ import {ButtonsModule, CardsFreeModule, WavesModule} from 'angular-bootstrap-md'
 import { ResourceRecordComponent } from './resource-record.component';
 import {ActionModule} from '../action/action.module';
 import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material';
 
 
 @NgModule({
@@ -33,7 +34,7 @@ import {MatButtonModule} from '@angular/material/button';
     CommonModule,
     Ng2SmartTableModule,
     MatButtonModule,
-    DeveloperModule, ActionModule],
+    DeveloperModule, ActionModule, MatIconModule],
   declarations: [ResourceTableComponent, ResourceEditorComponent, ResourceRecordComponent],
   exports: [ResourceTableComponent, ResourceEditorComponent]
 })

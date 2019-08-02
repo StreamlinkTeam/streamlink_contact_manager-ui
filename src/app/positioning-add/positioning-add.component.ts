@@ -96,7 +96,6 @@ export class PositioningAddComponent implements OnInit {
 
 
   save(form: NgForm) {
-
     this.positioning.createdDate = new Date();
     this.positioning.modifiedDate = new Date();
 
@@ -116,10 +115,7 @@ export class PositioningAddComponent implements OnInit {
 
         }, err => {
           Swal.fire('Erreur de création du positionnement', 'Opération Echouée!', 'error');
-
         });
-
-
   }
 
   onClose() {

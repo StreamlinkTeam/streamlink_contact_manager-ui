@@ -26,6 +26,7 @@ export class UserAvatarComponent {
               private service: UserService,
               private toastr: ToastrService) {
 
+
     this.referenceUser = activeRoute.snapshot.params['reference'];
     this.urlToReturn = '/' + activeRoute.snapshot.parent.url[0].toString();
 
