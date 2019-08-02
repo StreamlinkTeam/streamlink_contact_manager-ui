@@ -18,7 +18,7 @@ export class ContractService {
 
   getContract(reference: string): Observable<Contract> {
 
-    this.loaderService.show();
+    //this.loaderService.show();
     const url = environment.API + '/ws/developers/contract';
 
     const options = {params: new HttpParams().set('developerReference', reference)};
@@ -27,14 +27,14 @@ export class ContractService {
       .http
       .get<Contract>(url, options)
       ._finally(() => {
-        this.loaderService.hide();
+        //this.loaderService.hide();
       });
 
   }
 
   createContracts(contract: Contract, reference: string): Observable<Contract> {
 
-    this.loaderService.show();
+    //this.loaderService.show();
     const url = environment.API + '/ws/developers/contract';
 
     const options = {params: new HttpParams().set('developerReference', reference)};
@@ -42,12 +42,12 @@ export class ContractService {
     return this.http
       .post<Contract>(url, contract, options)
       ._finally(() => {
-        this.loaderService.hide();
+        //this.loaderService.hide();
       });
   }
 
   updateContract(contract: Contract, reference: string): Observable<Contract> {
-    this.loaderService.show();
+    //this.loaderService.show();
     const url = environment.API + '/ws/developers/contract';
 
     const options = {params: new HttpParams().set('developerReference', reference)};
@@ -56,12 +56,12 @@ export class ContractService {
     return this.http
       .put<Contract>(url, contract, options)
       ._finally(() => {
-        this.loaderService.hide();
+        //this.loaderService.hide();
       });
   }
 
   deleteContract(reference: string): Observable<any> {
-    this.loaderService.show();
+    //this.loaderService.show();
     const url = environment.API + '/ws/developers/contract';
 
     const options = {params: new HttpParams().set('developerReference', reference)};
@@ -70,13 +70,13 @@ export class ContractService {
     return this.http
       .delete<any>(url, options)
       ._finally(() => {
-        this.loaderService.hide();
+        //this.loaderService.hide();
       });
   }
 
   getWishedContract(reference: string): Observable<WishedContract> {
 
-    this.loaderService.show();
+    //this.loaderService.show();
     const url = environment.API + '/ws/developers/contract/wished';
 
     const options = {params: new HttpParams().set('developerReference', reference)};
@@ -85,13 +85,13 @@ export class ContractService {
       .http
       .get<WishedContract>(url, options)
       ._finally(() => {
-        this.loaderService.hide();
+        //this.loaderService.hide();
       });
 
   }
 
   updateWishedContract(wishedContract: WishedContract, reference: string): Observable<WishedContract> {
-    this.loaderService.show();
+    //this.loaderService.show();
     const url = environment.API + '/ws/developers/contract/wished';
 
     const options = {params: new HttpParams().set('developerReference', reference)};
@@ -100,7 +100,7 @@ export class ContractService {
     return this.http
       .put<WishedContract>(url, wishedContract, options)
       ._finally(() => {
-        this.loaderService.hide();
+        //this.loaderService.hide();
       });
   }
 }

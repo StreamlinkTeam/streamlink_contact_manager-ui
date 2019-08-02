@@ -212,7 +212,6 @@
             bottom: 0;
             left: 0;
             z-index: 1;
-            background: rgba(0, 0, 0, 0.45);
         }
 
         /*&.Jan {
@@ -286,8 +285,9 @@
             .header-bottom {
                 position: relative;
                 z-index: 2;
-
+                height: 100%;
                 .title {
+
                     font-size: 20px;
                     min-width: 160px;
                     text-align: center;
@@ -312,4 +312,12 @@
     background: #dee2e6;
     color: rgba(0,0,0,.87);
   }
+}
+
+.cal-day-badge {
+    margin-top: 0 !important;
+    padding-top: 8px !important;
+    height: 30px;
+    width: 30px;
+    border-radius: 50% !important;
 }

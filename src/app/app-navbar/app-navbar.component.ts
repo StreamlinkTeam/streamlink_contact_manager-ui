@@ -5,6 +5,7 @@ import {User} from '../shared/entities/user.model';
 import {AppNavbarService} from './app-navbar.service';
 import {Observable} from 'rxjs';
 
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './app-navbar.component.html',
@@ -13,6 +14,7 @@ import {Observable} from 'rxjs';
 export class AppNavbarComponent implements OnInit {
 
   user$: Observable<User>;
+  user;
 
   constructor(private router: Router, private auth: AuthService,
               private appNavbarService: AppNavbarService) {
@@ -21,16 +23,13 @@ export class AppNavbarComponent implements OnInit {
   ngOnInit(): void {
 
     if (this.auth.isAuthenticated()) {
-
-      this.user$ = this.auth.getCurrentUser();
-
-      this.appNavbarService.update.subscribe(() => {
-        this.user$ = this.auth.getCurrentUser();
-
+      /*
+      this.auth.getCurrentUser().subscribe(res => {
+        this.user = res;
       });
-
+      */
+     this.user = JSON.parse(sessionStorage.getItem('user'));
     }
-
   }
 
   isLoggedIn() {

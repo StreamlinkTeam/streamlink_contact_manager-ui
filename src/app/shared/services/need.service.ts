@@ -14,43 +14,43 @@ export class NeedService {
 
   getNeed(needReference: string): Observable<Need> {
 
-    this.loaderService.show();
+    //this.loaderService.show();
     const url = environment.API + '/ws/needs';
 
     const options = {params: new HttpParams().set('needReference', needReference)};
 
     return this.http.get<Need>(url, options)
       ._finally(() => {
-        this.loaderService.hide();
+        //this.loaderService.hide();
       });
 
   }
 
   getNeeds(): Observable<NeedView[]> {
 
-    this.loaderService.show();
+    //this.loaderService.show();
     const url = environment.API + '/ws/needs/all';
 
     return this.http.get<NeedView[]>(url)
       ._finally(() => {
-        this.loaderService.hide();
+        //this.loaderService.hide();
       });
   }
 
 
   createNeeds(need: Need): Observable<Need> {
 
-    this.loaderService.show();
+    //this.loaderService.show();
     const url = environment.API + '/ws/needs';
 
     return this.http.post<Need>(url, need)
       ._finally(() => {
-        this.loaderService.hide();
+        //this.loaderService.hide();
       });
   }
 
   updateNeed(need: Need, needReference: string): Observable<Need> {
-    this.loaderService.show();
+    //this.loaderService.show();
     const url = environment.API + '/ws/needs';
 
     const options = {params: new HttpParams().set('needReference', needReference)};
@@ -59,12 +59,12 @@ export class NeedService {
     return this.http
       .put<Need>(url, need, options)
       ._finally(() => {
-        this.loaderService.hide();
+        //this.loaderService.hide();
       });
   }
 
   deleteNeed(needReference: string) {
-    this.loaderService.show();
+    //this.loaderService.show();
     const url = environment.API + '/ws/needs';
 
     const options = {params: new HttpParams().set('needReference', needReference)};
@@ -74,13 +74,13 @@ export class NeedService {
       .delete(url, options)
       .map((res: HttpResponse<any>) => res.body)
       ._finally(() => {
-        this.loaderService.hide();
+        //this.loaderService.hide();
       });
   }
 
 
   getNeedInformation(needReference: string): Observable<NeedInformation> {
-    this.loaderService.show();
+    //this.loaderService.show();
     const url = environment.API + '/ws/needs/information';
 
 
@@ -91,12 +91,12 @@ export class NeedService {
       .http
       .get<NeedInformation>(url, options)
       ._finally(() => {
-        this.loaderService.hide();
+        //this.loaderService.hide();
       });
   }
 
   updateNeedInformation(info: NeedInformation, needReference: string): Observable<NeedInformation> {
-    this.loaderService.show();
+    //this.loaderService.show();
     const url = environment.API + '/ws/needs/information';
 
     const options = {params: new HttpParams().set('needReference', needReference)};
@@ -105,19 +105,19 @@ export class NeedService {
     return this.http
       .put<NeedInformation>(url, info, options)
       ._finally(() => {
-        this.loaderService.hide();
+        //this.loaderService.hide();
       });
   }
 
   searchNeeds(term: string): Observable<NeedView[]> {
 
-    this.loaderService.show();
+    //this.loaderService.show();
     const url = environment.API + '/ws/needs/auto-complete';
     const options = {params: new HttpParams().set('term', term)};
 
     return this.http.get<NeedView[]>(url, options)
       ._finally(() => {
-        this.loaderService.hide();
+        //this.loaderService.hide();
       });
   }
 

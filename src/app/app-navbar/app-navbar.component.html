@@ -41,6 +41,9 @@
           <a class="nav-link" routerLink="/admin" routerLinkActive="active" style="color:azure"><b>Gestion
             d'utilisateurs</b></a>
         </li>
+        <li *ngIf="!isResource()" class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="/validation" routerLinkActive="active">Gestion d'absence </a>
+        </li>
       </ul>
       <div class="md-form my-0">
         <ul class="navbar-nav mr-auto">
@@ -97,11 +100,8 @@
       </ul>
       <div class="md-form my-0">
         <ul class="navbar-nav mr-auto">
-          <li *ngIf="isLoggedIn() && isAdmin() && user$ | async as user" class="nav-item" routerLinkActive="active">
-            <a class="dropdown-item  text-warning" routerLink="/profil" routerLinkActive="active"><i
-                class="fa fa-user"></i> &nbsp;{{user.firstname }} {{user.lastname}}</a>
-          </li>
-          <li *ngIf="isLoggedIn() && !isAdmin() && user$ | async as user" class="nav-item" routerLinkActive="active">
+      
+          <li *ngIf="isLoggedIn() && user$ | async as user" class="nav-item" routerLinkActive="active">
             <a class="dropdown-item  text-warning">{{user.firstname }} {{user.lastname}}</a>
           </li>
           <li *ngIf="isLoggedIn()" class="nav-item">

@@ -11,6 +11,8 @@ import {TimeLine} from '../../shared/entities/time-line.model';
 import {EventService} from '../../shared/services/event.service';
 import {Router} from '@angular/router';
 import Swal from 'sweetalert2';
+import { SharingService } from '../../shared/services/sharing.service';
+import { Globals } from '../../shared/global/globals';
 
 
 @Component({
@@ -33,7 +35,39 @@ export class CalendarEventFormDialogComponent implements OnInit {
   resourcesLoading = false;
   resourcesInput$ = new Subject<string>();
   positionings: any = [];
-  private  startD:any = null
+  private  startD:any = null;
+  selectedProject;
+  importedEvent;
+  note;
+  temps = [{
+    value : -1,
+    label : 'Absent'
+  },{
+    value : 0.5,
+    label : 'Demi Journée'
+  },{
+    value : 1,
+    label : 'Journée'
+  }];
+
+  absences = [{
+    value: 'cp',
+    label: 'Congé payant'
+  },
+  {
+    value: 'cs',
+    label: 'Congé sans solde'
+  },
+  {
+    value: 'm',
+    label: 'Maladie'
+  },
+  {
+    value: 'e',
+    label: 'Exeptionnelle'
+  }];
+
+  timeWorked;
   /**
    * Constructor
    *
@@ -48,12 +82,12 @@ export class CalendarEventFormDialogComponent implements OnInit {
     private router: Router,
     public matDialogRef: MatDialogRef<CalendarEventFormDialogComponent>,
     private eventService: EventService,
-
+    private sharingService: SharingService,
+    private positionningService: PositioningService,
     @Inject(MAT_DIALOG_DATA) private _data: any,
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    private globals: Globals
   ) {
-
-    this.event = _data.event;
     this.action = _data.action;
 
     if (this.action === 'edit') {
@@ -88,28 +122,18 @@ export class CalendarEventFormDialogComponent implements OnInit {
   }*/
 
   ngOnInit() {
-    console.log("hjghjg" , this._data)
-    this.loadPosistionning();
-    this.service.getPositioningsRsource().subscribe(res => {
-      let ress: any[];
-      ress = res;
-      ress.map((i) => {
-
-      /*  i.fullName = i.needTitle + ' '+ i.lastname;*/
-        return  i.needTitle;
+    this.positionningService.getPositioningsRsource().subscribe(res => {
+      this.positionings = res;
+      this.sharingService.currentMessage.subscribe(res => {
+        const ev = JSON.parse(res);
+        this.event = this.globals.events[ev.index];
+        
+        this.selectedProject = this.event.project;
+        this.importedEvent = ev;
       });
-      this.resources = ress;
     });
   }
-  // -----------------------------------------------------------------------------------------------------
-  // @ Public methods
-  // -----------------------------------------------------------------------------------------------------
 
-  /**
-   * Create the event form
-   *
-   * @returns {FormGroup}
-   */
   createEventForm1(): FormGroup {
     return new FormGroup({
       title: new FormControl(this.event.title),
@@ -131,17 +155,10 @@ export class CalendarEventFormDialogComponent implements OnInit {
 
       return new FormGroup({
 
-      // title: new FormControl(this.timeLine.project),
+      title: new FormControl(this.timeLine.project),
       start: new FormControl(this.timeLine.start),
       timeWork: new FormControl(this.timeLine.timeWork),
-      color: this._formBuilder.group({
-        primary: new FormControl(this.event.color.primary),
-        secondary: new FormControl(this.event.color.secondary)
-      }),
-      meta:
-        this._formBuilder.group({
-          notes: new FormControl(this.timeLine.note)
-        })
+      firstName: new FormControl()
     });
 
 
@@ -150,29 +167,21 @@ export class CalendarEventFormDialogComponent implements OnInit {
   loadPosistionning() {
     return this.service.getPositioningsRsource().subscribe((data: {}) => {
       this.positionings = data as [];
-      console.log("POSITIONNING :: ",data);
 
     });
   }
 
 
   save() {
+    this.importedEvent.events[this.importedEvent.index].project = this.event.project;
+    this.importedEvent.events[this.importedEvent.index].note = this.event.note;
+    this.importedEvent.events[this.importedEvent.index].temp = this.event.temp;
+    const dt: Date = new Date(this.event.start);
+    this.importedEvent.events[this.importedEvent.index].start = dt;
 
-    console.log('EVENT :: ', this.prj);
-    let dt = new Date(this.startD);
-    this.timeLine.start = new Date(dt.setDate(dt.getDate()+ 2));
-    this.timeLine.timeListReference = 'KYFIf7Byl6oySmM';
-   this.timeLine.project = 'rrrr';
-    this.timeLine.note = this.event.note;
-    this.eventService.createTimeLine(this.timeLine).subscribe(response => {
-
-      Swal.fire('Timesheet crée avec succés', 'Opération Réussite!', 'success');
-      this.router.navigateByUrl('/timesheet');
-      console.log(response);
-    }, err => {
-      Swal.fire('Erreur de création de Timesheet', 'Opération Echouée!', 'error');
-
-    });
+    this.globals.events[this.importedEvent.index] = this.importedEvent.events[this.importedEvent.index] ;
+    console.log('SAVE :: ', this.globals.events[0])
+    //this.sharingService.changeMessage(JSON.stringify(this.importedEvent));
   }
 
   deleteEvent() {

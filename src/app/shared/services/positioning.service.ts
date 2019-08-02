@@ -21,43 +21,43 @@ export class PositioningService {
 
   getPositioning(positioningReference: string): Observable<Positioning> {
 
-    this.loaderService.show();
+    ////this.loaderService.show();
     const url = environment.API + '/ws/positionings';
 
     const options = {params: new HttpParams().set('positioningReference', positioningReference)};
 
     return this.http.get<Positioning>(url, options)
       ._finally(() => {
-        this.loaderService.hide();
+        ////this.loaderService.hide();
       });
 
   }
 
   getPositionings(): Observable<Positioning[]> {
 
-    this.loaderService.show();
+    ////this.loaderService.show();
     const url = environment.API + '/ws/positionings/all';
 
     return this.http.get<Positioning[]>(url)
       ._finally(() => {
-        this.loaderService.hide();
+        ////this.loaderService.hide();
       });
   }
 
 
   createPositionings(positioning: Positioning): Observable<Positioning> {
 
-    this.loaderService.show();
+    ////this.loaderService.show();
     const url = environment.API + '/ws/positionings';
 
     return this.http.post<Positioning>(url, positioning)
       ._finally(() => {
-        this.loaderService.hide();
+        ////this.loaderService.hide();
       });
   }
 
   updatePositioning(positioning: Positioning, positioningReference: string): Observable<Positioning> {
-    this.loaderService.show();
+    ////this.loaderService.show();
     const url = environment.API + '/ws/positionings';
 
     const options = {params: new HttpParams().set('positioningReference', positioningReference)};
@@ -66,12 +66,12 @@ export class PositioningService {
     return this.http
       .put<Positioning>(url, positioning, options)
       ._finally(() => {
-        this.loaderService.hide();
+        ////this.loaderService.hide();
       });
   }
 
   deletePositioning(positioningReference: string) {
-    this.loaderService.show();
+    ////this.loaderService.show();
     const url = environment.API + '/ws/positionings';
 
     const options = {params: new HttpParams().set('positioningReference', positioningReference)};
@@ -81,19 +81,17 @@ export class PositioningService {
       .delete(url, options)
       .map((res: HttpResponse<any>) => res.body)
       ._finally(() => {
-        this.loaderService.hide();
+        ////this.loaderService.hide();
       });
   }
 
   getPositioningsRsource(): Observable<Positioning[]> {
 
-    this.loaderService.show();
+    ////this.loaderService.show();
     const url = environment.API + '/ws/positionings/posRes';
 
-    return this.http.get<Positioning[]>(url)
-      ._finally(() => {
-        this.loaderService.hide();
-      });
+    return this.http.get<Positioning[]>(url);
+    //this.loaderService.hide();
   }
 
 }

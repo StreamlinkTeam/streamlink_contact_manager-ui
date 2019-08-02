@@ -31,6 +31,7 @@ export class NeedAddDialogComponent implements OnInit {
 
   societies$: Observable<SocietyView[] | Society[]>;
   contacts$: Observable<SocietyContactView[]>;
+  societies;
 
   societiesLoading = false;
   societiesInput$ = new Subject<string>();
@@ -69,6 +70,7 @@ export class NeedAddDialogComponent implements OnInit {
       {label: 'Projet interne', value: 'InternalProject'},
       {label: 'Produit', value: 'Product'},
       {label: 'Recrutement', value: 'Recruitment'}];
+      this.societies = this.societyService.getSocieties();
 
     this.loadSocieties(null);
 
@@ -137,12 +139,15 @@ export class NeedAddDialogComponent implements OnInit {
         }
       );
     } else {
+     
       this.societies$ = concat(
         of([]), // default items
         this.societiesInput$.pipe(
           debounceTime(200),
           distinctUntilChanged(),
-          tap(() => this.societiesLoading = true),
+          tap((el) => {
+            this.societiesLoading = true;
+          }),
           switchMap(term => this.societyService.searchSocieties(term).pipe(
             catchError(() => of([])), // empty list on error
             tap(() => this.societiesLoading = false)

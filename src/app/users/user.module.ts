@@ -13,6 +13,10 @@ import {Ng2SmartTableModule} from 'ng2-smart-table';
 import {MatButtonModule, MatIconModule} from '@angular/material';
 import {MatInputModule} from '@angular/material/input';
 import {ButtonsModule, CardsFreeModule, WavesModule} from 'angular-bootstrap-md';
+import {Ng2FileSizeModule} from 'ng2-file-size';
+import {DeveloperCVComponent} from '../developer/developer-cv.component';
+import {UserAvatarComponent} from './user-avatar.component';
+
 
 
 @NgModule({
@@ -24,10 +28,11 @@ import {ButtonsModule, CardsFreeModule, WavesModule} from 'angular-bootstrap-md'
     FormsModule,
     RouterModule,
     CommonModule,
-    Ng2SmartTableModule
+    Ng2SmartTableModule,
+    Ng2FileSizeModule
   ],
-  exports: [UserEditorComponent, UserTableComponent],
-  declarations: [UserEditorComponent, UserTableComponent]
+  exports: [UserEditorComponent, UserTableComponent, UserAvatarComponent],
+  declarations: [UserEditorComponent, UserTableComponent, UserAvatarComponent]
 })
 
 export class UserModule {

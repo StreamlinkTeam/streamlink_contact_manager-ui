@@ -17,41 +17,55 @@ export class EventService {
 
   getTimeLine(reference: string): Observable<TimeLine> {
 
-    this.loaderService.show();
+    //this.loaderService.show();
     const url = environment.API + '/ws/time_line';
 
     const options = {params: new HttpParams().set('reference', reference)};
 
     return this.http.get<TimeLine>(url, options)
       ._finally(() => {
-        this.loaderService.hide();
+        //this.loaderService.hide();
       });
 
   }
 
   /*getPositionings(): Observable<Positioning[]> {
 
-    this.loaderService.show();
+    //this.loaderService.show();
     const url = environment.API + '/ws/positionings/all';
 
     return this.http.get<Positioning[]>(url)
       ._finally(() => {
-        this.loaderService.hide();
+        //this.loaderService.hide();
       });
   }*/
 
+  saveTimeLine(event: any){
+    const url = environment.API + '/ws/time_line/save';
+    const ref = sessionStorage['ref'];
+    const timeLine: TimeLine = {
+      reference: '',
+      timeListReference: '',
+      project : event.project.reference,
+      note: event.note,
+      timeWork: event.temp.value,
+      start: event.start,
+      resourceReference: ref
+    };
+    return this.http.post<TimeLine>(url, timeLine);
+  }
 
-  createTimeLine(timeLine: TimeLine): any{
+  createTimeLine(timeLine: TimeLine): any {
 
 
-    this.loaderService.show();
+    //this.loaderService.show();
     const url = environment.API + '/ws/time_line';
 
     const ref = sessionStorage['ref'];
     timeLine.resourceReference = ref;
     return this.http.post<TimeLine>(url, timeLine)
       ._finally(() => {
-        this.loaderService.hide();
+        //this.loaderService.hide();
       });
   }
 
@@ -60,8 +74,13 @@ export class EventService {
     return this.http.put("http://localhost:9090/ws/time_line?ligneTempsReference="+reference,event);
   }
 
+  getPeriod(month, year){
+    //TO DO get all events from database by month and year
+    
+  }
+
  /* updatePositioning(positioning: Positioning, positioningReference: string): Observable<Positioning> {
-    this.loaderService.show();
+    //this.loaderService.show();
     const url = environment.API + '/ws/positionings';
 
     const options = {params: new HttpParams().set('positioningReference', positioningReference)};
@@ -70,12 +89,12 @@ export class EventService {
     return this.http
       .put<Positioning>(url, positioning, options)
       ._finally(() => {
-        this.loaderService.hide();
+        //this.loaderService.hide();
       });
   }*/
 
   /*deletePositioning(positioningReference: string) {
-    this.loaderService.show();
+    //this.loaderService.show();
     const url = environment.API + '/ws/positionings';
 
     const options = {params: new HttpParams().set('positioningReference', positioningReference)};
@@ -85,18 +104,18 @@ export class EventService {
       .delete(url, options)
       .map((res: HttpResponse<any>) => res.body)
       ._finally(() => {
-        this.loaderService.hide();
+        //this.loaderService.hide();
       });
   }*/
 
  /* getPositioningsRsource(): Observable<Positioning[]> {
 
-    this.loaderService.show();
+    //this.loaderService.show();
     const url = environment.API + '/ws/positionings/posRes';
 
     return this.http.get<Positioning[]>(url)
       ._finally(() => {
-        this.loaderService.hide();
+        //this.loaderService.hide();
       });
   }*/
 
