@@ -90,14 +90,8 @@ export class CalendarComponent implements OnInit {
       this.allProject = res;
       this.setEvents();
     });
-    /* this.projectService.getProjects().subscribe(
-      res => {
-        this.allProject = res;
-        this.setEvents();
-      }
-    ) */
+
     if (this.auth.isAuthenticated()) {
-      //this.positionningService.getPositioningsRsource().subscribe( res => console.log(res));
 
       this.user$ = this.auth.getCurrentUser();
 
@@ -121,16 +115,6 @@ export class CalendarComponent implements OnInit {
     this.user$.subscribe(res => {
       const email = res.email;
       this.emailUser = email;
-      /*
-      this.devService.getDeveloperByEmail(this.emailUser).subscribe(response => {
-        this.developer = response;
-        this.userRef = response.managerReference;
-
-        this.userService.getUser(this.developer.managerReference).subscribe(res => {
-          this.manager = res;
-        });
-      });
-      */
     });
   }
   resetMonth() {
@@ -151,6 +135,7 @@ export class CalendarComponent implements OnInit {
           label : 'Journée'
         }
       }
+
       if (startDate.getDay() !== 6 && startDate.getDay() !== 0 && !this.holiday.isHoliday(startDate) && 
           startDate.getMonth() == this.viewDate.getMonth()) {
         this.events.push(ev);
@@ -211,7 +196,6 @@ export class CalendarComponent implements OnInit {
   setEvents(): void {
 
     this._calendarService.getAllEvents().subscribe(res => {
-      console.log("EVENTS :: ",res)
       const newRes = res as any[];
       const newEv = newRes.map(item => {
         const temp = {label: '', value: item.timeWork};
@@ -231,6 +215,10 @@ export class CalendarComponent implements OnInit {
         return item;
       });
       this.events = newEv;
+      if (this.events.length === 0) {
+        this.selectedProject = this.projects[0];
+        this.resetMonth();
+      }
     });
   }
 
@@ -314,11 +302,8 @@ export class CalendarComponent implements OnInit {
 
     this.confirmDialogRef.afterClosed().subscribe(result => {
       if (result) {
-        //console.log("DELETING :: ",event.reference);
         const eventIndex = this.events.indexOf(event);
-        //this.events.splice(eventIndex, 1);
         this._calendarService.deleteEvent(event).subscribe(res => {
-          // console.logconsole.log(res);
         });
         this.refresh.next(true);
       }
@@ -326,13 +311,6 @@ export class CalendarComponent implements OnInit {
     });
 
   }
-
-  /**
-   * Edit Event
-   *
-   * @param {string} action
-   * @param {CalendarEvent} event
-   */
 
   editEventBefore(action: string, event: any) {
     this._calendarService.getEventByRef(event.reference).subscribe(res => {

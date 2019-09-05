@@ -2,7 +2,7 @@
 
 
   <mdb-card class="text-white">
-    <mdb-card-header><h4><img src="../../assets/company.png" style="width: 30px; height: 30px">Liste des Candidats</h4>
+    <mdb-card-header><h4>Liste des Candidats</h4>
     </mdb-card-header>
     <mdb-card-body>
 
@@ -43,6 +43,18 @@
   </mdb-card>
   <br>
 
+  <div class="form-group">
+      <button  style="margin: 5px" color="primary" mat-raised-button routerLink="/developers/create">
+        <mat-icon>add</mat-icon>
+        Ajouter un candidat
+      </button>
+  
+  
+      <button color="primary" mat-raised-button routerLink="/developers/create/from-cv">
+        <mat-icon>chrome_reader_mode</mat-icon>
+        Scan CV
+      </button>
+    </div>
   <ng2-smart-table
     (userRowSelect)="onSelectRow($event)"
     (delete)="deleteDeveloper($event)"
@@ -50,20 +62,8 @@
     [settings]="settings"
     [source]="source">
   </ng2-smart-table>
-  <div class="dropdown-divider"></div>
-
-  <div class="form-group">
-    <button  style="margin: 5px" color="primary" mat-raised-button routerLink="/developers/create">
-      <mat-icon>add</mat-icon>
-      Ajouter un candidat
-    </button>
 
 
-    <button color="primary" mat-raised-button routerLink="/developers/create/from-cv">
-      <mat-icon>chrome_reader_mode</mat-icon>
-      Scan CV
-    </button>
-  </div>
 </div>
 
 

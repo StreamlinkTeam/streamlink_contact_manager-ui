@@ -70,8 +70,8 @@ import {BillComponent} from './bill/bill.component';
 import {Ng2SmartTableModule} from 'ng2-smart-table';
 import { BillEditorComponent } from './bill/bill-editor.component';
 import { BillAddDialogComponent } from './bill/bill-add-dialog.component';
-import { Globals } from './shared/global/globals';
 import { AbsenceValidationComponent } from './absence-validation/absence-validation.component';
+import { StatComponent } from './stat/stat.component';
 
 
 registerLocaleData(localeFr, 'fr');

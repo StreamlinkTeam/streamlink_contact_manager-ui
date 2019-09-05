@@ -1,8 +1,19 @@
-<div class="container">
+<div class="container-fluid">
   <div class="row">
-    <mdb-card style="width: 100%;">
-      <mdb-card-header><b>Informations de positionnement</b> <span
-        class="float-right"><b>Crée le {{positioning.createdDate | date}}
+      <div class="col-lg-3">
+          <mdb-card>
+            <mdb-card-header><b>Informations complémentaires</b></mdb-card-header>
+            <mdb-card-body>
+              CA de cette période	 = {{ periodCA }} €<br>
+              Coût de cette période	= {{ periodCost }} €<br>
+              Marge de cette période = {{ periodMargin }} €<br>
+              Rentabilité de cette période = {{periodProfitability | number:'2.1-2'}} %
+            </mdb-card-body>
+          </mdb-card>
+        </div>
+        <div class="col-lg-9">
+    <mdb-card>
+      <mdb-card-header><b>Informations de positionnement</b> <span ><b>Crée le {{positioning.createdDate | date}}
         à {{positioning.createdDate | date:"HH:mm"}}</b> </span></mdb-card-header>
       <mdb-card-body>
         <form #form="ngForm" (ngSubmit)="updatePostioning(form)">
@@ -326,17 +337,7 @@
                 </mat-form-field>
               </div>
 
-              <div style="position: absolute; position: absolute; margin-top: -102.5%; margin-left: -170%;" >
-                <mdb-card>
-                  <mdb-card-header><b>Informations complémentaires</b></mdb-card-header>
-                  <mdb-card-body>
-                    CA de cette période	 = {{ periodCA }} €<br>
-                    Coût de cette période	= {{ periodCost }} €<br>
-                    Marge de cette période = {{ periodMargin }} €<br>
-                    Rentabilité de cette période = {{periodProfitability | number:'2.1-2'}} %
-                  </mdb-card-body>
-                </mdb-card>
-              </div>
+              
 
 
             </div>
@@ -374,6 +375,7 @@
       </mdb-card-body>
     </mdb-card>
   </div>
+</div>
 </div>
 
 

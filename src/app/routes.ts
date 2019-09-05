@@ -87,20 +87,12 @@ export const appRoutes: Routes = [
 
   {path: 'actions', component: ActionTableComponent, canActivate: [AuthGuard]},
   {
-<<<<<<<<< Temporary merge branch 1
     path: 'absence', component: AbsenceComponent , canActivate: [AuthGuard], data: { roles: ['ROLE_RESOURCE']},
     children: [
       { path: 'demande', component: AbsenceDemandeComponent },
       { path: 'list', component: ListAbsencesComponent },
       { path: 'count', component: AbsenceCountComponent },
       { path: '**', redirectTo: 'demande' }
-=========
-    path: 'absence', component: AbsenceComponent, canActivate: [AuthGuard], data: {roles: ['ROLE_RESOURCE']},
-    children: [
-      {path: 'demande', component: AbsenceDemandeComponent},
-      {path: 'list', component: ListAbsencesComponent},
-      {path: '**', redirectTo: 'demande'}
->>>>>>>>> Temporary merge branch 2
     ]
   },
   {path: 'actions', component: ActionTableComponent, canActivate: [AuthGuard]},

@@ -1,21 +1,21 @@
-<div class="container">
+
   <mdb-card>
 
-    <div class="row"  *ngIf="!isSocietyContact()">
-      <div class="col">
+    <div *ngIf="!isSocietyContact()">
+     
         <mdb-card>
           <mdb-card-header>Actions</mdb-card-header>
         </mdb-card>
-      </div>
+
     </div>
 
 
-    <div class="row" *ngIf="isSocietyContact()">
-      <div class="col">
+    <div *ngIf="isSocietyContact()">
+     
         <mdb-card>
           <mdb-card-header >Contact-Actions</mdb-card-header>
         </mdb-card>
-      </div>
+     
     </div>
 
 
@@ -149,4 +149,4 @@
       </div>
     </mdb-card-body>
   </mdb-card>
-</div>
+

@@ -5,7 +5,7 @@
         <mdb-card-body>
           <div class="row">
             <div class="col-md-9">
-            <ng-select [items]="projects" bindLabel="client" [(ngModel)]="selectedProject" placeholder="Choisir un projet">
+            <ng-select [items]="projects" bindLabel="needTitle" [(ngModel)]="selectedProject" placeholder="Choisir un projet">
             </ng-select>
           </div>
           <div class="col-md-3">
@@ -63,18 +63,18 @@
                     </div>
 
                     <small style="margin: 5px" class="cal-day-badge ng-tns-c3-0 ng-star-inserted"
-                      style="max-width: 30px; margin-bottom: 2px; background-color: green" *ngIf="day.events.length > 0 && day.events[0].temp.value == 1">
-                      {{ day.events[0].temp.value }}
+                      style="margin-bottom: 2px; background-color: green" *ngIf="day.events.length > 0 && day.events[0].temp.value == 1">
+                      {{ day.events[0].project.needTitle }}
                     </small>
 
                     <small style="margin: 5px" class="cal-day-badge ng-tns-c3-0 ng-star-inserted"
-                        style="max-width: 30px; margin-bottom: 2px; background-color: blue" *ngIf="day.events.length > 0 && day.events[0].temp.value == 0.5">
-                        {{ day.events[0].temp.value }}
+                        style="margin-bottom: 2px; background-color: blue" *ngIf="day.events.length > 0 && day.events[0].temp.value == 0.5">
+                        {{ day.events[0].project.needTitle }}
                     </small>
 
                     <small style="margin: 5px" class="cal-day-badge ng-tns-c3-0 ng-star-inserted"
-                        style="max-width: 30px; margin-bottom: 2px; background-color: red" *ngIf="day.events.length > 0 && day.events[0].temp.value == -1">
-                        {{ day.events[0].temp.value }}
+                        style="margin-bottom: 2px; background-color: red" *ngIf="day.events.length > 0 && day.events[0].temp.value == -1">
+                        {{ day.events[0].project.needTitle }}
                     </small>
 
                   </ng-template>
