@@ -1,23 +1,25 @@
-<div class="container-fluid" style="padding-right: 5%; padding-left: 5%">
+<div class="container-fluid">
 
   <mdb-card class="text-white">
-    <mdb-card-header><h4><img src="../../assets/company.png" style="width: 30px; height: 30px"> Liste des projets</h4>
+    <mdb-card-header>
+      <h4>Rechercher un projet</h4>
     </mdb-card-header>
     <mdb-card-body>
 
-      <div class="form-row">
+      <div class="row">
 
-        <div class="form-group col-md-6">
-          <label style="color: #4267b2;">Etat</label>
-          <select (change)="onSelectChange('stage',$event.target.value)" class="form-control" name="stage">
+        <div class="form-group row col-md-4">
+          
+          <label style="color: #4267b2;" class="col-md-4">Etat</label>
+          <select (change)="onSelectChange('stage',$event.target.value)" class="form-control col-md-8" name="stage">
             <option *ngFor="let stage of stages" [value]="stage.value">{{stage.label}}</option>
           </select>
         </div>
 
-        <div class="form-group col-md-6">
-          <label style="color: #4267b2;">Secteur d'activité </label>
-          <select (change)="onSelectChange('activityArea',$event.target.value)" class="form-control"
-                  name="activityArea">
+        <div class="form-group row col-md-4">
+          <label style="color: #4267b2;" class="col-md-4">Secteur d'activité </label>
+          <select (change)="onSelectChange('activityArea',$event.target.value)" class="form-control col-md-8"
+            name="activityArea">
             <option value="">Tous</option>
             <option value="Other">Autres</option>
             <option value="Aerospace">Aéronautique</option>
@@ -52,35 +54,38 @@
           </select>
         </div>
 
+        <div class="col-md-4">
+            <div class="form-group">
+              <input #search (keyup)="onSearch(search.value)" aria-label="Recherche" class="form-control"
+                placeholder="recherche..." type="search">
+            </div>
+          </div>
+
       </div>
 
-      <div class="form-row">
-        <div class="form-group col">
-          <input #search (keyup)="onSearch(search.value)" aria-label="Recherche"
-                 class="form-control" placeholder="recherche..." type="search">
-        </div>
-      </div>
+      
 
       <div class="fixed-bottom"></div>
     </mdb-card-body>
   </mdb-card>
   <br>
-  <ng2-smart-table (delete)="deleteSociety($event)"
-                   (userRowSelect)="onSelectRow($event)"
-                   (edit)="showSociety($event)"
-                   [settings]="settings"
-                   [source]="source"></ng2-smart-table>
-  <div class="dropdown-divider"></div>
+  <mdb-card class="text-white">
+    <mdb-card-header>
+      <h4>Liste des projets</h4>
+    </mdb-card-header>
+    <mdb-card-body>
+      <ng2-smart-table (delete)="deleteSociety($event)" (userRowSelect)="onSelectRow($event)"
+        (edit)="showSociety($event)" [settings]="settings" [source]="source"></ng2-smart-table>
+      <div class="dropdown-divider"></div>
 
-  <div class="form-group">
-    <button color="primary" mat-raised-button (click)="onCreate()">
-      <mat-icon>add</mat-icon>
-      Créer une société
-    </button>
+      <div class="form-group">
+        <button color="primary" mat-raised-button (click)="onCreate()">
+          <mat-icon>add</mat-icon>
+          Créer une société
+        </button>
+      </div>
 
-<!--    <button color="primary" mat-raised-button routerLink="/societies/create">-->
-<!--      <mat-icon>add</mat-icon>-->
-<!--      Créer une société-->
-<!--    </button>-->
-  </div>
+
+    </mdb-card-body>
+    </mdb-card>
 </div>

@@ -1,0 +1,257 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-6">
+      <mdb-card>
+        <mdb-card-header>
+          Informations générales
+        </mdb-card-header>
+        <mdb-card-body>
+          <form>
+            <div class="form-group row hidden">
+              <label for="text1" class="col-4 col-form-label">N° Commande</label>
+              <div class="col-8">
+                <input id="text1" name="text1" type="text" class="form-control" [(ngModel)]="commande.reference">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-4">Réception de l'accord client</label>
+              <div class="col-8">
+                <div class="custom-control custom-checkbox custom-control-inline">
+                  <input name="checkbox1" id="checkbox1_2" type="checkbox" class="custom-control-input" value="1" >
+                  <label for="checkbox1_2" class="custom-control-label"></label>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="text" class="col-4 col-form-label">Référence du projet</label>
+              <div class="col-8">
+                <input id="text" name="text" type="text" class="form-control" [(ngModel)]="project.reference" disabled="">
+              </div>
+            </div>
+            
+                
+                    <div class="form-group row">
+                        <label for="select" class="col-4 col-form-label">Type</label>
+                        <div class="col-8">
+                          <select id="select" name="select" class="custom-select">
+                            <option *ngFor="let t of types" [ngValue]="t">{{t}}</option>
+                          </select>
+                        </div>
+                      </div>
+                
+                    <div class="form-group row">
+                        <label for="select" class="col-4 col-form-label">Etat</label>
+                        <div class="col-8">
+                          <select id="select" name="select" class="custom-select" [(ngModel)]="commande.etat">
+                            <option *ngFor="let e of etats" [ngValue]="e">{{e}}</option>
+                          </select>
+                        </div>
+                      </div>
+
+            <div class="form-group row">
+              <label for="text2" class="col-4 col-form-label">Référence du besoin</label>
+              <div class="col-8">
+                <input id="text2" name="text2" type="text" class="form-control" disabled="" [(ngModel)]="commande.besoinReference">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="text3" class="col-4 col-form-label">Titre du besoin</label>
+              <div class="col-8">
+                <input id="text3" name="text3" type="text" class="form-control" [(ngModel)]="commande.besoinTitle" disabled="">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="text4" class="col-4 col-form-label">Client</label>
+              <div class="col-8">
+                <input id="text4" name="text4" type="text" class="form-control" [(ngModel)]="commande.refClient"
+                  disabled="">
+              </div>
+            </div>
+            <div class="form-group row hidden">
+              <label class="col-4">Société d'affacturage</label>
+              <div class="col-8">
+                <div class="custom-control custom-checkbox custom-control-inline">
+                  <input name="checkbox" id="checkbox_0" type="checkbox" class="custom-control-input" value="rabbit">
+                  <label for="checkbox_0" class="custom-control-label">Changer</label>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="select1" class="col-4 col-form-label">Responsable Manager</label>
+              <div class="col-8">
+                <select id="select1" name="select1" class="custom-select" [(ngModel)]="commande.user">
+                  <option *ngFor="let o of responsibles" [ngValue]="o">{{o.firstname + ' ' + o.lastname}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="select2" class="col-4 col-form-label">Agence</label>
+              <div class="col-8">
+                <select id="select2" name="select2" class="custom-select">
+                  <option value="rabbit">Rabbit</option>
+                </select>
+              </div>
+            </div>
+
+          </form>
+        </mdb-card-body>
+      </mdb-card>
+    </div>
+    <div class="col-lg-6">
+      <mdb-card>
+        <mdb-card-header>
+          Informations Complémentaires
+        </mdb-card-header>
+        <mdb-card-body>
+          <form>
+            <div class="form-group row">
+              <label for="commande_date" class="col-4 col-form-label">Date de la commande</label>
+              <div class="col-8">
+                <input id="commande_date" name="commande_date" type="date" class="form-control">
+              </div>
+            </div>
+            <div class="form-group row">
+                <label for="commande_date" class="col-4 col-form-label">Durée de la commande</label>
+                <div class="col-8">
+                    <select id="select" name="reglement" class="custom-select" [(ngModel)]="commande.duree">
+                        <option value="30">30</option>
+                        <option value="60">60</option>
+                        <option value="90">90</option>
+                      </select>
+                </div>
+              </div>
+            <div class="form-group row">
+              <label for="reglement" class="col-4 col-form-label">Condition de règlement</label>
+              <div class="col-8">
+                <select id="select" name="reglement" class="custom-select">
+                  <option value="rabbit">Rabbit</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="reglement_mode" class="col-4 col-form-label">Mode de règlement</label>
+              <div class="col-8">
+                <select id="reglement_mode" name="reglement_mode" class="custom-select">
+                  <option value="rabbit">Rabbit</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="reglement" class="col-4 col-form-label">Type de facturation</label>
+              <div class="col-8">
+                <select id="facturaion" name="reglement" class="custom-select" [(ngModel)]="commande.typeReglement">
+                  <option value="rabbit">Rabbit</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="reglement" class="col-4 col-form-label">Langue de facturaiont</label>
+              <div class="col-8">
+                <select id="select" name="reglement" class="custom-select">
+                  <option value="rabbit">Rabbit</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="reglement" class="col-4 col-form-label">Coordonnées bancaires</label>
+              <div class="col-8">
+                <select id="select" name="reglement" class="custom-select" [(ngModel)]="commande.rib">
+                  <option value="rabbit">Rabbit</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="commande" class="col-4 col-form-label">CA Commande</label>
+              <div class="col-8">
+                <input id="commande" name="commande" type="text" class="form-control" [(ngModel)]="commande.montantht">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="reglement" class="col-4 col-form-label">Prestations/Achats corrélés</label>
+              <div class="col-8">
+                <select id="select" name="reglement" class="custom-select">
+                  <option value="rabbit">Rabbit</option>
+                </select>
+              </div>
+            </div>
+
+          </form>
+        </mdb-card-body>
+      </mdb-card>
+    </div>
+  </div>
+  <br />
+  <div class="row">
+    <div class="col-lg-6">
+      <mdb-card>
+        <mdb-card-header>
+          Coordonnées de facturation
+        </mdb-card-header>
+        <mdb-card-body>
+          <form>
+
+            <div class="form-group row">
+              <label for="tvaic" class="col-4 col-form-label">TVA IC</label>
+              <div class="col-8">
+                <input id="tvaic" name="tvaic" type="text" class="form-control" [(ngModel)]="commande.tva">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="adresse" class="col-4 col-form-label">Adresse</label>
+              <div class="col-8">
+                <select id="adresse" name="reglement" class="custom-select">
+                  <option value="rabbit">Rabbit</option>
+                </select>
+              </div>
+            </div>
+          </form>
+        </mdb-card-body>
+      </mdb-card>
+    </div>
+
+    <div class="col-lg-6">
+      <mdb-card>
+        <mdb-card-header>
+          Coordonnées de facturation
+        </mdb-card-header>
+        <mdb-card-body>
+          <form>
+            <div class="form-group row">
+              <div class="col-12">
+                <textarea id="textarea" name="textarea" cols="40" rows="5" class="form-control">
+Escompte pour règlement anticipé : 0%
+En cas de retard de paiement, seront exigibles, conformément à l'article L441-6 du code du commerce, une indemnité calculée sur la base de 3 fois le taux d'intérêt légal en vigueur ainsi qu'une indemnité forfaitaire pour frais de recouvrement de 40 €.
+                        </textarea>
+              </div>
+            </div>
+          </form>
+        </mdb-card-body>
+      </mdb-card>
+    </div>
+  </div>
+  <br />
+  <div class="row">
+    <div class="col-12">
+      <mdb-card>
+        <mdb-card-header>
+          Commentaires
+        </mdb-card-header>
+
+        <mdb-card-body>
+          <textarea id="textarea2" name="textarea2" cols="80" rows="5" class="form-control">
+        </textarea>
+        </mdb-card-body>
+      </mdb-card>
+    </div>
+  </div>
+</div>
+
+<br />
+<button (click)="click()">CLICK</button>

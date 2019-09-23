@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {User} from '../shared/entities/user.model';
 import {AppNavbarService} from './app-navbar.service';
 import {Observable} from 'rxjs';
+import { UserService } from '../shared/services/user.service';
 
 
 @Component({
@@ -23,11 +24,10 @@ export class AppNavbarComponent implements OnInit {
   ngOnInit(): void {
 
     if (this.auth.isAuthenticated()) {
-      /*
+      this.user$ = this.auth.getCurrentUser();
       this.auth.getCurrentUser().subscribe(res => {
         this.user = res;
       });
-      */
      this.user = JSON.parse(sessionStorage.getItem('user'));
     }
   }
@@ -37,12 +37,10 @@ export class AppNavbarComponent implements OnInit {
   }
 
   isAdmin() {
-
     return this.isLoggedIn() && this.auth.isAdmin();
   }
 
   isClient() {
-
     return this.isLoggedIn() && this.auth.isClient();
   }
 

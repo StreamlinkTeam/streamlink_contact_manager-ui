@@ -84,6 +84,14 @@ export class ProjectService {
       });
   }
 
+  createRealProject(projectPos: ProjectPos): Observable<ProjectPos> {
+
+    //this.loaderService.show();
+    const url = environment.API + '/ws/projects/create';
+
+    return this.http.post<ProjectPos>(url, projectPos);
+  }
+
   updateProject(project: ProjectPos, projectReference: string): Observable<ProjectPos> {
     //this.loaderService.show();
     const url = environment.API + '/ws/projectspos';

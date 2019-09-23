@@ -92,7 +92,7 @@ export class ProjectEditorComponent implements OnInit {
     this.projectPos.presentationDate = moment(this.projectPos.presentationDate).toDate();
     this.projectPos.endDate = moment(this.projectPos.endDate).toDate();
     this.projectPos.societyName = "Streamlink";
-    this.projectService.createProject(this.projectPos)
+    this.projectService.createRealProject(this.projectPos)
       .subscribe(res => {
 
         this.toastr.success('Projet ajouté avec succés', 'Opération Réussite!');

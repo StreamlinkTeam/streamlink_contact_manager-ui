@@ -26,7 +26,7 @@ export class UserService {
         .set('password', password)
     };
 
-    return this.http.get<Token>(url, options)
+    return this.http.post<Token>(url, {Username: username, Password: password}, options)
       .map(token => {
         this.authenticateSuccess(token);
         return true;

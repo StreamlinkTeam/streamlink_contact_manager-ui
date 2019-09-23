@@ -1,13 +1,12 @@
-<div class="container-fluid" style="padding-right: 5%; padding-left: 5%">
-
+<div class="container-fluid">
   <mdb-card class="text-white">
-    <mdb-card-header><h4><img src="../../assets/project-management.png" style="width: 30px; height: 30px"> Liste des
-      besoins </h4></mdb-card-header>
+    <mdb-card-header>
+      <h4>
+        Liste des besoins
+      </h4>
+    </mdb-card-header>
     <mdb-card-body>
-
-
       <div class="form-row">
-
         <div class="form-group col-md-4">
           <label style="color: #4267b2;">Etape</label>
           <select (change)="onSelectChange('stage',$event.target.value)" class="form-control" name="stage">
@@ -25,7 +24,7 @@
         <div class="form-group col-md-4">
           <label style="color: #4267b2;">Secteur d'activité </label>
           <select (change)="onSelectChange('activityArea',$event.target.value)" class="form-control"
-                  name="activityArea">
+            name="activityArea">
             <option value="">Tous</option>
             <option value="Other">Autres</option>
             <option value="Aerospace">Aéronautique</option>
@@ -59,43 +58,34 @@
             <option value="Telecommunications">Télécommunications</option>
           </select>
         </div>
-
-
       </div>
-
       <div class="form-row">
         <div class="form-group col">
-          <input #search (keyup)="onSearch(search.value)" aria-label="Recherche"
-                 class="form-control" placeholder="Recherche..." type="search">
+          <input #search (keyup)="onSearch(search.value)" aria-label="Recherche" class="form-control"
+            placeholder="Recherche..." type="search">
         </div>
       </div>
-
-      <div class="fixed-bottom"></div>
     </mdb-card-body>
   </mdb-card>
-
-  <br>
-  <ng2-smart-table (delete)="deleteNeed($event)"
-                   (userRowSelect)="onSelectRow($event)"
-                   (edit)="showNeed($event)"
-                   [settings]="settings"
-                   [source]="source">
+  <button color="primary" mat-raised-button (click)="onCreate()" style="margin-top: 10px; margin-bottom: 10px">
+      <mat-icon>add</mat-icon>
+      Créer un besoin
+    </button>
+  <ng2-smart-table (delete)="deleteNeed($event)" (userRowSelect)="onSelectRow($event)" (edit)="showNeed($event)"
+    [settings]="settings" [source]="source">
   </ng2-smart-table>
 
   <div class="dropdown-divider"></div>
 
   <div class="form-group">
 
-    <button color="primary" mat-raised-button (click)="onCreate()">
-      <mat-icon>add</mat-icon>
-      Créer un besoin
-    </button>
 
 
-<!--    <button color="primary" mat-raised-button routerLink="/needs/create">-->
-<!--      <mat-icon>add</mat-icon>-->
-<!--      Créer un besoin-->
-<!--    </button>-->
+
+    <!--    <button color="primary" mat-raised-button routerLink="/needs/create">-->
+    <!--      <mat-icon>add</mat-icon>-->
+    <!--      Créer un besoin-->
+    <!--    </button>-->
 
   </div>
 </div>

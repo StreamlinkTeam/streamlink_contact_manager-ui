@@ -46,12 +46,14 @@ import {BillAddDialogComponent} from './bill/bill-add-dialog.component';
 import {AbsenceCountComponent} from './absence/absence-count/absence-count.component';
 import {AbsenceValidationComponent} from './absence-validation/absence-validation.component';
 import {StatComponent} from './stat/stat.component';
+import { CommandeComponent } from './commande/commande.component';
 
 
 export const appRoutes: Routes = [
   { path: 'auth', component: AuthComponent, canActivate: [LoginGuard] },
   { path: 'validation', component: AbsenceValidationComponent, canActivate: [AuthGuard]},
-  {path: 'profil', component: ProfilComponent, canActivate: [AuthGuard],
+  { path: 'commande', component: CommandeComponent, canActivate: [AuthGuard]},
+  { path: 'profil', component: ProfilComponent, canActivate: [AuthGuard],
     children: [
       {path: 'general', component: UserEditorComponent},
       {path: 'changepassword', component: ProfilPasswordEditorComponent},
@@ -64,30 +66,15 @@ export const appRoutes: Routes = [
 
   {path: 'bills', component: BillTableComponent, canActivate: [AuthGuard]},
   {path: 'bills/create', component: BillAddDialogComponent, canActivate: [AuthGuard]},
- {
-    path: 'absence', component: AbsenceComponent , canActivate: [AuthGuard], data: { roles: ['ROLE_RESOURCE']},
-    children: [
-      { path: 'demande', component: AbsenceDemandeComponent },
-      { path: 'list', component: ListAbsencesComponent },
-      { path: 'count', component: AbsenceCountComponent },
-      { path: '**', redirectTo: 'demande' }
-    ]
-  },
-  {
-    path: 'bills/:mode/:reference', component: BillComponent, canActivate: [AuthGuard],
+  {path: 'bills/:mode/:reference', component: BillComponent, canActivate: [AuthGuard],
     children: [
       {path: 'general', component: BillEditorComponent},
       {path: '**', redirectTo: 'general'}
     ]
   },
 
-  { path: 'bills', component: BillTableComponent, canActivate: [AuthGuard]},
-  { path: 'bills/create', component: BillAddDialogComponent, canActivate: [AuthGuard]},
-
-
   {path: 'actions', component: ActionTableComponent, canActivate: [AuthGuard]},
-  {
-    path: 'absence', component: AbsenceComponent , canActivate: [AuthGuard], data: { roles: ['ROLE_RESOURCE']},
+  {path: 'absence', component: AbsenceComponent , canActivate: [AuthGuard], data: { roles: ['ROLE_RESOURCE']},
     children: [
       { path: 'demande', component: AbsenceDemandeComponent },
       { path: 'list', component: ListAbsencesComponent },
@@ -95,7 +82,6 @@ export const appRoutes: Routes = [
       { path: '**', redirectTo: 'demande' }
     ]
   },
-  {path: 'actions', component: ActionTableComponent, canActivate: [AuthGuard]},
   {
     path: 'admin', component: AdminComponent, canActivate: [AuthGuard], data: {roles: ['ROLE_ADMIN']},
     children: [

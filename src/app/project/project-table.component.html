@@ -1,13 +1,14 @@
 <div class="container-fluid" style="padding-right: 5%; padding-left: 5%">
 
   <mdb-card class="text-white">
-    <mdb-card-header><h4> Liste des projets</h4>
+    <mdb-card-header>
+      <h4> Liste des projets</h4>
     </mdb-card-header>
     <mdb-card-body>
       <div class="form-row">
         <div class="form-group col">
-          <input #search (keyup)="onSearch(search.value)" aria-label="Recherche"
-                 class="form-control" placeholder="Recherche un projet..." type="search">
+          <input #search (keyup)="onSearch(search.value)" aria-label="Recherche" class="form-control"
+            placeholder="Recherche un projet..." type="search">
         </div>
       </div>
 
@@ -16,19 +17,16 @@
   </mdb-card>
   <div style="margin: 15px"></div>
   <div class="form-group">
-      <button color="primary" mat-raised-button routerLink="/projects/create">
-        <mat-icon>add</mat-icon>
-        Créer un projet
-     </button>
-   </div>
-  <ng2-smart-table (delete)="deleteProject($event)"
-                   (edit)="showProject($event)"
-                   [settings]="settings"
-                   [source]="source"
-                   (userRowSelect)="onSelectRow($event)">
+    <button color="primary" mat-raised-button routerLink="/projects/create">
+      <mat-icon>add</mat-icon>
+      Créer un projet
+    </button>
+  </div>
+  <ng2-smart-table (delete)="deleteProject($event)" (edit)="showProject($event)" [settings]="settings" [source]="source"
+    (userRowSelect)="onSelectRow($event)">
   </ng2-smart-table>
 
   <div class="dropdown-divider"></div>
 
-  
+
 </div>

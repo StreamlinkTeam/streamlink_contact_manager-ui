@@ -11,6 +11,13 @@ export class AbsenceListService {
 
   constructor(private http: HttpClient, private loaderService: LoaderService) {
   }
+
+  getAllAbcenseListByManager(): Observable<any> {
+    const url = environment.API + '/ws/managerReference';
+
+    return this.http.get(url);
+  }
+
   createAbsenceList(absenceList: AbsenceList): Observable<AbsenceList> {
     this.loaderService.show();
     const url = environment.API + '/ws/absenceList';

@@ -1,25 +1,17 @@
-<div class="row">
-  <div class="col">
-
-  <mdb-card style="width: 100%">
-
-    <mdb-card-header>Informations complémentaires</mdb-card-header>
+<div class="container-fluid">
+  <mdb-card>
+    <mdb-card-header>
+      Informations complémentaires
+    </mdb-card-header>
     <mdb-card-body>
-      <div class="row">
-<!--        <form #form="ngForm" (ngSubmit)="save(form)" novalidate>-->
-
-          <table class="table table-striped">
-            <thead></thead>
-            <tbody>
+        <table class="table table-striped">
+          <thead></thead>
+          <tbody>
             <tr>
               <th scope="row"><b>Date de démarrage</b></th>
               <td>
                 <mat-form-field class="example-container">
-                  <input
-                    [(ngModel)]="needInfo.startingDate"
-                    [matDatepicker]="picker"
-                    matInput
-                    name="startingDate"
+                  <input [(ngModel)]="needInfo.startingDate" [matDatepicker]="picker" matInput name="startingDate"
                     placeholder="Date de démarrage">
 
                   <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
@@ -32,11 +24,7 @@
               <th scope="row"><b>Date de réponse</b></th>
               <td>
                 <mat-form-field class="example-container">
-                  <input
-                    [(ngModel)]="needInfo.responseDate"
-                    [matDatepicker]="picker2"
-                    matInput
-                    name="responseDate"
+                  <input [(ngModel)]="needInfo.responseDate" [matDatepicker]="picker2" matInput name="responseDate"
                     placeholder="Date de réponse">
 
                   <mat-datepicker-toggle [for]="picker2" matSuffix></mat-datepicker-toggle>
@@ -49,11 +37,7 @@
               <th scope="row"><b>date de clôture</b></th>
               <td>
                 <mat-form-field class="example-container">
-                  <input
-                    [(ngModel)]="needInfo.closingDate"
-                    [matDatepicker]="picker3"
-                    matInput
-                    name="closingDate"
+                  <input [(ngModel)]="needInfo.closingDate" [matDatepicker]="picker3" matInput name="closingDate"
                     placeholder="date de clôture">
 
                   <mat-datepicker-toggle [for]="picker3" matSuffix></mat-datepicker-toggle>
@@ -107,7 +91,7 @@
               <td>
                 <mat-form-field class="example-container">
                   <input [(ngModel)]="needInfo.budget" matInput name="budget" placeholder="Budget" step="any"
-                         type="number"/>
+                    type="number" />
                 </mat-form-field>
               </td>
             </tr>
@@ -116,8 +100,7 @@
               <th scope="row"><b>Devise</b></th>
               <td>
                 <mat-form-field class="example-container">
-                  <mat-select [(ngModel)]="needInfo.currency" name="currency"
-                              placeholder="Devise">
+                  <mat-select [(ngModel)]="needInfo.currency" name="currency" placeholder="Devise">
                     <mat-option value="EUR">EUR Euro</mat-option>
                     <mat-option value="USD">USD United States Dollars</mat-option>
                     <mat-option value="GPB">GPB United Kingdom Pounds</mat-option>
@@ -132,29 +115,22 @@
                 <mat-form-field class="example-container">
 
                   <input [(ngModel)]="needInfo.durationByMonth" matInput name="durationByMonth"
-                         placeholder="Durée (Par Mois)"
-                         type="number"/>
+                    placeholder="Durée (Par Mois)" type="number" />
                 </mat-form-field>
               </td>
             </tr>
-            </tbody>
-          </table>
+          </tbody>
+        </table>
 
         <form #form="ngForm" (ngSubmit)="save(form)" novalidate>
           <div class="form-group">
 
-            <button color="primary"
-                    mat-raised-button
-                    type="submit">
+            <button color="primary" mat-raised-button type="submit">
               <mat-icon>save_outline</mat-icon>
               Enregistrer
             </button>
           </div>
         </form>
-
-        <!--        </form>-->
-      </div>
     </mdb-card-body>
   </mdb-card>
-  </div>
 </div>

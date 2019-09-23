@@ -3,47 +3,46 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {AbsenceService} from '../shared/services/AbsenceService';
 import {ToastrService} from 'ngx-toastr';
+import {Absence} from '../shared/entities/Absence.model';
+import {AbsenceListService} from '../shared/services/AbsenceListService';
+import {Row} from 'ng2-smart-table/lib/data-set/row';
+import {HttpClient} from '@angular/common/http';
+import {ActivatedRoute, Router} from '@angular/router';
 @Component({
   selector: 'app-absence-validation',
   templateUrl: './absence-validation.component.html',
   styleUrls: ['./absence-validation.component.css']
 })
 export class AbsenceValidationComponent implements OnInit {
-  absences: any = [];
+  absences: Absence[];
   displayedColumns = ['id', 'name', 'progress', 'color'];
-  dataSource: MatTableDataSource<UserData>;
+  dataSource: MatTableDataSource<Absence>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private service: AbsenceService,
+              private absenceListService: AbsenceListService,
               private toastr: ToastrService,
-              private absenceService: AbsenceService) {
-    // Create 100 users
-    const users: UserData[] = [];
-    for (let i = 1; i <= 100; i++) { users.push(createNewUser(i)); }
+              private absenceService: AbsenceService,
+              private http: HttpClient,
+              private router: Router,
+              private activeRoute: ActivatedRoute) {
 
-    // Assign the data to the data source for the table to render
-    this.dataSource = new MatTableDataSource(users);
   }
+
   ngOnInit() {
-    this.loadAbsences() ;
+
+    this.loadAbsences();
   }
+
 
 
   loadAbsences() {
-    return this.service.getAllAbcense().subscribe((data: {}) => {
+    return this.absenceListService.getAllAbcenseListByManager().subscribe(data => {
+      console.log("ABSENCES :: ", data)
       this.absences = data;
-
     });
-  }
-  /**
-   * Set the paginator and sort after the view init since this component will
-   * be able to query its view for the initialized paginator and sort.
-   */
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
   }
 
   applyFilter(filterValue: string) {
@@ -51,35 +50,21 @@ export class AbsenceValidationComponent implements OnInit {
     filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
     this.dataSource.filter = filterValue;
   }
+
+  showAbsence1(rowData: Row) {
+    const absenceList = rowData.getData();
+    if (absenceList.resource) {
+      this.router.navigate(['/validation', absenceList.reference]);
+    } else {
+      this.router.navigate(['/developers/edit', absenceList.reference]);
+
+    }
+    console.log(absenceList.reference);
+  }
+
 }
 
-/** Builds and returns a new User. */
-function createNewUser(id: number): UserData {
-  const name =
-    NAMES[Math.round(Math.random() * (NAMES.length - 1))] + ' ' +
-    NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) + '.';
 
-  return {
-    id: id.toString(),
-    name: name,
-    progress: Math.round(Math.random() * 100).toString(),
-    color: COLORS[Math.round(Math.random() * (COLORS.length - 1))]
-  };
-}
-
-/** Constants used to fill up our data base. */
-const COLORS = ['maroon', 'red', 'orange', 'yellow', 'olive', 'green', 'purple',
-  'fuchsia', 'lime', 'teal', 'aqua', 'blue', 'navy', 'black', 'gray'];
-const NAMES = ['Maia', 'Asher', 'Olivia', 'Atticus', 'Amelia', 'Jack',
-  'Charlotte', 'Theodore', 'Isla', 'Oliver', 'Isabella', 'Jasper',
-  'Cora', 'Levi', 'Violet', 'Arthur', 'Mia', 'Thomas', 'Elizabeth'];
-
-export interface UserData {
-  id: string;
-  name: string;
-  progress: string;
-  color: string;
-}
 
 
 

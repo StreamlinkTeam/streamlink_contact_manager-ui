@@ -8,6 +8,7 @@ import {ResourceService} from '../shared/services/resource.service';
 import {NeedService} from '../shared/services/need.service';
 import {UserService} from '../shared/services/user.service';
 import Swal from 'sweetalert2';
+import { SharingService } from '../shared/services/sharing.service';
 
 @Component({
   selector: 'app-project-info',
@@ -37,7 +38,8 @@ export class ProjectInfoEditorComponent implements OnInit {
               private toastr: ToastrService,
               private router: Router,
               private route: ActivatedRoute,
-              private activeRoute: ActivatedRoute) {
+              private activeRoute: ActivatedRoute,
+              private sharingService: SharingService) {
 
     this.editing = activeRoute.snapshot.parent.params['mode'] === 'edit';
 
@@ -104,22 +106,9 @@ export class ProjectInfoEditorComponent implements OnInit {
     return Math.abs(Math.round(diff / 365.25)).toString();
   }
 
+  public createCommande() {
+    this.sharingService.changeMessage(JSON.stringify(this.projectPos));
+    this.router.navigate(['/commande/']);
+  }
 
-  // save(form: NgForm) {
-  //
-  //   if (form.valid) {
-  //     if (this.editing) {
-  //
-  //       this.service.updateProjectInformation(this.projectInfo, this.projectInfo.projectReference)
-  //         .subscribe(response => {
-  //
-  //           this.projectInfo = response;
-  //           this.toastr.success('Données Mise à jour avec succés', 'Opération Réussite!');
-  //
-  //         }, error => {
-  //           this.toastr.error('Erreur lors de la mise à jour des donnés', 'Opération échoué !!!');
-  //         });
-  //     }
-  //   }
-  // }
 }

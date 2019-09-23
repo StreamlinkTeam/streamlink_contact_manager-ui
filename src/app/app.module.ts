@@ -72,6 +72,8 @@ import { BillEditorComponent } from './bill/bill-editor.component';
 import { BillAddDialogComponent } from './bill/bill-add-dialog.component';
 import { AbsenceValidationComponent } from './absence-validation/absence-validation.component';
 import { StatComponent } from './stat/stat.component';
+import { CommandeComponent } from './commande/commande.component';
+import { CommandeService } from './shared/services/commande.service';
 
 
 registerLocaleData(localeFr, 'fr');
@@ -93,7 +95,8 @@ registerLocaleData(localeFr, 'fr');
     BillAddDialogComponent,
     StatComponent,
     UserAddDialogComponent,
-    AbsenceValidationComponent
+    AbsenceValidationComponent,
+    CommandeComponent
   ],
   imports: [
     MDBBootstrapModule,
@@ -148,6 +151,7 @@ registerLocaleData(localeFr, 'fr');
   ],
   schemas: [NO_ERRORS_SCHEMA],
   providers: [
+    CommandeService,
     Globals,
     {
       provide: HTTP_INTERCEPTORS,

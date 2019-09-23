@@ -1,121 +1,115 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-lg-4" style="margin-bottom: 10px">
-      <app-action></app-action>
-    </div>
+
     <div class="col-lg-4">
 
       <mdb-card>
-              <mdb-card-header>Informations
-                <span class="float-right">Créer le {{need.createdDate | date:"dd/MM/yyyy"}}</span>
+        <mdb-card-header>Informations
+          <span class="float-right">Créer le {{need.createdDate | date:"dd/MM/yyyy"}}</span>
 
-              </mdb-card-header>
+        </mdb-card-header>
         <mdb-card-body>
-           
+          <table class="table table-striped">
+            <tbody>
+              <tr>
+                <th scope="row"><b>Titre</b></th>
+                <td>
+                  <input #title_input="ngModel" [(ngModel)]="need.title" matInput name="title" required />
+                </td>
+              </tr>
+
+              <tr>
+                <th scope="row"><b>Societé</b></th>
+                <td>
+                  <ng-select (change)="onSocietyChange($event)" [(ngModel)]="need.societyReference"
+                    [items]="societies$ | async" [loading]="societiesLoading" [typeahead]="societiesInput$"
+                    bindLabel="label" bindValue="reference" name="society" notFoundText="Aucun élément trouvé"
+                    typeToSearchText="tapez plus de 3 caractères pour trouver la société">
+                  </ng-select>
+                </td>
+              </tr>
+
+              <tr>
+                <th scope="row"><b>Contact</b></th>
+                <td>
+                  <ng-select [(ngModel)]="need.societyContactReference" [items]="contacts$ | async"
+                    bindValue="reference" name="contact" notFoundText="Aucun élément trouvé">
+                    <ng-template let-item="item" ng-label-tmp>
+                      {{item.firstname}} {{item.lastname}}
+                    </ng-template>
+                    <ng-template let-item="item" ng-option-tmp>
+                      {{item.firstname}} {{item.lastname}}
+                    </ng-template>
+                  </ng-select>
+                </td>
+              </tr>
+
+              <tr>
+                <th scope="row"><b>Etape</b></th>
+                <td>
+                  <select [(ngModel)]="need.stage" name="stage" class="form-control" placeholder="Etape">
+                    <option *ngFor="let stage of stages" [ngValue]="stage.value">{{stage.label}}
+                    </option>
+                  </select>
+                </td>
+              </tr>
+
+              <tr>
+                <th scope="row"><b>Type</b></th>
+                <td>
+                  <select [(ngModel)]="need.type" class="form-control" name="type">
+                    <option *ngFor="let type of types" [ngValue]="type.value">{{type.label}}
+                    </option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row"><b>Responsable manager</b></th>
+                <td>
+                  <select [(ngModel)]="need.managerReference" class="form-control" name="manager">
+                    <option *ngFor="let user of users" [ngValue]="user.reference">{{user.firstname}}
+                      {{user.lastname}}
+                    </option>
+                  </select>
+                </td>
+              </tr>
+
+              <tr>
+                <th scope="row"><b>Responsable RH</b></th>
+                <td>
+                  <select [(ngModel)]="need.rhReference" class="form-control" name="rh">
+                    <option *ngFor="let user of users" [ngValue]="user.reference">{{user.firstname}}
+                      {{user.lastname}}
+                    </option>
+                  </select>
+                </td>
+              </tr>
+
+              <tr>
+                <th scope="row"><b>Description & critères requis</b></th>
+                <td></td>
+              </tr>
 
 
-              <table class="table table-striped">
-                
-                <tbody>
-                  <tr>
-                    <th scope="row"><b>Titre</b></th>
-                    <td>
-                      <input #title_input="ngModel" [(ngModel)]="need.title" matInput name="title" required />
-                    </td>
-                  </tr>
+            </tbody>
+          </table>
+          <mat-form-field class="example-container">
+            <textarea [(ngModel)]="need.note" matInput name="note" placeholder="Description et critères requis"
+              rows="5"></textarea>
+          </mat-form-field>
+          <form #form="ngForm" (ngSubmit)="save(form)" novalidate>
 
-                  <tr>
-                    <th scope="row"><b>Societé</b></th>
-                    <td>
-                      <ng-select (change)="onSocietyChange($event)" [(ngModel)]="need.societyReference"
-                        [items]="societies$ | async" [loading]="societiesLoading" [typeahead]="societiesInput$"
-                        bindLabel="label" bindValue="reference" name="society" notFoundText="Aucun élément trouvé"
-                        typeToSearchText="tapez plus de 3 caractères pour trouver la société">
-                      </ng-select>
-                    </td>
-                  </tr>
+            <button color="primary" mat-raised-button style="margin: 10px" type="submit">
+              <mat-icon>save_outline</mat-icon>
+              Enregistrer
 
-                  <tr>
-                    <th scope="row"><b>Contact</b></th>
-                    <td>
-                      <ng-select [(ngModel)]="need.societyContactReference" [items]="contacts$ | async"
-                        bindValue="reference" name="contact" notFoundText="Aucun élément trouvé">
-                        <ng-template let-item="item" ng-label-tmp>
-                          {{item.firstname}} {{item.lastname}}
-                        </ng-template>
-                        <ng-template let-item="item" ng-option-tmp>
-                          {{item.firstname}} {{item.lastname}}
-                        </ng-template>
-                      </ng-select>
-                    </td>
-                  </tr>
+            </button>
+            <button color="warn" mat-raised-button routerLink="/needs" type="reset">
+              <mat-icon>close</mat-icon>
+              Retour
+            </button>
+          </form>
 
-                  <tr>
-                    <th scope="row"><b>Etape</b></th>
-                    <td>
-                      <select [(ngModel)]="need.stage" name="stage" class="form-control" placeholder="Etape">
-                        <option *ngFor="let stage of stages" [ngValue]="stage.value">{{stage.label}}
-                        </option>
-                      </select>
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <th scope="row"><b>Type</b></th>
-                    <td>
-                      <select [(ngModel)]="need.type" class="form-control" name="type">
-                        <option *ngFor="let type of types" [ngValue]="type.value">{{type.label}}
-                        </option>
-                      </select>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row"><b>Responsable manager</b></th>
-                    <td>
-                      <select [(ngModel)]="need.managerReference" class="form-control" name="manager">
-                        <option *ngFor="let user of users" [ngValue]="user.reference">{{user.firstname}}
-                          {{user.lastname}}
-                        </option>
-                      </select>
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <th scope="row"><b>Responsable RH</b></th>
-                    <td>
-                      <select [(ngModel)]="need.rhReference" class="form-control" name="rh">
-                        <option *ngFor="let user of users" [ngValue]="user.reference">{{user.firstname}}
-                          {{user.lastname}}
-                        </option>
-                      </select>
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <th scope="row"><b>Description & critères requis</b></th>
-                    <td></td>
-                  </tr>
-
-
-                </tbody>
-              </table>
-              <mat-form-field class="example-container">
-                <textarea [(ngModel)]="need.note" matInput name="note" placeholder="Description et critères requis"
-                  rows="5"></textarea>
-              </mat-form-field>
-              <form #form="ngForm" (ngSubmit)="save(form)" novalidate>
-
-                <button color="primary" mat-raised-button style="margin: 10px" type="submit">
-                  <mat-icon>save_outline</mat-icon>
-                  Enregistrer
-
-                </button>
-                <button color="warn" mat-raised-button routerLink="/needs" type="reset">
-                  <mat-icon>close</mat-icon>
-                  Retour
-                </button>
-              </form>
-            
         </mdb-card-body>
 
       </mdb-card>
@@ -127,6 +121,10 @@
 
       <app-need-info></app-need-info>
 
+    </div>
+
+    <div class="col-lg-4" style="margin-bottom: 10px">
+      <app-action></app-action>
     </div>
 
 

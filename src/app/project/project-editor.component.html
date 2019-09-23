@@ -1,9 +1,4 @@
-<div class="container-fluid" style="width: 90%">
-  <div class="p-2  text-white "
-    style="background-color: #48a0ff; box-shadow: 2px 2px 2px grey; border-radius: 5px; text-align: center;">
-    <h5>
-      Fiche projet - {{projectPos.needTitle}} : {{projectPos.resourceFullName}}</h5>
-  </div>
+<div class="container-fluid">
   <br>
 
   <form #form="ngForm" (ngSubmit)="createProject(form)">
@@ -45,49 +40,51 @@
                   </mat-form-field>
                 </div>
               </div>
-            
-            <div class="col-md-6">
-              <div class="form-group">
-                <mat-form-field class="example-container">
-                  <input [(ngModel)]="projectPos.freeDays" matInput name="freeDays" placeholder="freeDays" type="text">
-                </mat-form-field>
-              </div>
 
-              <div class="form-group">
-                <ng-select #resource="ngModel" [(ngModel)]="projectPos.resourceReference" [items]="resources"
-                  [loading]="resourcesLoading" [typeahead]="resourcesInput$" bindLabel="fullName" bindValue="reference"
-                  name="resource" notFoundText="Aucun élément trouvé" required
-                  typeToSearchText="tapez plus de 3 caractères pour trouver la resource" placeholder="Resource">
-                </ng-select>
-                <small [class.d-none]="resource.valid || resource.untouched" class="text-danger">*Veuillez selectionner
-                  une ressource
-                </small>
-              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <mat-form-field class="example-container">
+                    <input [(ngModel)]="projectPos.freeDays" matInput name="freeDays" placeholder="freeDays"
+                      type="text">
+                  </mat-form-field>
+                </div>
 
-              <div class="form-group example-container">
-                <mat-form-field>
-                  <mat-label>Responsable</mat-label>
-                  <mat-select [(ngModel)]="projectPos.responsibleReference" name="responsable"
-                    placeholder="Responsable">
-                    <mat-option *ngFor="let user of users" [value]="user.reference">
-                      {{user.firstname}} {{user.lastname}}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </div>
+                <div class="form-group">
+                  <ng-select #resource="ngModel" [(ngModel)]="projectPos.resourceReference" [items]="resources"
+                    [loading]="resourcesLoading" [typeahead]="resourcesInput$" bindLabel="fullName"
+                    bindValue="reference" name="resource" notFoundText="Aucun élément trouvé" required
+                    typeToSearchText="tapez plus de 3 caractères pour trouver la resource" placeholder="Resource">
+                  </ng-select>
+                  <small [class.d-none]="resource.valid || resource.untouched" class="text-danger">*Veuillez
+                    selectionner
+                    une ressource
+                  </small>
+                </div>
 
-              <div class="form-group example-container">
-                <mat-form-field>
-                  <mat-label>Stage</mat-label>
-                  <mat-select [(ngModel)]="projectPos.stage" name="stage" placeholder="Stage">
-                    <mat-option *ngFor="let stage of stages" [value]="stage.value">
-                      {{stage.label}}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
+                <div class="form-group example-container">
+                  <mat-form-field>
+                    <mat-label>Responsable</mat-label>
+                    <mat-select [(ngModel)]="projectPos.responsibleReference" name="responsable"
+                      placeholder="Responsable">
+                      <mat-option *ngFor="let user of users" [value]="user.reference">
+                        {{user.firstname}} {{user.lastname}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+                <div class="form-group example-container">
+                  <mat-form-field>
+                    <mat-label>Stage</mat-label>
+                    <mat-select [(ngModel)]="projectPos.stage" name="stage" placeholder="Stage">
+                      <mat-option *ngFor="let stage of stages" [value]="stage.value">
+                        {{stage.label}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
               </div>
             </div>
-          </div>
             <div class="row">
               <div class="form-group col-md-12">
                 <mat-form-field class="example-container">
