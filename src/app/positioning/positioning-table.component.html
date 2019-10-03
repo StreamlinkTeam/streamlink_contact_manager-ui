@@ -1,20 +1,18 @@
-<div class="container-fluid" style="padding-right: 5%; padding-left: 5%">
+<div class="container-fluid">
   <mdb-card class="text-white">
-    <mdb-card-header><h4><img src="../../assets/vote-yes.png" style="width: 30px; height: 30px"> Liste des
-      positionnements</h4></mdb-card-header>
+    <mdb-card-header>
+      <h4><img src="../../assets/vote-yes.png" style="width: 30px; height: 30px"> Liste des
+        positionnements</h4>
+    </mdb-card-header>
     <mdb-card-body>
       <div class="form-row">
 
         <div class="form-group col">
 
           <label style="color: #4267b2;">Etape</label>
-          <select
-            (change)="onSelectChange('stage',$event.target.value)"
-            class="form-control"
-            name="stage">
+          <select (change)="onSelectChange('stage',$event.target.value)" class="form-control" name="stage">
 
-            <option *ngFor="let stage of positioningStages"
-                    [value]="stage.value">{{stage.label}}
+            <option *ngFor="let stage of positioningStages" [value]="stage.value">{{stage.label}}
             </option>
 
           </select>
@@ -24,20 +22,16 @@
 
       <div class="form-row">
         <div class="form-group col">
-          <input #search (keyup)="onSearch(search.value)" aria-label="Recherche"
-                 class="form-control" placeholder="Recherche..." type="search">
+          <input #search (keyup)="onSearch(search.value)" aria-label="Recherche" class="form-control"
+            placeholder="Recherche..." type="search">
         </div>
       </div>
       <div class="fixed-bottom"></div>
     </mdb-card-body>
   </mdb-card>
   <br>
-  <ng2-smart-table (delete)="deletePositioning($event)"
-                   (userRowSelect)="onSelectRow($event)"
-                   (edit)="showPositioning($event)"
-                   [settings]="settings"
-                   [source]="source"
-  >
+  <ng2-smart-table (delete)="deletePositioning($event)" (userRowSelect)="onSelectRow($event)"
+    (edit)="showPositioning($event)" [settings]="settings" [source]="source">
   </ng2-smart-table>
 
   <div class="dropdown-divider"></div>

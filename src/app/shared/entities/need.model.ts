@@ -2,7 +2,7 @@ import {User} from './user.model';
 import {SocietyContact} from './society-contact.model';
 
 export class Need {
-
+  id: number;
   reference: string;
   title: string;
   managerReference: string;

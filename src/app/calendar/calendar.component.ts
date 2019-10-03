@@ -76,12 +76,12 @@ export class CalendarComponent implements OnInit {
     private globals: Globals,
     private eventService: EventService,
     private projectService: ProjectService) {
-      this.view = 'month';
-      this.viewDate = new Date();
-      this.activeDayIsOpen = false;
-      this.selectedDay = { date: startOfDay(new Date()) };
+    this.view = 'month';
+    this.viewDate = new Date();
+    this.activeDayIsOpen = false;
+    this.selectedDay = { date: startOfDay(new Date()) };
 
-      this.actions = [];
+    this.actions = [];
   }
 
   ngOnInit(): void {
@@ -129,15 +129,15 @@ export class CalendarComponent implements OnInit {
         title: this.selectedProject,
         project: this.selectedProject,
         type: { label: '', value: '' },
-        note : '',
-        temp : {
-          value : 1,
-          label : 'Journée'
+        note: '',
+        temp: {
+          value: 1,
+          label: 'Journée'
         }
       }
 
-      if (startDate.getDay() !== 6 && startDate.getDay() !== 0 && !this.holiday.isHoliday(startDate) && 
-          startDate.getMonth() == this.viewDate.getMonth()) {
+      if (startDate.getDay() !== 6 && startDate.getDay() !== 0 && !this.holiday.isHoliday(startDate) &&
+        startDate.getMonth() == this.viewDate.getMonth()) {
         this.events.push(ev);
       }
       i++;
@@ -159,10 +159,10 @@ export class CalendarComponent implements OnInit {
         start: new Date(startDate),
         title: this.selectedProject,
         project: this.selectedProject,
-        note : '',
-        temp : {
-          value : 1,
-          label : 'Journée'
+        note: '',
+        temp: {
+          value: 1,
+          label: 'Journée'
         }
       }
       dayOfMonth++;
@@ -184,8 +184,8 @@ export class CalendarComponent implements OnInit {
 
   getProjectByRef(ref) {
     let p = null;
-    for(let i = 0; i < this.allProject.length; i++){
-      if(this.allProject[i].reference == ref) {
+    for (let i = 0; i < this.allProject.length; i++) {
+      if (this.allProject[i].reference == ref) {
         p = this.allProject[i];
         break;
       }
@@ -198,11 +198,11 @@ export class CalendarComponent implements OnInit {
     this._calendarService.getAllEvents().subscribe(res => {
       const newRes = res as any[];
       const newEv = newRes.map(item => {
-        const temp = {label: '', value: item.timeWork};
+        const temp = { label: '', value: item.timeWork };
 
-        if(item.timeWork == -1) {
+        if (item.timeWork == -1) {
           temp.label = 'Absent';
-        } else if(item.timeWork == 1) {
+        } else if (item.timeWork == 1) {
           temp.label = 'Journée';
         } else {
           temp.label = 'Demi Journée';
@@ -231,7 +231,7 @@ export class CalendarComponent implements OnInit {
    */
   beforeMonthViewRender({ body }): void {
     body.forEach(day => {
-      if(day.events.length > 0) {
+      if (day.events.length > 0) {
         day.badgeTotal = -2;
       }
     });
@@ -254,11 +254,11 @@ export class CalendarComponent implements OnInit {
    */
   dayClicked(event): void {
     let d = -1;
-    
-    for(let i=0; i < this.events.length; i++) {
+
+    for (let i = 0; i < this.events.length; i++) {
 
       let ndate = event.day.date;
-      if(ndate.toDateString() == this.events[i].start.toDateString()){
+      if (ndate.toDateString() == this.events[i].start.toDateString()) {
         d = i;
         break;
       }
@@ -374,11 +374,11 @@ export class CalendarComponent implements OnInit {
 
     this.dialogRef.afterClosed()
       .subscribe((response: FormGroup) => {
-        if(typeof response != 'undefined'){
+        if (typeof response != 'undefined') {
           const newEvent = response.getRawValue();
-        newEvent.actions = this.actions;
-        this.events.push(newEvent);
-        this.refresh.next(true);
+          newEvent.actions = this.actions;
+          this.events.push(newEvent);
+          this.refresh.next(true);
         }
       });
   }
@@ -388,7 +388,7 @@ export class CalendarComponent implements OnInit {
   }
 
   getValueWorked(temp, project) {
-    if(temp.value == -1) this.total.absence++;
+    if (temp.value == -1) this.total.absence++;
     else {
       if (project.client.toString().toLowerCase() == 'interne') {
         this.total.interne += temp.value;
@@ -406,14 +406,13 @@ export class CalendarComponent implements OnInit {
       'success'
     )
     //this.eventService.saveTimeList().subscribe(res =>{
-      for(let i = 0; i < this.globals.events.length; i++) {
-        this.getValueWorked(this.globals.events[i].temp, this.globals.events[i].project);
-        this.events[i].start.setDate(this.events[i].start.getDate() + 1);
-        this.eventService.saveTimeLine(this.globals.events[i]).subscribe(() =>
-          {
-            //
-          })
-      }
-   // })
+    for (let i = 0; i < this.globals.events.length; i++) {
+      this.getValueWorked(this.globals.events[i].temp, this.globals.events[i].project);
+      this.events[i].start.setDate(this.events[i].start.getDate() + 1);
+      this.eventService.saveTimeLine(this.globals.events[i]).subscribe(() => {
+        //
+      })
+    }
+    // })
   }
 }

@@ -38,15 +38,11 @@ export class ProjectService {
 
   getProject(projectReference: string): Observable<ProjectPos> {
 
-    //this.loaderService.show();
     const url = environment.API + '/ws/projectspos';
 
     const options = {params: new HttpParams().set('projectReference', projectReference)};
 
-    return this.http.get<ProjectPos>(url, options)
-      ._finally(() => {
-        //this.loaderService.hide();
-      });
+    return this.http.get<ProjectPos>(url, options);
 
   }
 

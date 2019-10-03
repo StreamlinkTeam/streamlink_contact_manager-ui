@@ -1,5 +1,5 @@
 export class ProjectPos {
-
+  id: number;
   reference: any;
   resourceReference: any;
   needReference: any;

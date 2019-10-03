@@ -74,6 +74,10 @@ tr.ng2-smart-filters {
   animation: lds-hourglass 1.2s infinite;
 }
 
+th {
+  font-weight: bold !important;
+}
+
 @keyframes lds-hourglass {
   0% {
     transform: rotate(0);

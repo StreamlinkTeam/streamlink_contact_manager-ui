@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {NgForm} from '@angular/forms';
-import {ToastrService} from 'ngx-toastr';
-import {ProjectService} from '../shared/services/project.service';
-import {ProjectPos} from '../shared/entities/project-pos.model';
-import {ResourceService} from '../shared/services/resource.service';
-import {NeedService} from '../shared/services/need.service';
-import {UserService} from '../shared/services/user.service';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NgForm } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+import { ProjectService } from '../shared/services/project.service';
+import { ProjectPos } from '../shared/entities/project-pos.model';
+import { ResourceService } from '../shared/services/resource.service';
+import { NeedService } from '../shared/services/need.service';
+import { UserService } from '../shared/services/user.service';
 import Swal from 'sweetalert2';
 import { SharingService } from '../shared/services/sharing.service';
 
@@ -24,7 +24,15 @@ export class ProjectInfoEditorComponent implements OnInit {
   projectPos: ProjectPos = new ProjectPos();
 
   users: any[];
-  stages: any[];
+  stages = [
+    { label: 'Tous', value: '' },
+    { label: 'Non definie', value: 'NOT_DEFINED' },
+    { label: 'En attente', value: 'Waiting' },
+    { label: 'Présenter au client', value: 'PresentedToClient' },
+    { label: 'Envoye CV', value: 'SendingCV' },
+    { label: 'Rejeter', value: 'Rejected' },
+    { label: 'Gagné', value: 'Won' },
+    { label: 'Positionné', value: 'Positioned' }];
   needs: any = [];
   resources: any = [];
 
@@ -32,14 +40,14 @@ export class ProjectInfoEditorComponent implements OnInit {
 
 
   constructor(private projectService: ProjectService,
-              private resourceService: ResourceService,
-              private needService: NeedService,
-              private userService: UserService,
-              private toastr: ToastrService,
-              private router: Router,
-              private route: ActivatedRoute,
-              private activeRoute: ActivatedRoute,
-              private sharingService: SharingService) {
+    private resourceService: ResourceService,
+    private needService: NeedService,
+    private userService: UserService,
+    private toastr: ToastrService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private activeRoute: ActivatedRoute,
+    private sharingService: SharingService) {
 
     this.editing = activeRoute.snapshot.parent.params['mode'] === 'edit';
 
@@ -50,20 +58,7 @@ export class ProjectInfoEditorComponent implements OnInit {
     this.userService.getUsers().subscribe(response => {
       this.users = response;
     });
-
-
-    this.stages = [
-      {label: 'Tous', value: ''},
-      {label: 'Non definie', value: 'NOT_DEFINED'},
-      {label: 'En attente', value: 'Waiting'},
-      {label: 'Présenter au client', value: 'PresentedToClient'},
-      {label: 'Envoye CV', value: 'SendingCV'},
-      {label: 'Rejeter', value: 'Rejected'},
-      {label: 'Gagné', value: 'Won'},
-      {label: 'Positionné', value: 'Positioned'}];
-
     const ref = this.route.snapshot.params.reference;
-    console.log(this.route);
 
     this.projectService.getProject(ref).subscribe(res => {
       this.projectPos = res;
@@ -71,13 +66,12 @@ export class ProjectInfoEditorComponent implements OnInit {
     });
     this.needService.getNeeds().subscribe(res => {
       this.needs = res;
-
     });
 
     this.resourceService.getResources().subscribe(res => {
       let ress: any[];
       ress = res;
-      ress.map((i) => {
+      ress.map(i => {
         i.fullName = i.firstname + ' ' + i.lastname;
         return i;
       });

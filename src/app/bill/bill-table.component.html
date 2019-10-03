@@ -1,14 +1,26 @@
-<div class="p-2  text-white " style="font-size: 15px; height:40px; background-color: #4267b2; box-shadow: 2px 2px 2px grey; border-radius: 5px; text-align: center;">
+<div class="p-2  text-white "
+  style="font-size: 15px; height:40px; background-color: #4267b2; box-shadow: 2px 2px 2px grey; border-radius: 5px; text-align: center;">
   <h5>Liste des factures</h5>
 </div>
 
-<br/>
+<br />
 <div class="container-fluid">
-  <ng2-smart-table
-    [settings]="settings"
-    [source]="source"
-    (edit)="showBill($event)"
-    (userRowSelect)="onSelectRow($event)">
-  </ng2-smart-table>
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th *ngFor="let head of heads">{{ head }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let b of bills">
+        <td>{{'PRJ-'+(b.projectPos.id+"").padStart(5,'0')}}</td>
+        <td>{{b.client}}</td>
+        <td>{{b.resource.firstname+" "+b.resource.lastname}}</td>
+        <td>{{"CMD-" + (b.commande.id+"").padStart(5,'0')}}</td>
+        <td>{{b.billDate | date: "dd/MM/yyyy"}}</td>
+        <td>{{b.unitPrice | currency: 'EUR'}}</td>
+        <td><a class="btn btn-primary"><i class="fa fa-cog"></i></a></td>
+      </tr>
+    </tbody>
+  </table>
 </div>
-

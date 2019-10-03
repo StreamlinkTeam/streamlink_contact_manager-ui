@@ -1,5 +1,5 @@
 export class Positioning {
-
+  id: number;
   reference: string;
   resourceReference: string;
   projectReference: string;

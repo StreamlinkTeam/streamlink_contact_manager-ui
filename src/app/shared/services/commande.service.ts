@@ -23,7 +23,7 @@ export class CommandeService {
   save(commande) {
     console.log('Commande :: ', commande);
     const url = this.BASE_URL + '/save';
-    //return this.http.post(url, commande);
+    return this.http.post(url, commande);
   }
 
 

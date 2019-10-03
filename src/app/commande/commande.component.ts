@@ -19,12 +19,10 @@ export class CommandeComponent implements OnInit {
   types = ['Régie', 'Forfait', 'Recrutement', 'Produit', 'Projet'];
   etats = ['En cours', 'Archivé'];
   commande: Commande = new Commande();
+
   constructor(private commandeService: CommandeService,
-              private projectService: ProjectService,
-              private needService: NeedService,
-              private positioningService: PositioningService,
-              private sharingService: SharingService,
-              private userService: UserService) { }
+    private sharingService: SharingService,
+    private userService: UserService) { }
 
   ngOnInit() {
     this.sharingService.currentMessage.subscribe(msg => {
@@ -36,7 +34,7 @@ export class CommandeComponent implements OnInit {
       this.commande.besoinReference = obj.needReference;
       this.commande.besoinTitle = obj.needTitle;
       this.userService.getUsers().subscribe(res => {
-        this.responsibles = res.filter(function(e) {
+        this.responsibles = res.filter(function (e) {
           return e.roles[0] !== 'ROLE_RESOURCE';
         });
       });
@@ -45,10 +43,11 @@ export class CommandeComponent implements OnInit {
 
   click() {
     this.commande.projet = this.project;
-    this.commandeService.save(this.commande)
-    //.subscribe(res => {
-      //console.log(res);
-    //})
+    this.commande.projectId = this.project.id;
+    this.commande.userId = this.commande.user.id;
+    this.commandeService.save(this.commande).subscribe(res => {
+      console.log(console.log('Saving :: ', res));
+    });
   }
 
 }
