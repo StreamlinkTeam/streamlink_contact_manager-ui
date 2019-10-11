@@ -74,6 +74,8 @@ import { CommandeComponent } from './commande/commande.component';
 import { CommandeService } from './shared/services/commande.service';
 import { ProductionComponent } from './production/production.component';
 import { ProductionService } from './shared/services/production.service';
+import { ProductionMonthlyComponent } from './production/production-monthly/production-monthly.component';
+import { ProductionGlobalComponent } from './production/production-global/production-global.component';
 
 
 registerLocaleData(localeFr, 'fr');
@@ -97,7 +99,9 @@ registerLocaleData(localeFr, 'fr');
     UserAddDialogComponent,
     AbsenceValidationComponent,
     CommandeComponent,
-    ProductionComponent
+    ProductionComponent,
+    ProductionMonthlyComponent,
+    ProductionGlobalComponent
   ],
   imports: [
     MDBBootstrapModule,

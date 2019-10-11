@@ -48,6 +48,8 @@ import { AbsenceValidationComponent } from './absence-validation/absence-validat
 import { StatComponent } from './stat/stat.component';
 import { CommandeComponent } from './commande/commande.component';
 import { ProductionComponent } from './production/production.component';
+import { ProductionGlobalComponent } from './production/production-global/production-global.component';
+import { ProductionMonthlyComponent } from './production/production-monthly/production-monthly.component';
 
 
 export const appRoutes: Routes = [
@@ -194,6 +196,12 @@ export const appRoutes: Routes = [
       { path: '**', redirectTo: 'general' }
     ]
   },
-  { path: 'production', component: ProductionComponent, canActivate: [AuthGuard] },
+  {
+    path: 'production', component: ProductionComponent, canActivate: [AuthGuard],
+    children: [
+      { path: '', component: ProductionGlobalComponent },
+      { path: 'monthly', component: ProductionMonthlyComponent }
+    ]
+  },
   { path: '**', redirectTo: 'auth' }
 ];

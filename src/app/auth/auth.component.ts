@@ -40,7 +40,6 @@ export class AuthComponent {
                 sessionStorage['user'] = JSON.stringify(res);
               });
             }
-
           }
           this.errorMessage = 'Erreur d\'authentification';
         }, err => {

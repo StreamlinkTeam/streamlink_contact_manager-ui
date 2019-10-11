@@ -1,30 +1,32 @@
 import { Component, OnInit } from '@angular/core';
-import { CommandeService } from '../shared/services/commande.service';
-import { ProductionService } from '../shared/services/production.service';
-import { CalendarService } from '../calendar/calendar.service';
-import { DeveloperService } from '../shared/services/developer.service';
-import { UserService } from '../shared/services/user.service';
-import { BillService } from '../shared/services/bill.service';
+import { CommandeService } from '../../shared/services/commande.service';
+import { ProductionService } from '../../shared/services/production.service';
+import { CalendarService } from '../../calendar/calendar.service';
+import { DeveloperService } from '../../shared/services/developer.service';
+import { UserService } from '../../shared/services/user.service';
+import { BillService } from '../../shared/services/bill.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-production',
-  templateUrl: './production.component.html',
-  styleUrls: ['./production.component.css']
+  selector: 'app-production-global',
+  templateUrl: './production-global.component.html',
+  styleUrls: ['./production-global.component.css']
 })
-export class ProductionComponent implements OnInit {
+export class ProductionGlobalComponent implements OnInit {
+
   heads = ['Projet', 'Client', 'Ressource', 'Commande', 'Prod', 'CA de Production', 'Production', 'Action'];
 
   constructor(private productionService: ProductionService,
     private timeLineService: CalendarService,
     private developerService: DeveloperService,
     private factureService: BillService,
-    private router: Router) { }
+    private router: Router,
+    private toastr: ToastrService) { }
   production = [];
   ngOnInit() {
     this.productionService.getAll().subscribe(res => {
       this.production = res as [];
-      console.log(res)
       this.production.map(e => e.ca = e.caht - (e.prod * e.user.personalInformation.tjm));
     });
   }
@@ -43,7 +45,7 @@ export class ProductionComponent implements OnInit {
       quantity: prod.prod
     };
     this.factureService.createBill(bill).subscribe(res => {
-      console.log(res);
+      this.toastr.success('Facture générer', 'Opération Réussite!');
     });
   }
 
@@ -52,3 +54,4 @@ export class ProductionComponent implements OnInit {
   }
 
 }
+

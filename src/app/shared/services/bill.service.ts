@@ -18,7 +18,6 @@ export class BillService {
   }
 
   createBill(bill) {
-    console.log('[Bill Service] creating bill')
     const url = this.API_URL + '/create';
     return this.http.post(url, bill);
   }

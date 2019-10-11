@@ -1,13 +1,13 @@
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-import {environment} from '../../../environments/environment';
-import {Token} from '../entities/token.model';
-import {User} from '../entities/user.model';
-import {HttpClient, HttpParams, HttpResponse} from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { environment } from '../../../environments/environment';
+import { Token } from '../entities/token.model';
+import { User } from '../entities/user.model';
+import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import {LoaderService} from './loader.service';
-import {Photo} from '../entities/photo.model';
+import { LoaderService } from './loader.service';
+import { Photo } from '../entities/photo.model';
 
 
 @Injectable()
@@ -25,14 +25,15 @@ export class UserService {
       params: new HttpParams().set('username', username)
         .set('password', password)
     };
+    const user = {
+      username: username,
+      password: password
+    }
 
-    return this.http.post<Token>(url, {Username: username, Password: password}, options)
+    return this.http.post<Token>(url, user)
       .map(token => {
         this.authenticateSuccess(token);
         return true;
-      })
-      ._finally(() => {
-        //this.loaderService.hide();
       });
   }
 
@@ -90,7 +91,7 @@ export class UserService {
     //this.loaderService.show();
     const url = environment.API + '/ws/users';
 
-    const options = {params: new HttpParams().set('userReference', reference)};
+    const options = { params: new HttpParams().set('userReference', reference) };
 
     return this.http.get<User>(url, options)
       ._finally(() => {
@@ -112,7 +113,7 @@ export class UserService {
     //this.loaderService.show();
     const url = environment.API + '/ws/users';
 
-    const options = {params: new HttpParams().set('userReference', reference)};
+    const options = { params: new HttpParams().set('userReference', reference) };
 
 
     return this.http
@@ -126,7 +127,7 @@ export class UserService {
     //this.loaderService.show();
     const url = environment.API + '/ws/users';
 
-    const options = {params: new HttpParams().set('userReference', reference)};
+    const options = { params: new HttpParams().set('userReference', reference) };
 
 
     return this.http
@@ -143,7 +144,7 @@ export class UserService {
     this.loaderService.show();
     const url = environment.API + '/ws/users/avatar';
 
-    const options = {params: new HttpParams().set('userReference', userReference)};
+    const options = { params: new HttpParams().set('userReference', userReference) };
 
 
     return this
@@ -209,7 +210,7 @@ export class UserService {
     const formData: FormData = new FormData();
     formData.append('avatar', fileToUpload, fileToUpload.name);
 
-    const options = {params: new HttpParams().set('userReference', userReference)};
+    const options = { params: new HttpParams().set('userReference', userReference) };
 
 
     return this.http
@@ -223,7 +224,7 @@ export class UserService {
     this.loaderService.show();
     const url = environment.API + '/ws/users/avatar';
 
-    const options = {params: new HttpParams().set('userReference', userReference).set('reference', reference)};
+    const options = { params: new HttpParams().set('userReference', userReference).set('reference', reference) };
 
 
     return this.http

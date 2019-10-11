@@ -4,13 +4,14 @@ import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/r
 import { Observable, Subject } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
+const url = 'http://localhost:9090/ws/time_line';
 @Injectable()
 export class CalendarService implements Resolve<any> {
   events: any;
   onEventsUpdated: Subject<any>;
 
   constructor(
-    private _httpClient: HttpClient) {
+    private httpClient: HttpClient) {
     // Set the defaults
     this.onEventsUpdated = new Subject();
   }
@@ -29,7 +30,7 @@ export class CalendarService implements Resolve<any> {
   }
 
   getAllEvents() {
-    return this._httpClient.get('http://localhost:9090/ws/time_line/all').pipe(
+    return this.httpClient.get(url + '/all').pipe(
       map(this.extractData)
     );
   }
@@ -37,7 +38,7 @@ export class CalendarService implements Resolve<any> {
 
 
   getEventByRef(ref: string) {
-    return this._httpClient.get('http://localhost:9090/ws/time_line?ligneTempsReference=' + ref).pipe(
+    return this.httpClient.get(url + '?ligneTempsReference=' + ref).pipe(
       map(this.extractData)
     );
   }
@@ -49,7 +50,7 @@ export class CalendarService implements Resolve<any> {
   getEvents(): Promise<any> {
     return new Promise((resolve, reject) => {
 
-      this._httpClient.get('http://localhost:9090/ws/time_line/all')
+      this.httpClient.get(url + '/all')
         .subscribe((response: any) => {
           this.events = response.data;
 
@@ -62,7 +63,7 @@ export class CalendarService implements Resolve<any> {
 
   updateEvents(events): Promise<any> {
     return new Promise((resolve, reject) => {
-      this._httpClient.post('api/calendar/events', {
+      this.httpClient.post('api/calendar/events', {
         id: 'events',
         data: [...events]
       })
@@ -74,7 +75,25 @@ export class CalendarService implements Resolve<any> {
 
 
   deleteEvent(event) {
-    return this._httpClient.delete("http://localhost:9090/ws/time_line?ligneTempsReference=" + event.reference);
+    return this.httpClient.delete(url + '?ligneTempsReference=' + event.reference);
+  }
+
+  async getAsyncData(obj) {
+    // tslint:disable-next-line: max-line-length
+    return await this.httpClient.get(`${url}/totaldays?id=${obj.id}&start=${obj.start}&end=${obj.end}`)
+      .toPromise()
+      .then(data => {
+        return data;
+      });
+  }
+
+  countDays(obj) {
+    // tslint:disable-next-line: max-line-length
+    return this.httpClient.get(`${url}/totaldays?id=${obj.id}&start=${obj.start}&end=${obj.end}`).pipe(map(this.extractData));
+  }
+
+  groupedByDay() {
+    return this.httpClient.get(`${url}/grouped`);
   }
 
 }
