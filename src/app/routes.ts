@@ -50,12 +50,17 @@ import { CommandeComponent } from './commande/commande.component';
 import { ProductionComponent } from './production/production.component';
 import { ProductionGlobalComponent } from './production/production-global/production-global.component';
 import { ProductionMonthlyComponent } from './production/production-monthly/production-monthly.component';
+import { AbsenceDetailComponent } from './absence/absence-detail/absence-detail.component';
+import { TimelineComponent } from './timeline/timeline.component';
+import { CommandeTableComponent } from './commande-table/commande-table.component';
 
 
 export const appRoutes: Routes = [
   { path: 'auth', component: AuthComponent, canActivate: [LoginGuard] },
-  { path: 'validation', component: AbsenceValidationComponent, canActivate: [AuthGuard] },
+  { path: 'absence/validation', component: AbsenceValidationComponent, canActivate: [AuthGuard] },
+  { path: 'absence/details/:reference', component: AbsenceDetailComponent, canActivate: [AuthGuard] },
   { path: 'commande', component: CommandeComponent, canActivate: [AuthGuard] },
+  { path: 'commandes', component: CommandeTableComponent, canActivate: [AuthGuard] },
   {
     path: 'profil', component: ProfilComponent, canActivate: [AuthGuard],
     children: [
@@ -65,19 +70,15 @@ export const appRoutes: Routes = [
     ]
   },
 
+  { path: 'timeline', component: TimelineComponent, canActivate: [AuthGuard] },
+
   { path: 'stats', component: StatComponent, canActivate: [AuthGuard] },
 
 
   { path: 'bills', component: BillTableComponent, canActivate: [AuthGuard] },
   { path: 'bills/create', component: BillAddDialogComponent, canActivate: [AuthGuard] },
-  {
-    path: 'bills/:mode/:reference', component: BillComponent, canActivate: [AuthGuard],
-    children: [
-      { path: 'general', component: BillEditorComponent },
-      { path: '**', redirectTo: 'general' }
-    ]
-  },
 
+  { path: 'bills/view/:id', component: BillEditorComponent, canActivate: [AuthGuard] },
   { path: 'actions', component: ActionTableComponent, canActivate: [AuthGuard] },
   {
     path: 'absence', component: AbsenceComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_RESOURCE'] },

@@ -1,16 +1,16 @@
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 
-import {environment} from '../../../environments/environment';
+import { environment } from '../../../environments/environment';
 
-import {HttpClient, HttpParams, HttpResponse} from '@angular/common/http';
+import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/finally';
 
-import {LoaderService} from './loader.service';
-import {Positioning} from '../entities/positioning.model';
+import { LoaderService } from './loader.service';
+import { Positioning } from '../entities/positioning.model';
 
 
 @Injectable()
@@ -24,7 +24,7 @@ export class PositioningService {
     ////this.loaderService.show();
     const url = environment.API + '/ws/positionings';
 
-    const options = {params: new HttpParams().set('positioningReference', positioningReference)};
+    const options = { params: new HttpParams().set('positioningReference', positioningReference) };
 
     return this.http.get<Positioning>(url, options)
       ._finally(() => {
@@ -60,7 +60,7 @@ export class PositioningService {
     ////this.loaderService.show();
     const url = environment.API + '/ws/positionings';
 
-    const options = {params: new HttpParams().set('positioningReference', positioningReference)};
+    const options = { params: new HttpParams().set('positioningReference', positioningReference) };
 
 
     return this.http
@@ -74,7 +74,7 @@ export class PositioningService {
     ////this.loaderService.show();
     const url = environment.API + '/ws/positionings';
 
-    const options = {params: new HttpParams().set('positioningReference', positioningReference)};
+    const options = { params: new HttpParams().set('positioningReference', positioningReference) };
 
 
     return this.http
@@ -92,6 +92,12 @@ export class PositioningService {
 
     return this.http.get<Positioning[]>(url);
     //this.loaderService.hide();
+  }
+
+  getAllPositionings() {
+    const url = environment.API + '/ws/positionings/tous';
+
+    return this.http.get(url);
   }
 
 }

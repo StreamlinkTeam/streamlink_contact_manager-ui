@@ -7,11 +7,59 @@
       <table class="table table-striped table-bordered">
         <thead>
           <tr>
-            <th *ngFor="let head of heads">{{ head }}</th>
+            <th>
+              Projet
+              <div class="form-group">
+                <select (change)="onSelectChange('project',$event.target.value)" class="form-control" name="stage">
+                  <option value="all">Tous</option>
+                  <option *ngFor="let p of allProjects" [value]="p.needTitle">{{p.needTitle}}</option>
+                </select>
+              </div>
+            </th>
+            <th>
+              Client
+              <div class="form-group">
+                <select (change)="onSelectChange('client',$event.target.value)" class="form-control" name="formation">
+                  <option value="all">Tous</option>
+                  <option *ngFor="let c of allClients" [value]="c.value"></option>
+                </select>
+              </div>
+            </th>
+            <th>
+              Ressource
+              <div class="form-group">
+                <select (change)="onSelectChange('resource',$event.target.value)" class="form-control" name="type">
+                  <option value="all">Tous</option>
+                  <option *ngFor="let r of allResources" [value]="r.firstname">{{r.firstname + ' ' + r.lastname}}
+                  </option>
+                </select>
+              </div>
+            </th>
+            <th>
+              Commande
+              <div class="form-group">
+                <select (change)="onSelectChange('commande',$event.target.value)" class="form-control" name="type">
+                  <option value="all">Tous</option>
+                  <!--<option *ngFor="let cm of allCommandes" [value]="cm.value">{{cm.total}}</option>-->
+                </select>
+              </div>
+            </th>
+            <th>
+              Nombre de jours
+              <div class="form-group"></div>
+            </th>
+            <th>
+              CA
+              <div class="form-group"></div>
+            </th>
+            <th>
+              Productions
+              <div class="form-group"></div>
+            </th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let b of production">
+          <tr *ngFor="let b of production | reducePipe:filterargs">
             <td>{{'PRJ-'+(b.project.id+"").padStart(5,'0')}}</td>
             <td>{{b.client}}</td>
             <td>{{(b.user.firstname +" "+b.user.lastname) | titlecase }}</td>
@@ -19,8 +67,7 @@
             <td>{{b.prod + ' jrs'}}</td>
             <td>{{b.ca | currency: 'EUR'}}</td>
             <td>{{b.caht | currency: 'EUR'}}</td>
-            <td><a class="btn btn-primary" (click)="generate(b)"><i class="fa fa-cog"></i></a>
-              &nbsp; &nbsp;<a class="btn btn-primary" (click)="detail(b.commande)"><i class="fa fa-bars"></i></a></td>
+
           </tr>
         </tbody>
       </table>

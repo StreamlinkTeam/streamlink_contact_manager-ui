@@ -1,19 +1,19 @@
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 
-import {environment} from '../../../environments/environment';
-import {Contact} from '../entities/contact.model';
-import {Developer, DeveloperView} from '../entities/developer.model';
-import {CV} from '../entities/cv.model';
-import {PersonalInformation} from '../entities/personal-information.model';
-import {SkillsInformation} from '../entities/skills-information.model';
-import {HttpClient, HttpParams, HttpResponse} from '@angular/common/http';
+import { environment } from '../../../environments/environment';
+import { Contact } from '../entities/contact.model';
+import { Developer, DeveloperView } from '../entities/developer.model';
+import { CV } from '../entities/cv.model';
+import { PersonalInformation } from '../entities/personal-information.model';
+import { SkillsInformation } from '../entities/skills-information.model';
+import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/finally';
 
-import {LoaderService} from './loader.service';
+import { LoaderService } from './loader.service';
 
 
 @Injectable()
@@ -27,7 +27,7 @@ export class DeveloperService {
     // this.loaderService.show();
     const url = environment.API + '/ws/developers';
 
-    const options = {params: new HttpParams().set('developerReference', reference)};
+    const options = { params: new HttpParams().set('developerReference', reference) };
 
     return this.http.get<Developer>(url, options)
       ._finally(() => {
@@ -41,7 +41,7 @@ export class DeveloperService {
     // this.loaderService.show();
     const url = environment.API + '/ws/developers/mail';
 
-    const options = {params: new HttpParams().set('developerEmail', email)};
+    const options = { params: new HttpParams().set('developerEmail', email) };
 
     return this.http.get<Developer>(url, options)
       ._finally(() => {
@@ -53,7 +53,7 @@ export class DeveloperService {
   getDevelopers(): Observable<DeveloperView[]> {
 
     // this.loaderService.show();
-    const url = environment.API + '/ws/developers';
+    const url = environment.API + '/ws/developers/all';
 
     return this.http.get<DeveloperView[]>(url)
       ._finally(() => {
@@ -75,7 +75,7 @@ export class DeveloperService {
     // this.loaderService.show();
     const url = environment.API + '/ws/developers';
 
-    const options = {params: new HttpParams().set('developerReference', reference)};
+    const options = { params: new HttpParams().set('developerReference', reference) };
 
 
     return this.http
@@ -89,7 +89,7 @@ export class DeveloperService {
     // this.loaderService.show();
     const url = environment.API + '/ws/developers';
 
-    const options = {params: new HttpParams().set('developerReference', reference)};
+    const options = { params: new HttpParams().set('developerReference', reference) };
 
 
     return this.http
@@ -104,7 +104,7 @@ export class DeveloperService {
     // this.loaderService.show();
     const url = environment.API + '/ws/developers/skills';
 
-    const options = {params: new HttpParams().set('developerReference', developerReference)};
+    const options = { params: new HttpParams().set('developerReference', developerReference) };
 
 
     return this.http.get<SkillsInformation>(url, options)
@@ -117,7 +117,7 @@ export class DeveloperService {
     // this.loaderService.show();
     const url = environment.API + '/ws/developers/skills';
 
-    const options = {params: new HttpParams().set('developerReference', developerReference)};
+    const options = { params: new HttpParams().set('developerReference', developerReference) };
 
 
     return this.http
@@ -132,7 +132,7 @@ export class DeveloperService {
     // this.loaderService.show();
     const url = environment.API + '/ws/developers/personal_info';
 
-    const options = {params: new HttpParams().set('developerReference', developerReference)};
+    const options = { params: new HttpParams().set('developerReference', developerReference) };
 
 
     return this
@@ -147,7 +147,7 @@ export class DeveloperService {
     // this.loaderService.show();
     const url = environment.API + '/ws/developers/personal_info';
 
-    const options = {params: new HttpParams().set('developerReference', developerReference)};
+    const options = { params: new HttpParams().set('developerReference', developerReference) };
 
 
     return this.http
@@ -162,7 +162,7 @@ export class DeveloperService {
     const url = environment.API + '/ws/developers/contact';
 
 
-    const options = {params: new HttpParams().set('developerReference', developerReference)};
+    const options = { params: new HttpParams().set('developerReference', developerReference) };
 
 
     return this
@@ -177,7 +177,7 @@ export class DeveloperService {
     // this.loaderService.show();
     const url = environment.API + '/ws/developers/contact';
 
-    const options = {params: new HttpParams().set('developerReference', developerReference)};
+    const options = { params: new HttpParams().set('developerReference', developerReference) };
 
 
     return this.http
@@ -191,7 +191,7 @@ export class DeveloperService {
     //  this.loaderService.show();
     const url = environment.API + '/ws/developers/cv';
 
-    const options = {params: new HttpParams().set('developerReference', developerReference)};
+    const options = { params: new HttpParams().set('developerReference', developerReference) };
 
 
     return this
@@ -223,7 +223,7 @@ export class DeveloperService {
     const formData: FormData = new FormData();
     formData.append('cv', fileToUpload, fileToUpload.name);
 
-    const options = {params: new HttpParams().set('developerReference', developerReference)};
+    const options = { params: new HttpParams().set('developerReference', developerReference) };
 
 
     return this.http
@@ -237,7 +237,7 @@ export class DeveloperService {
     //  this.loaderService.show();
     const url = environment.API + '/ws/developers/cv';
 
-    const options = {params: new HttpParams().set('developerReference', developerReference).set('reference', reference)};
+    const options = { params: new HttpParams().set('developerReference', developerReference).set('reference', reference) };
 
 
     return this.http

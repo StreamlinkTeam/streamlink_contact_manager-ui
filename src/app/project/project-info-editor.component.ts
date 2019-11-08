@@ -69,7 +69,7 @@ export class ProjectInfoEditorComponent implements OnInit {
     });
 
     this.resourceService.getResources().subscribe(res => {
-      let ress: any[];
+      let ress;
       ress = res;
       ress.map(i => {
         i.fullName = i.firstname + ' ' + i.lastname;

@@ -1,18 +1,18 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Positioning} from '../shared/entities/positioning.model';
-import {PositioningService} from '../shared/services/positioning.service';
-import {NgForm} from '@angular/forms';
-import {ToastrService} from 'ngx-toastr';
-import {ProjectService} from '../shared/services/project.service';
-import {ResourceService} from '../shared/services/resource.service';
-import {UserService} from '../shared/services/user.service';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Positioning } from '../shared/entities/positioning.model';
+import { PositioningService } from '../shared/services/positioning.service';
+import { NgForm } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+import { ProjectService } from '../shared/services/project.service';
+import { ResourceService } from '../shared/services/resource.service';
+import { UserService } from '../shared/services/user.service';
 import Swal from 'sweetalert2';
-import {NeedService} from '../shared/services/need.service';
-import {SocietyService} from '../shared/services/society.service';
+import { NeedService } from '../shared/services/need.service';
+import { SocietyService } from '../shared/services/society.service';
 import * as jsPDF from 'jspdf';
 import 'jspdf-autotable';
-import {Need} from '../shared/entities/need.model';
+import { Need } from '../shared/entities/need.model';
 
 @Component({
   selector: 'app-positioning-edit',
@@ -39,14 +39,14 @@ export class PositioningEditComponent implements OnInit {
   isProject = false;
 
   constructor(private router: Router,
-              private route: ActivatedRoute,
-              private service: PositioningService,
-              private resourceService: ResourceService,
-              private projectService: ProjectService,
-              private needService: NeedService,
-              private userService: UserService,
-              private societyService: SocietyService,
-              private toastr: ToastrService
+    private route: ActivatedRoute,
+    private service: PositioningService,
+    private resourceService: ResourceService,
+    private projectService: ProjectService,
+    private needService: NeedService,
+    private userService: UserService,
+    private societyService: SocietyService,
+    private toastr: ToastrService
   ) {
   }
 
@@ -59,10 +59,10 @@ export class PositioningEditComponent implements OnInit {
 
     this.stages = [
       // {label: 'Tous', value: ''},
-      {label: 'Positionné', value: 'Positioned'},
-      {label: 'Envoye CV', value: 'SendingCV'},
-      {label: 'Présenter au client', value: 'PresentedToClient'},
-      {label: 'Rejeter', value: 'Rejected'},
+      { label: 'Positionné', value: 'Positioned' },
+      { label: 'Envoye CV', value: 'SendingCV' },
+      { label: 'Présenter au client', value: 'PresentedToClient' },
+      { label: 'Rejeter', value: 'Rejected' },
       // {label: 'Gagné', value: 'Won'},
     ];
 
@@ -79,7 +79,7 @@ export class PositioningEditComponent implements OnInit {
 
       // getPeriodMargin().divide(getPeriodCA()).multiply(BigDecimal.valueOf(100));
 
-    //  console.log(this.positioning.projectReference);
+      //  console.log(this.positioning.projectReference);
 
     });
     this.needService.getNeeds().subscribe(res => {
@@ -94,7 +94,7 @@ export class PositioningEditComponent implements OnInit {
 
     this.resourceService.getResources().subscribe(res => {
       let ress: any[];
-      ress = res;
+      ress = res as [];
       ress.map((i) => {
         i.fullName = i.firstname + ' ' + i.lastname;
         return i;
@@ -110,7 +110,7 @@ export class PositioningEditComponent implements OnInit {
       this.positioning = res;
       Swal.fire('Données Mise à jour avec succés', 'Opération Réussite!', 'success');
       this.toastr.success('Données Mise à jour avec succés', 'Opération Réussite!');
-    //  this.router.navigateByUrl('/positionings');
+      //  this.router.navigateByUrl('/positionings');
 
     }, error => {
       Swal.fire('Erreur lors de la modification de du Positionnement', 'Opération échoué !!!', 'error');
@@ -142,7 +142,7 @@ export class PositioningEditComponent implements OnInit {
             .subscribe(
               response => {
                 this.isProject = true;
-                this.stages.push({label: 'Gagné', value: 'Won'})
+                this.stages.push({ label: 'Gagné', value: 'Won' })
                 this.positioning.stage = this.stages[5];
                 this.router.navigate(['/projects/edit', response.reference]);
                 this.toastr.success('Projet crée avec succés', 'Opération Réussite!');
@@ -179,17 +179,17 @@ export class PositioningEditComponent implements OnInit {
       head: [['Besoin', 'Ressource', 'Ste', 'Début', 'Fin', 'Etat', 'Jrs Fact', 'Jrs Grat', 'CA', 'Coût', 'Marge', 'Rentabilité %']],
       body: [
         [this.positioning.needTitle,
-          this.positioning.resourceFullName,
-          this.positioning.client,
-          this.positioning.startDate,
-          this.positioning.endDate,
-          this.positioning.stage,
-          this.positioning.invoicedDays,
-          this.positioning.freeDays,
-          this.positioning.periodCA,
-          this.positioning.periodCost,
-          this.positioning.periodMargin,
-          this.positioning.periodProfitability + ' %'
+        this.positioning.resourceFullName,
+        this.positioning.client,
+        this.positioning.startDate,
+        this.positioning.endDate,
+        this.positioning.stage,
+        this.positioning.invoicedDays,
+        this.positioning.freeDays,
+        this.positioning.periodCA,
+        this.positioning.periodCost,
+        this.positioning.periodMargin,
+        this.positioning.periodProfitability + ' %'
         ],
       ]
     });

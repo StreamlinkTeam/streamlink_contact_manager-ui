@@ -1,19 +1,19 @@
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 
-import {environment} from '../../../environments/environment';
-import {Contact} from '../entities/contact.model';
-import {CV} from '../entities/cv.model';
-import {PersonalInformation} from '../entities/personal-information.model';
-import {SkillsInformation} from '../entities/skills-information.model';
-import {HttpClient, HttpParams, HttpResponse} from '@angular/common/http';
+import { environment } from '../../../environments/environment';
+import { Contact } from '../entities/contact.model';
+import { CV } from '../entities/cv.model';
+import { PersonalInformation } from '../entities/personal-information.model';
+import { SkillsInformation } from '../entities/skills-information.model';
+import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/finally';
 
-import {LoaderService} from './loader.service';
-import {Resource, ResourceView} from '../entities/resource.model';
+import { LoaderService } from './loader.service';
+import { Resource, ResourceView } from '../entities/resource.model';
 
 
 @Injectable()
@@ -27,7 +27,7 @@ export class ResourceService {
     //this.loaderService.show();
     const url = environment.API + '/ws/resources';
 
-    const options = {params: new HttpParams().set('resourceReference', reference)};
+    const options = { params: new HttpParams().set('resourceReference', reference) };
 
     return this.http.get<Resource>(url, options)
       ._finally(() => {
@@ -36,22 +36,19 @@ export class ResourceService {
 
   }
 
-  getResources(): Observable<ResourceView[]> {
-
-    //this.loaderService.show();
-    // const url = environment.API + '/ws/resources';
-
+  getResources() {
     const url = environment.API + '/ws/resources/all';
+    return this.http.get(url);
+  }
 
-    return this.http.get<ResourceView[]>(url)
-      ._finally(() => {
-        //this.loaderService.hide();
-      });
+  getAllResources() {
+    const url = environment.API + '/ws/resources/tous';
+    return this.http.get(url);
   }
 
 
   createResources(resource: Resource): Observable<Resource> {
-    //this.loaderService.show();
+    console.log(resource)
     const url = environment.API + '/ws/resources';
     return this.http.post<Resource>(url, resource)
       ._finally(() => {
@@ -63,7 +60,7 @@ export class ResourceService {
     //this.loaderService.show();
     const url = environment.API + '/ws/resources/from-developer';
 
-    const options = {params: new HttpParams().set('developerReference', developerReference)};
+    const options = { params: new HttpParams().set('developerReference', developerReference) };
 
 
     return this.http
@@ -77,7 +74,7 @@ export class ResourceService {
     //this.loaderService.show();
     const url = environment.API + '/ws/resources';
 
-    const options = {params: new HttpParams().set('resourceReference', reference)};
+    const options = { params: new HttpParams().set('resourceReference', reference) };
 
 
     return this.http
@@ -91,22 +88,19 @@ export class ResourceService {
     //this.loaderService.show();
     const url = environment.API + '/ws/resources';
 
-    const options = {params: new HttpParams().set('resourceReference', reference)};
+    const options = { params: new HttpParams().set('resourceReference', reference) };
 
 
     return this.http
       .delete(url, options)
-      .map((res: HttpResponse<any>) => res.body)
-      ._finally(() => {
-        //this.loaderService.hide();
-      });
+      .map((res: HttpResponse<any>) => res.body);
   }
 
   getResourceSkills(resourceReference: string): Observable<SkillsInformation> {
     //this.loaderService.show();
     const url = environment.API + '/ws/resources/skills';
 
-    const options = {params: new HttpParams().set('resourceReference', resourceReference)};
+    const options = { params: new HttpParams().set('resourceReference', resourceReference) };
 
 
     return this.http.get<SkillsInformation>(url, options)
@@ -119,7 +113,7 @@ export class ResourceService {
     //this.loaderService.show();
     const url = environment.API + '/ws/resources/skills';
 
-    const options = {params: new HttpParams().set('resourceReference', resourceReference)};
+    const options = { params: new HttpParams().set('resourceReference', resourceReference) };
 
 
     return this.http
@@ -134,7 +128,7 @@ export class ResourceService {
     //this.loaderService.show();
     const url = environment.API + '/ws/resources/personal_info';
 
-    const options = {params: new HttpParams().set('resourceReference', resourceReference)};
+    const options = { params: new HttpParams().set('resourceReference', resourceReference) };
 
 
     return this
@@ -149,7 +143,7 @@ export class ResourceService {
     //this.loaderService.show();
     const url = environment.API + '/ws/resources/personal_info';
 
-    const options = {params: new HttpParams().set('resourceReference', resourceReference)};
+    const options = { params: new HttpParams().set('resourceReference', resourceReference) };
 
 
     return this.http
@@ -164,7 +158,7 @@ export class ResourceService {
     const url = environment.API + '/ws/resources/contact';
 
 
-    const options = {params: new HttpParams().set('resourceReference', resourceReference)};
+    const options = { params: new HttpParams().set('resourceReference', resourceReference) };
 
 
     return this
@@ -179,7 +173,7 @@ export class ResourceService {
     //this.loaderService.show();
     const url = environment.API + '/ws/resources/contact';
 
-    const options = {params: new HttpParams().set('resourceReference', resourceReference)};
+    const options = { params: new HttpParams().set('resourceReference', resourceReference) };
 
 
     return this.http
@@ -193,7 +187,7 @@ export class ResourceService {
     //this.loaderService.show();
     const url = environment.API + '/ws/resources/cv';
 
-    const options = {params: new HttpParams().set('resourceReference', resourceReference)};
+    const options = { params: new HttpParams().set('resourceReference', resourceReference) };
 
 
     return this
@@ -211,7 +205,7 @@ export class ResourceService {
     const formData: FormData = new FormData();
     formData.append('cv', fileToUpload, fileToUpload.name);
 
-    const options = {params: new HttpParams().set('resourceReference', resourceReference)};
+    const options = { params: new HttpParams().set('resourceReference', resourceReference) };
 
 
     return this.http
@@ -225,7 +219,7 @@ export class ResourceService {
     //this.loaderService.show();
     const url = environment.API + '/ws/resources/cv';
 
-    const options = {params: new HttpParams().set('resourceReference', resourceReference).set('reference', reference)};
+    const options = { params: new HttpParams().set('resourceReference', resourceReference).set('reference', reference) };
 
 
     return this.http
@@ -238,7 +232,7 @@ export class ResourceService {
   searchResources(term: string): Observable<ResourceView[]> {
     //this.loaderService.show();
     const url = environment.API + '/ws/resources/auto-complete';
-    const options = {params: new HttpParams().set('term', term)};
+    const options = { params: new HttpParams().set('term', term) };
     return this.http.get<ResourceView[]>(url, options)
       ._finally(() => {
         //this.loaderService.hide();

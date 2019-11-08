@@ -1,17 +1,17 @@
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 
-import {environment} from '../../../environments/environment';
-import {Contact} from '../entities/contact.model';
+import { environment } from '../../../environments/environment';
+import { Contact } from '../entities/contact.model';
 
-import {HttpClient, HttpParams, HttpResponse} from '@angular/common/http';
+import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/finally';
 
-import {LoaderService} from './loader.service';
-import {SocietyContact, SocietyContactView} from '../entities/society-contact.model';
+import { LoaderService } from './loader.service';
+import { SocietyContact, SocietyContactView } from '../entities/society-contact.model';
 
 @Injectable()
 export class SocietyContactService {
@@ -36,12 +36,18 @@ export class SocietyContactService {
 
   }
 
+  getAllSocietyContact() {
+    const url = environment.API + '/ws/societies/contacts/tous';
+
+    return this.http.get<SocietyContact>(url);
+  }
+
   getSocietyContacts(societyReference: string): Observable<SocietyContactView[]> {
 
     //this.loaderService.show();
     const url = environment.API + '/ws/societies/contacts/all';
 
-    const options = {params: new HttpParams().set('societyReference', societyReference)};
+    const options = { params: new HttpParams().set('societyReference', societyReference) };
 
     return this.http.get<SocietyContactView[]>(url, options)
       ._finally(() => {
@@ -64,7 +70,7 @@ export class SocietyContactService {
   }
 
   updateSocietyContact(societyContact: SocietyContact, societyContactReference: string,
-                       societyReference: string): Observable<SocietyContact> {
+    societyReference: string): Observable<SocietyContact> {
     //this.loaderService.show();
     const url = environment.API + '/ws/societies/contacts';
 

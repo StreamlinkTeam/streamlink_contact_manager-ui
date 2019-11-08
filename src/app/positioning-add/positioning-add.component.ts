@@ -1,20 +1,20 @@
-import {NeedService} from './../shared/services/need.service';
-import {Component, OnInit} from '@angular/core';
-import {Positioning} from '../shared/entities/positioning.model';
-import {NgForm} from '@angular/forms';
-import {PositioningService} from '../shared/services/positioning.service';
-import {Observable} from 'rxjs/Observable';
-import {Subject} from 'rxjs/Subject';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Resource, ResourceView} from '../shared/entities/resource.model';
-import {ResourceService} from '../shared/services/resource.service';
-import {ProjectService} from '../shared/services/project.service';
-import {UserService} from '../shared/services/user.service';
-import {User} from '../shared/entities/user.model';
+import { NeedService } from './../shared/services/need.service';
+import { Component, OnInit } from '@angular/core';
+import { Positioning } from '../shared/entities/positioning.model';
+import { NgForm } from '@angular/forms';
+import { PositioningService } from '../shared/services/positioning.service';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Resource, ResourceView } from '../shared/entities/resource.model';
+import { ResourceService } from '../shared/services/resource.service';
+import { ProjectService } from '../shared/services/project.service';
+import { UserService } from '../shared/services/user.service';
+import { User } from '../shared/entities/user.model';
 import Swal from 'sweetalert2';
-import {MatDialogRef} from '@angular/material';
-import {MailService} from '../shared/services/mail.service';
-import {Email} from '../shared/entities/mail.model';
+import { MatDialogRef } from '@angular/material';
+import { MailService } from '../shared/services/mail.service';
+import { Email } from '../shared/entities/mail.model';
 
 @Component({
   selector: 'app-positioning-add',
@@ -27,7 +27,7 @@ export class PositioningAddComponent implements OnInit {
   editing = false;
 
   positioning: Positioning = new Positioning;
-  positionings: Positioning [];
+  positionings: Positioning[];
   users: User[];
 
   stages: any[];
@@ -61,16 +61,15 @@ export class PositioningAddComponent implements OnInit {
 
     this.stages = [
       // {label: 'Tous', value: ''},
-      {label: 'Positionné', value: 'Positioned'},
-      {label: 'Envoye CV', value: 'SendingCV'},
-      {label: 'Présenter au client', value: 'PresentedToClient'},
-      {label: 'Rejeter', value: 'Rejected'},
-      {label: 'Gagné', value: 'Won'},
+      { label: 'Positionné', value: 'Positioned' },
+      { label: 'Envoye CV', value: 'SendingCV' },
+      { label: 'Présenter au client', value: 'PresentedToClient' },
+      { label: 'Rejeter', value: 'Rejected' },
+      { label: 'Gagné', value: 'Won' },
     ];
 
     this.resourceService.getResources().subscribe(res => {
-      let ress: any[];
-      ress = res;
+      let ress;
       ress.map((i) => {
         i.fullName = i.firstname + ' ' + i.lastname;
         return i;
@@ -87,7 +86,7 @@ export class PositioningAddComponent implements OnInit {
       let ress: any[];
       ress = res;
       ress.map((i) => {
-        i.full = i.reference + ' : ' + i.title;
+        i.full = i.title;
         return i;
       });
       this.besoins = ress;
@@ -104,7 +103,7 @@ export class PositioningAddComponent implements OnInit {
         response => {
           this.dialogRef.close();
           this.router.navigateByUrl('/positionings');
-         // console.log(response.email);
+          // console.log(response.email);
 
           this.email.to = response.email;
           this.email.messageSubject = 'Positionnement';

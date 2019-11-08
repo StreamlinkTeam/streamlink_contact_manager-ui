@@ -17,7 +17,7 @@
               <label class="col-4">Réception de l'accord client</label>
               <div class="col-8">
                 <div class="custom-control custom-checkbox custom-control-inline">
-                  <input name="checkbox1" id="checkbox1_2" type="checkbox" class="custom-control-input" value="1" >
+                  <input name="checkbox1" id="checkbox1_2" type="checkbox" class="custom-control-input" value="1">
                   <label for="checkbox1_2" class="custom-control-label"></label>
                 </div>
               </div>
@@ -25,39 +25,42 @@
             <div class="form-group row">
               <label for="text" class="col-4 col-form-label">Référence du projet</label>
               <div class="col-8">
-                <input id="text" name="text" type="text" class="form-control" [(ngModel)]="project.reference" disabled="">
+                <input id="text" name="text" type="text" class="form-control" [(ngModel)]="project.reference"
+                  disabled="">
               </div>
             </div>
-            
-                
-                    <div class="form-group row">
-                        <label for="select" class="col-4 col-form-label">Type</label>
-                        <div class="col-8">
-                          <select id="select" name="select" class="custom-select">
-                            <option *ngFor="let t of types" [ngValue]="t">{{t}}</option>
-                          </select>
-                        </div>
-                      </div>
-                
-                    <div class="form-group row">
-                        <label for="select" class="col-4 col-form-label">Etat</label>
-                        <div class="col-8">
-                          <select id="select" name="select" class="custom-select" [(ngModel)]="commande.etat">
-                            <option *ngFor="let e of etats" [ngValue]="e">{{e}}</option>
-                          </select>
-                        </div>
-                      </div>
+
+
+            <div class="form-group row">
+              <label for="select" class="col-4 col-form-label">Type</label>
+              <div class="col-8">
+                <select id="select" name="select" class="custom-select">
+                  <option *ngFor="let t of types" [ngValue]="t">{{t}}</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="select" class="col-4 col-form-label">Etat</label>
+              <div class="col-8">
+                <select id="select" name="select" class="custom-select" [(ngModel)]="commande.etat">
+                  <option *ngFor="let e of etats" [ngValue]="e">{{e}}</option>
+                </select>
+              </div>
+            </div>
 
             <div class="form-group row">
               <label for="text2" class="col-4 col-form-label">Référence du besoin</label>
               <div class="col-8">
-                <input id="text2" name="text2" type="text" class="form-control" disabled="" [(ngModel)]="commande.besoinReference">
+                <input id="text2" name="text2" type="text" class="form-control" disabled=""
+                  [(ngModel)]="commande.besoinReference">
               </div>
             </div>
             <div class="form-group row">
               <label for="text3" class="col-4 col-form-label">Titre du besoin</label>
               <div class="col-8">
-                <input id="text3" name="text3" type="text" class="form-control" [(ngModel)]="commande.besoinTitle" disabled="">
+                <input id="text3" name="text3" type="text" class="form-control" [(ngModel)]="commande.besoinTitle"
+                  disabled="">
               </div>
             </div>
             <div class="form-group row">
@@ -107,19 +110,20 @@
             <div class="form-group row">
               <label for="commande_date" class="col-4 col-form-label">Date de la commande</label>
               <div class="col-8">
-                <input id="commande_date" name="commande_date" type="date" class="form-control">
+                <input id="commande_date" name="commande_date" type="date" class="form-control"
+                  [(ngModel)]="commandeDate">
               </div>
             </div>
             <div class="form-group row">
-                <label for="commande_date" class="col-4 col-form-label">Durée de la commande</label>
-                <div class="col-8">
-                    <select id="select" name="reglement" class="custom-select" [(ngModel)]="commande.duree">
-                        <option value="30">30</option>
-                        <option value="60">60</option>
-                        <option value="90">90</option>
-                      </select>
-                </div>
+              <label for="commande_date" class="col-4 col-form-label">Durée de la commande</label>
+              <div class="col-8">
+                <select id="select" name="reglement" class="custom-select" [(ngModel)]="commande.duree">
+                  <option value="30">30</option>
+                  <option value="60">60</option>
+                  <option value="90">90</option>
+                </select>
               </div>
+            </div>
             <div class="form-group row">
               <label for="reglement" class="col-4 col-form-label">Condition de règlement</label>
               <div class="col-8">
@@ -251,7 +255,8 @@ En cas de retard de paiement, seront exigibles, conformément à l'article L441-
       </mdb-card>
     </div>
   </div>
+
+  <button class="btn btn-primary" (click)="save()">Crée le bon de commande</button>
 </div>
 
 <br />
-<button (click)="click()">CLICK</button>

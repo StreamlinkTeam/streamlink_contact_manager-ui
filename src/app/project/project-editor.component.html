@@ -49,25 +49,35 @@
                   </mat-form-field>
                 </div>
 
-                <div class="form-group">
-                  <ng-select #resource="ngModel" [(ngModel)]="projectPos.resourceReference" [items]="resources"
-                    [loading]="resourcesLoading" [typeahead]="resourcesInput$" bindLabel="fullName"
-                    bindValue="reference" name="resource" notFoundText="Aucun élément trouvé" required
-                    typeToSearchText="tapez plus de 3 caractères pour trouver la resource" placeholder="Resource">
-                  </ng-select>
-                  <small [class.d-none]="resource.valid || resource.untouched" class="text-danger">*Veuillez
-                    selectionner
-                    une ressource
-                  </small>
+
+                <div class="form-group example-container">
+                  <mat-form-field>
+                    <mat-label>Ressource</mat-label>
+                    <mat-select [(ngModel)]="projectPos.resource" name="resource" placeholder="Ressource">
+                      <mat-option *ngFor="let resource of resources" [value]="resource">
+                        {{resource.firstname}} {{resource.lastname}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
                 </div>
 
                 <div class="form-group example-container">
                   <mat-form-field>
                     <mat-label>Responsable</mat-label>
-                    <mat-select [(ngModel)]="projectPos.responsibleReference" name="responsable"
-                      placeholder="Responsable">
-                      <mat-option *ngFor="let user of users" [value]="user.reference">
+                    <mat-select [(ngModel)]="projectPos.rh" name="responsable" placeholder="Responsable">
+                      <mat-option *ngFor="let user of users" [value]="user">
                         {{user.firstname}} {{user.lastname}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+                <div class="form-group example-container">
+                  <mat-form-field>
+                    <mat-label>Client</mat-label>
+                    <mat-select [(ngModel)]="projectPos.societyContact" name="contact" placeholder="contact">
+                      <mat-option *ngFor="let contact of contacts" [value]="contact">
+                        {{contact.firstname}} {{contact.lastname}}
                       </mat-option>
                     </mat-select>
                   </mat-form-field>

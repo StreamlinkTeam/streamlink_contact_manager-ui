@@ -1,0 +1,38 @@
+<div class="container-fluid">
+  <mdb-card>
+    <mdb-card-header>
+      Gestion d'absence
+    </mdb-card-header>
+    <mdb-card-body>
+      <table class="table table-striped table-sm">
+        <thead>
+          <tr>
+            <th>Date de creation</th>
+            <th>Resource</th>
+            <th>Objet</th>
+            <th>Description</th>
+            <th>Etat</th>
+            <th>type</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let absence of absences">
+            <td>{{absence.dateAbsence | date:'dd-MM-yyyy' }}</td>
+            <td>{{absence.absenceList.resource.firstname + ' ' + absence.absenceList.resource.lastname}}</td>
+            <td>{{absence.absenceList.subject}}</td>
+            <td>{{absence.description}}</td>
+            <td>{{absence.state}}</td>
+            <td>{{absence.type}}</td>
+            <td>
+              <button class="btn btn-success" (click)="validateAbsence(absence)" *ngIf="absence.state == 'NV'">
+                <i class="fa fa-check-square"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+    </mdb-card-body>
+  </mdb-card>
+</div>

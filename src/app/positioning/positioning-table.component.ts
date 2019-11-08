@@ -1,15 +1,15 @@
-import {Component, OnInit} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {environment} from '../../environments/environment';
-import {ServerDataSource} from 'ng2-smart-table';
-import {Row} from 'ng2-smart-table/lib/data-set/row';
-import {ActivatedRoute, Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
+import { ServerDataSource } from 'ng2-smart-table';
+import { Row } from 'ng2-smart-table/lib/data-set/row';
+import { ActivatedRoute, Router } from '@angular/router';
 // import {ToastrService} from 'ngx-toastr';
-import {CustomEnumRenderComponent} from '../shared/custom-ng2-smart-table-renderer/custom-enum-render.component';
-import {PositioningService} from '../shared/services/positioning.service';
-import {MatDialog, MatDialogConfig} from '@angular/material';
-import {PositioningAddComponent} from '../positioning-add/positioning-add.component';
-import {DatePipe} from '@angular/common';
+import { CustomEnumRenderComponent } from '../shared/custom-ng2-smart-table-renderer/custom-enum-render.component';
+import { PositioningService } from '../shared/services/positioning.service';
+import { MatDialog, MatDialogConfig } from '@angular/material';
+import { PositioningAddComponent } from '../positioning-add/positioning-add.component';
+import { DatePipe } from '@angular/common';
 import Swal from 'sweetalert2';
 
 
@@ -90,11 +90,11 @@ export class PositioningTableComponent implements OnInit {
 
 
   constructor(private service: PositioningService,
-              // private toastr: ToastrService,
-              private http: HttpClient,
-              private router: Router,
-              private activeRoute: ActivatedRoute,
-              private dialog: MatDialog) {
+    // private toastr: ToastrService,
+    private http: HttpClient,
+    private router: Router,
+    private activeRoute: ActivatedRoute,
+    private dialog: MatDialog) {
 
     if (activeRoute.snapshot.params['error'] === 'error') {
       // this.toastr.warning('Erreur lors de la récupération de données', 'Opération échoué!');
@@ -108,46 +108,46 @@ export class PositioningTableComponent implements OnInit {
     this.url = environment.API + '/ws/positionings/search?fromAngular=true';
     this.source = new ServerDataSource(
       this.http, {
-        endPoint: this.url,
-        dataKey: 'content',
-        totalKey: 'totalElements',
-        pagerLimitKey: 'size',
-        perPage: 'size',
-        sortFieldKey: 'sort',
-        sortDirKey: 'dir',
-        pagerPageKey: 'page'
-      });
+      endPoint: this.url,
+      dataKey: 'content',
+      totalKey: 'totalElements',
+      pagerLimitKey: 'size',
+      perPage: 'size',
+      sortFieldKey: 'sort',
+      sortDirKey: 'dir',
+      pagerPageKey: 'page'
+    });
 
 
     // console.log(this.source);       NOT_DEFINED,
 
 
     this.positioningStages = [
-      {label: 'Tous', value: ''},
-      {label: 'En attente', value: 'Waiting'},
-      {label: 'Présenté au client', value: 'PresentedToClient'},
-      {label: 'Envoi du CV', value: 'SendingCV'},
-      {label: 'Rejeté', value: 'Rejected'},
-      {label: 'Gagné', value: 'Won'},
-      {label: 'Positionné', value: 'Positioned'}
+      { label: 'Tous', value: '' },
+      { label: 'En attente', value: 'Waiting' },
+      { label: 'Présenté au client', value: 'PresentedToClient' },
+      { label: 'Envoi du CV', value: 'SendingCV' },
+      { label: 'Rejeté', value: 'Rejected' },
+      { label: 'Gagné', value: 'Won' },
+      { label: 'Positionné', value: 'Positioned' }
     ];
 
     this.projectStages = [
-      {label: 'Tous', value: ''},
-      {label: 'En cours', value: 'InProgress'},
-      {label: 'Reporté', value: 'Postponed'},
-      {label: 'Gagné', value: 'Won'},
-      {label: 'Perdu', value: 'Lost'},
-      {label: 'Abandonné', value: 'Abandoned'}];
+      { label: 'Tous', value: '' },
+      { label: 'En cours', value: 'InProgress' },
+      { label: 'Reporté', value: 'Postponed' },
+      { label: 'Gagné', value: 'Won' },
+      { label: 'Perdu', value: 'Lost' },
+      { label: 'Abandonné', value: 'Abandoned' }];
 
 
     this.projectTypes = [
-      {label: 'Tous', value: ''},
-      {label: 'Régie', value: 'Authority'},
-      {label: 'Forfait', value: 'FlatRate'},
-      {label: 'Projet interne', value: 'InternalProject'},
-      {label: 'Produit', value: 'Product'},
-      {label: 'Recrutement', value: 'Recruitment'}];
+      { label: 'Tous', value: '' },
+      { label: 'Régie', value: 'Authority' },
+      { label: 'Forfait', value: 'FlatRate' },
+      { label: 'Projet interne', value: 'InternalProject' },
+      { label: 'Produit', value: 'Product' },
+      { label: 'Recrutement', value: 'Recruitment' }];
 
 
   }

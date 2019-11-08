@@ -1,9 +1,10 @@
 export class Commande {
     id: number = 0;
-    reference: string ='';
+    reference: string = '';
     etat: string = '';
     duree: number;
-    date: string = '';
+    montantR: number;
+    date = new Date();
     typeReglement: string = '';
     conditionReglement: string = '';
     typePayement: string = '';
@@ -30,7 +31,7 @@ export class Commande {
     user: any;
     projectId: number = 0;
     userId: number = 0;
-    besoinReference?:string = '';
-    besoinTitle?:string = '';
+    besoinReference?: string = '';
+    besoinTitle?: string = '';
 
 }

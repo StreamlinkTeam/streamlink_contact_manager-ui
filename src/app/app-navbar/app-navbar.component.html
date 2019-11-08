@@ -1,10 +1,11 @@
 <!--Main Navigation-->
 <header *ngIf="isLoggedIn() && (isAdmin() || isClient())">
   <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
-    <a class="navbar-brand" routerLink="/dashboard" style="color: #ffffff"><i class="fa fa-home"></i><strong>&nbsp;Streamlink
-      </strong></a>
-    <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"
-            data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
+    <!--<a class="navbar-brand" routerLink="/dashboard" style="color: #ffffff"><i
+        class="fa fa-home"></i><strong>&nbsp;Streamlink
+      </strong></a>-->
+    <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+      class="navbar-toggler" data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -25,7 +26,7 @@
           <a class="nav-link" routerLink="/societies" routerLinkActive="active"><b>CRM</b></a>
         </li>
 
-        <li  class="nav-item" routerLinkActive="active">
+        <li class="nav-item" routerLinkActive="active">
           <a class="nav-link" routerLink="/needs" routerLinkActive="active"><b>Besoins</b></a>
         </li>
 
@@ -44,21 +45,29 @@
         </li>
         <li *ngIf="isAdmin()" class="nav-item" routerLinkActive="active">
           <a class="nav-link" routerLink="/admin" routerLinkActive="active" style="color:azure"><b>Gestion
-            d'utilisateurs</b></a>
+              d'utilisateurs</b></a>
         </li>
         <li *ngIf="isAdmin()" class="nav-item" routerLinkActive="active">
-          <a class="nav-link" routerLink="/validation" routerLinkActive="active"><b>Gestion d'absence</b></a>
+          <a class="nav-link" routerLink="/absence/validation" routerLinkActive="active"><b>Gestion d'absence</b></a>
         </li>
 
         <li *ngIf="isAdmin()" class="nav-item" routerLinkActive="active">
-            <a class="nav-link" routerLink="/production" routerLinkActive="active"><b>Production</b></a>
-          </li>
+          <a class="nav-link" routerLink="/production" routerLinkActive="active"><b>Production</b></a>
+        </li>
+
+        <li *ngIf="isAdmin()" class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="/commandes" routerLinkActive="active"><b>Commandes</b></a>
+        </li>
+
+        <li *ngIf="isAdmin()" class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="/timeline" routerLinkActive="active"><b>Timeline</b></a>
+        </li>
 
       </ul>
       <div class="md-form my-0">
         <ul class="navbar-nav mr-auto">
           <li *ngIf="user$ | async as user" class="nav-item" routerLinkActive="active">
-            <a class="nav-link" routerLink="/profil"><i class="fa fa-user"></i> &nbsp;{{user.firstname }} {{user.lastname}}</a>
+            <a class="nav-link" routerLink="/profil"><i class="fa fa-user"></i></a>
           </li>
           <li class="nav-item">
             <a (click)="logout()" class="dropdown-item text-warning"><i class="fa fa-power-off"></i></a>
@@ -103,7 +112,7 @@
       </ul>
       <div class="md-form my-0">
         <ul class="navbar-nav mr-auto">
-      
+
           <li *ngIf="isLoggedIn() && user$ | async as user" class="nav-item" routerLinkActive="active">
             <a class="dropdown-item  text-warning">{{user.firstname }} {{user.lastname}}</a>
           </li>

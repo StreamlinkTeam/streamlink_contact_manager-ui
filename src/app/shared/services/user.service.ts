@@ -77,13 +77,9 @@ export class UserService {
 
   getUsers(): Observable<User[]> {
 
-    //this.loaderService.show();
     const url = environment.API + '/ws/users/all';
 
-    return this.http.get<User[]>(url)
-      ._finally(() => {
-        //this.loaderService.hide();
-      });
+    return this.http.get<User[]>(url);
   }
 
   getUser(reference: string): Observable<User> {
@@ -101,12 +97,8 @@ export class UserService {
   }
 
   createUser(user: User): Observable<User> {
-    //this.loaderService.show();
     const url = environment.API + '/ws/users';
-    return this.http.post<User>(url, user)
-      ._finally(() => {
-        //this.loaderService.hide();
-      });
+    return this.http.post<User>(url, user);
   }
 
   updateUser(user: User, reference: string): Observable<User> {

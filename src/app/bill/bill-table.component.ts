@@ -7,6 +7,12 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { BillService } from '../shared/services/bill.service';
 
+import * as jsPDF from 'jspdf';
+import 'jspdf-autotable';
+import html2canvas from 'html2canvas';
+import { Email } from '../shared/entities/mail.model';
+import Swal from 'sweetalert2';
+import { MailService } from '../shared/services/mail.service';
 
 @Component({
   selector: 'app-bill-table',
@@ -15,7 +21,7 @@ import { BillService } from '../shared/services/bill.service';
 })
 export class BillTableComponent implements OnInit {
   bills = [];
-  heads = ['Projet', 'Client', 'Ressource', 'Commande', 'date', 'facture', 'Action'];
+  heads = ['Projet', 'Client', 'Ressource', 'Commande', 'date', 'facture'];
   source: any;
 
   url: string;
@@ -49,5 +55,8 @@ export class BillTableComponent implements OnInit {
     this.router.navigate(['/bills/edit', event.data.reference]);
   }
 
+  navigate(bill) {
+    this.router.navigate(['/bills/view', bill.id]);
+  }
 
 }

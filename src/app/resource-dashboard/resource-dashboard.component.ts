@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {PositioningService} from '../shared/services/positioning.service';
-import {HttpClient} from '@angular/common/http';
-import {ActivatedRoute, Router} from '@angular/router';
-import {MatDialog} from '@angular/material';
+import { Component, OnInit } from '@angular/core';
+import { PositioningService } from '../shared/services/positioning.service';
+import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MatDialog } from '@angular/material';
 import { ProjectService } from '../shared/services/project.service';
 
 @Component({
@@ -15,11 +15,11 @@ export class ResourceDashboardComponent implements OnInit {
   test;
   headElements = ['project title', 'Client', 'Start Date', 'End Date'];
   positioning: any = [];
-  
+
   constructor(private positionningservice: PositioningService,
-              private router: Router,
-              private activeRoute: ActivatedRoute,
-              private projectService: ProjectService) {
+    private router: Router,
+    private activeRoute: ActivatedRoute,
+    private projectService: ProjectService) {
 
     if (activeRoute.snapshot.params['error'] === 'error') {
       // this.toastr.warning('Erreur lors de la récupération de données', 'Opération échoué!');
@@ -28,15 +28,12 @@ export class ResourceDashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loadPosistionning();
-  }
-
-  loadPosistionning() {
+    const email = localStorage.getItem('username');
     return this.positionningservice.getPositionings().subscribe((data: {}) => {
-      this.positioning = data;
-
+      this.positioning = data as [];
+      this.positioning = this.positioning.filter(e => e.email === email);
+      console.log(this.positioning);
     });
   }
-
 
 }

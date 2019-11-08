@@ -1,18 +1,17 @@
-<div class="container">
-  <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-    <li class="nav-item">
-      <a class="nav-link" data-toggle="pill" role="tab" routerLink="/production">
-        Vue Global
-      </a>
-    </li>
+<div class="seperate"></div>
 
-    <li class="nav-item">
-      <a class="nav-link" data-toggle="pill" role="tab" routerLink="/production/monthly">
-        Vue Mensuelle
-      </a>
-    </li>
-  </ul>
-</div>
+<nav mat-tab-nav-bar>
+
+  <a #gle="routerLinkActive" [active]="menu.global" animationDuration="2000ms" mat-tab-link routerLink="/production"
+    routerLinkActive>
+    Vue Générale
+  </a>
+  <a #coor="routerLinkActive" [active]="!menu.global" animationDuration="2000ms" mat-tab-link
+    routerLink="/production/monthly" routerLinkActive>
+    Vue Mensuelle
+  </a>
+
+</nav>
 
 
 <div class="tab-content" id="pills-tabContent">

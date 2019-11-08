@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {AbsenceListService} from '../../shared/services/AbsenceListService';
-import {ToastrService} from 'ngx-toastr';
-import {AbsenceService} from '../../shared/services/AbsenceService';
+import { AbsenceListService } from '../../shared/services/AbsenceListService';
+import { ToastrService } from 'ngx-toastr';
+import { AbsenceService } from '../../shared/services/AbsenceService';
 
 @Component({
   selector: 'app-list-absences',
@@ -12,16 +12,17 @@ export class ListAbsencesComponent implements OnInit {
   absences: any = [];
   headElements = ['project title', 'Client', 'Start Date', 'End Date'];
   constructor(private service: AbsenceService,
-              private toastr: ToastrService,
-              private absenceService: AbsenceService) { }
+    private toastr: ToastrService,
+    private absenceService: AbsenceService) { }
 
   ngOnInit() {
-    this.loadAbsences() ;
-  }
-  loadAbsences() {
-    return this.service.getAllAbcense().subscribe((data: {}) => {
-      this.absences = data;
+    let userMail = localStorage.getItem('username');
+    console.log(userMail)
+    return this.service.getAllAbsenceByUser(userMail).subscribe((data) => {
+      this.absences = data as [];
+      console.log(this.absences)
 
     });
   }
+
 }

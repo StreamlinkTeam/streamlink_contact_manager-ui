@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {DeveloperService} from '../../shared/services/developer.service';
-import {AbsenceService} from '../../shared/services/AbsenceService';
-import {UserService} from '../../shared/services/user.service';
+import { Component, OnInit } from '@angular/core';
+import { DeveloperService } from '../../shared/services/developer.service';
+import { AbsenceService } from '../../shared/services/AbsenceService';
+import { UserService } from '../../shared/services/user.service';
 
 @Component({
   selector: 'app-absence-count',
@@ -10,32 +10,34 @@ import {UserService} from '../../shared/services/user.service';
 })
 export class AbsenceCountComponent implements OnInit {
   listAbsence = [];
-  CST = 1.83;
+  CST = 1.25;
   absence = {
     total: 0,
     validated: 0,
     notValidated: 0,
     consumed: 0,
-    asked : 0
+    asked: 0,
+    prov: 0
   };
 
   constructor(private developerService: DeveloperService,
-              private  absenceService: AbsenceService,
-              private userService: UserService) {
+    private absenceService: AbsenceService,
+    private userService: UserService) {
   }
-
-
-
-
 
   ngOnInit() {
     this.developerService.getDeveloperByEmail(sessionStorage.getItem('username')).subscribe(res => {
       const start = res.createdDate;
       const today = new Date();
-      this.absence.total = this.monthDiff(new Date(), new Date(start)) * this.CST;
-      this.absenceService.getAllAbcense().subscribe(res => {
+      let lastDayOfYear = new Date(today.getFullYear(), 11, 30);
+      console.log("user :: ", res)
+      this.absence.total = this.monthDiff(new Date(), new Date(start)) * this.CST + res.absence;
+      this.absence.prov = this.monthDiff(lastDayOfYear, new Date(start)) * this.CST + res.absence;
+      let userMail = localStorage.getItem('username');
+      this.absenceService.getAllAbsenceByUser(userMail).subscribe(res => {
         res.map(item => {
-          if ( item.state === 'NV' ) {
+          console.log(item)
+          if (item.state === 'NV') {
             const dt = new Date(item.dateAbsence);
             if (today.getMonth() <= dt.getMonth() && today.getFullYear() <= dt.getFullYear()) {
               this.absence.asked += item.duration;
@@ -57,6 +59,6 @@ export class AbsenceCountComponent implements OnInit {
     months -= d1.getMonth();
     months += d2.getMonth();
     return months <= 0 ? 0 : months;
-}
+  }
 
 }

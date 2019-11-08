@@ -1,13 +1,13 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
-import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
-import {AbsenceService} from '../shared/services/AbsenceService';
-import {ToastrService} from 'ngx-toastr';
-import {Absence} from '../shared/entities/Absence.model';
-import {AbsenceListService} from '../shared/services/AbsenceListService';
-import {Row} from 'ng2-smart-table/lib/data-set/row';
-import {HttpClient} from '@angular/common/http';
-import {ActivatedRoute, Router} from '@angular/router';
+import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { AbsenceService } from '../shared/services/AbsenceService';
+import { ToastrService } from 'ngx-toastr';
+import { Absence } from '../shared/entities/Absence.model';
+import { AbsenceListService } from '../shared/services/AbsenceListService';
+import { Row } from 'ng2-smart-table/lib/data-set/row';
+import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-absence-validation',
   templateUrl: './absence-validation.component.html',
@@ -21,13 +21,13 @@ export class AbsenceValidationComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private service: AbsenceService,
-              private absenceListService: AbsenceListService,
-              private toastr: ToastrService,
-              private absenceService: AbsenceService,
-              private http: HttpClient,
-              private router: Router,
-              private activeRoute: ActivatedRoute) {
+  constructor(
+    private absenceListService: AbsenceListService,
+    private toastr: ToastrService,
+    private absenceService: AbsenceService,
+    private http: HttpClient,
+    private router: Router,
+    private activeRoute: ActivatedRoute) {
 
   }
 
@@ -62,6 +62,10 @@ export class AbsenceValidationComponent implements OnInit {
     console.log(absenceList.reference);
   }
 
+  validateList(absence) {
+    this.absenceListService.validateList(absence).subscribe(res => console.log(res));
+    console.log(absence);
+  }
 }
 
 

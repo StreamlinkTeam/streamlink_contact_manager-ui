@@ -45,7 +45,8 @@ export class AbsenceDemandeComponent implements OnInit {
   }
 
   save(form: NgForm) {
-   this.service.createAbsenceList(this.absenceList).subscribe(res => {
+    console.log(this.absenceList)
+    this.service.createAbsenceList(this.absenceList).subscribe(res => {
       this.saveAbsence(form, res.reference);
       this.refAbs = res.reference;
       this.toastr.success('Action Mise à jour avec succés', 'Opération Réussite!');
@@ -66,6 +67,8 @@ export class AbsenceDemandeComponent implements OnInit {
       this.absence.dateAbsence.setDate(this.absence.dateAbsence.getDate() + 1);
       this.absence.duration = this.duration[i];
       this.absence.absenceListReference = reference;
+
+      console.log(this.absence)
       this.absenceService.createAbsence(this.absence).subscribe(res => {
 
         this.refAbs = res.reference;

@@ -25,6 +25,10 @@ import { Globals } from '../shared/global/globals';
 import { EventService } from '../shared/services/event.service';
 import { ProjectService } from '../shared/services/project.service';
 import Swal from 'sweetalert2';
+import { AbsenceListService } from '../shared/services/AbsenceListService';
+import { AbsenceService } from '../shared/services/AbsenceService';
+import { AbsenceList } from '../shared/entities/AbsenceList.model';
+import { Absence } from '../shared/entities/Absence.model';
 
 
 
@@ -55,11 +59,15 @@ export class CalendarComponent implements OnInit {
   eventsCount;
 
   holiday: HolidayComponent = new HolidayComponent();
+
   total = {
     production: 0,
     interne: 0,
     absence: 0
   }
+
+  daysTotal = 0;
+  openDays = 0;
 
   projects = [];
   allProject = [];
@@ -75,7 +83,9 @@ export class CalendarComponent implements OnInit {
     private sharingService: SharingService,
     private globals: Globals,
     private eventService: EventService,
-    private projectService: ProjectService) {
+    private projectService: ProjectService,
+    private absenceListService: AbsenceListService,
+    private absenceService: AbsenceService) {
     this.view = 'month';
     this.viewDate = new Date();
     this.activeDayIsOpen = false;
@@ -85,8 +95,9 @@ export class CalendarComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    //this.countOpenDays();
     this.positionningService.getPositioningsRsource().subscribe(res => {
-      this.projects = res;
+      this.projects = res as [];
       this.allProject = res;
       this.setEvents();
     });
@@ -117,11 +128,34 @@ export class CalendarComponent implements OnInit {
       this.emailUser = email;
     });
   }
+
+  countOpenDays() {
+    this.openDays = 0;
+    let startDate = this.viewDate;
+    startDate.setDate(1);
+
+    let endDate = startDate;
+    endDate.setMonth(startDate.getMonth() + 1);
+    endDate.setDate(endDate.getDate() - 1);
+
+    for (let i = 0; i < endDate.getDate() - 1; i++) {
+      let d = startDate;
+      d.setDate(startDate.getDate() + i);
+      if (d.getDay() !== 0 && d.getDay() !== 6 && !this.holiday.isHoliday(d)) {
+        this.openDays++;
+      }
+    }
+
+    console.log(this.openDays)
+  }
+
   resetMonth() {
+
     this.events = [];
-    const startDate = new Date();
+    const startDate = new Date(this.viewDate);
     let i = 1;
-    startDate.setMonth(this.viewDate.getMonth());
+    //startDate.setMonth(this.viewDate.getMonth());
+    console.log('VIEW :: ', this.viewDate, ' :: ', startDate)
     while (startDate.getMonth() == this.viewDate.getMonth()) {
       startDate.setDate(i);
       const ev = {
@@ -144,11 +178,69 @@ export class CalendarComponent implements OnInit {
     }
     this.globals.events = this.events;
   }
+
+  resetMonth4() {
+    this.events = [];
+    this.positionningService.getPositioningsRsource().subscribe(res => {
+
+      this._calendarService.getAllEvents().subscribe(res => {
+        const newRes = res as any[];
+        const newEv = newRes.map(item => {
+          const temp = { label: '', value: item.timeWork };
+
+          if (item.timeWork === 0) {
+            temp.label = 'Absent';
+          } else if (item.timeWork === 1) {
+            temp.label = 'Journée';
+          } else {
+            temp.label = 'Demi Journée';
+          }
+
+          item.project = this.getProjectByRef(item.project);
+
+          item.temp = temp;
+          item.start = new Date(item.start);
+          return item;
+        });
+        this.events = newEv;
+
+        const startDate = new Date();
+        startDate.setDate(1);
+        let i = 1;
+        startDate.setMonth(this.viewDate.getMonth());
+        console.log(startDate.getMonth(), ' ? == ', this.viewDate.getMonth())
+        while (startDate.getMonth() == this.viewDate.getMonth() && startDate.getFullYear() == this.viewDate.getFullYear()) {
+          startDate.setDate(i);
+          const ev = {
+            start: new Date(startDate),
+            title: this.selectedProject,
+            project: this.selectedProject,
+            type: { label: '', value: '' },
+            note: '',
+            temp: {
+              value: 1,
+              label: 'Journée'
+            }
+          }
+
+          if (startDate.getDay() !== 6 && startDate.getDay() !== 0 &&
+            !this.holiday.isHoliday(startDate) &&
+            startDate.getMonth() == this.viewDate.getMonth()) {
+            this.events.push(ev);
+          }
+          i++;
+        }
+        console.log(this.events);
+        this.globals.events = this.events.filter(e =>
+          e.start.getMonth() === this.viewDate.getMonth() && e.start.getFullYear() === this.viewDate.getFullYear());
+      });
+    });
+
+  }
   resetMonth2(): void {
     this.events = [];
     const month = this.viewDate.getMonth();
     const newDate = new Date();
-    //console.log(this.viewDate)
     newDate.setDate(1);
     newDate.setMonth(this.viewDate.getMonth());
     let dayOfMonth = 1;
@@ -193,6 +285,35 @@ export class CalendarComponent implements OnInit {
     return p;
   }
 
+  setPartialEvents(): void {
+
+    this._calendarService.getAllEvents().subscribe(res => {
+      const newRes = res as any[];
+      const newEv = newRes.map(item => {
+        const temp = { label: '', value: item.timeWork };
+
+        if (item.timeWork === 0) {
+          this.total.absence++;
+          temp.label = 'Absent';
+        } else if (item.timeWork === 1) {
+          this.total.production++;
+          temp.label = 'Journée';
+        } else {
+          this.total.interne++;
+          temp.label = 'Demi Journée';
+        }
+
+        item.project = this.getProjectByRef(item.project);
+
+        item.temp = temp;
+        item.start = new Date(item.start);
+        return item;
+      });
+      this.events = newEv;
+    });
+  }
+
+
   setEvents(): void {
 
     this._calendarService.getAllEvents().subscribe(res => {
@@ -200,11 +321,14 @@ export class CalendarComponent implements OnInit {
       const newEv = newRes.map(item => {
         const temp = { label: '', value: item.timeWork };
 
-        if (item.timeWork == -1) {
+        if (item.timeWork === 0) {
+          this.total.absence++;
           temp.label = 'Absent';
-        } else if (item.timeWork == 1) {
+        } else if (item.timeWork === 1) {
+          this.total.production++;
           temp.label = 'Journée';
         } else {
+          this.total.interne++;
           temp.label = 'Demi Journée';
         }
 
@@ -253,6 +377,7 @@ export class CalendarComponent implements OnInit {
    * @param {MonthViewDay} day
    */
   dayClicked(event): void {
+    localStorage.setItem('date', event.day.date);
     let d = -1;
 
     for (let i = 0; i < this.events.length; i++) {
@@ -388,8 +513,9 @@ export class CalendarComponent implements OnInit {
   }
 
   getValueWorked(temp, project) {
-    if (temp.value == -1) this.total.absence++;
-    else {
+    if (temp.value == 0) {
+      this.total.absence++;
+    } else {
       if (project.client.toString().toLowerCase() == 'interne') {
         this.total.interne += temp.value;
       } else {
@@ -399,20 +525,58 @@ export class CalendarComponent implements OnInit {
     }
   }
 
+  dateChange() {
+    this.events = [];
+    this.setPartialEvents();
+    console.log('VIEW DATE :: ', this.viewDate);
+  }
+
   validateTimeSheet() {
+    let absenceList = new AbsenceList();
     Swal.fire(
       'TimeSheet Envoyée!',
       '',
       'success'
-    )
-    //this.eventService.saveTimeList().subscribe(res =>{
-    for (let i = 0; i < this.globals.events.length; i++) {
-      this.getValueWorked(this.globals.events[i].temp, this.globals.events[i].project);
-      this.events[i].start.setDate(this.events[i].start.getDate() + 1);
-      this.eventService.saveTimeLine(this.globals.events[i]).subscribe(() => {
-        //
-      })
-    }
-    // })
+    );
+    console.log(this.globals.events[0]);
+    let list = {
+      resource: this.globals.events[0].resource,
+      date: this.globals.events[0].start
+    };
+    this.eventService.saveTimeList(list).subscribe(res => {
+      console.log(res)
+      for (let i = 0; i < this.globals.events.length; i++) {
+
+        if (this.globals.events[i].temp.value !== 1) {
+
+
+          console.log(absenceList)
+          this.absenceListService.createNewAbsenceList().subscribe(res => {
+            let d = this.globals.events[i].start;
+            let duree = this.globals.events[i].temp.value;
+            let absence = new Absence();
+            let abs = this.globals.events[i];
+
+            absence.type = 'cp';
+            absence.state = 'NV';
+            absence.dateAbsence = d.setDate(d.getDate() - 1);
+            absence.duration = duree == 0 ? 1 : duree;
+            absence.absenceListReference = res.reference;
+
+            console.log(absence)
+            this.absenceService.createAbsence(absence).subscribe(rest => {
+              console.log(rest)
+            })
+          });
+        }
+
+        this.getValueWorked(this.globals.events[i].temp, this.globals.events[i].project);
+        this.globals.events[i].listTemps = res;
+        this.events[i].start.setDate(this.events[i].start.getDate() + 1);
+        this.eventService.saveTimeLine(this.globals.events[i]).subscribe(() => {
+          //
+        });
+      }
+    })
   }
 }

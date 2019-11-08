@@ -28,6 +28,7 @@ export class AuthComponent {
   authenticate(form: NgForm) {
     if (form.valid) {
       sessionStorage.setItem('username', this.username);
+      localStorage.setItem('username', this.username);
       this.auth.authenticate(this.username, this.password)
         .subscribe(response => {
           if (response) {

@@ -17,6 +17,12 @@ export class BillService {
     return this.http.get<Bill>(url, options);
   }
 
+  getBillById(id) {
+    const url = this.API_URL + '/bill/one';
+
+    return this.http.get(url + '?id=' + id);
+  }
+
   createBill(bill) {
     const url = this.API_URL + '/create';
     return this.http.post(url, bill);
@@ -25,5 +31,10 @@ export class BillService {
   getAll() {
     const url = this.API_URL + '/all';
     return this.http.get(url);
+  }
+
+  getByCommande(id) {
+    const url = this.API_URL + '/commande/all';
+    return this.http.get(url + '?id=' + id);
   }
 }

@@ -76,6 +76,9 @@ import { ProductionComponent } from './production/production.component';
 import { ProductionService } from './shared/services/production.service';
 import { ProductionMonthlyComponent } from './production/production-monthly/production-monthly.component';
 import { ProductionGlobalComponent } from './production/production-global/production-global.component';
+import { TimelineComponent } from './timeline/timeline.component';
+import { ReducePipe } from './shared/pipes/reducePipe';
+import { CommandeTableComponent } from './commande-table/commande-table.component';
 
 
 registerLocaleData(localeFr, 'fr');
@@ -101,7 +104,10 @@ registerLocaleData(localeFr, 'fr');
     CommandeComponent,
     ProductionComponent,
     ProductionMonthlyComponent,
-    ProductionGlobalComponent
+    ProductionGlobalComponent,
+    TimelineComponent,
+    ReducePipe,
+    CommandeTableComponent
   ],
   imports: [
     MDBBootstrapModule,

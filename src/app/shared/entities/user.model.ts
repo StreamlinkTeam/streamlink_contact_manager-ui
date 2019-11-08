@@ -1,5 +1,5 @@
 export class User {
-  id:number;
+  id: number;
   reference: string;
   firstname: string;
   lastname: string;
@@ -7,5 +7,6 @@ export class User {
   confirmPassword: string;
   roles: string[];
   email: string;
+  status: string;
 
 }

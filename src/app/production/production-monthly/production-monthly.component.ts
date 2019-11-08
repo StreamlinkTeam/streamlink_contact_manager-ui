@@ -6,6 +6,7 @@ import { DeveloperService } from '../../shared/services/developer.service';
 import { UserService } from '../../shared/services/user.service';
 import { BillService } from '../../shared/services/bill.service';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-production-monthly',
@@ -13,6 +14,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./production-monthly.component.css']
 })
 export class ProductionMonthlyComponent implements OnInit {
+  mon = { isActive: true };
+  gle = { isActive: false };
   heads = ['Projet', 'Client', 'Ressource', 'Commande', 'Date', 'Prod', 'CA de Production', 'Production', 'Action'];
   today = new Date();
   groupedMonths = {};
@@ -23,6 +26,7 @@ export class ProductionMonthlyComponent implements OnInit {
     private router: Router) { }
   production = [];
   months = [];
+  filterargs = {};
 
   ngOnInit() {
     let array = [];
@@ -30,44 +34,85 @@ export class ProductionMonthlyComponent implements OnInit {
       let data = [];
       data = res as [];
       data.map(e => {
-        if (!this.groupedMonths[e.year]) this.groupedMonths[e.year] = {};
-        if (!this.groupedMonths[e.year][e.month]) this.groupedMonths[e.year][e.month] = {};
-        this.groupedMonths[e.year][e.month][e.id] = e.total;
+        if (!this.groupedMonths[e.year]) {
+          this.groupedMonths[e.year] = {};
+        }
+        if (!this.groupedMonths[e.year][e.month]) {
+          this.groupedMonths[e.year][e.month] = {};
+        }
+        if (!this.groupedMonths[e.year][e.month][e.id]) {
+          this.groupedMonths[e.year][e.month][e.id] = {};
+        }
+        this.groupedMonths[e.year][e.month][e.id][e.project] = e.total;
       });
-      console.log(this.groupedMonths)
       this.productionService.getAll().subscribe(res => {
         this.production = res as [];
-
         for (let i = 0; i < this.production.length; i++) {
-          this.production[i].ca = this.production[i].caht - (this.production[i].prod * this.production[i].user.personalInformation.tjm);
+          this.production[i].ca = this.production[i].caht - (this.production[i].prod * this.production[i].project.tjm);
           this.production[i].date = this.production[i].commande.date;
           let date = new Date(this.production[i].date);
           const numberOfMonths = this.diffMonths(this.today, date);
 
           for (let j = 0; j < numberOfMonths; j++) {
+            console.log(this.groupedMonths)
+            let n: number = Number(date.getMonth()) + +j + +1;
+            console.log('[' + date.getFullYear() + '][' + n + '][' + this.production[i].user.id + '][' + this.production[i].project.reference + ']')
 
-            date.setDate(1);
-            date.setMonth(date.getMonth() + j);
-            let tot = this.groupedMonths[date.getFullYear()][date.getMonth() + 1][this.production[i].user.id]
+            date.setDate(27);
+            date.setMonth(n);
+            let tot = this.groupedMonths[date.getFullYear()][n + +1][this.production[i].user.id][this.production[i].project.reference];
+
             this.months.push({
+              found: false,
+              date: date,
               start: this.customDateFormat(date),
               end: this.getLastDayOfMonth(date),
               production: this.production[i],
               totalDays: tot,
-              ca: tot * this.production[i].user.personalInformation.tjm
+              ca: tot * this.production[i].project.tjm
+            });
+
+            console.log('MONTHS :: ', this.months)
+            this.factureService.getAll().subscribe(fa => {
+              const factures = fa as [];
+              this.months.map(m => {
+                console.log(m.production)
+                console.log(factures)
+                m.found = this.billexist(factures, m.start, m.production);
+              });
             });
           }
         }
-
-        console.log(this.months);
       });
     });
+  }
 
+  billexist(factures, d, production) {
+    let found = false;
+    const dateString = d.slice(d.indexOf('-') + 1) + '-' + d.slice(0, 2) + '-01';
+    const date = new Date(dateString);
+    //console.log(dateString)
+    for (let i = 0; i < factures.length; i++) {
+      const factureDate = new Date(factures[i].billDate);
+      if (factureDate.getMonth() == date.getMonth() &&
+        factureDate.getFullYear() == date.getFullYear() &&
+        factures[i].resource.id == production.user.id &&
+        factures[i].commande.id == production.commande.id) {
+        found = true;
+        return true;
+      }
+    }
+
+    return found;
   }
 
   customDateFormat(dt) {
-    return `${dt.getMonth() + 1}-${dt.getFullYear()}`;
+    let month = dt.getMonth() + 1;
+    const customString = `${month}-${dt.getFullYear()}`;
+    if (month < 10) return '0' + customString;
+    return customString;
   }
+
   getLastDayOfMonth(d) {
     d.setDate(1);
     d.setMonth(d.getMonth() + 1);
@@ -82,24 +127,34 @@ export class ProductionMonthlyComponent implements OnInit {
   }
 
   generate(prod) {
-    let date = new Date();
-    date.setDate(27);
-    date.setMonth(prod.start.getMonth());
-    date.setFullYear(prod.getFullYear());
+    const production = prod.production;
+    let dateString = prod.start.substring(prod.start.indexOf('-') + 1) + '-';
+    dateString += prod.start.substring(0, prod.start.indexOf('-'));
+    dateString += '-27';
+    console.log("DATE STRING :: ", dateString)
+    let date = new Date(dateString);
     const bill = {
       billDate: date,
       currenvy: 'EUR',
       discountRate: 0,
       tva: 18,
-      resource: prod.user,
-      projectPos: prod.project,
-      commande: prod.commande,
-      client: prod.client,
+      resource: production.user,
+      projectPos: production.project,
+      commande: production.commande,
+      client: production.client,
       unitPrice: prod.ca,
-      quantity: prod.prod
+      quantity: prod.totalDays
     };
     this.factureService.createBill(bill).subscribe(res => {
-      console.log(res);
+      let result: any;
+      result = res;
+      Swal.fire(
+        'Facture ' + bill.billDate.getFullYear() + '00' + result.id + ' généré avec succées !',
+        '',
+        'success'
+      )
+
+      this.router.navigate(['bills']);
     });
   }
 

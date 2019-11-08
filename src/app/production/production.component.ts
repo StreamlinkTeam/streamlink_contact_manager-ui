@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./production.component.css']
 })
 export class ProductionComponent implements OnInit {
+  menu = { global: true };
   heads = ['Projet', 'Client', 'Ressource', 'Commande', 'Prod', 'CA de Production', 'Production', 'Action'];
 
   constructor(private productionService: ProductionService,

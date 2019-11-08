@@ -1,10 +1,10 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {LoaderService} from './loader.service';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { LoaderService } from './loader.service';
 
-import {Observable} from 'rxjs';
-import {environment} from '../../../environments/environment';
-import {AbsenceList} from '../entities/AbsenceList.model';
+import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
+import { AbsenceList } from '../entities/AbsenceList.model';
 
 @Injectable()
 export class AbsenceListService {
@@ -18,13 +18,32 @@ export class AbsenceListService {
     return this.http.get(url);
   }
 
-  createAbsenceList(absenceList: AbsenceList): Observable<AbsenceList> {
+  createAbsenceList(absenceList): Observable<AbsenceList> {
     this.loaderService.show();
     const url = environment.API + '/ws/absenceList';
     return this.http.post<AbsenceList>(url, absenceList)
       ._finally(() => {
         this.loaderService.hide();
       });
+  }
+
+  createNewAbsenceList(): Observable<AbsenceList> {
+    this.loaderService.show();
+    const url = environment.API + '/ws/absence_list/save';
+    return this.http.post<AbsenceList>(url, {})
+      ._finally(() => {
+        this.loaderService.hide();
+      });
+  }
+
+  saveAbsenceList(absenceList) {
+    const url = environment.API + '/ws/absenceList';
+    return this.http.post<AbsenceList>(url, absenceList);
+  }
+
+  validateList(absenceList) {
+    const url = environment.API + '/ws/absence_list/validate';
+    return this.http.put(url, absenceList);
   }
 }
 

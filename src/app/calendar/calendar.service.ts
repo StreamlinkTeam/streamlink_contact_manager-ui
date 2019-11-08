@@ -35,6 +35,12 @@ export class CalendarService implements Resolve<any> {
     );
   }
 
+  getAllOfEvents() {
+    return this.httpClient.get(url + '/timelines').pipe(
+      map(this.extractData)
+    );
+  }
+
 
 
   getEventByRef(ref: string) {
@@ -94,6 +100,18 @@ export class CalendarService implements Resolve<any> {
 
   groupedByDay() {
     return this.httpClient.get(`${url}/grouped`);
+  }
+
+  validateTimelines(timeline) {
+    const timelineDate = new Date(timeline.timeline.start);
+    console.log(timeline)
+    let timel = {
+      year: timelineDate.getFullYear(),
+      month: timelineDate.getMonth() + 1,
+      id: timeline.timeline.resource.id
+    }
+    console.log(timel)
+    return this.httpClient.post(`${url}/validate`, timel);
   }
 
 }

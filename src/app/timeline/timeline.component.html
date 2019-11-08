@@ -1,0 +1,31 @@
+<div class="container-fluid">
+  <mdb-card>
+    <mdb-card-header>
+      TimeSheets
+    </mdb-card-header>
+    <mdb-card-body>
+      <table class="table table-striped">
+        <thead>
+          <th>Ressource</th>
+          <th>Mois</th>
+          <th>Nombre de jours travaillé</th>
+          <th>Valider</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let o of list">
+            <td>{{o.fullname}}</td>
+            <td>{{o.month}}</td>
+            <td>{{o.nbr}}</td>
+            <td>
+              <button class="btn btn-success" (click)="validateTimeLine(o)" *ngIf="o.timeline.status === 0">
+                <i class="fas fa-cog"></i>
+              </button>
+
+              <i class="fas fa-check" *ngIf="o.timeline.status === 1"></i>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </mdb-card-body>
+  </mdb-card>
+</div>

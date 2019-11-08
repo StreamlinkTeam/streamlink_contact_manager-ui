@@ -27,7 +27,7 @@
               [@animate]="{value:'*',params:{delay:'150ms'}}">
 
               <button mat-icon-button class="arrow" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"
-                (viewDateChange)="selectedDay = {date:$event}" aria-label="Previous">
+                (viewDateChange)="selectedDay = {date:$event}; dateChange()" aria-label="Previous">
                 <mat-icon>chevron_left</mat-icon>
               </button>
 
@@ -36,7 +36,7 @@
               </h3>
 
               <button mat-icon-button class="arrow" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate"
-                (viewDateChange)="selectedDay = {date:$event}" aria-label="Next">
+                (viewDateChange)="selectedDay = {date:$event}; dateChange()" aria-label="Next">
                 <mat-icon>chevron_right</mat-icon>
               </button>
             </div>
@@ -73,11 +73,16 @@
               *ngIf="day.events.length > 0 && day.events[0].temp.value == 0.5">
               {{ day.events[0].project.needTitle }}
             </small>
+            <small style="margin: 5px" class="cal-day-badge ng-tns-c3-0 ng-star-inserted"
+              style="margin-bottom: 2px; background-color: blue"
+              *ngIf="day.events.length > 0 && day.events[0].temp.value == 0.5">
+              Absence
+            </small>
 
             <small style="margin: 5px" class="cal-day-badge ng-tns-c3-0 ng-star-inserted"
               style="margin-bottom: 2px; background-color: red"
-              *ngIf="day.events.length > 0 && day.events[0].temp.value == -1">
-              {{ day.events[0].project.needTitle }}
+              *ngIf="day.events.length > 0 && day.events[0].temp.value == 0">
+              Absence
             </small>
 
           </ng-template>
@@ -107,7 +112,7 @@
         <button class="btn btn-primary" (click)="validateTimeSheet()">Valider</button>
         <!-- / CONTENT -->
 
-
+        <!--
         <div class="row">
           <div class="col-xs-12 col-sm-12 col-md-4">
 
@@ -190,7 +195,7 @@
 
           </div>
         </div>
-
+      -->
         <div class="row" style="margin-top: 20px">
           <div class="col-xs-12 col-sm-6 ">
             <mat-card>

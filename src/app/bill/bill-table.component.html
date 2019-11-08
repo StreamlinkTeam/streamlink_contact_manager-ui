@@ -9,6 +9,7 @@
     <thead>
       <tr>
         <th *ngFor="let head of heads">{{ head }}</th>
+        <th>Action</th>
       </tr>
     </thead>
     <tbody>
@@ -19,7 +20,11 @@
         <td>{{"CMD-" + (b.commande.id+"").padStart(5,'0')}}</td>
         <td>{{b.billDate | date: "dd/MM/yyyy"}}</td>
         <td>{{b.unitPrice | currency: 'EUR'}}</td>
-        <td><a class="btn btn-primary"><i class="fa fa-cog"></i></a></td>
+        <td>
+          <button class="btn btn-primary" (click)="navigate(b)">
+            <i class="fas fa-cog"></i>
+          </button>
+        </td>
       </tr>
     </tbody>
   </table>

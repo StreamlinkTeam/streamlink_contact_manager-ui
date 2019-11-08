@@ -1,14 +1,14 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {BillService} from '../shared/services/bill.service';
-import {Bill} from '../shared/entities/bill.model';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { BillService } from '../shared/services/bill.service';
+import { Bill } from '../shared/entities/bill.model';
 import * as jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import html2canvas from 'html2canvas';
-import {Email} from '../shared/entities/mail.model';
-import {SocietyContactService} from '../shared/services/society-contact.service';
+import { Email } from '../shared/entities/mail.model';
+import { SocietyContactService } from '../shared/services/society-contact.service';
 import Swal from 'sweetalert2';
-import {MailService} from '../shared/services/mail.service';
+import { MailService } from '../shared/services/mail.service';
 
 
 @Component({
@@ -19,8 +19,8 @@ import {MailService} from '../shared/services/mail.service';
 export class BillEditorComponent implements OnInit {
 
   editing = false;
-  bill: Bill = new Bill();
-  billReference = '';
+  bill: any;
+  billReference;
   societyReference = '';
   societyContactReference = '';
   email: Email = new Email();
@@ -28,32 +28,22 @@ export class BillEditorComponent implements OnInit {
 
 
   constructor(private activeRoute: ActivatedRoute,
-              private billService: BillService,
-              private router: Router,
-              private societyContactService: SocietyContactService,
-              private mailService: MailService) {
+    private billService: BillService,
+    private router: Router,
+    private societyContactService: SocietyContactService,
+    private mailService: MailService) {
   }
 
   ngOnInit() {
-    this.editing = this.activeRoute.snapshot.parent.params['reference'] !== undefined;
-    // this.resourceReference   TO_DO
-
-    if (this.editing) {
-      console.log(this.activeRoute);
-      this.billReference = this.activeRoute.snapshot.parent.params['reference'];
-      this.billService.getBillByReference(this.billReference)
+    this.activeRoute.params.subscribe((params) => {
+      console.log(params['id']);
+      this.billReference = params['id'];
+      this.billService.getBillById(this.billReference)
         .subscribe(response => {
-            this.bill = response;
-            this.societyContactReference = response.societyContactReference;
-            this.societyReference = response.societyReference;
-            console.log(this.bill);
-          }
-          , error =>
-            this.router.navigate(['/bills', 'error']));
-    } else {
-      console.log('ERROR');
-      // this.loadSocieties(null);
-    }
+          this.bill = response;
+          console.log(this.bill);
+        });
+    });
   }
 
   downloadPDF() {
@@ -85,21 +75,21 @@ export class BillEditorComponent implements OnInit {
   generatePDF() {
     const data = document.getElementById('divId');
     html2canvas(data).then(canvas => {
-      // Few necessary setting options
-      const imgWidth = 208;
-      const pageHeight = 208;
-      const imgHeight = canvas.height * imgWidth / canvas.width;
-      const heightLeft = imgHeight;
+
 
       const contentDataURL = canvas.toDataURL('image/png');
-      const pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF
-      const position = 0;
-      pdf.addImage(contentDataURL, 'PNG', 0, 0, 0, 0);
-      pdf.save(this.bill.reference + '.pdf');
+      let pdf = new jsPDF("p", "mm", "a4");
+
+      let width = pdf.internal.pageSize.getWidth();
+      let height = pdf.internal.pageSize.getHeight();
+
+      pdf.addImage(contentDataURL, 'PNG', 10, 10, 180, 150);
+      pdf.save(this.bill.id + '.pdf');
     });
   }
 
   sendMail() {
+    /*
     console.log(this.societyReference);
 
     this.societyContactService.getSocietyContactContact(this.societyContactReference, this.societyReference).subscribe(resp => {
@@ -113,7 +103,7 @@ export class BillEditorComponent implements OnInit {
       this.mailService.sendMail(this.email).subscribe();
       Swal.fire('Facture envoyée avec succés', 'Opération Réussite!', 'success');
     });
-
+    */
   }
 
 }

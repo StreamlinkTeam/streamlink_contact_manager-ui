@@ -7,6 +7,7 @@ import { UserService } from '../../shared/services/user.service';
 import { BillService } from '../../shared/services/bill.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { PositioningService } from '../../shared/services/positioning.service';
 
 @Component({
   selector: 'app-production-global',
@@ -14,43 +15,47 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./production-global.component.css']
 })
 export class ProductionGlobalComponent implements OnInit {
-
+  allProjects = [];
+  allOriginalPrjects = [];
+  allResources = [];
+  allCommandes = [];
+  allClient = [];
+  filterargs = {};
   heads = ['Projet', 'Client', 'Ressource', 'Commande', 'Prod', 'CA de Production', 'Production', 'Action'];
 
   constructor(private productionService: ProductionService,
     private timeLineService: CalendarService,
+    private positioningService: PositioningService,
     private developerService: DeveloperService,
     private factureService: BillService,
+    private commandeService: CommandeService,
     private router: Router,
     private toastr: ToastrService) { }
   production = [];
+
   ngOnInit() {
     this.productionService.getAll().subscribe(res => {
       this.production = res as [];
-      this.production.map(e => e.ca = e.caht - (e.prod * e.user.personalInformation.tjm));
+      this.production.map(e => e.ca = e.prod * e.project.tjm);
     });
+
+    this.positioningService.getPositionings().subscribe(res => {
+      this.allProjects = res;
+      this.allOriginalPrjects = res;
+    });
+    this.developerService.getDevelopers().subscribe(res => this.allResources = res);
+    this.commandeService.getAllCommandes().subscribe(res => this.allCommandes = res);
   }
 
-  generate(prod) {
-    const bill = {
-      billDate: new Date(),
-      currenvy: 'EUR',
-      discountRate: 0,
-      tva: 18,
-      resource: prod.user,
-      projectPos: prod.project,
-      commande: prod.commande,
-      client: prod.client,
-      unitPrice: prod.ca,
-      quantity: prod.prod
-    };
-    this.factureService.createBill(bill).subscribe(res => {
-      this.toastr.success('Facture générer', 'Opération Réussite!');
-    });
-  }
+
 
   detail(commande) {
     this.router.navigate(['/bills'], { state: { data: { commande: commande.id } } });
+  }
+
+  onSelectChange(type, value) {
+    this.filterargs[type] = value;
+    console.log(this.filterargs)
   }
 
 }

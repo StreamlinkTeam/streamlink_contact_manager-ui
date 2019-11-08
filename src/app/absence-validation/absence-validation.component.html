@@ -17,17 +17,14 @@
         </thead>
         <tbody>
           <tr *ngFor="let absence of absences">
-            <td>{{absence.absenceListDate | date:'yyyy-MM-dd' }}</td>
-            <td>{{absence.resourceFullName}}</td>
+            <td>{{absence.absenceListDate | date:'dd-MM-yyyy' }}</td>
+            <td>{{absence.resource.firstname + ' ' + absence.resource.lastname}}</td>
             <td>{{absence.subject}}</td>
             <td>{{absence.comment}}</td>
             <td>{{absence.state}}</td>
             <td>
-              <a [routerLink]="['/details',absence.reference]" class="btn btn-info" title="consulter">
+              <a [routerLink]="['/absence/details',absence.reference]" class="btn btn-info" title="consulter">
                 <i class="fa fa-bars"></i>
-              </a>
-              <a [routerLink]="['/update',absence.reference]" class="btn btn-success" title="Valider">
-                <i class="fa fa-check-square"></i>
               </a>
             </td>
           </tr>

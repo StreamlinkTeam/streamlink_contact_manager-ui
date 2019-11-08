@@ -13,14 +13,16 @@
         <tbody>
           <tr *ngFor="let b of months">
             <td>{{'PRJ-'+(b.production.project.id+"").padStart(5,'0')}}</td>
-            <td>{{b.production.client}}</td>
+            <td>{{b.production.project.need.title}}</td>
             <td>{{(b.production.user.firstname +" "+b.production.user.lastname) | titlecase }}</td>
             <td>{{"CMD-" + (b.production.commande.id+"").padStart(5,'0')}}</td>
             <td>{{b.start}}</td>
             <td>{{b.totalDays + ' jrs'}}</td>
             <td>{{b.ca | currency: 'EUR'}}</td>
             <td>{{b.production.caht | currency: 'EUR'}}</td>
-            <td><a class="btn btn-primary" (click)="generate(b)"><i class="fa fa-cog"></i></a></td>
+            <td><a class="btn btn-primary" (click)="generate(b)" *ngIf="b.found == false"><i class="fa fa-cog"></i></a>
+              <span (click)="generate(b)" *ngIf="b.found == true"><i class="fas fa-check"></i></span>
+            </td>
           </tr>
         </tbody>
       </table>

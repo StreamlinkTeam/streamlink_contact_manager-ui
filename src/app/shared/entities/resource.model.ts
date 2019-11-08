@@ -1,4 +1,4 @@
-import {User} from './user.model';
+import { User } from './user.model';
 
 
 export class Resource {
@@ -17,6 +17,8 @@ export class Resource {
   mobility: string;
   createdDate: Date;
   modifiedDate: Date;
+  email: string;
+  absence: number;
 }
 
 export class ResourceView {
