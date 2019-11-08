@@ -69,8 +69,10 @@ export class PositioningAddComponent implements OnInit {
     ];
 
     this.resourceService.getResources().subscribe(res => {
-      let ress;
-      ress.map((i) => {
+      let ress: any;
+      ress = res as [];
+      console.log(ress)
+      ress.map(i => {
         i.fullName = i.firstname + ' ' + i.lastname;
         return i;
       });

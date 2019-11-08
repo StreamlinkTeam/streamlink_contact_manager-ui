@@ -20,6 +20,7 @@ export class CommandeComponent implements OnInit {
   types = ['Régie', 'Forfait', 'Recrutement', 'Produit', 'Projet'];
   etats = ['En cours', 'Archivé'];
   commande: Commande = new Commande();
+  projectPos;
 
   constructor(private commandeService: CommandeService,
     private sharingService: SharingService,
@@ -28,6 +29,7 @@ export class CommandeComponent implements OnInit {
   ngOnInit() {
     this.sharingService.currentMessage.subscribe(msg => {
       const obj = JSON.parse(msg);
+      this.projectPos = obj;
       console.log(obj);
       this.project = obj;
       this.commande.refClient = obj.client;
@@ -40,6 +42,9 @@ export class CommandeComponent implements OnInit {
         });
       });
     });
+  }
+  calculateCA() {
+    this.commande.montantht = this.commande.duree * this.projectPos.tjm;
   }
 
   save() {
