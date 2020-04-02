@@ -109,9 +109,9 @@
                 </div>
               </form>
             </div>
-            <div class="col" >
+            <div *ngIf="reference" class="col" >
               <div style="margin-left: 100px;">
-                <app-user-avatar></app-user-avatar>
+                <app-user-avatar [reference]="reference"></app-user-avatar>
 
               </div>
 

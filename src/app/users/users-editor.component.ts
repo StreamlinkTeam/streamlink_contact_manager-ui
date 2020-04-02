@@ -34,7 +34,7 @@ export class UserEditorComponent {
         .subscribe(response => this.user = response
           , error =>
             this.router.navigate(['/admin/users', 'error']));
-    } else if (activeRoute.snapshot.parent.url[0].toString() == 'profil') {
+    } else if (activeRoute.snapshot.parent.url[0].toString() === 'profil') {
 
       this.service.getCurrentUser().subscribe(response => {
           this.user = response;
