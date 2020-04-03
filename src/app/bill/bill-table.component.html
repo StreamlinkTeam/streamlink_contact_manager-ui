@@ -13,7 +13,8 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let b of bills">
+
+    <tr *ngFor="let b of bills">
         <td>{{'PRJ-'+(b.projectPos.id+"").padStart(5,'0')}}</td>
         <td>{{b.client}}</td>
         <td>{{b.resource.firstname+" "+b.resource.lastname}}</td>
@@ -28,4 +29,7 @@
       </tr>
     </tbody>
   </table>
+  <div class="flex-center">
+    <app-loading-spinner *ngIf="showSpinner"></app-loading-spinner>
+  </div>
 </div>

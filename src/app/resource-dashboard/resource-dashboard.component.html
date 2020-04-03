@@ -15,8 +15,8 @@
                 <tr *ngFor="let el of positioning">
                   <td>{{el.needTitle}}</td>
                   <td>{{el.client}}</td>
-                  <td>{{el.startDate}}</td>
-                  <td>{{el.endDate}}</td>
+                  <td>{{el.startDate | date: 'dd-MM-yyyy' : 'UTC-1'}}</td>
+                  <td>{{el.endDate | date: 'dd-MM-yyyy' : 'UTC-1'}}</td>
                 </tr>
               </tbody>
             </table>

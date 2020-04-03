@@ -1,77 +1,163 @@
 <div class="container-fluid">
-  <button (click)="generatePDF()" mat-raised-button color="primary" type="button" style="margin: 5px">
-    generer PDF
-  </button>
+  <form #form="ngForm" (ngSubmit)="save(form)" novalidate>
 
-  <button (click)="sendMail()" mat-raised-button color="primary" type="button" style="margin: 5px">
-    Envoyer Email
-  </button>
+    <button (click)="generatePDF()" mat-raised-button color="primary" type="button" style="margin: 5px">
+      generer PDF
+    </button>
 
-  <div id="divId" style="font-size: larger">
-    <div style="margin-left: 90%">Le {{ bill.createdDate | date:'dd/MM/yyyy' }}</div>
-    <div style="margin-left: 50%; margin-top: 10%"><b>Société: {{ bill.client }}</b></div>
+    <button (click)="sendMail()" mat-raised-button color="primary" type="button" style="margin: 5px">
+      Envoyer Email
+    </button>
+
+    <button type="submit" mat-raised-button style="margin: 5px; float: right; background-color: #00ca6d; color: white">
+      <mat-icon>save</mat-icon>
+      Enregistrer
+    </button>
+
+    <div class="book">
+      <div class="page" style="font-size: larger">
+
+        <div id="divId" class="container">
+          <div style="margin-left: 84%; font-size: small">Le {{ bill.createdDate | date:'dd/MM/yyyy' }}</div>
+          <div style="margin-left: 40%; margin-top: 10%"><b>Société: {{ bill.client }}</b></div>
+          <hr>
+          <div style="position: center">
+            <table>
+              <tr>
+                <td >
+                  <mat-form-field>
+                    <mat-select [(ngModel)]="bill.billStage" name="resourceStage"
+                                placeholder="Etat de facture">
+                      <mat-option *ngFor="let stage of billStages" [value]="stage.value">
+                        {{stage.label}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </td>
+                <td></td>
 
 
-    <div>
-      <table>
-        <tr>
-          <td><b>Projet</b>:</td>
-          <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{bill.projectPos.need.title}}</td>
-        </tr>
-        <tr>
-          <td><b>Facture</b>:</td>
-          <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{bill.id}}</td>
-        </tr>
-        <tr>
-          <td><b>Période:</b></td>
-          <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{bill.createdDate | date:'dd/MM/yyyy' }} à
-            {{bill.createdDate | date:'dd/MM/yyyy' }}</td>
-        </tr>
-        <tr>
-          <td><b>Device:</b></td>
-          <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{bill.commande.project.currency}}</td>
-        </tr>
-      </table>
-    </div>
-    <div style="margin-top: 2%">
-      <table style="width: 100%" class="table-striped">
-        <tr>
-          <td>Tarif HT</td>
-          <td>Q</td>
-          <td>TVA</td>
-          <td>Montant HT</td>
-          <td>Montant TTC</td>
-        </tr>
-        <tr>
-          <td>{{bill.unitPrice / bill.quantity}}</td>
-          <td>{{bill.quantity}}</td>
-          <td>{{bill.tva}}%</td>
-          <td>{{bill.unitPrice}}</td>
-          <td>{{bill.unitPrice + (bill.unitPrice*bill.tva / 100)}}</td>
-        </tr>
-      </table>
-    </div>
-    <div style="margin-top: 5%">
-      <span>Règlement attendu le : {{bill.receiptDate}}</span><br />
-      <span>Conditions de règlement : 30 jours net</span><br />
-      <span>Mode de règlement : {{bill.paymentType}}</span>
-    </div>
-    <div style="margin-top: 5%">
-      <span><b>Coordonnées bancaires</b></span><br />
-      <span>Compte: A renseigner !</span>
-    </div>
+                <td>
+                  <mat-form-field>
+                    <mat-select [(ngModel)]="bill.paymentType" placeholder="Mode de règlement" name="paymentType">
+                      <mat-option *ngFor="let paymentType of paymentTypes" [value]="paymentType.value">
+                        {{paymentType.label}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </td>
+              </tr>
+              <tr>
 
-    <div style="margin-bottom: auto">
-      <span>
+                <td>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <mat-form-field>
+                    <mat-select placeholder="Device" [(ngModel)]="bill.currency" name="currency">
+                      <mat-option *ngFor="let currency of currency" [value]="currency.value">
+                        {{currency.label}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </td>
+                <td></td>
+
+
+
+                <td>
+                  <mat-form-field>
+                    <input [(ngModel)]="bill.tva" matInput
+                           name="tva"
+                           placeholder="TVA"
+                           type="text">
+                  </mat-form-field>
+                </td>
+                <td>%</td>
+              </tr>
+            </table>
+          </div>
+
+          <div>
+            <table>
+              <tr>
+                <td><b>Projet</b>:</td>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{bill.projectPos.need.title}}</td>
+              </tr>
+              <tr>
+                <td><b>Facture</b>:</td>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{bill.id}}</td>
+              </tr>
+              <tr>
+                <td><b>Période:</b></td>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{bill.createdDate | date:'dd/MM/yyyy' }} à
+                  {{bill.createdDate | date:'dd/MM/yyyy' }}</td>
+              </tr>
+              <tr>
+                <td><b>Device:</b></td>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{bill.currency}}</td>
+              </tr>
+            </table>
+          </div>
+          <div style="margin-top: 2%">
+            <table style="width: 100%" class="table-striped">
+              <tr>
+                <td>Description</td>
+                <td>Tarif HT</td>
+                <td>Q</td>
+                <td>TVA</td>
+                <td>Montant HT</td>
+                <td>Montant TTC</td>
+              </tr>
+              <tr>
+                <td><input style="border: none transparent; outline: none" type="text" name="note" id="note"
+                           [(ngModel)]="bill.note"></td>
+                <td>{{bill.unitPrice / bill.quantity}}</td>
+                <td>{{bill.quantity}}</td>
+                <td>{{bill.tva}}%</td>
+                <td>{{bill.unitPrice}}</td>
+                <td>{{bill.unitPrice + (bill.unitPrice * bill.tva / 100)}}</td>
+              </tr>
+            </table>
+          </div>
+          <div style="margin-top: 5%">
+            <table>
+              <tr>
+                <td>Règlement attendu le :</td>
+                <td>{{bill.receiptDate}}</td>
+              </tr>
+              <tr>
+                <td>Conditions de règlement :</td>
+                <td>30 jours net</td>
+              </tr>
+              <tr>
+                <td>Mode de règlement :</td>
+                <td>{{bill.paymentType}}</td>
+              </tr>
+
+            </table>
+          </div>
+          <div style="margin-top: 5%">
+            <span><b>Coordonnées bancaires</b></span><br/>
+            <span>Compte: A renseigner ! {{bill.client}}</span>
+          </div>
+          <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+          <div style="margin-bottom: auto">
+      <span style="font-size: small">
         Escompte pour règlement anticipé : 0%
         En cas de retard de paiement, seront exigibles, conformément à l'article L441-6 du code du commerce, une
         indemnité calculée sur la base de 3 fois le taux d'intérêt
         légal en vigueur ainsi qu'une indemnité forfaitaire pour frais de recouvrement de 40 €
       </span>
-      <hr>
-      <center>STREAMLINK</center>
-
+            <hr>
+            <small>
+              <center>STREAMLINK</center>
+            </small>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-
+  </form>
 </div>

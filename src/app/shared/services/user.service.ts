@@ -1,13 +1,13 @@
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { environment } from '../../../environments/environment';
-import { Token } from '../entities/token.model';
-import { User } from '../entities/user.model';
-import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs/Observable';
+import {environment} from '../../../environments/environment';
+import {Token} from '../entities/token.model';
+import {User} from '../entities/user.model';
+import {HttpClient, HttpParams, HttpResponse} from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import { LoaderService } from './loader.service';
-import { Photo } from '../entities/photo.model';
+import {LoaderService} from './loader.service';
+import {Photo} from '../entities/photo.model';
 
 
 @Injectable()
@@ -18,8 +18,7 @@ export class UserService {
 
   authenticate(username: string, password: string): Observable<boolean> {
 
-    //this.loaderService.show();
-    const url = environment.API + '/ws/users/login';    //http://localhost:9090
+    const url = environment.API + '/ws/users/login';
 
     const options = {
       params: new HttpParams().set('username', username)
@@ -28,7 +27,7 @@ export class UserService {
     const user = {
       username: username,
       password: password
-    }
+    };
 
     return this.http.post<Token>(url, user)
       .map(token => {
@@ -38,17 +37,14 @@ export class UserService {
   }
 
   getCurrentUser(): Observable<User> {
-    //this.loaderService.show();
     const url = environment.API + '/ws/users/current';
     return this.http.get<User>(url)
       ._finally(() => {
-        //this.loaderService.hide();
       });
   }
 
   changePassword(oldPassword: string, newPassword: string): Observable<any> {
 
-    //this.loaderService.show();
     const url = environment.API + '/ws/users/current/password';
 
     const options = {
@@ -58,7 +54,6 @@ export class UserService {
 
     return this.http.put<any>(url, options)
       ._finally(() => {
-        //this.loaderService.hide();
       });
 
   }
@@ -84,14 +79,12 @@ export class UserService {
 
   getUser(reference: string): Observable<User> {
 
-    //this.loaderService.show();
     const url = environment.API + '/ws/users';
 
-    const options = { params: new HttpParams().set('userReference', reference) };
+    const options = {params: new HttpParams().set('userReference', reference)};
 
     return this.http.get<User>(url, options)
       ._finally(() => {
-        //this.loaderService.hide();
       });
 
   }
@@ -102,31 +95,27 @@ export class UserService {
   }
 
   updateUser(user: User, reference: string): Observable<User> {
-    //this.loaderService.show();
     const url = environment.API + '/ws/users';
 
-    const options = { params: new HttpParams().set('userReference', reference) };
+    const options = {params: new HttpParams().set('userReference', reference)};
 
 
     return this.http
       .put<User>(url, user, options)
       ._finally(() => {
-        //this.loaderService.hide();
       });
   }
 
   deleteUser(reference: string) {
-    //this.loaderService.show();
     const url = environment.API + '/ws/users';
 
-    const options = { params: new HttpParams().set('userReference', reference) };
+    const options = {params: new HttpParams().set('userReference', reference)};
 
 
     return this.http
       .delete(url, options)
       .map((res: HttpResponse<any>) => res.body)
       ._finally(() => {
-        //this.loaderService.hide();
       });
   }
 
@@ -136,7 +125,7 @@ export class UserService {
     this.loaderService.show();
     const url = environment.API + '/ws/users/avatar';
 
-    const options = { params: new HttpParams().set('userReference', userReference) };
+    const options = {params: new HttpParams().set('userReference', userReference)};
 
 
     return this
@@ -202,7 +191,7 @@ export class UserService {
     const formData: FormData = new FormData();
     formData.append('avatar', fileToUpload, fileToUpload.name);
 
-    const options = { params: new HttpParams().set('userReference', userReference) };
+    const options = {params: new HttpParams().set('userReference', userReference)};
 
 
     return this.http
@@ -216,7 +205,7 @@ export class UserService {
     this.loaderService.show();
     const url = environment.API + '/ws/users/avatar';
 
-    const options = { params: new HttpParams().set('userReference', userReference).set('reference', reference) };
+    const options = {params: new HttpParams().set('userReference', userReference).set('reference', reference)};
 
 
     return this.http
@@ -231,5 +220,23 @@ export class UserService {
     return this.http.get<any>(url)
       ._finally(() => {
       });
+  }
+
+  changeUserPassword(userReference: string,
+                     oldPassword: string,
+                     newPassword: string): Observable<any> {
+
+    const url = environment.API + '/ws/users/updateUserPassword' + '?userReference=' + userReference + '&oldPassword=' + oldPassword + '&newPassword=' + newPassword;
+
+    const options = {
+      params: new HttpParams().set('userReference', userReference)
+        .set('oldPassword', oldPassword)
+        .set('newPassword', newPassword)
+    };
+
+    return this.http.put<any>(url, options)
+      ._finally(() => {
+      });
+
   }
 }

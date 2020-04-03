@@ -9,6 +9,7 @@ import { Email } from '../shared/entities/mail.model';
 import { SocietyContactService } from '../shared/services/society-contact.service';
 import Swal from 'sweetalert2';
 import { MailService } from '../shared/services/mail.service';
+import {NgForm} from '@angular/forms';
 
 
 @Component({
@@ -19,12 +20,15 @@ import { MailService } from '../shared/services/mail.service';
 export class BillEditorComponent implements OnInit {
 
   editing = false;
-  bill: any;
+  bill: Bill = new Bill();
   billReference;
   societyReference = '';
   societyContactReference = '';
   email: Email = new Email();
   mail: any;
+  billStages: any[];
+  paymentTypes: any[];
+  currency: any[];
 
 
   constructor(private activeRoute: ActivatedRoute,
@@ -32,6 +36,29 @@ export class BillEditorComponent implements OnInit {
     private router: Router,
     private societyContactService: SocietyContactService,
     private mailService: MailService) {
+    this.billStages = [
+      {label: 'Creation', value: 'CREATION'},
+      {label: 'Transmis au client', value: 'TRANSMITTED_TO_CUSTOMER'},
+      {label: 'Relance 1', value: 'REVIVAL1'},
+      {label: 'Relance 2', value: 'REVIVAL2'},
+      {label: 'Email au client', value: 'EMAIL_TO_CUSTOMER'},
+      {label: 'Impayée', value: 'UNPAID'},
+      {label: 'Payée', value: 'PAID'}
+    ];
+
+    this.paymentTypes = [
+      {label: 'Non Défini', value: 'NOT_DEFINED'},
+      {label: 'Virement', value: 'TRANSFER'},
+      {label: 'Prélèvement', value: 'SAMPLE'},
+      {label: 'Chèque', value: 'CHECK'},
+      {label: 'CB', value: 'CB'}
+    ];
+
+    this.currency = [
+      {label: 'Euro', value: 'EUR'},
+      {label: 'United States Dollars', value: 'USD'},
+      {label: 'United Kingdom Pound', value: 'GPB'}
+    ];
   }
 
   ngOnInit() {
@@ -41,7 +68,7 @@ export class BillEditorComponent implements OnInit {
       this.billService.getBillById(this.billReference)
         .subscribe(response => {
           this.bill = response;
-          console.log(this.bill);
+          console.log(this.bill );
         });
     });
   }
@@ -104,6 +131,26 @@ export class BillEditorComponent implements OnInit {
       Swal.fire('Facture envoyée avec succés', 'Opération Réussite!', 'success');
     });
     */
+  }
+  save(form: NgForm) {
+
+    if (form.valid) {
+      this.billService.updateBill(this.bill, this.billReference)
+        .subscribe(
+          response => {
+
+            this.bill = response;
+            Swal.fire(
+              'Mise à jour!',
+              'Données Mise à jour avec succés',
+              'success'
+            );
+
+          }, error => {
+            alert('Erreur lors de la mise à jour des donnés');
+          }
+        );
+    }
   }
 
 }

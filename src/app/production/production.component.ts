@@ -35,7 +35,7 @@ export class ProductionComponent implements OnInit {
       billDate: new Date(),
       currenvy: 'EUR',
       discountRate: 0,
-      tva: 18,
+      tva: 20,
       resource: prod.user,
       projectPos: prod.project,
       commande: prod.commande,

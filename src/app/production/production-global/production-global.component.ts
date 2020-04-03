@@ -19,8 +19,9 @@ export class ProductionGlobalComponent implements OnInit {
   allOriginalPrjects = [];
   allResources = [];
   allCommandes = [];
-  allClient = [];
+  allClients = [];
   filterargs = {};
+  showSpinner = true;
   heads = ['Projet', 'Client', 'Ressource', 'Commande', 'Prod', 'CA de Production', 'Production', 'Action'];
 
   constructor(private productionService: ProductionService,
@@ -37,6 +38,7 @@ export class ProductionGlobalComponent implements OnInit {
     this.productionService.getAll().subscribe(res => {
       this.production = res as [];
       this.production.map(e => e.ca = e.prod * e.project.tjm);
+      this.showSpinner = false;
     });
 
     this.positioningService.getPositionings().subscribe(res => {

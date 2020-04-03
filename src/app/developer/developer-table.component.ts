@@ -19,7 +19,7 @@ export class DeveloperTableComponent implements OnInit {
   source: ServerDataSource;
 
   url: string;
-
+  showSpinner = true;
 
   settings = {
     attr: {
@@ -111,7 +111,6 @@ export class DeveloperTableComponent implements OnInit {
       sortDirKey: 'dir',
       pagerPageKey: 'page'
     });
-
 
     this.stages = [
       {label: 'Tous', value: ''},

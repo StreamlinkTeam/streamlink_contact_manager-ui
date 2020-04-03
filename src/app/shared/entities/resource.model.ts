@@ -19,6 +19,7 @@ export class Resource {
   modifiedDate: Date;
   email: string;
   absence: number;
+  tjm: any;
 }
 
 export class ResourceView {
@@ -59,5 +60,6 @@ export class ResourceView {
   city: string;
   country: string;
   website: string;
+  tjm: any;
 }
 

@@ -1,18 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Positioning } from '../shared/entities/positioning.model';
-import { PositioningService } from '../shared/services/positioning.service';
-import { NgForm } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
-import { ProjectService } from '../shared/services/project.service';
-import { ResourceService } from '../shared/services/resource.service';
-import { UserService } from '../shared/services/user.service';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Positioning} from '../shared/entities/positioning.model';
+import {PositioningService} from '../shared/services/positioning.service';
+import {NgForm} from '@angular/forms';
+import {ToastrService} from 'ngx-toastr';
+import {ProjectService} from '../shared/services/project.service';
+import {ResourceService} from '../shared/services/resource.service';
+import {UserService} from '../shared/services/user.service';
 import Swal from 'sweetalert2';
-import { NeedService } from '../shared/services/need.service';
-import { SocietyService } from '../shared/services/society.service';
+import {NeedService} from '../shared/services/need.service';
+import {SocietyService} from '../shared/services/society.service';
 import * as jsPDF from 'jspdf';
 import 'jspdf-autotable';
-import { Need } from '../shared/entities/need.model';
+import {Need} from '../shared/entities/need.model';
+import {DeveloperService} from '../shared/services/developer.service';
 
 @Component({
   selector: 'app-positioning-edit',
@@ -37,16 +38,18 @@ export class PositioningEditComponent implements OnInit {
   periodMargin: any;
   periodProfitability: any;
   isProject = false;
+  tjm: any;
 
   constructor(private router: Router,
-    private route: ActivatedRoute,
-    private service: PositioningService,
-    private resourceService: ResourceService,
-    private projectService: ProjectService,
-    private needService: NeedService,
-    private userService: UserService,
-    private societyService: SocietyService,
-    private toastr: ToastrService
+              private route: ActivatedRoute,
+              private service: PositioningService,
+              private resourceService: ResourceService,
+              private projectService: ProjectService,
+              private needService: NeedService,
+              private userService: UserService,
+              private societyService: SocietyService,
+              private toastr: ToastrService,
+              private developerService: DeveloperService
   ) {
   }
 
@@ -59,10 +62,10 @@ export class PositioningEditComponent implements OnInit {
 
     this.stages = [
       // {label: 'Tous', value: ''},
-      { label: 'Positionné', value: 'Positioned' },
-      { label: 'Envoye CV', value: 'SendingCV' },
-      { label: 'Présenter au client', value: 'PresentedToClient' },
-      { label: 'Rejeter', value: 'Rejected' },
+      {label: 'Positionné', value: 'Positioned'},
+      {label: 'Envoye CV', value: 'SendingCV'},
+      {label: 'Présenter au client', value: 'PresentedToClient'},
+      {label: 'Rejeter', value: 'Rejected'},
       // {label: 'Gagné', value: 'Won'},
     ];
 
@@ -70,6 +73,7 @@ export class PositioningEditComponent implements OnInit {
     // console.log(this.route);
 
     this.service.getPositioning(ref).subscribe(res => {
+      console.log('::::', res.resourceReference);
       this.positioning = res;
       this.positioning.projectReference = res.projectReference;
       this.periodCA = this.positioning.tjm * this.positioning.invoicedDays;
@@ -77,14 +81,21 @@ export class PositioningEditComponent implements OnInit {
       this.periodMargin = this.periodCA - this.periodCost;
       this.periodProfitability = (this.periodMargin / (this.periodCA * 100)) * 10000;
 
+      this.developerService.getDeveloperInfo(res.resourceReference).subscribe( resp => {
+        console.log(resp);
+        this.tjm = resp.tjm;
+      });
+      // this.resourceService.getResource(res.resourceReference).subscribe(resp => {
+      //   console.log(resp);
+      // });
       // getPeriodMargin().divide(getPeriodCA()).multiply(BigDecimal.valueOf(100));
 
       //  console.log(this.positioning.projectReference);
 
     });
+
     this.needService.getNeeds().subscribe(res => {
       this.needs = res;
-
     });
 
     this.societyService.getSocieties().subscribe(res => {
@@ -98,14 +109,16 @@ export class PositioningEditComponent implements OnInit {
       ress.map((i) => {
         i.fullName = i.firstname + ' ' + i.lastname;
         return i;
+
       });
       this.resources = ress;
     });
 
+
   }
 
   updatePostioning(form: NgForm) {
-    console.log('POS :: ', this.positioning)
+    console.log('POS :: ', this.positioning);
     this.service.updatePositioning(this.positioning, this.positioning.reference).subscribe(res => {
       this.positioning = res;
       Swal.fire('Données Mise à jour avec succés', 'Opération Réussite!', 'success');
@@ -142,7 +155,7 @@ export class PositioningEditComponent implements OnInit {
             .subscribe(
               response => {
                 this.isProject = true;
-                this.stages.push({ label: 'Gagné', value: 'Won' })
+                this.stages.push({label: 'Gagné', value: 'Won'});
                 this.positioning.stage = this.stages[5];
                 this.router.navigate(['/projects/edit', response.reference]);
                 this.toastr.success('Projet crée avec succés', 'Opération Réussite!');
@@ -179,17 +192,17 @@ export class PositioningEditComponent implements OnInit {
       head: [['Besoin', 'Ressource', 'Ste', 'Début', 'Fin', 'Etat', 'Jrs Fact', 'Jrs Grat', 'CA', 'Coût', 'Marge', 'Rentabilité %']],
       body: [
         [this.positioning.needTitle,
-        this.positioning.resourceFullName,
-        this.positioning.client,
-        this.positioning.startDate,
-        this.positioning.endDate,
-        this.positioning.stage,
-        this.positioning.invoicedDays,
-        this.positioning.freeDays,
-        this.positioning.periodCA,
-        this.positioning.periodCost,
-        this.positioning.periodMargin,
-        this.positioning.periodProfitability + ' %'
+          this.positioning.resourceFullName,
+          this.positioning.client,
+          this.positioning.startDate,
+          this.positioning.endDate,
+          this.positioning.stage,
+          this.positioning.invoicedDays,
+          this.positioning.freeDays,
+          this.positioning.periodCA,
+          this.positioning.periodCost,
+          this.positioning.periodMargin,
+          this.positioning.periodProfitability + ' %'
         ],
       ]
     });

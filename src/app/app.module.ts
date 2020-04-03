@@ -33,10 +33,10 @@ import { SweetAlert2Module } from '@toverux/ngx-sweetalert2';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule, MatPaginatorModule, MatTableModule, MatTabsModule } from '@angular/material';
+import {MAT_DATE_LOCALE, MatButtonModule, MatPaginatorModule, MatTableModule, MatTabsModule} from '@angular/material';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MatMomentDateModule} from '@angular/material-moment-adapter';
 import { MatSelectModule } from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
@@ -48,7 +48,6 @@ import { InputTextModule } from 'primeng/inputtext';
 import { FooterComponent } from './footer/footer.component';
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { FakeDbService } from './fake-db/fake-db.service';
-// import {CalendarModule} from 'angular-calendar';
 import { ResourceNavbarModule } from './resource-navbar/resource-navbar.module';
 import { ResourceDashboardComponent } from './resource-dashboard/resource-dashboard.component';
 import { CalendarModule } from './calendar/calendar.module';
@@ -79,6 +78,9 @@ import { ProductionGlobalComponent } from './production/production-global/produc
 import { TimelineComponent } from './timeline/timeline.component';
 import { ReducePipe } from './shared/pipes/reducePipe';
 import { CommandeTableComponent } from './commande-table/commande-table.component';
+import {HolidayComponent} from './holiday/holiday.component';
+import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
+import { AbsenceManageComponent } from './absence-manage/absence-manage.component';
 
 
 registerLocaleData(localeFr, 'fr');
@@ -86,6 +88,7 @@ registerLocaleData(localeFr, 'fr');
 
 @NgModule({
   declarations: [
+    HolidayComponent,
     AppComponent,
     PositioningAddComponent,
     PositioningEditComponent,
@@ -107,7 +110,9 @@ registerLocaleData(localeFr, 'fr');
     ProductionGlobalComponent,
     TimelineComponent,
     ReducePipe,
-    CommandeTableComponent
+    CommandeTableComponent,
+    LoadingSpinnerComponent,
+    AbsenceManageComponent
   ],
   imports: [
     MDBBootstrapModule,
@@ -168,11 +173,14 @@ registerLocaleData(localeFr, 'fr');
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true
-    }, { provide: LOCALE_ID, useValue: 'fr' }
+    }, { provide: LOCALE_ID, useValue: 'fr' },
+       { provide:  MAT_DATE_LOCALE, useValue: 'fr_FR' },
+    {provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: {useUtc: true}}
   ],
   bootstrap: [AppComponent],
   exports: [
     ResourceDashboardComponent,
+    LoadingSpinnerComponent,
   ],
   entryComponents: [
     PositioningAddComponent,

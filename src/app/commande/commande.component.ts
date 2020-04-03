@@ -1,11 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Commande } from '../shared/entities/commande.model';
 import { CommandeService } from '../shared/services/commande.service';
-import { Router, ActivatedRoute } from '@angular/router';
-import { NeedService } from '../shared/services/need.service';
-import { ProjectService } from '../shared/services/project.service';
 import { SharingService } from '../shared/services/sharing.service';
-import { PositioningService } from '../shared/services/positioning.service';
 import { UserService } from '../shared/services/user.service';
 import Swal from 'sweetalert2';
 @Component({
@@ -58,7 +54,7 @@ export class CommandeComponent implements OnInit {
         'Commande crée avec succès !',
         '',
         'success'
-      )
+      );
     });
   }
 

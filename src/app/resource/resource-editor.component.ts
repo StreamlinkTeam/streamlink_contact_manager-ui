@@ -79,13 +79,12 @@ export class ResourceEditorComponent {
             let user = new User();
             user.firstname = this.resource.firstname;
             user.lastname = this.resource.lastname;
-            user.password = 'streamlink';
+            user.password = '0000';
             user.email = this.resource.email;
             user.status = 'd';
             user.roles = ['ROLE_RESOURCE'];
             this.userService.createUser(user).subscribe(res => console.log('USER :: ', res));
             this.toastr.success('Resource Créé avec succés', 'Opération Réussite!');
-            //this.router.navigate(['/resources/edit', response.reference]);
 
           }, error => {
             this.toastr.error('Erreur lors de la création du candidats', 'Opération échoué !!!');

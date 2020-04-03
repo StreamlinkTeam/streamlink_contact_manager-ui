@@ -17,8 +17,8 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let absence of absences">
-            <td>{{absence.dateAbsence | date:'dd-MM-yyyy' }}</td>
+          <tr *ngFor="let absence of absences" >
+            <td>{{absence.dateAbsence | date: 'dd-MM-yyyy' : 'UTC-1' }}</td>
             <td>{{absence.absenceList.resource.firstname + ' ' + absence.absenceList.resource.lastname}}</td>
             <td>{{absence.absenceList.subject}}</td>
             <td>{{absence.description}}</td>

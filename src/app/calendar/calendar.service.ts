@@ -4,7 +4,9 @@ import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/r
 import { Observable, Subject } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
-const url = 'http://localhost:9090/ws/time_line';
+  const url = 'http://localhost:9090/ws/time_line';
+ // const url = 'http://streamlinkcrm.northeurope.azurecontainer.io:9091/ws/time_line';
+
 @Injectable()
 export class CalendarService implements Resolve<any> {
   events: any;

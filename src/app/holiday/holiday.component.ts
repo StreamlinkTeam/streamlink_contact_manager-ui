@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-holiday',
@@ -125,7 +125,8 @@ export class HolidayComponent {
   { "date": "2020-12-25", "nom_jour_ferie": "Noël" }];
 
 
-  constructor() { }
+  constructor() {
+  }
 
   isEqual(date1: Date, date) {
     const date2 = new Date(date);

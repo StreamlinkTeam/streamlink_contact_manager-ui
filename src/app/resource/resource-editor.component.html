@@ -1,49 +1,47 @@
-<!--<div class="container tab-pane fade show active" role="tabpanel">-->
-<div [ngClass]="{'container-fluid': editing,
-                 'container': !editing}">
-  <div class="row row-eq-height">
-    <div *ngIf="editing" class="col-lg-6">
-      <app-action></app-action>
-    </div>
-    <div class="col-lg-6">
-      <mdb-card>
 
-        <div class="row">
-          <div class="col">
-            <mdb-card>
-              <mdb-card-header>Informations<label class="float-right" *ngIf="editing"> Crée le
-                  {{ resource.createdDate | date }}
-                  à {{ resource.createdDate | date:'hh:mm' }}</label></mdb-card-header>
-            </mdb-card>
-          </div>
-        </div>
-        <mdb-card-body>
+<div class="container-fluid tab-pane fade show active" role="tabpanel">
+  <div [ngClass]="{'container-fluid': editing,
+                 'container': !editing}">
+    <div class="row row-eq-height">
+
+      <div [ngClass]="{'col-lg-6': editing,'col-lg-12': !editing}">
+        <mdb-card>
 
           <div class="row">
             <div class="col">
-              <form #form="ngForm" (ngSubmit)="save(form)" novalidate>
+              <mdb-card>
+                <mdb-card-header>Informations<label class="float-right" *ngIf="editing"> Crée le
+                  {{ resource.createdDate | date }}
+                  à {{ resource.createdDate | date:'hh:mm' }}</label></mdb-card-header>
+              </mdb-card>
+            </div>
+          </div>
+          <mdb-card-body>
 
-                <table class="table table-striped">
-                  <thead></thead>
-                  <tbody>
+            <div class="row">
+              <div class="col">
+                <form #form="ngForm" (ngSubmit)="save(form)" novalidate>
+
+                  <table class="table table-striped">
+                    <thead></thead>
+                    <tbody>
                     <tr>
                       <th scope="row"><b>Nom</b><label *ngIf="!editing">*</label></th>
                       <td><input #firstname_input="ngModel" [(ngModel)]="resource.firstname" class="form-control"
-                          name="firstname" required />
+                                 name="firstname" required/>
                         <app-field-error-display [displayError]="form.submitted && firstname_input.invalid"
-                          [model]="firstname_input" fieldName="Nom">
+                                                 [model]="firstname_input" fieldName="Nom">
                         </app-field-error-display>
                       </td>
                     </tr>
 
 
-
                     <tr>
                       <th scope="row"><b>Prénom</b><label *ngIf="!editing">*</label></th>
                       <td><input #lastname_input="ngModel" [(ngModel)]="resource.lastname" class="form-control"
-                          name="lastname" required />
+                                 name="lastname" required/>
                         <app-field-error-display [displayError]="form.submitted && lastname_input.invalid"
-                          [model]="lastname_input" fieldName="Prénom">
+                                                 [model]="lastname_input" fieldName="Prénom">
                         </app-field-error-display>
                       </td>
                     </tr>
@@ -51,7 +49,7 @@
                     <tr>
                       <th scope="row"><b>Email</b><label *ngIf="!editing">*</label></th>
                       <td><input #firstname_input="ngModel" [(ngModel)]="resource.email" class="form-control"
-                          name="email" required />
+                                 name="email" required/>
 
                       </td>
                     </tr>
@@ -60,15 +58,7 @@
                       <th scope="row"><b>Sexe</b></th>
                       <td>
                         <input [(ngModel)]="resource.gender" name="gender" type="radio" value="M"> Mr <input
-                          [(ngModel)]="resource.gender" name="gender" type="radio" value="F">Mme
-                      </td>
-                    </tr>
-
-
-                    <tr>
-                      <th scope="row"><b>Absence</b></th>
-                      <td>
-                        <input [(ngModel)]="resource.absence" type="text" class="form-control" name="absence" />
+                        [(ngModel)]="resource.gender" name="gender" type="radio" value="F">Mme
                       </td>
                     </tr>
 
@@ -127,7 +117,7 @@
                       <th scope="row"><b>Disponibiltité</b></th>
                       <td>
                         <input [(ngModel)]="resource.availability" class="form-control" name="availability"
-                          type="date" />
+                               type="date"/>
                       </td>
                     </tr>
 
@@ -136,7 +126,7 @@
                       <td>
 
                         <ng-select #mobility="ngModel" [(ngModel)]="resource.mobility" [hideSelected]="true"
-                          [multiple]="true" bindValue="label" id="mobility" name="mobility">
+                                   [multiple]="true" bindValue="label" id="mobility" name="mobility">
 
 
                           <ng-option value="monde">Monde</ng-option>
@@ -381,32 +371,44 @@
                       </td>
                     </tr>
 
-                  </tbody>
-                </table>
+                    </tbody>
+                  </table>
 
-                <!--                </div>-->
+                  <!--                </div>-->
 
-                <div class="form-group">
+                  <div class="form-group">
 
-                  <button type="submit" [disabled]="form.form.invalid" color="primary" mat-raised-button
-                    style="margin-right: 5px">Enregistrer
-                  </button>
+                    <button type="submit" [disabled]="form.form.invalid" color="primary" mat-raised-button
+                            style="margin-right: 5px">Enregistrer
+                    </button>
 
-                  <button type="reset" routerLink="/resources" color="warn" mat-raised-button>Annuler
-                  </button>
+                    <button type="reset" routerLink="/resources" color="warn" mat-raised-button>Annuler
+                    </button>
 
-                </div>
-              </form>
+                  </div>
+                </form>
+              </div>
             </div>
-          </div>
+          </mdb-card-body>
+        </mdb-card>
+      </div>
+      <div *ngIf="editing" class="col-lg-6">
+        <app-action></app-action>
+      </div>
+    </div>
+    <div class="row">
+      <div *ngIf="editing" class="col-lg-6">
+        <app-personal-info></app-personal-info>
+      </div>
+      <div *ngIf="editing" class="col-lg-6">
+
+      <mdb-card>
+        <mdb-card-header>CV</mdb-card-header>
+        <mdb-card-body>
+          <app-developer-cv></app-developer-cv>
         </mdb-card-body>
       </mdb-card>
+      </div>
     </div>
-  </div>
-  <div class="row">
-    <div *ngIf="editing" class="col-lg-12">
-      <app-personal-info></app-personal-info>
-    </div>
-
   </div>
 </div>

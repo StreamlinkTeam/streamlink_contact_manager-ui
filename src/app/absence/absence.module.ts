@@ -44,7 +44,7 @@ import { AbsenceDetailComponent } from './absence-detail/absence-detail.componen
     ContactModule, NgbDatepickerModule, TableModule, NgbButtonsModule, ButtonModule, MatTabsModule, MatFormFieldModule, MatSelectModule],
   declarations: [
     AbsenceComponent, AbsenceDemandeComponent, MultiDatePickerComponent, ListAbsencesComponent, AbsenceCountComponent, AbsenceDetailComponent ],
-  exports: [AbsenceComponent, AbsenceDemandeComponent, MultiDatePickerComponent, ListAbsencesComponent ]
+  exports: [AbsenceComponent, AbsenceDemandeComponent, MultiDatePickerComponent, ListAbsencesComponent, AbsenceCountComponent]
 })
 export class AbsenceModule {
 }

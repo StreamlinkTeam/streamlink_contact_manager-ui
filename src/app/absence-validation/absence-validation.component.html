@@ -16,7 +16,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let absence of absences">
+          <tr *ngFor="let absence of absences" [className]="absence.subject == 'Timesheet' ? 'hidden' : '' ">
             <td>{{absence.absenceListDate | date:'dd-MM-yyyy' }}</td>
             <td>{{absence.resource.firstname + ' ' + absence.resource.lastname}}</td>
             <td>{{absence.subject}}</td>

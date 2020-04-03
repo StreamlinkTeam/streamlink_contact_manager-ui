@@ -1,11 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { CommandeService } from '../../shared/services/commande.service';
-import { ProductionService } from '../../shared/services/production.service';
-import { CalendarService } from '../../calendar/calendar.service';
-import { DeveloperService } from '../../shared/services/developer.service';
-import { UserService } from '../../shared/services/user.service';
-import { BillService } from '../../shared/services/bill.service';
-import { Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {ProductionService} from '../../shared/services/production.service';
+import {CalendarService} from '../../calendar/calendar.service';
+import {DeveloperService} from '../../shared/services/developer.service';
+import {BillService} from '../../shared/services/bill.service';
+import {Router} from '@angular/router';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -14,17 +12,21 @@ import Swal from 'sweetalert2';
   styleUrls: ['./production-monthly.component.css']
 })
 export class ProductionMonthlyComponent implements OnInit {
-  mon = { isActive: true };
-  gle = { isActive: false };
+  mon = {isActive: true};
+  gle = {isActive: false};
   heads = ['Projet', 'Client', 'Ressource', 'Commande', 'Date', 'Prod', 'CA de Production', 'Production', 'Action'];
   today = new Date();
-  groupedMonths = {};
+  groupedMonths: object = {};
+
   constructor(private productionService: ProductionService,
-    private timeLineService: CalendarService,
-    private developerService: DeveloperService,
-    private factureService: BillService,
-    private router: Router) { }
-  production = [];
+              private timeLineService: CalendarService,
+              private developerService: DeveloperService,
+              private factureService: BillService,
+              private router: Router) {
+  }
+
+  showSpinner = true;
+  production: any = [];
   months = [];
   filterargs = {};
 
@@ -54,13 +56,13 @@ export class ProductionMonthlyComponent implements OnInit {
           const numberOfMonths = this.diffMonths(this.today, date);
 
           for (let j = 0; j < numberOfMonths; j++) {
-            console.log(this.groupedMonths)
-            let n: number = Number(date.getMonth()) + +j + +1;
-            console.log('[' + date.getFullYear() + '][' + n + '][' + this.production[i].user.id + '][' + this.production[i].project.reference + ']')
+            const n: number = Number(date.getMonth()) + +j + +1;
+            console.log('[' + date.getFullYear() + '][' + n + '][' + this.production[i].user.id + '][' + this.production[i].project.reference + ']');
 
-            date.setDate(27);
-            date.setMonth(n);
-            let tot = this.groupedMonths[date.getFullYear()][n + +1][this.production[i].user.id][this.production[i].project.reference];
+            // let tot = 0;
+            // if (this.groupedMonths[date.getFullYear()][n][this.production[i].user.id][this.production[i].project.reference] !== undefined) {
+            let tot = this.groupedMonths[date.getFullYear()][n][this.production[i].user.id][this.production[i].project.reference];
+            //  }
 
             this.months.push({
               found: false,
@@ -71,18 +73,20 @@ export class ProductionMonthlyComponent implements OnInit {
               totalDays: tot,
               ca: tot * this.production[i].project.tjm
             });
-
-            console.log('MONTHS :: ', this.months)
+            date.setDate(27);
+            date.setMonth(n);
+            console.log('MONTHS :: ', this.months);
             this.factureService.getAll().subscribe(fa => {
               const factures = fa as [];
               this.months.map(m => {
-                console.log(m.production)
-                console.log(factures)
+                console.log(m.production);
+                console.log(factures);
                 m.found = this.billexist(factures, m.start, m.production);
               });
             });
           }
         }
+        this.showSpinner = false;
       });
     });
   }
@@ -91,7 +95,6 @@ export class ProductionMonthlyComponent implements OnInit {
     let found = false;
     const dateString = d.slice(d.indexOf('-') + 1) + '-' + d.slice(0, 2) + '-01';
     const date = new Date(dateString);
-    //console.log(dateString)
     for (let i = 0; i < factures.length; i++) {
       const factureDate = new Date(factures[i].billDate);
       if (factureDate.getMonth() == date.getMonth() &&
@@ -109,7 +112,9 @@ export class ProductionMonthlyComponent implements OnInit {
   customDateFormat(dt) {
     let month = dt.getMonth() + 1;
     const customString = `${month}-${dt.getFullYear()}`;
-    if (month < 10) return '0' + customString;
+    if (month < 10) {
+      return '0' + customString;
+    }
     return customString;
   }
 
@@ -131,7 +136,7 @@ export class ProductionMonthlyComponent implements OnInit {
     let dateString = prod.start.substring(prod.start.indexOf('-') + 1) + '-';
     dateString += prod.start.substring(0, prod.start.indexOf('-'));
     dateString += '-27';
-    console.log("DATE STRING :: ", dateString)
+    console.log('DATE STRING :: ', dateString);
     let date = new Date(dateString);
     const bill = {
       billDate: date,
@@ -152,14 +157,14 @@ export class ProductionMonthlyComponent implements OnInit {
         'Facture ' + bill.billDate.getFullYear() + '00' + result.id + ' généré avec succées !',
         '',
         'success'
-      )
+      );
 
       this.router.navigate(['bills']);
     });
   }
 
   detail(commande) {
-    this.router.navigate(['/bills'], { state: { data: { commande: commande.id } } });
+    this.router.navigate(['/bills'], {state: {data: {commande: commande.id}}});
   }
 
 }

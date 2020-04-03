@@ -35,10 +35,17 @@
     </a>
 
     <a #eva="routerLinkActive" [active]="eva.isActive"
+               animationDuration="2000ms"
+               mat-tab-link routerLink="evaluation"
+               routerLinkActive>
+    Evaluations
+  </a>
+
+    <a #abs="routerLinkActive" [active]="abs.isActive"
        animationDuration="2000ms"
-       mat-tab-link routerLink="evaluation"
+       mat-tab-link routerLink="abscount"
        routerLinkActive>
-      Evaluations
+      Décompte d'absence
     </a>
   </nav>
 

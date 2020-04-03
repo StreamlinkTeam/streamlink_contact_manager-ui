@@ -1,0 +1,32 @@
+<body>
+<div class="container">
+  <form #form="ngForm" (ngSubmit)="save(form)" novalidate>
+  <mdb-card>
+    <mdb-card-header> Décompte d'absence </mdb-card-header>
+
+    <mdb-card-body>
+      <table class="table table-bordered table-sm">
+        <tr>
+          <td rowspan="3" style="text-align: center;vertical-align: middle">CP</td>
+          <td colspan="2" style="text-align: center">Acquis <br/><input type="number"
+                                                                        style="width: 40px; border: none;border-color: transparent;"
+                                                                        #acquired="ngModel" name="acquired"
+                                                                        [(ngModel)]="absManage.acquired"></td>
+        </tr>
+        <tr>
+          <td>Consommées <br /> {{ absence.consumed }}</td>
+          <td>Demandées <br /> {{ absence.asked }}</td>
+        </tr>
+        <tr>
+          <td>Solde Réel <br /> {{ absence.reel }}</td>
+          <td>Solde Prévisionnel <br /> {{ absence.prov }}</td>
+        </tr>
+      </table>
+      <button type="submit" color="primary" mat-raised-button
+              style="margin-left: 20px">Enregistrer
+      </button>
+    </mdb-card-body>
+  </mdb-card>
+  </form>
+</div>
+</body>

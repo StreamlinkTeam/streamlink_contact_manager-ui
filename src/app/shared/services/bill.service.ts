@@ -17,10 +17,19 @@ export class BillService {
     return this.http.get<Bill>(url, options);
   }
 
-  getBillById(id) {
+  updateBill(bill: Bill, reference: string): Observable<Bill> {
+    const url = environment.API + '/ws/bills';
+    const options = {params: new HttpParams().set('billReference', reference)};
+    return this.http
+      .put<Bill>(url, bill, options)
+      ._finally(() => {
+      });
+  }
+
+  getBillById(id): Observable<Bill> {
     const url = this.API_URL + '/bill/one';
 
-    return this.http.get(url + '?id=' + id);
+    return this.http.get<Bill>(url + '?id=' + id);
   }
 
   createBill(bill) {

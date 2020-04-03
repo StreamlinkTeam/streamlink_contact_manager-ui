@@ -5,7 +5,7 @@
 
 export const environment = {
   production: false,
-  API: 'http://localhost:9090',
-  // API: 'http://contactmanager.northeurope.azurecontainer.io:9090',
+    API: 'http://localhost:9090',
+   // API: 'http://streamlinkcrm.northeurope.azurecontainer.io:9091',
   TOKEN: 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOlt7ImF1dGhvcml0eSI6IlJPTEVfQURNSU4ifV0sImlhdCI6MTUzMTQxMzE2NCwiZXhwIjoxNTM1MDEzMTY0fQ.2DhsTiaemCMEK7ZwyT7OHIGrPr2mSC8Z7b42BLTeRik'
 };

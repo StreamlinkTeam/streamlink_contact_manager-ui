@@ -15,10 +15,13 @@ import {DeveloperModule} from '../developer/developer.module';
 import {ResourceEditorComponent} from './resource-editor.component';
 
 import {ButtonsModule, CardsFreeModule, WavesModule} from 'angular-bootstrap-md';
-import { ResourceRecordComponent } from './resource-record.component';
+import {ResourceRecordComponent} from './resource-record.component';
 import {ActionModule} from '../action/action.module';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material';
+import {AbsenceModule} from '../absence/absence.module';
+import {ResourceCountAbsenceComponent} from '../resource-count-absence/resource-count-absence.component';
+import {TypeaheadModule} from 'ngx-bootstrap';
 
 
 @NgModule({
@@ -34,9 +37,9 @@ import {MatIconModule} from '@angular/material';
     CommonModule,
     Ng2SmartTableModule,
     MatButtonModule,
-    DeveloperModule, ActionModule, MatIconModule],
-  declarations: [ResourceTableComponent, ResourceEditorComponent, ResourceRecordComponent],
-  exports: [ResourceTableComponent, ResourceEditorComponent]
+    DeveloperModule, ActionModule, MatIconModule, AbsenceModule, TypeaheadModule],
+  declarations: [ResourceTableComponent, ResourceEditorComponent, ResourceRecordComponent, ResourceCountAbsenceComponent],
+  exports: [ResourceTableComponent, ResourceEditorComponent, ResourceCountAbsenceComponent]
 })
 export class ResourceModule {
 }

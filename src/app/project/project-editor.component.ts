@@ -1,7 +1,7 @@
 import { UserService } from '../shared/services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NgForm } from '@angular/forms';
+import {Form, NgForm} from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { ProjectService } from '../shared/services/project.service';
 import { ProjectPos } from '../shared/entities/project-pos.model';
@@ -88,12 +88,12 @@ export class ProjectEditorComponent implements OnInit {
     });
   }
 
-  createProject() {
+  createProject(form: NgForm) {
 
     this.projectPos.createdDate = moment(this.projectPos.createdDate).toDate();
     this.projectPos.presentationDate = moment(this.projectPos.presentationDate).toDate();
     this.projectPos.endDate = moment(this.projectPos.endDate).toDate();
-    this.projectPos.societyName = "Streamlink";
+    this.projectPos.societyName = 'Streamlink';
     this.projectPos.resource.mobility = '';
     console.log(this.projectPos);
 

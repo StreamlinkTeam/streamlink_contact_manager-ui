@@ -1,4 +1,5 @@
 export class Bill {
+  id;
   reference: string;
   title: string;
   managerReference: string;

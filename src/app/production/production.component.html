@@ -2,12 +2,12 @@
 
 <nav mat-tab-nav-bar>
 
-  <a #gle="routerLinkActive" [active]="menu.global" animationDuration="2000ms" mat-tab-link routerLink="/production"
-    routerLinkActive>
+  <a #a="routerLinkActive" [active]="a.isActive" animationDuration="2000ms" mat-tab-link routerLink="/production"
+     routerLinkActive>
     Vue Générale
   </a>
-  <a #coor="routerLinkActive" [active]="!menu.global" animationDuration="2000ms" mat-tab-link
-    routerLink="/production/monthly" routerLinkActive>
+  <a #b="routerLinkActive" [active]="b.isActive" animationDuration="2000ms" mat-tab-link
+     routerLink="/production/monthly" routerLinkActive>
     Vue Mensuelle
   </a>
 

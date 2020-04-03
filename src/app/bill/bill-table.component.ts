@@ -23,6 +23,7 @@ export class BillTableComponent implements OnInit {
   bills = [];
   heads = ['Projet', 'Client', 'Ressource', 'Commande', 'date', 'facture'];
   source: any;
+  showSpinner = true;
 
   url: string;
 
@@ -32,11 +33,12 @@ export class BillTableComponent implements OnInit {
   }
 
   ngOnInit() {
-    //this.url = environment.API + '/ws/bills/search?fromAngular=true';
+    // this.url = environment.API + '/ws/bills/search?fromAngular=true';
 
     console.log(history.state.data)
     this.factureService.getAll().subscribe(res => {
       this.bills = res as [];
+       this.showSpinner = false;
       console.log(this.bills);
     });
   }
