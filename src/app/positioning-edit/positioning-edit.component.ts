@@ -81,7 +81,7 @@ export class PositioningEditComponent implements OnInit {
       this.periodMargin = this.periodCA - this.periodCost;
       this.periodProfitability = (this.periodMargin / (this.periodCA * 100)) * 10000;
 
-      this.developerService.getDeveloperInfo(res.resourceReference).subscribe( resp => {
+      this.developerService.getDeveloperInfo(res.resourceReference, true).subscribe( resp => {
         console.log(resp);
         this.tjm = resp.tjm;
       });

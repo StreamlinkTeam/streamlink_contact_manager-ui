@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DeveloperService } from '../../shared/services/developer.service';
-import { AbsenceService } from '../../shared/services/AbsenceService';
+import { AbsenceService } from '../../shared/services/absence-service';
 import { UserService } from '../../shared/services/user.service';
-import {AbsenceManage} from '../../shared/entities/AbsenceManage.model';
-import {AbsenceManageService} from '../../shared/services/AbsenceManageService';
-import {ResourceService} from '../../shared/services/resource.service';
+import {AbsenceManagerService} from '../../shared/services/absence-manager-service';
 
 @Component({
   selector: 'app-absence-count',
@@ -26,21 +24,19 @@ export class AbsenceCountComponent implements OnInit {
 
   constructor(private developerService: DeveloperService,
     private absenceService: AbsenceService,
-              private  service: AbsenceManageService,
-              private resourceService: ResourceService,
-
-  private userService: UserService) {
+              private  service: AbsenceManagerService,
+              private userService: UserService) {
   }
 
   ngOnInit() {
-    this.developerService.getDeveloperByEmail(sessionStorage.getItem('username')).subscribe(res => {
+    this.userService.getCurrentUser().subscribe(res => {
       this.service.getAbsenceManageByResource(res.reference).subscribe(resp => {
         const start = resp.createdDate;
         const today = new Date();
         this.absence.total = this.monthDiff(new Date(), new Date(start)) * this.CST + resp.acquired;
-        let userMail = localStorage.getItem('username');
+
         let lastDayOfYear = new Date(today.getFullYear(), 11, 30);
-        this.absenceService.getAllAbsenceByUser(userMail).subscribe(responce => {
+        this.absenceService.getAllResourceAbsence(res.reference).subscribe(responce => {
           responce.map(item => {
             console.log(item);
             if (item.state === 'NV') {

@@ -3,9 +3,9 @@ import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   moduleId: module.id,
-  templateUrl: 'profil.component.html'
+  templateUrl: 'profile.component.html'
 })
-export class ProfilComponent {
+export class ProfileComponent {
 
 
   constructor(private router: Router,

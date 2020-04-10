@@ -15,9 +15,15 @@ export class ActionService {
   constructor(private http: HttpClient, private loaderService: LoaderService) {
   }
 
-  getActions(developerReference: string): Observable<Action[]> {
+  getActions(developerReference: string, isResource: boolean): Observable<Action[]> {
     //this.loaderService.show();
-    const url = environment.API + '/ws/developers/actions';
+    let url = environment.API;
+
+    if (isResource) {
+      url = url + '/ws/resources/actions';
+    } else {
+      url = environment.API + '/ws/developers/actions';
+    }
 
     const options = {params: new HttpParams().set('developerReference', developerReference)};
 
@@ -38,9 +44,15 @@ export class ActionService {
       });
   }
 
-  createAction(action: Action, developerReference: string): Observable<Action> {
+  createAction(action: Action, developerReference: string, isResource: boolean): Observable<Action> {
     //this.loaderService.show();
-    const url = environment.API + '/ws/developers/actions';
+    let url = environment.API;
+
+    if (isResource) {
+      url = url + '/ws/resources/actions';
+    } else {
+      url = environment.API + '/ws/developers/actions';
+    }
 
     const options = {params: new HttpParams().set('developerReference', developerReference)};
 
@@ -50,9 +62,15 @@ export class ActionService {
       });
   }
 
-  updateAction(action: Action, reference: string, developerReference: string): Observable<Action> {
+  updateAction(action: Action, reference: string, developerReference: string, isResource: boolean): Observable<Action> {
     //this.loaderService.show();
-    const url = environment.API + '/ws/developers/actions';
+    let url = environment.API;
+
+    if (isResource) {
+      url = url + '/ws/resources/actions';
+    } else {
+      url = environment.API + '/ws/developers/actions';
+    }
 
     const options = {params: new HttpParams().set('developerReference', developerReference).set('reference', reference)};
 
@@ -63,9 +81,15 @@ export class ActionService {
       });
   }
 
-  deleteAction(reference: string, developerReference: string) {
+  deleteAction(reference: string, developerReference: string, isResource: boolean) {
     //this.loaderService.show();
-    const url = environment.API + '/ws/developers/actions';
+    let url = environment.API;
+
+    if (isResource) {
+      url = url + '/ws/resources/actions';
+    } else {
+      url = environment.API + '/ws/developers/actions';
+    }
 
     const options = {params: new HttpParams().set('developerReference', developerReference).set('reference', reference)};
 

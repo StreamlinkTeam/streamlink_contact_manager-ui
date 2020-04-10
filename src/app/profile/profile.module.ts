@@ -7,8 +7,8 @@ import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterModule} from '@angular/router';
-import {ProfilComponent} from './profil.component';
-import {ProfilPasswordEditorComponent} from './profil-password-editor.component';
+import {ProfileComponent} from './profile.component';
+import {ProfilePasswordEditorComponent} from './profile-password-editor.component';
 import {MatIconModule, MatTabsModule, MatButtonModule} from '@angular/material';
 import {CardsFreeModule} from 'angular-bootstrap-md';
 
@@ -22,10 +22,10 @@ import {CardsFreeModule} from 'angular-bootstrap-md';
     FormsModule,
     RouterModule,
     CommonModule, MatTabsModule, CardsFreeModule, MatIconModule],
-  declarations: [ProfilComponent, ProfilPasswordEditorComponent],
-  exports: [ProfilComponent, ProfilPasswordEditorComponent]
+  declarations: [ProfileComponent, ProfilePasswordEditorComponent],
+  exports: [ProfileComponent, ProfilePasswordEditorComponent]
 })
-export class ProfilModule {
+export class ProfileModule {
 }
 
 

@@ -14,7 +14,6 @@ import {MatButtonModule, MatIconModule} from '@angular/material';
 import {MatInputModule} from '@angular/material/input';
 import {ButtonsModule, CardsFreeModule, WavesModule} from 'angular-bootstrap-md';
 import {Ng2FileSizeModule} from 'ng2-file-size';
-import {DeveloperCVComponent} from '../developer/developer-cv.component';
 import {UserAvatarComponent} from './user-avatar.component';
 import {AbsenceModule} from '../absence/absence.module';
 

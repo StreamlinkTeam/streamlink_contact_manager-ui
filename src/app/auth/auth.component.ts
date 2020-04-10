@@ -1,9 +1,8 @@
-import { AuthService } from '../shared/services/auth.service';
-import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
-import { ValidatorService } from '../shared/services/validator.service';
-import { DeveloperService } from '../shared/services/developer.service';
+import {AuthService} from '../shared/services/auth.service';
+import {Component} from '@angular/core';
+import {NgForm} from '@angular/forms';
+import {Router} from '@angular/router';
+import {ValidatorService} from '../shared/services/validator.service';
 
 @Component({
   moduleId: module.id,
@@ -20,9 +19,8 @@ export class AuthComponent {
 
 
   constructor(private router: Router,
-    private auth: AuthService,
-    private validator: ValidatorService,
-    private devService: DeveloperService) {
+              private auth: AuthService,
+              private validator: ValidatorService) {
   }
 
   authenticate(form: NgForm) {
@@ -31,15 +29,17 @@ export class AuthComponent {
       localStorage.setItem('username', this.username);
       this.auth.authenticate(this.username, this.password)
         .subscribe(response => {
+          this.auth.getCurrentUser().subscribe(res => {
+            sessionStorage['user'] = JSON.stringify(res);
+            sessionStorage['ref'] = res.reference;
+          });
           if (response) {
+
             if (this.auth.isAdmin()) {
+
               this.router.navigate(['/needs']);
             } else if (this.auth.isResource()) {
               this.router.navigate(['/dashboard']);
-              this.devService.getDeveloperByEmail(this.username).subscribe(res => {
-                sessionStorage['ref'] = res.reference;
-                sessionStorage['user'] = JSON.stringify(res);
-              });
             }
           }
           this.errorMessage = 'Erreur d\'authentification';

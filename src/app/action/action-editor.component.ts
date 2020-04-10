@@ -34,13 +34,15 @@ export class ActionEditorComponent {
               private societyContactService: SocietyContactService,
               private router: Router,
               private toastr: ToastrService,
-              activeRoute: ActivatedRoute) {
+              private activeRoute: ActivatedRoute) {
 
     this.contactType = activeRoute.snapshot.parent.url[0].toString();
-    
+
     if (this.isDeveloper() || this.isResource()) {
       this.reference = activeRoute.snapshot.parent.params['reference'];
-      this.service.getActions(this.reference)
+      if (this.reference === undefined && this.isResource() && activeRoute.snapshot.parent.url[1].toString() === 'profile')
+        this.reference = sessionStorage['ref'];
+      this.service.getActions(this.reference, !this.isDeveloper())
         .subscribe(response => this.actions = response,
           error =>
             this.router.navigate(['/' + activeRoute.snapshot.parent.url[0].toString(), 'error']));
@@ -144,7 +146,7 @@ export class ActionEditorComponent {
       }
 
       if (this.isDeveloper() || this.isResource()) {
-        this.service.deleteAction(act.reference, this.reference).subscribe(response => {
+        this.service.deleteAction(act.reference, this.reference, !this.isDeveloper()).subscribe(response => {
 
           this.actions.splice(index, 1);
           this.toastr.success('Action supprimée avec succés', 'Opération Réussite!');
@@ -202,10 +204,10 @@ export class ActionEditorComponent {
       if (this.isDeveloper() || this.isResource()) {
         if (this.editing) {
 
-          this.service.updateAction(this.action, this.action.reference, this.reference)
+          this.service.updateAction(this.action, this.action.reference, this.reference, !this.isDeveloper())
             .subscribe(response => {
 
-              this.service.getActions(this.reference).subscribe(res => this.actions = res);
+              this.service.getActions(this.reference, !this.isDeveloper()).subscribe(res => this.actions = res);
               this.action = new Action();
               this.editing = false;
               this.toastr.success('Action Mise à jour avec succés', 'Opération Réussite!');
@@ -215,10 +217,10 @@ export class ActionEditorComponent {
               this.toastr.error('Erreur lors de la mise à jour de l\'Action', 'Opération échoué !!!');
             });
         } else {
-          this.service.createAction(this.action, this.reference)
+          this.service.createAction(this.action, this.reference, !this.isDeveloper())
             .subscribe(response => {
 
-              this.service.getActions(this.reference).subscribe(res => this.actions = res);
+              this.service.getActions(this.reference, !this.isDeveloper()).subscribe(res => this.actions = res);
               this.action = new Action();
               this.toastr.success('Action Créé avec succés', 'Opération Réussite!');
 

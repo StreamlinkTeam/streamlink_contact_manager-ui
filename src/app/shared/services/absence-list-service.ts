@@ -4,7 +4,7 @@ import { LoaderService } from './loader.service';
 
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { AbsenceList } from '../entities/AbsenceList.model';
+import { AbsenceList } from '../entities/absence-list.model';
 
 @Injectable()
 export class AbsenceListService {

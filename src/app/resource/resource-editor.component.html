@@ -80,7 +80,7 @@
                       </td>
                     </tr>
 
-                    <tr>
+                    <tr *ngIf="!currentResource">
                       <th scope="row"><b>Responsable RH</b><label *ngIf="!editing">*</label></th>
                       <td>
                         <select [(ngModel)]="resource.rhReference" class="form-control" name="rh" required>
@@ -91,7 +91,7 @@
                       </td>
                     </tr>
 
-                    <tr>
+                    <tr *ngIf="!currentResource">
                       <th scope="row"><b>Responsable Manager</b><label *ngIf="!editing">*</label></th>
                       <td>
                         <select [(ngModel)]="resource.managerReference" class="form-control" name="manager" required>
@@ -396,11 +396,11 @@
         <app-action></app-action>
       </div>
     </div>
-    <div class="row">
-      <div *ngIf="editing" class="col-lg-6">
+    <div *ngIf="editing && !currentResource" class="row">
+      <div  class="col-lg-6">
         <app-personal-info></app-personal-info>
       </div>
-      <div *ngIf="editing" class="col-lg-6">
+      <div  class="col-lg-6">
 
       <mdb-card>
         <mdb-card-header>CV</mdb-card-header>

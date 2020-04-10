@@ -1,0 +1,66 @@
+<div class="container-fluid">
+
+  <div class="p-2  text-white " *ngIf="resource$ | async as resource"
+       style="font-size: 15px; height:40px; background-color: #4267b2; box-shadow: 2px 2px 2px grey; border-radius: 5px; text-align: center;">
+    <h5>
+      Fiche - {{resource.firstname}} {{resource.lastname}}</h5>
+  </div>
+
+  <br>
+
+  <nav mat-tab-nav-bar>
+
+    <a #gle="routerLinkActive" [active]="gle.isActive"
+       animationDuration="2000ms"
+       mat-tab-link routerLink="general"
+       routerLinkActive>
+      Informations Général
+    </a>
+    <a #coor="routerLinkActive" [active]="coor.isActive"
+
+       animationDuration="2000ms"
+       mat-tab-link routerLink="contact"
+       routerLinkActive>
+      Coordonnées
+    </a>
+    <a #skill="routerLinkActive" [active]="skill.isActive"
+       animationDuration="2000ms"
+       mat-tab-link routerLink="skills"
+       routerLinkActive>
+      Compétences
+    </a>
+    <a #contr="routerLinkActive" [active]="contr.isActive"
+       animationDuration="2000ms" *ngIf="!currentResource"
+       mat-tab-link routerLink="contract"
+       routerLinkActive>
+      Contrat
+    </a>
+
+    <a #eva="routerLinkActive" [active]="eva.isActive"
+       animationDuration="2000ms" *ngIf="!currentResource"
+       mat-tab-link routerLink="evaluation"
+       routerLinkActive>
+      Evaluations
+    </a>
+
+    <a #abs="routerLinkActive" [active]="abs.isActive"
+       animationDuration="2000ms"
+       mat-tab-link routerLink="absences"
+       routerLinkActive>
+      Décompte d'absence
+    </a>
+
+    <a #coor="routerLinkActive" *ngIf="currentResource" [active]="coor.isActive"
+       animationDuration="2000ms"
+       mat-tab-link routerLink="change-password"
+       routerLinkActive>
+      Changer Mot de Passe
+    </a>
+
+  </nav>
+
+  <br/>
+  <div class="tab-content" id="pills-tabContent">
+    <router-outlet></router-outlet>
+  </div>
+</div>

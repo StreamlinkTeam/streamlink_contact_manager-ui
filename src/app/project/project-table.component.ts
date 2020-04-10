@@ -126,8 +126,7 @@ export class ProjectTableComponent implements OnInit {
 
     this.projectService.getProjects().subscribe(res => {
       this.projects = res;
-    })
-
+    });
 
     console.log(this.source);
 

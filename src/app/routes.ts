@@ -24,8 +24,8 @@ import {SocietyContactComponent} from './society-contact/society-contact.compone
 import {AdminComponent} from './admin/admin.component';
 import {UserTableComponent} from './users/users-table.component';
 import {UserEditorComponent} from './users/users-editor.component';
-import {ProfilComponent} from './profil/profil.component';
-import {ProfilPasswordEditorComponent} from './profil/profil-password-editor.component';
+import {ProfileComponent} from './profile/profile.component';
+import {ProfilePasswordEditorComponent} from './profile/profile-password-editor.component';
 import {ResourceTableComponent} from './resource/resource-table.component';
 import {ResourceEditorComponent} from './resource/resource-editor.component';
 import {ProjectTableComponent} from './project/project-table.component';
@@ -53,6 +53,7 @@ import {AbsenceDetailComponent} from './absence/absence-detail/absence-detail.co
 import {TimelineComponent} from './timeline/timeline.component';
 import {CommandeTableComponent} from './commande-table/commande-table.component';
 import {ResourceCountAbsenceComponent} from './resource-count-absence/resource-count-absence.component';
+import {ResourceComponent} from './resource/resource.component';
 
 
 export const appRoutes: Routes = [
@@ -64,27 +65,18 @@ export const appRoutes: Routes = [
   {path: 'absence/details/:reference', component: AbsenceDetailComponent, canActivate: [AuthGuard]},
   {path: 'commande', component: CommandeComponent, canActivate: [AuthGuard]},
   {path: 'commandes', component: CommandeTableComponent, canActivate: [AuthGuard]},
-  {
-    path: 'profil', component: ProfilComponent, canActivate: [AuthGuard],
-    children: [
-      {path: 'general', component: UserEditorComponent},
-      {path: 'changepassword', component: ProfilPasswordEditorComponent},
-      {path: '**', redirectTo: 'general'}
-    ]
-  },
-
   {path: 'timeline', component: TimelineComponent, canActivate: [AuthGuard]},
 
   {path: 'stats', component: StatComponent, canActivate: [AuthGuard]},
 
-
   {path: 'bills', component: BillTableComponent, canActivate: [AuthGuard]},
-  {path: 'bills/create', component: BillAddDialogComponent, canActivate: [AuthGuard]},
 
+
+  {path: 'bills/create', component: BillAddDialogComponent, canActivate: [AuthGuard]},
   {path: 'bills/view/:id', component: BillEditorComponent, canActivate: [AuthGuard]},
+
   {path: 'actions', component: ActionTableComponent, canActivate: [AuthGuard]},
   {
-    // path: 'absence', component: AbsenceComponent, canActivate: [AuthGuard], data: {roles: ['ROLE_ADMIN']},
     path: 'absence', component: AbsenceComponent, canActivate: [AuthGuard],
     children: [
       {path: 'demande', component: AbsenceDemandeComponent},
@@ -93,9 +85,18 @@ export const appRoutes: Routes = [
       {path: '**', redirectTo: 'demande'}
     ]
   },
+
   {
     path: 'admin', component: AdminComponent, canActivate: [AuthGuard], data: {roles: ['ROLE_ADMIN']},
     children: [
+      {
+        path: 'profile', component: ProfileComponent, canActivate: [AuthGuard],
+        children: [
+          {path: 'general', component: UserEditorComponent},
+          {path: 'change-password', component: ProfilePasswordEditorComponent},
+          {path: '**', redirectTo: 'general'}
+        ]
+      },
       {path: 'users', component: UserTableComponent},
       {path: 'users/create', component: UserEditorComponent},
       {path: 'users/:error', component: UserTableComponent},
@@ -163,9 +164,21 @@ export const appRoutes: Routes = [
   },
   {path: 'resources', component: ResourceTableComponent, canActivate: [AuthGuard]},
   {path: 'resources/create', component: ResourceEditorComponent, canActivate: [AuthGuard]},
+  {
+    path: 'resources/profile', component: ResourceComponent, canActivate: [AuthGuard],
+    children: [
+      {path: 'general', component: ResourceEditorComponent},
+      {path: 'contact', component: ContactEditorComponent},
+      {path: 'skills', component: SkillsEditorComponent},
+      {path: 'personal-info', component: PersonalInfoEditorComponent},
+      {path: 'absences', component: ResourceCountAbsenceComponent},
+      {path: 'change-password', component: ProfilePasswordEditorComponent},
+      {path: '**', redirectTo: 'general'}
+    ]
+  },
   {path: 'resources/:error', component: ResourceTableComponent, canActivate: [AuthGuard]},
   {
-    path: 'resources/:mode/:reference', component: DeveloperComponent, canActivate: [AuthGuard],
+    path: 'resources/:mode/:reference', component: ResourceComponent, canActivate: [AuthGuard],
     children: [
       {path: 'general', component: ResourceEditorComponent},
       {path: 'contact', component: ContactEditorComponent},
@@ -174,7 +187,7 @@ export const appRoutes: Routes = [
       {path: 'contract', component: ContractEditorComponent},
       {path: 'action', component: ActionEditorComponent},
       {path: 'evaluation', component: EvaluationEditorComponent},
-      {path: 'abscount', component: ResourceCountAbsenceComponent},
+      {path: 'absences', component: ResourceCountAbsenceComponent},
       {path: '**', redirectTo: 'general'}
     ]
   },

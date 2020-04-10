@@ -30,7 +30,7 @@ export class DeveloperRecordComponent implements OnInit {
     this.userService.getUsers().subscribe(response => this.users = response);
 
 
-    developerService.getDeveloperInfo(activeRoute.snapshot.parent.params['reference'])
+    developerService.getDeveloperInfo(activeRoute.snapshot.parent.params['reference'], false)
         .subscribe(response => this.personalInfo = response
           ,
           error =>

@@ -6,7 +6,7 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import {LoaderService} from "./loader.service";
+import {LoaderService} from './loader.service';
 
 
 @Injectable()
@@ -15,10 +15,15 @@ export class EvaluationService {
   constructor(private http: HttpClient, private loaderService: LoaderService) {
   }
 
-  getEvaluations(developerReference: string): Observable<Evaluation[]> {
+  getEvaluations(developerReference: string, isResource: boolean): Observable<Evaluation[]> {
     //this.loaderService.show();
-    const url = environment.API + '/ws/developers/evaluations';
+    let url = environment.API;
 
+    if (isResource) {
+      url = url + '/ws/resources/evaluations';
+    } else {
+      url = environment.API + '/ws/developers/evaluations';
+    }
     const options = {params: new HttpParams().set('developerReference', developerReference)};
 
 
@@ -29,10 +34,15 @@ export class EvaluationService {
   }
 
 
-  createEvaluation(evaluation: Evaluation, developerReference: string): Observable<Evaluation> {
+  createEvaluation(evaluation: Evaluation, developerReference: string, isResource: boolean): Observable<Evaluation> {
     //this.loaderService.show();
-    const url = environment.API + '/ws/developers/evaluations';
+    let url = environment.API;
 
+    if (isResource) {
+      url = url + '/ws/resources/evaluations';
+    } else {
+      url = environment.API + '/ws/developers/evaluations';
+    }
     const options = {params: new HttpParams().set('developerReference', developerReference)};
 
     return this.http
@@ -42,9 +52,15 @@ export class EvaluationService {
       });
   }
 
-  updateEvaluation(evaluation: Evaluation, reference: string, developerReference: string): Observable<Evaluation> {
+  updateEvaluation(evaluation: Evaluation, reference: string, developerReference: string, isResource: boolean): Observable<Evaluation> {
     //this.loaderService.show();
-    const url = environment.API + '/ws/developers/evaluations';
+    let url = environment.API;
+
+    if (isResource) {
+      url = url + '/ws/resources/evaluations';
+    } else {
+      url = environment.API + '/ws/developers/evaluations';
+    }
 
     const options = {params: new HttpParams().set('developerReference', developerReference).set('reference', reference)};
 
@@ -56,10 +72,15 @@ export class EvaluationService {
       });
   }
 
-  deleteEvaluation(reference: string, developerReference: string) {
+  deleteEvaluation(reference: string, developerReference: string, isResource: boolean) {
     //this.loaderService.show();
-    const url = environment.API + '/ws/developers/evaluations';
+    let url = environment.API;
 
+    if (isResource) {
+      url = url + '/ws/resources/evaluations';
+    } else {
+      url = environment.API + '/ws/developers/evaluations';
+    }
     const options = {params: new HttpParams().set('developerReference', developerReference).set('reference', reference)};
 
 

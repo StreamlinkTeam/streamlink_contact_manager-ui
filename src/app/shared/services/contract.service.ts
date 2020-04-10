@@ -7,7 +7,7 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import {LoaderService} from "./loader.service";
+import {LoaderService} from './loader.service';
 
 
 @Injectable()
@@ -16,10 +16,16 @@ export class ContractService {
   constructor(private http: HttpClient, private loaderService: LoaderService) {
   }
 
-  getContract(reference: string): Observable<Contract> {
+  getContract(reference: string, isResource: boolean): Observable<Contract> {
 
     //this.loaderService.show();
-    const url = environment.API + '/ws/developers/contract';
+    let url = environment.API;
+
+    if (isResource) {
+      url = url + '/ws/resources/contract';
+    } else {
+      url = environment.API + '/ws/developers/contract';
+    }
 
     const options = {params: new HttpParams().set('developerReference', reference)};
 
@@ -32,10 +38,16 @@ export class ContractService {
 
   }
 
-  createContracts(contract: Contract, reference: string): Observable<Contract> {
+  createContracts(contract: Contract, reference: string, isResource: boolean): Observable<Contract> {
 
     //this.loaderService.show();
-    const url = environment.API + '/ws/developers/contract';
+    let url = environment.API;
+
+    if (isResource) {
+      url = url + '/ws/resources/contract';
+    } else {
+      url = environment.API + '/ws/developers/contract';
+    }
 
     const options = {params: new HttpParams().set('developerReference', reference)};
 
@@ -46,9 +58,15 @@ export class ContractService {
       });
   }
 
-  updateContract(contract: Contract, reference: string): Observable<Contract> {
+  updateContract(contract: Contract, reference: string, isResource: boolean): Observable<Contract> {
     //this.loaderService.show();
-    const url = environment.API + '/ws/developers/contract';
+    let url = environment.API;
+
+    if (isResource) {
+      url = url + '/ws/resources/contract';
+    } else {
+      url = environment.API + '/ws/developers/contract';
+    }
 
     const options = {params: new HttpParams().set('developerReference', reference)};
 
@@ -60,9 +78,15 @@ export class ContractService {
       });
   }
 
-  deleteContract(reference: string): Observable<any> {
+  deleteContract(reference: string, isResource: boolean): Observable<any> {
     //this.loaderService.show();
-    const url = environment.API + '/ws/developers/contract';
+    let url = environment.API;
+
+    if (isResource) {
+      url = url + '/ws/resources/contract';
+    } else {
+      url = environment.API + '/ws/developers/contract';
+    }
 
     const options = {params: new HttpParams().set('developerReference', reference)};
 
@@ -74,10 +98,16 @@ export class ContractService {
       });
   }
 
-  getWishedContract(reference: string): Observable<WishedContract> {
+  getWishedContract(reference: string, isResource: boolean): Observable<WishedContract> {
 
     //this.loaderService.show();
-    const url = environment.API + '/ws/developers/contract/wished';
+    let url = environment.API;
+
+    if (isResource) {
+      url = url + '/ws/resources/contract/wished';
+    } else {
+      url = environment.API + '/ws/developers/contract/wished';
+    }
 
     const options = {params: new HttpParams().set('developerReference', reference)};
 
@@ -90,9 +120,15 @@ export class ContractService {
 
   }
 
-  updateWishedContract(wishedContract: WishedContract, reference: string): Observable<WishedContract> {
+  updateWishedContract(wishedContract: WishedContract, reference: string, isResource: boolean): Observable<WishedContract> {
     //this.loaderService.show();
-    const url = environment.API + '/ws/developers/contract/wished';
+    let url = environment.API;
+
+    if (isResource) {
+      url = url + '/ws/resources/contract/wished';
+    } else {
+      url = environment.API + '/ws/developers/contract/wished';
+    }
 
     const options = {params: new HttpParams().set('developerReference', reference)};
 

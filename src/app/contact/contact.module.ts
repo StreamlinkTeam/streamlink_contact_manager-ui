@@ -8,6 +8,7 @@ import {RouterModule} from '@angular/router';
 import {BrowserModule} from '@angular/platform-browser';
 import {CardsFreeModule} from 'angular-bootstrap-md';
 import {MatButtonModule} from '@angular/material/button';
+import {UserModule} from '../users/user.module';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import {MatButtonModule} from '@angular/material/button';
     RouterModule,
     SharedModule,
     CardsFreeModule,
-    MatButtonModule
+    MatButtonModule,
+    UserModule
   ],
   exports: [
     ContactEditorComponent

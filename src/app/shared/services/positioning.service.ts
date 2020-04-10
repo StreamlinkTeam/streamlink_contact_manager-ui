@@ -36,7 +36,7 @@ export class PositioningService {
   getPositionings(): Observable<Positioning[]> {
 
     ////this.loaderService.show();
-    const url = environment.API + '/ws/positionings/all';
+    const url = environment.API + '/ws/positionings/current';
 
     return this.http.get<Positioning[]>(url)
       ._finally(() => {
@@ -88,16 +88,10 @@ export class PositioningService {
   getPositioningsRsource(): Observable<Positioning[]> {
 
     ////this.loaderService.show();
-    const url = environment.API + '/ws/positionings/posRes';
+    const url = environment.API + '/ws/positionings/current';
 
     return this.http.get<Positioning[]>(url);
     //this.loaderService.hide();
-  }
-
-  getAllPositionings() {
-    const url = environment.API + '/ws/positionings/tous';
-
-    return this.http.get(url);
   }
 
 }

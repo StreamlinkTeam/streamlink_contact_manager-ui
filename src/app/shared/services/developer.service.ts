@@ -1,19 +1,19 @@
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs/Observable';
 
-import { environment } from '../../../environments/environment';
-import { Contact } from '../entities/contact.model';
-import { Developer, DeveloperView } from '../entities/developer.model';
-import { CV } from '../entities/cv.model';
-import { PersonalInformation } from '../entities/personal-information.model';
-import { SkillsInformation } from '../entities/skills-information.model';
-import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
+import {environment} from '../../../environments/environment';
+import {Contact} from '../entities/contact.model';
+import {Developer, DeveloperView} from '../entities/developer.model';
+import {CV} from '../entities/cv.model';
+import {PersonalInformation} from '../entities/personal-information.model';
+import {SkillsInformation} from '../entities/skills-information.model';
+import {HttpClient, HttpParams, HttpResponse} from '@angular/common/http';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/finally';
 
-import { LoaderService } from './loader.service';
+import {LoaderService} from './loader.service';
 
 
 @Injectable()
@@ -27,7 +27,7 @@ export class DeveloperService {
     // this.loaderService.show();
     const url = environment.API + '/ws/developers';
 
-    const options = { params: new HttpParams().set('developerReference', reference) };
+    const options = {params: new HttpParams().set('developerReference', reference)};
 
     return this.http.get<Developer>(url, options)
       ._finally(() => {
@@ -36,19 +36,6 @@ export class DeveloperService {
 
   }
 
-  getDeveloperByEmail(email: string): Observable<Developer> {
-
-    // this.loaderService.show();
-    const url = environment.API + '/ws/developers/mail';
-
-    const options = { params: new HttpParams().set('developerEmail', email) };
-
-    return this.http.get<Developer>(url, options)
-      ._finally(() => {
-        // this.loaderService.hide();
-      });
-
-  }
 
   getDevelopers(): Observable<DeveloperView[]> {
 
@@ -75,7 +62,7 @@ export class DeveloperService {
     // this.loaderService.show();
     const url = environment.API + '/ws/developers';
 
-    const options = { params: new HttpParams().set('developerReference', reference) };
+    const options = {params: new HttpParams().set('developerReference', reference)};
 
 
     return this.http
@@ -89,7 +76,7 @@ export class DeveloperService {
     // this.loaderService.show();
     const url = environment.API + '/ws/developers';
 
-    const options = { params: new HttpParams().set('developerReference', reference) };
+    const options = {params: new HttpParams().set('developerReference', reference)};
 
 
     return this.http
@@ -100,11 +87,17 @@ export class DeveloperService {
       });
   }
 
-  getDeveloperSkills(developerReference: string): Observable<SkillsInformation> {
+  getDeveloperSkills(developerReference: string, isResource: boolean): Observable<SkillsInformation> {
     // this.loaderService.show();
-    const url = environment.API + '/ws/developers/skills';
+    let url = environment.API;
 
-    const options = { params: new HttpParams().set('developerReference', developerReference) };
+    if (isResource) {
+      url = url + '/ws/resources/skills';
+    } else {
+      url = environment.API + '/ws/developers/skills';
+    }
+
+    const options = {params: new HttpParams().set('developerReference', developerReference)};
 
 
     return this.http.get<SkillsInformation>(url, options)
@@ -113,11 +106,17 @@ export class DeveloperService {
       });
   }
 
-  updateDeveloperSkills(skills: SkillsInformation, developerReference: string): Observable<SkillsInformation> {
+  updateDeveloperSkills(skills: SkillsInformation, developerReference: string, isResource: boolean): Observable<SkillsInformation> {
     // this.loaderService.show();
-    const url = environment.API + '/ws/developers/skills';
+    let url = environment.API;
 
-    const options = { params: new HttpParams().set('developerReference', developerReference) };
+    if (isResource) {
+      url = url + '/ws/resources/skills';
+    } else {
+      url = environment.API + '/ws/developers/skills';
+    }
+
+    const options = {params: new HttpParams().set('developerReference', developerReference)};
 
 
     return this.http
@@ -128,11 +127,17 @@ export class DeveloperService {
   }
 
 
-  getDeveloperInfo(developerReference: string): Observable<PersonalInformation> {
+  getDeveloperInfo(developerReference: string, isResource: boolean): Observable<PersonalInformation> {
     // this.loaderService.show();
-    const url = environment.API + '/ws/developers/personal_info';
+    let url = environment.API;
 
-    const options = { params: new HttpParams().set('developerReference', developerReference) };
+    if (isResource) {
+      url = url + '/ws/resources/personal_info';
+    } else {
+      url = environment.API + '/ws/developers/personal_info';
+    }
+
+    const options = {params: new HttpParams().set('developerReference', developerReference)};
 
 
     return this
@@ -143,11 +148,17 @@ export class DeveloperService {
       });
   }
 
-  updateDeveloperInfo(info: PersonalInformation, developerReference: string): Observable<PersonalInformation> {
+  updateDeveloperInfo(info: PersonalInformation, developerReference: string, isResource: boolean): Observable<PersonalInformation> {
     // this.loaderService.show();
-    const url = environment.API + '/ws/developers/personal_info';
+    let url = environment.API;
 
-    const options = { params: new HttpParams().set('developerReference', developerReference) };
+    if (isResource) {
+      url = url + '/ws/resources/personal_info';
+    } else {
+      url = environment.API + '/ws/developers/personal_info';
+    }
+
+    const options = {params: new HttpParams().set('developerReference', developerReference)};
 
 
     return this.http
@@ -187,11 +198,17 @@ export class DeveloperService {
       });
   }
 
-  getDeveloperCVs(developerReference: string): Observable<CV[]> {
+  getDeveloperCVs(developerReference: string, isResource: boolean): Observable<CV[]> {
     //  this.loaderService.show();
-    const url = environment.API + '/ws/developers/cv';
+    let url = environment.API;
 
-    const options = { params: new HttpParams().set('developerReference', developerReference) };
+    if (isResource) {
+      url = url + '/ws/resources/cv';
+    } else {
+      url = environment.API + '/ws/developers/cv';
+    }
+
+    const options = {params: new HttpParams().set('developerReference', developerReference)};
 
 
     return this
@@ -216,14 +233,20 @@ export class DeveloperService {
       });
   }
 
-  createDeveloperCv(fileToUpload: File, developerReference: string): Observable<CV> {
+  createDeveloperCv(fileToUpload: File, developerReference: string, isResource: boolean): Observable<CV> {
     //  this.loaderService.show();
-    const url = environment.API + '/ws/developers/cv';
+    let url = environment.API;
+
+    if (isResource) {
+      url = url + '/ws/resources/cv';
+    } else {
+      url = environment.API + '/ws/developers/cv';
+    }
 
     const formData: FormData = new FormData();
     formData.append('cv', fileToUpload, fileToUpload.name);
 
-    const options = { params: new HttpParams().set('developerReference', developerReference) };
+    const options = {params: new HttpParams().set('developerReference', developerReference)};
 
 
     return this.http
@@ -233,11 +256,17 @@ export class DeveloperService {
       });
   }
 
-  deleteCV(reference: string, developerReference: string) {
+  deleteCV(reference: string, developerReference: string, isResource: boolean) {
     //  this.loaderService.show();
-    const url = environment.API + '/ws/developers/cv';
+    let url = environment.API;
 
-    const options = { params: new HttpParams().set('developerReference', developerReference).set('reference', reference) };
+    if (isResource) {
+      url = url + '/ws/resources/cv';
+    } else {
+      url = environment.API + '/ws/developers/cv';
+    }
+
+    const options = {params: new HttpParams().set('developerReference', developerReference).set('reference', reference)};
 
 
     return this.http
@@ -245,28 +274,6 @@ export class DeveloperService {
       ._finally(() => {
         //  this.loaderService.hide();
       });
-  }
-
-  getCurrentDeveloper(): Observable<Developer> {
-
-    this.loaderService.show();
-    const url = environment.API + '/ws/developers/currentResource';
-    return this.http.get<Developer>(url)
-      ._finally(() => {
-        this.loaderService.hide();
-      });
-
-  }
-
-  getCurrentLeave(): Observable<Developer> {
-
-    this.loaderService.show();
-    const url = environment.API + '/ws/developers/currentLeave';
-    return this.http.get<Developer>(url)
-      ._finally(() => {
-        this.loaderService.hide();
-      });
-
   }
 
 }

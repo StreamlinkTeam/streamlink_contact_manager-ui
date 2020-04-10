@@ -16,7 +16,7 @@ import { SocietyModule } from './society/society.module';
 import { SocietyContactModule } from './society-contact/society-contact.module';
 import { appRoutes } from './routes';
 import { AdminModule } from './admin/admin.module';
-import { ProfilModule } from './profil/profil.module';
+import { ProfileModule } from './profile/profile.module';
 import { AppNavbarModule } from './app-navbar/app-navbar.module';
 import { ResourceModule } from './resource/resource.module';
 import { ProjectModule } from './project/project.module';
@@ -126,7 +126,7 @@ registerLocaleData(localeFr, 'fr');
     LoaderModule,
     SocietyModule,
     AdminModule,
-    ProfilModule,
+    ProfileModule,
     PositioningModule,
     DeveloperModule,
     AuthModule,

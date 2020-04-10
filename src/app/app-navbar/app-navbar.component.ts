@@ -2,9 +2,8 @@ import {AuthService} from '../shared/services/auth.service';
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {User} from '../shared/entities/user.model';
-import {AppNavbarService} from './app-navbar.service';
 import {Observable} from 'rxjs';
-import { UserService } from '../shared/services/user.service';
+import {Resource} from '../shared/entities/resource.model';
 
 
 @Component({
@@ -14,21 +13,15 @@ import { UserService } from '../shared/services/user.service';
 })
 export class AppNavbarComponent implements OnInit {
 
-  user$: Observable<User>;
-  user;
+  currentUser$: Observable<Resource | User>;
 
-  constructor(private router: Router, private auth: AuthService,
-              private appNavbarService: AppNavbarService) {
+  constructor(private router: Router, private auth: AuthService) {
   }
 
   ngOnInit(): void {
 
     if (this.auth.isAuthenticated()) {
-      this.user$ = this.auth.getCurrentUser();
-      this.auth.getCurrentUser().subscribe(res => {
-        this.user = res;
-      });
-     this.user = JSON.parse(sessionStorage.getItem('user'));
+      this.currentUser$ = this.auth.getCurrentUser();
     }
   }
 

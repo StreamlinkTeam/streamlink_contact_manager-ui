@@ -1,10 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Photo} from '../shared/entities/photo.model';
+import {Avatar} from '../shared/entities/avatar.model';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
-import {UserService} from '../shared/services/user.service';
 import {NgForm} from '@angular/forms';
-import {BehaviorSubject} from 'rxjs';
+import {BehaviorSubject, Observable, of} from 'rxjs';
+import {AvatarService} from '../shared/services/avatar.service';
 
 @Component({
   selector: 'app-user-avatar',
@@ -15,11 +15,9 @@ export class UserAvatarComponent implements OnInit {
 
   fileToUpload: File = null;
   f: File = null;
-  urlToReturn = '';
+  isResource = false;
 
-  photos: Photo[];
-  photo: Photo;
-  url: any;
+  avatar$: Observable<Avatar>;
 
 
   private _reference = new BehaviorSubject<string>('');
@@ -31,29 +29,20 @@ export class UserAvatarComponent implements OnInit {
   get reference() {
     return this._reference.getValue();
   }
+
   constructor(private router: Router,
               private activeRoute: ActivatedRoute,
-              private service: UserService,
-              private toastr: ToastrService) {}
+              private service: AvatarService,
+              private toastr: ToastrService) {
+
+
+  }
 
   ngOnInit() {
+
+    this.isResource = this.activeRoute.snapshot.parent.url[0].toString() === 'resources';
     this._reference.subscribe(reference => {
-
-      this.urlToReturn = '/' + this.activeRoute.snapshot.parent.url[0].toString();
-
-
-      this.service.getPhotoByUserReference(reference).subscribe(resp => {
-        this.url = resp.url;
-        this.photo = resp;
-      });
-
-      this.service.getUsersAvatars(reference)
-        .subscribe(response => {
-            this.photos = response;
-          }
-          ,
-          error =>
-            this.router.navigate([this.urlToReturn, 'error']));
+      this.avatar$ = this.service.getAvatarByUserReference(reference, this.isResource);
     });
   }
 
@@ -64,35 +53,18 @@ export class UserAvatarComponent implements OnInit {
   save(form: NgForm) {
 
     if (form.valid) {
-      this.service.createUserAvatar(this.fileToUpload, this.reference)
+      this.service.createAvatar(this.fileToUpload, this.reference, this.isResource)
         .subscribe(data => {
-          this.photo = data;
-         // this.photos.push(data);
+          this.avatar$ = of(data);
+          // this.photos.push(data);
           this.fileToUpload = null;
           this.f = null;
-          this.service.getPhotoByUserReference(this.reference).subscribe(resp => {
-            this.url = resp.url;
-            this.photo = resp;
-          });
+
         }, error => {
           this.toastr.error('Erreur lors de la Création du Photo', 'Opération échoué !!!');
         });
     }
   }
 
-  deletePhoto(index: number) {
 
-    if (confirm('Suppression du Photo')) {
-      const cv = this.photos[index];
-
-
-      this.service.deleteAvatar(cv.reference, this.reference)
-        .subscribe(response => {
-
-          this.photos.splice(index, 1);
-        }, error => {
-          this.toastr.error('Erreur lors de la Suppression du Photo', 'Opération échoué !!!');
-        });
-    }
-  }
 }

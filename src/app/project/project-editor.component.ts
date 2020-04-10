@@ -76,8 +76,8 @@ export class ProjectEditorComponent implements OnInit {
 
     const ref = this.route.snapshot.params.reference;
 
-    this.resourceService.getAllResources().subscribe(res => {
-      console.log(res)
+    this.resourceService.getResources().subscribe(res => {
+      console.log(res);
       let ress;
       ress = res;
       ress.map((i) => {

@@ -35,10 +35,10 @@ export class UserEditorComponent {
         .subscribe(response => this.user = response
           , error =>
             this.router.navigate(['/admin/users', 'error']));
-    } else if (activeRoute.snapshot.parent.url[0].toString() == 'profil') {
+    } else if (activeRoute.snapshot.parent.url[0].toString() === 'profile') {
 
       this.service.getCurrentUser().subscribe(response => {
-          this.user = response;
+          this.user = (<User>response);
           this.reference = response.reference;
           this.currentUser = true;
         }
@@ -83,18 +83,5 @@ export class UserEditorComponent {
           });
       }
     }
-  }
-
-  changePassword(form: NgForm) {
-    this.service.changeUserPassword(this.user.reference,
-                                    this.password.oldPassword,
-                                    this.password.newPassword)
-      .subscribe(
-        response => {
-          this.toastr.success('Mot de passe Mise à jour avec succés', 'Opération Réussite!');
-        }, error => {
-          this.toastr.error('Erreur lors de la mise à jour de mot de passe', 'Opération échoué !!!');
-        }
-      );
   }
 }

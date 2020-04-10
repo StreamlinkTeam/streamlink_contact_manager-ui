@@ -1,5 +1,6 @@
 export class Token {
   access_token: string;
+  user_reference: string;
 }
 
 

@@ -56,7 +56,7 @@ export class EventService {
   }
 
   saveTimeList(timeList) {
-    const url = environment.API + '/ws/time_list/save';
+    const url = environment.API + '/ws/time_list';
     return this.http.post(url, timeList);
   }
 

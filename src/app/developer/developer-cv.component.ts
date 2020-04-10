@@ -28,7 +28,7 @@ export class DeveloperCVComponent {
     this.referenceDeveloper = activeRoute.snapshot.parent.params['reference'];
     this.urlToReturn = '/' + activeRoute.snapshot.parent.url[0].toString();
 
-    this.service.getDeveloperCVs(this.referenceDeveloper)
+    this.service.getDeveloperCVs(this.referenceDeveloper, this.isResource())
       .subscribe(response => this.cvs = response
         ,
         error =>
@@ -40,10 +40,14 @@ export class DeveloperCVComponent {
     this.fileToUpload = files.item(0);
   }
 
+  isResource() {
+    return this.activeRoute.snapshot.parent.url[0].toString() === 'resources';
+  }
+
   save(form: NgForm) {
 
     if (form.valid) {
-      this.service.createDeveloperCv(this.fileToUpload, this.referenceDeveloper)
+      this.service.createDeveloperCv(this.fileToUpload, this.referenceDeveloper, this.isResource())
         .subscribe(data => {
           this.cvs.push(data);
           this.fileToUpload = null;
@@ -63,7 +67,7 @@ export class DeveloperCVComponent {
       const cv = this.cvs[index];
 
 
-      this.service.deleteCV(cv.reference, this.referenceDeveloper)
+      this.service.deleteCV(cv.reference, this.referenceDeveloper, this.isResource())
         .subscribe(response => {
 
           this.cvs.splice(index, 1);

@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-import { AbsenceListService } from '../../shared/services/AbsenceListService';
-import { AbsenceList } from '../../shared/entities/AbsenceList.model';
+import { AbsenceListService } from '../../shared/services/absence-list-service';
+import { AbsenceList } from '../../shared/entities/absence-list.model';
 import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { DatePipe, formatDate } from '@angular/common';
-import { AbsenceService } from '../../shared/services/AbsenceService';
-import { Absence } from '../../shared/entities/Absence.model';
+import { AbsenceService } from '../../shared/services/absence-service';
+import { Absence } from '../../shared/entities/absence.model';
 
 @Component({
   selector: 'app-absence-demande',

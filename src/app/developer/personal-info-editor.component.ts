@@ -27,7 +27,7 @@ export class PersonalInfoEditorComponent {
 
 
     if (this.editing) {
-      service.getDeveloperInfo(activeRoute.snapshot.parent.params['reference'])
+      service.getDeveloperInfo(activeRoute.snapshot.parent.params['reference'], this.isResource())
         .subscribe(response => this.personalInfo = response
           ,
           error =>
@@ -58,7 +58,7 @@ export class PersonalInfoEditorComponent {
     if (form.valid) {
       if (this.editing) {
 
-        this.service.updateDeveloperInfo(this.personalInfo, this.personalInfo.developerReference)
+        this.service.updateDeveloperInfo(this.personalInfo, this.personalInfo.developerReference, this.isResource())
           .subscribe(response => {
 
             this.personalInfo = response;

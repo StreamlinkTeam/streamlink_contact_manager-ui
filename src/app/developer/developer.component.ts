@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DeveloperService } from '../shared/services/developer.service';
 import { Developer } from '../shared/entities/developer.model';
+import {Observable} from 'rxjs';
 
 @Component({
   moduleId: module.id,
@@ -13,7 +14,7 @@ export class DeveloperComponent {
 
   editing = false;
   reference: string;
-  developer: Developer;
+  developer$: Observable<Developer>;
 
   constructor(private router: Router,
     activeRoute: ActivatedRoute,
@@ -22,10 +23,7 @@ export class DeveloperComponent {
     this.editing = activeRoute.snapshot.params['mode'] === 'edit';
     this.reference = activeRoute.snapshot.params['reference'];
     if (this.reference) {
-      this.developerService.getDeveloper(this.reference).subscribe(res => {
-        console.log(res)
-        this.developer = res;
-      });
+      this.developer$ = this.developerService.getDeveloper(this.reference);
     } else {
       this.reference = null;
       this.router.navigate(['/' + activeRoute.snapshot.url[0].toString() + '/create']);

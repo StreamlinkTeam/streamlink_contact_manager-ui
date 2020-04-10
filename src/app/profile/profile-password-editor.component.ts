@@ -7,16 +7,15 @@ import {Password} from '../shared/entities/password.model';
 
 @Component({
   moduleId: module.id,
-  templateUrl: 'profil-password-editor.component.html'
+  templateUrl: 'profile-password-editor.component.html'
 })
-export class ProfilPasswordEditorComponent {
+export class ProfilePasswordEditorComponent {
 
   password: Password = new Password();
 
   constructor(private toastr: ToastrService,
               private router: Router,
-              private service: UserService,
-              private activeRoute: ActivatedRoute) {
+              private service: UserService) {
   }
 
 

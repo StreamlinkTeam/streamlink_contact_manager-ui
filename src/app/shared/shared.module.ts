@@ -20,11 +20,13 @@ import {ProjectService} from './services/project.service';
 import {PositioningService} from './services/positioning.service';
 import {NeedService} from './services/need.service';
 import {MailService} from './services/mail.service';
-import { EventService } from './services/event.service';
-import { SharingService } from './services/sharing.service';
+import {EventService} from './services/event.service';
+import {SharingService} from './services/sharing.service';
 import {BillService} from './services/bill.service';
-import {AbsenceService} from './services/AbsenceService';
-import {AbsenceListService} from './services/AbsenceListService';
+import {AbsenceService} from './services/absence-service';
+import {AbsenceListService} from './services/absence-list-service';
+import {AbsenceManagerService} from './services/absence-manager-service';
+import {AvatarService} from './services/avatar.service';
 
 @NgModule({
   imports: [HttpClientModule, CommonModule],
@@ -32,9 +34,9 @@ import {AbsenceListService} from './services/AbsenceListService';
   declarations: [FieldErrorDisplayComponent, CustomEnumRenderComponent, EqualValidator],
   exports: [FieldErrorDisplayComponent, CustomEnumRenderComponent, EqualValidator],
   providers: [DeveloperService, EvaluationService, ActionService, ResourceService, PositioningService, MailService,
-    UserService, LanguageService, AuthService, SocietyService, ProjectService,
-    ContractService, ValidatorService, LoaderService, SocietyContactService, NeedService, EventService, 
-    SharingService, BillService,AbsenceService, AbsenceListService],
+    UserService, LanguageService, AuthService, SocietyService, ProjectService, AvatarService,
+    ContractService, ValidatorService, LoaderService, SocietyContactService, NeedService, EventService,
+    SharingService, BillService, AbsenceService, AbsenceListService, AbsenceManagerService],
 })
 export class SharedModule {
 

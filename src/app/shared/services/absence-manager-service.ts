@@ -2,11 +2,11 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
-import {AbsenceManage} from '../entities/AbsenceManage.model';
+import {AbsenceManage} from '../entities/absence-manage.model';
 import {Action} from '../entities/action.model';
 
 @Injectable()
-export class AbsenceManageService {
+export class AbsenceManagerService {
 
   constructor(private http: HttpClient) {
   }

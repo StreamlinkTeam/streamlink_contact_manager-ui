@@ -64,10 +64,10 @@
         </li>
 
       </ul>
-      <div class="md-form my-0">
+      <div class="md-form my-0" *ngIf="currentUser$ | async as user">
         <ul class="navbar-nav mr-auto">
-          <li *ngIf="user$ | async as user" class="nav-item" routerLinkActive="active">
-            <a class="nav-link" routerLink="/profil"><i class="fa fa-user"></i></a>
+          <li  class="nav-item" routerLinkActive="active">
+            <a class="nav-link" routerLink="/admin/profile"><i class="fa fa-user">{{user.firstname }} {{user.lastname}}</i></a>
           </li>
           <li class="nav-item">
             <a (click)="logout()" class="dropdown-item text-warning"><i class="fa fa-power-off"></i></a>
@@ -105,17 +105,15 @@
           <a class="nav-link" routerLink="/absence" routerLinkActive="active">Absence </a>
         </li>
 
-        <li class="nav-item" routerLinkActive="active">
-          <a class="nav-link" routerLink="/profil" routerLinkActive="active">Profile</a>
-        </li>
 
       </ul>
-      <div class="md-form my-0">
+      <div *ngIf="isLoggedIn() && currentUser$ | async as resource" class="md-form my-0">
         <ul class="navbar-nav mr-auto">
 
-          <li *ngIf="isLoggedIn() && user$ | async as user" class="nav-item" routerLinkActive="active">
-            <a class="dropdown-item  text-warning">{{user.firstname }} {{user.lastname}}</a>
+          <li  class="nav-item" routerLinkActive="active">
+            <a class="nav-link" routerLink="/resources/profile"><i class="fa fa-user">{{resource.firstname }} {{resource.lastname}}</i></a>
           </li>
+
           <li *ngIf="isLoggedIn()" class="nav-item">
             <a (click)="logout()" class="dropdown-item text-warning"><i class="fa fa-power-off"></i></a>
           </li>

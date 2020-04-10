@@ -18,6 +18,9 @@ export class ContactEditorComponent {
   contact: Contact = new Contact();
   contactType = '';
   societyReference = '';
+  currentResource = false;
+  currentResourceReference: string;
+
 
 
   constructor(private developerService: DeveloperService,
@@ -44,7 +47,14 @@ export class ContactEditorComponent {
             this.router.navigate(['/societies', 'error']);
           });
     } else if (this.isResource()) {
-      this.resourceService.getResourceContact(activeRoute.snapshot.parent.params['reference'])
+      let reference = activeRoute.snapshot.parent.params['reference'];
+      if (activeRoute.snapshot.parent.url[1].toString() === 'profile') {
+        reference = sessionStorage['ref'];
+        this.currentResource = true;
+        this.currentResourceReference = sessionStorage['ref'];
+
+      }
+      this.resourceService.getResourceContact(reference)
         .subscribe(response => this.contact = response
           , error => {
             this.router.navigate(['/resources', 'error']);

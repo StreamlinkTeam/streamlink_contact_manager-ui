@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {DeveloperService} from '../shared/services/developer.service';
-import {AbsenceService} from '../shared/services/AbsenceService';
+import {AbsenceService} from '../shared/services/absence-service';
 import {UserService} from '../shared/services/user.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ResourceService} from '../shared/services/resource.service';
-import {AbsenceManageService} from '../shared/services/AbsenceManageService';
-import {AbsenceManage} from '../shared/entities/AbsenceManage.model';
+import {AbsenceManagerService} from '../shared/services/absence-manager-service';
+import {AbsenceManage} from '../shared/entities/absence-manage.model';
 import {NgForm} from '@angular/forms';
 import Swal from 'sweetalert2';
 
@@ -31,9 +31,10 @@ export class ResourceCountAbsenceComponent implements OnInit {
     asked: 0,
     prov: 0
   };
+  currentResource = false;
 
   constructor(private developerService: DeveloperService,
-              private  service: AbsenceManageService,
+              private  service: AbsenceManagerService,
               private resourceService: ResourceService,
               private absenceService: AbsenceService,
               private userService: UserService,
@@ -44,11 +45,17 @@ export class ResourceCountAbsenceComponent implements OnInit {
   ngOnInit() {
 
 
-    this.resourceService.getResource(this.activeRoute.snapshot.parent.params['reference'])
+      this.resourceReference = this.activeRoute.snapshot.parent.params['reference'] ;
+
+      if ( this.resourceReference === undefined && this.activeRoute.snapshot.parent.url[1].toString() === 'profile') {
+        this.resourceReference = sessionStorage['ref'];
+        this.currentResource = true;
+
+      }
+
+      this.resourceService.getResource(this.resourceReference)
       .subscribe(response => {
-        // console.log(response.email);
-        const email = response.email;
-        const resourceReference = response.reference;
+
 
         this.service.getAbsenceManageByResource(response.reference).subscribe(res => {
           console.log(res);
@@ -57,12 +64,13 @@ export class ResourceCountAbsenceComponent implements OnInit {
         this.service.getAbsenceManageByResource(response.reference).subscribe(res => {
           const start = res.createdDate;
           const today = new Date();
-          let lastDayOfYear = new Date(today.getFullYear(), 11, 30);
+          const lastDayOfYear = new Date(today.getFullYear(), 11, 30);
           console.log('user :: ', res);
           this.absence.total = this.monthDiff(new Date(), new Date(start)) * this.CST + res.acquired;
-          let userMail = localStorage.getItem('username');
-          this.absenceService.getAllAbsenceByUser(email).subscribe(res => {
-            res.map(item => {
+          const userReference = sessionStorage['ref'];
+
+          this.absenceService.getAllResourceAbsence(response.reference).subscribe(absences => {
+            absences.map(item => {
               console.log(item);
               if (item.state === 'NV') {
                 const dt = new Date(item.dateAbsence);
@@ -93,7 +101,7 @@ export class ResourceCountAbsenceComponent implements OnInit {
           this.absManage.acquired = this.monthDiff(new Date(), new Date(start)) * this.CST + res.acquired;
 
           this.absenceManageReference = res.reference;
-          this.resourceReference = resourceReference;
+          this.resourceReference = response.reference;
 
         });
 

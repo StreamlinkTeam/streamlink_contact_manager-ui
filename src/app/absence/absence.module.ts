@@ -41,7 +41,7 @@ import { AbsenceDetailComponent } from './absence-detail/absence-detail.componen
     Ng2SmartTableModule,
     EvaluationModule,
     ActionModule,
-    ContactModule, NgbDatepickerModule, TableModule, NgbButtonsModule, ButtonModule, MatTabsModule, MatFormFieldModule, MatSelectModule],
+     NgbDatepickerModule, TableModule, NgbButtonsModule, ButtonModule, MatTabsModule, MatFormFieldModule, MatSelectModule],
   declarations: [
     AbsenceComponent, AbsenceDemandeComponent, MultiDatePickerComponent, ListAbsencesComponent, AbsenceCountComponent, AbsenceDetailComponent ],
   exports: [AbsenceComponent, AbsenceDemandeComponent, MultiDatePickerComponent, ListAbsencesComponent, AbsenceCountComponent]

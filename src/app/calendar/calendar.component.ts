@@ -18,17 +18,17 @@ import { DeveloperService } from '../shared/services/developer.service';
 import { Developer } from '../shared/entities/developer.model';
 import { UserService } from '../shared/services/user.service';
 import { HolidayComponent } from '../holiday/holiday.component';
-import { MatDialogModule } from '@angular/material/dialog';
 import { PositioningService } from '../shared/services/positioning.service';
 import { SharingService } from '../shared/services/sharing.service';
 import { Globals } from '../shared/global/globals';
 import { EventService } from '../shared/services/event.service';
 import { ProjectService } from '../shared/services/project.service';
 import Swal from 'sweetalert2';
-import { AbsenceListService } from '../shared/services/AbsenceListService';
-import { AbsenceService } from '../shared/services/AbsenceService';
-import { AbsenceList } from '../shared/entities/AbsenceList.model';
-import { Absence } from '../shared/entities/Absence.model';
+import { AbsenceListService } from '../shared/services/absence-list-service';
+import { AbsenceService } from '../shared/services/absence-service';
+import { AbsenceList } from '../shared/entities/absence-list.model';
+import { Absence } from '../shared/entities/absence.model';
+import {Resource} from '../shared/entities/resource.model';
 
 
 
@@ -49,11 +49,10 @@ export class CalendarComponent implements OnInit {
   selectedDay: any;
   view: string;
   viewDate: Date;
-  user$: Observable<User>;
+  user$: Observable<User|Resource>;
   user: User;
   manager: User;
   developer: Developer;
-  emailUser: any;
   userRef: any;
   selectedProject;
   eventsCount;
@@ -64,7 +63,7 @@ export class CalendarComponent implements OnInit {
     production: 0,
     interne: 0,
     absence: 0
-  }
+  };
 
   daysTotal = 0;
   openDays = 0;
@@ -95,7 +94,7 @@ export class CalendarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //this.countOpenDays();
+    // this.countOpenDays();
     this.positionningService.getPositioningsRsource().subscribe(res => {
       this.projects = res as [];
       this.allProject = res;
@@ -123,30 +122,26 @@ export class CalendarComponent implements OnInit {
       this.refresh.next();
     });
 
-    this.user$.subscribe(res => {
-      const email = res.email;
-      this.emailUser = email;
-    });
   }
 
   countOpenDays() {
     this.openDays = 0;
-    let startDate = this.viewDate;
+    const startDate = this.viewDate;
     startDate.setDate(1);
 
-    let endDate = startDate;
+    const endDate = startDate;
     endDate.setMonth(startDate.getMonth() + 1);
     endDate.setDate(endDate.getDate() - 1);
 
     for (let i = 0; i < endDate.getDate() - 1; i++) {
-      let d = startDate;
+      const d = startDate;
       d.setDate(startDate.getDate() + i);
       if (d.getDay() !== 0 && d.getDay() !== 6 && !this.holiday.isHoliday(d)) {
         this.openDays++;
       }
     }
 
-    console.log(this.openDays)
+    console.log(this.openDays);
   }
 
   resetMonth() {
@@ -154,9 +149,9 @@ export class CalendarComponent implements OnInit {
     this.events = [];
     const startDate = new Date(this.viewDate);
     let i = 1;
-    //startDate.setMonth(this.viewDate.getMonth());
-    console.log('VIEW :: ', this.viewDate, ' :: ', startDate)
-    while (startDate.getMonth() == this.viewDate.getMonth()) {
+    // startDate.setMonth(this.viewDate.getMonth());
+    console.log('VIEW :: ', this.viewDate, ' :: ', startDate);
+    while (startDate.getMonth() === this.viewDate.getMonth()) {
       startDate.setDate(i);
       const ev = {
         start: new Date(startDate),
@@ -168,10 +163,10 @@ export class CalendarComponent implements OnInit {
           value: 1,
           label: 'Journée'
         }
-      }
+      };
 
       if (startDate.getDay() !== 6 && startDate.getDay() !== 0 && !this.holiday.isHoliday(startDate) &&
-        startDate.getMonth() == this.viewDate.getMonth()) {
+        startDate.getMonth() === this.viewDate.getMonth()) {
         this.events.push(ev);
       }
       i++;
@@ -208,8 +203,8 @@ export class CalendarComponent implements OnInit {
         startDate.setDate(1);
         let i = 1;
         startDate.setMonth(this.viewDate.getMonth());
-        console.log(startDate.getMonth(), ' ? == ', this.viewDate.getMonth())
-        while (startDate.getMonth() == this.viewDate.getMonth() && startDate.getFullYear() == this.viewDate.getFullYear()) {
+        console.log(startDate.getMonth(), ' ? == ', this.viewDate.getMonth());
+        while (startDate.getMonth() === this.viewDate.getMonth() && startDate.getFullYear() === this.viewDate.getFullYear()) {
           startDate.setDate(i);
           const ev = {
             start: new Date(startDate),
@@ -221,11 +216,11 @@ export class CalendarComponent implements OnInit {
               value: 1,
               label: 'Journée'
             }
-          }
+          };
 
           if (startDate.getDay() !== 6 && startDate.getDay() !== 0 &&
             !this.holiday.isHoliday(startDate) &&
-            startDate.getMonth() == this.viewDate.getMonth()) {
+            startDate.getMonth() === this.viewDate.getMonth()) {
             this.events.push(ev);
           }
           i++;
@@ -256,7 +251,7 @@ export class CalendarComponent implements OnInit {
           value: 1,
           label: 'Journée'
         }
-      }
+      };
       dayOfMonth++;
       if (startDate.getDay() !== 6 && startDate.getDay() !== 0 && !this.holiday.isHoliday(startDate)) {
         this.events.push(ev);
@@ -277,7 +272,7 @@ export class CalendarComponent implements OnInit {
   getProjectByRef(ref) {
     let p = null;
     for (let i = 0; i < this.allProject.length; i++) {
-      if (this.allProject[i].reference == ref) {
+      if (this.allProject[i].reference === ref) {
         p = this.allProject[i];
         break;
       }
@@ -364,7 +359,7 @@ export class CalendarComponent implements OnInit {
 
   findEventByDate(date) {
     for (let i = 0; i < this.events.length; i++) {
-      if (this.events[i].start == date) {
+      if (this.events[i].start === date) {
         return this.events[i];
       }
     }
@@ -382,18 +377,18 @@ export class CalendarComponent implements OnInit {
 
     for (let i = 0; i < this.events.length; i++) {
 
-      let ndate = event.day.date;
-      if (ndate.toDateString() == this.events[i].start.toDateString()) {
+      const ndate = event.day.date;
+      if (ndate.toDateString() === this.events[i].start.toDateString()) {
         d = i;
         break;
       }
     }
-    let ev = {
+    const ev = {
       index: d,
       date: event.day.date,
       project: this.selectedProject,
       events: this.events
-    }
+    };
     this.sharingService.changeMessage(JSON.stringify(ev));
     this.globals.events = this.events;
   }
@@ -499,7 +494,7 @@ export class CalendarComponent implements OnInit {
 
     this.dialogRef.afterClosed()
       .subscribe((response: FormGroup) => {
-        if (typeof response != 'undefined') {
+        if (typeof response !== 'undefined') {
           const newEvent = response.getRawValue();
           newEvent.actions = this.actions;
           this.events.push(newEvent);
@@ -513,15 +508,15 @@ export class CalendarComponent implements OnInit {
   }
 
   getValueWorked(temp, project) {
-    if (temp.value == 0) {
+    if (temp.value === 0) {
       this.total.absence++;
     } else {
-      if (project.client.toString().toLowerCase() == 'interne') {
+      if (project.client.toString().toLowerCase() === 'interne') {
         this.total.interne += temp.value;
       } else {
         this.total.production += temp.value;
       }
-      this.total.absence = this.total.absence + (1 - temp.value)
+      this.total.absence = this.total.absence + (1 - temp.value);
     }
   }
 
@@ -532,41 +527,42 @@ export class CalendarComponent implements OnInit {
   }
 
   validateTimeSheet() {
-    let absenceList = new AbsenceList();
+    const absenceList = new AbsenceList();
     Swal.fire(
       'TimeSheet Envoyée!',
       '',
       'success'
     );
     console.log(this.globals.events[0]);
-    let list = {
+    const list = {
       resource: this.globals.events[0].resource,
       date: this.globals.events[0].start
     };
     this.eventService.saveTimeList(list).subscribe(res => {
-      console.log(res)
+      console.log(res);
       for (let i = 0; i < this.globals.events.length; i++) {
 
         if (this.globals.events[i].temp.value !== 1) {
 
 
-          console.log(absenceList)
+          console.log(absenceList);
+
           this.absenceListService.createNewAbsenceList().subscribe(res => {
-            let d = this.globals.events[i].start;
-            let duree = this.globals.events[i].temp.value;
-            let absence = new Absence();
-            let abs = this.globals.events[i];
+            const d = this.globals.events[i].start;
+            const duree = this.globals.events[i].temp.value;
+            const absence = new Absence();
+            const abs = this.globals.events[i];
 
             absence.type = 'cp';
             absence.state = 'NV';
             absence.dateAbsence = d.setDate(d.getDate() - 1);
-            absence.duration = duree == 0 ? 1 : duree;
+            absence.duration = duree === 0 ? 1 : duree;
             absence.absenceListReference = res.reference;
 
-            console.log(absence)
+            console.log(absence);
             this.absenceService.createAbsence(absence).subscribe(rest => {
-              console.log(rest)
-            })
+              console.log(rest);
+            });
           });
         }
 
@@ -577,6 +573,6 @@ export class CalendarComponent implements OnInit {
           //
         });
       }
-    })
+    });
   }
 }

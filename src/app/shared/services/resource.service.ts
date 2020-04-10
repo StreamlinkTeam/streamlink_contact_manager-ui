@@ -24,14 +24,14 @@ export class ResourceService {
 
   getResource(reference: string): Observable<Resource> {
 
-    //this.loaderService.show();
+    // this.loaderService.show();
     const url = environment.API + '/ws/resources';
 
-    const options = { params: new HttpParams().set('resourceReference', reference) };
+    const options = { params: new HttpParams().set('developerReference', reference) };
 
     return this.http.get<Resource>(url, options)
       ._finally(() => {
-        //this.loaderService.hide();
+        // this.loaderService.hide();
       });
 
   }
@@ -41,24 +41,20 @@ export class ResourceService {
     return this.http.get(url);
   }
 
-  getAllResources() {
-    const url = environment.API + '/ws/resources/tous';
-    return this.http.get(url);
-  }
 
 
   createResources(resource: Resource): Observable<Resource> {
-    console.log(resource)
+
     const url = environment.API + '/ws/resources';
     return this.http.post<Resource>(url, resource)
       ._finally(() => {
-        //this.loaderService.hide();
+        // this.loaderService.hide();
       });
   }
 
   createResourceFromDeveloper(developerReference: string): Observable<Resource> {
-    //this.loaderService.show();
-    const url = environment.API + '/ws/resources/from-developer';
+    // this.loaderService.show();
+    const url = environment.API + '/ws/resources/from_developer';
 
     const options = { params: new HttpParams().set('developerReference', developerReference) };
 
@@ -66,29 +62,29 @@ export class ResourceService {
     return this.http
       .post<Resource>(url, null, options)
       ._finally(() => {
-        //this.loaderService.hide();
+        // this.loaderService.hide();
       });
   }
 
   updateResource(resource: Resource, reference: string): Observable<Resource> {
-    //this.loaderService.show();
+    // this.loaderService.show();
     const url = environment.API + '/ws/resources';
 
-    const options = { params: new HttpParams().set('resourceReference', reference) };
+    const options = { params: new HttpParams().set('developerReference', reference) };
 
 
     return this.http
       .put<Resource>(url, resource, options)
       ._finally(() => {
-        //this.loaderService.hide();
+        // this.loaderService.hide();
       });
   }
 
   deleteResource(reference: string) {
-    //this.loaderService.show();
+    // this.loaderService.show();
     const url = environment.API + '/ws/resources';
 
-    const options = { params: new HttpParams().set('resourceReference', reference) };
+    const options = { params: new HttpParams().set('developerReference', reference) };
 
 
     return this.http
@@ -96,146 +92,146 @@ export class ResourceService {
       .map((res: HttpResponse<any>) => res.body);
   }
 
-  getResourceSkills(resourceReference: string): Observable<SkillsInformation> {
-    //this.loaderService.show();
+  getResourceSkills(developerReference: string): Observable<SkillsInformation> {
+    // this.loaderService.show();
     const url = environment.API + '/ws/resources/skills';
 
-    const options = { params: new HttpParams().set('resourceReference', resourceReference) };
+    const options = { params: new HttpParams().set('developerReference', developerReference) };
 
 
     return this.http.get<SkillsInformation>(url, options)
       ._finally(() => {
-        //this.loaderService.hide();
+        // this.loaderService.hide();
       });
   }
 
-  updateResourceSkills(skills: SkillsInformation, resourceReference: string): Observable<SkillsInformation> {
-    //this.loaderService.show();
+  updateResourceSkills(skills: SkillsInformation, developerReference: string): Observable<SkillsInformation> {
+    // this.loaderService.show();
     const url = environment.API + '/ws/resources/skills';
 
-    const options = { params: new HttpParams().set('resourceReference', resourceReference) };
+    const options = { params: new HttpParams().set('developerReference', developerReference) };
 
 
     return this.http
       .put<SkillsInformation>(url, skills, options)
       ._finally(() => {
-        //this.loaderService.hide();
+        // this.loaderService.hide();
       });
   }
 
 
-  getResourceInfo(resourceReference: string): Observable<PersonalInformation> {
-    //this.loaderService.show();
+  getResourceInfo(developerReference: string): Observable<PersonalInformation> {
+    // this.loaderService.show();
     const url = environment.API + '/ws/resources/personal_info';
 
-    const options = { params: new HttpParams().set('resourceReference', resourceReference) };
+    const options = { params: new HttpParams().set('developerReference', developerReference) };
 
 
     return this
       .http
       .get<PersonalInformation>(url, options)
       ._finally(() => {
-        //this.loaderService.hide();
+        // this.loaderService.hide();
       });
   }
 
-  updateResourceInfo(info: PersonalInformation, resourceReference: string): Observable<PersonalInformation> {
-    //this.loaderService.show();
+  updateResourceInfo(info: PersonalInformation, developerReference: string): Observable<PersonalInformation> {
+    // this.loaderService.show();
     const url = environment.API + '/ws/resources/personal_info';
 
-    const options = { params: new HttpParams().set('resourceReference', resourceReference) };
+    const options = { params: new HttpParams().set('developerReference', developerReference) };
 
 
     return this.http
       .put<PersonalInformation>(url, info, options)
       ._finally(() => {
-        //this.loaderService.hide();
+        // this.loaderService.hide();
       });
   }
 
-  getResourceContact(resourceReference: string): Observable<Contact> {
-    //this.loaderService.show();
+  getResourceContact(developerReference: string): Observable<Contact> {
+    // this.loaderService.show();
     const url = environment.API + '/ws/resources/contact';
 
 
-    const options = { params: new HttpParams().set('resourceReference', resourceReference) };
+    const options = { params: new HttpParams().set('developerReference', developerReference) };
 
 
     return this
       .http
       .get<Contact>(url, options)
       ._finally(() => {
-        //this.loaderService.hide();
+        // this.loaderService.hide();
       });
   }
 
-  updateResourceContact(contact: Contact, resourceReference: string): Observable<Contact> {
-    //this.loaderService.show();
+  updateResourceContact(contact: Contact, developerReference: string): Observable<Contact> {
+    // this.loaderService.show();
     const url = environment.API + '/ws/resources/contact';
 
-    const options = { params: new HttpParams().set('resourceReference', resourceReference) };
+    const options = { params: new HttpParams().set('developerReference', developerReference) };
 
 
     return this.http
       .put<Contact>(url, contact, options)
       ._finally(() => {
-        //this.loaderService.hide();
+        // this.loaderService.hide();
       });
   }
 
-  getResourceCVs(resourceReference: string): Observable<CV[]> {
-    //this.loaderService.show();
+  getResourceCVs(developerReference: string): Observable<CV[]> {
+    // this.loaderService.show();
     const url = environment.API + '/ws/resources/cv';
 
-    const options = { params: new HttpParams().set('resourceReference', resourceReference) };
+    const options = { params: new HttpParams().set('developerReference', developerReference) };
 
 
     return this
       .http
       .get<CV[]>(url, options)
       ._finally(() => {
-        //this.loaderService.hide();
+        // this.loaderService.hide();
       });
   }
 
-  createResourceCv(fileToUpload: File, resourceReference: string): Observable<CV> {
-    //this.loaderService.show();
+  createResourceCv(fileToUpload: File, developerReference: string): Observable<CV> {
+    // this.loaderService.show();
     const url = environment.API + '/ws/resources/cv';
 
     const formData: FormData = new FormData();
     formData.append('cv', fileToUpload, fileToUpload.name);
 
-    const options = { params: new HttpParams().set('resourceReference', resourceReference) };
+    const options = { params: new HttpParams().set('developerReference', developerReference) };
 
 
     return this.http
       .put<CV>(url, formData, options)
       ._finally(() => {
-        //this.loaderService.hide();
+        // this.loaderService.hide();
       });
   }
 
-  deleteCV(reference: string, resourceReference: string) {
-    //this.loaderService.show();
+  deleteCV(reference: string, developerReference: string) {
+    // this.loaderService.show();
     const url = environment.API + '/ws/resources/cv';
 
-    const options = { params: new HttpParams().set('resourceReference', resourceReference).set('reference', reference) };
+    const options = { params: new HttpParams().set('developerReference', developerReference).set('reference', reference) };
 
 
     return this.http
       .delete(url, options)
       ._finally(() => {
-        //this.loaderService.hide();
+        // this.loaderService.hide();
       });
   }
 
   searchResources(term: string): Observable<ResourceView[]> {
-    //this.loaderService.show();
+    // this.loaderService.show();
     const url = environment.API + '/ws/resources/auto-complete';
     const options = { params: new HttpParams().set('term', term) };
     return this.http.get<ResourceView[]>(url, options)
       ._finally(() => {
-        //this.loaderService.hide();
+        // this.loaderService.hide();
       });
   }
 

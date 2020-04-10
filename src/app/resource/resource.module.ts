@@ -22,6 +22,8 @@ import {MatIconModule} from '@angular/material';
 import {AbsenceModule} from '../absence/absence.module';
 import {ResourceCountAbsenceComponent} from '../resource-count-absence/resource-count-absence.component';
 import {TypeaheadModule} from 'ngx-bootstrap';
+import {ResourceComponent} from './resource.component';
+import {MatTabsModule} from '@angular/material/tabs';
 
 
 @NgModule({
@@ -37,9 +39,9 @@ import {TypeaheadModule} from 'ngx-bootstrap';
     CommonModule,
     Ng2SmartTableModule,
     MatButtonModule,
-    DeveloperModule, ActionModule, MatIconModule, AbsenceModule, TypeaheadModule],
-  declarations: [ResourceTableComponent, ResourceEditorComponent, ResourceRecordComponent, ResourceCountAbsenceComponent],
-  exports: [ResourceTableComponent, ResourceEditorComponent, ResourceCountAbsenceComponent]
+    DeveloperModule, ActionModule, MatIconModule, AbsenceModule, TypeaheadModule, MatTabsModule],
+  declarations: [ResourceComponent, ResourceTableComponent, ResourceEditorComponent, ResourceRecordComponent, ResourceCountAbsenceComponent],
+  exports: [ResourceComponent, ResourceTableComponent, ResourceEditorComponent, ResourceCountAbsenceComponent]
 })
 export class ResourceModule {
 }

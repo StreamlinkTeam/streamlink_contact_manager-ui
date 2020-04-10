@@ -17,6 +17,7 @@ export class SkillsEditorComponent implements OnInit {
   experiences: any[];
   formations: any[];
   urlToReturn = '';
+  currentResource = false;
 
 
   constructor(private service: DeveloperService,
@@ -25,6 +26,10 @@ export class SkillsEditorComponent implements OnInit {
               private activeRoute: ActivatedRoute) {
 
 
+  }
+
+  isResource() {
+    return this.activeRoute.snapshot.parent.url[0].toString() === 'resources';
   }
 
   ngOnInit(): void {
@@ -52,10 +57,20 @@ export class SkillsEditorComponent implements OnInit {
 
 
     if (this.editing) {
-      this.service.getDeveloperSkills(this.activeRoute.snapshot.parent.params['reference'])
+      this.service.getDeveloperSkills(this.activeRoute.snapshot.parent.params['reference'], this.isResource())
         .subscribe(response => this.skills = response,
           error =>
             this.router.navigate([this.urlToReturn, 'error']));
+    } else if (this.isResource() && this.activeRoute.snapshot.parent.url[1].toString() === 'profile') {
+      this.currentResource = true;
+      this.editing = true;
+
+      this.service.getDeveloperSkills(sessionStorage['ref'], this.isResource())
+        .subscribe(response => {
+            this.skills = response;
+            },
+          error =>
+            this.router.navigate([this.urlToReturn + '/profile', 'error']));
     }
   }
 
@@ -72,7 +87,7 @@ export class SkillsEditorComponent implements OnInit {
 
     if (form.valid) {
       if (this.editing) {
-        this.service.updateDeveloperSkills(this.skills, this.skills.developerReference)
+        this.service.updateDeveloperSkills(this.skills, this.skills.developerReference, this.isResource())
           .subscribe(res => {
 
             this.skills = res;

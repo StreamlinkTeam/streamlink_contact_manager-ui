@@ -27,7 +27,7 @@ export class EvaluationEditorComponent {
     this.reference = activeRoute.snapshot.parent.params['reference'];
     this.contactType = activeRoute.snapshot.parent.url[0].toString();
 
-    this.service.getEvaluations(this.reference)
+    this.service.getEvaluations(this.reference, !this.isDeveloper())
       .subscribe(response => this.evaluations = response
         , error => {
           this.router.navigate(['/' + this.contactType, 'error']);
@@ -69,7 +69,7 @@ export class EvaluationEditorComponent {
       }
 
 
-      this.service.deleteEvaluation(act.reference, this.reference)
+      this.service.deleteEvaluation(act.reference, this.reference, !this.isDeveloper())
         .subscribe(response => {
 
           this.evaluations.splice(index, 1);
@@ -87,9 +87,9 @@ export class EvaluationEditorComponent {
     if (form.valid) {
       if (this.editing) {
 
-        this.service.updateEvaluation(this.evaluation, this.evaluation.reference, this.reference)
+        this.service.updateEvaluation(this.evaluation, this.evaluation.reference, this.reference, !this.isDeveloper())
           .subscribe(response => {
-            this.service.getEvaluations(this.reference).subscribe(res => this.evaluations = res);
+            this.service.getEvaluations(this.reference, !this.isDeveloper()).subscribe(res => this.evaluations = res);
             this.evaluation = new Evaluation();
             this.editing = false;
             this.toastr.success('Evaluation Mise à jour avec succés', 'Opération Réussite!');
@@ -99,9 +99,9 @@ export class EvaluationEditorComponent {
             this.toastr.error('Erreur lors de la mise à jour de l\'Evaluation', 'Opération échoué !!!');
           });
       } else {
-        this.service.createEvaluation(this.evaluation, this.reference)
+        this.service.createEvaluation(this.evaluation, this.reference, !this.isDeveloper())
           .subscribe(response => {
-            this.service.getEvaluations(this.reference).subscribe(res => this.evaluations = res);
+            this.service.getEvaluations(this.reference, !this.isDeveloper()).subscribe(res => this.evaluations = res);
             this.evaluation = new Evaluation();
             this.editing = false;
             this.toastr.success('Evaluation Créé avec succés', 'Opération Réussite!');

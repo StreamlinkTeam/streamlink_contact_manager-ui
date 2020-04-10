@@ -23,9 +23,9 @@
 <!--    </tbody>-->
 <!--  </table>  *ngIf="photo.url != ''"  -->
 
-  <img [hidden]="photo == undefined" [src]='url' style="width: 300px; height: 300px;  border-style: double;">
-  <img *ngIf="photo == undefined" src="assets/unknown.png" style="width: 300px; height: 300px;  border-style: double;">
-  <div [hidden]="photo" class="form-group required">
+  <img *ngIf="avatar$ | async as avatar" [hidden]="avatar == undefined || avatar == null" [src]='avatar.url' style="width: 300px; height: 300px;  border-style: double;">
+  <img *ngIf="!avatar$" src="assets/unknown.png" style="width: 300px; height: 300px;  border-style: double;">
+  <div  class="form-group required">
     <label class="col-form-label" for="file">Choisir une photo</label>
     <input #file_input="ngModel" (change)="handleFileInput($event.target.files)" [(ngModel)]="f"
            [fileSizeErrorMsg]="'Le fichier ne peut pas dépasser les 7M !'"
@@ -43,7 +43,7 @@
 
   <div class="form-group">
 
-    <button [hidden]="photo"
+    <button
       style="margin: 10px" type="submit"
       color="primary"
       mat-raised-button

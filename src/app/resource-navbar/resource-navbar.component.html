@@ -24,7 +24,7 @@
         </li>
 
         <li class="nav-item" routerLinkActive="active">
-          <a class="nav-link" routerLink="/profil" routerLinkActive="active">Profile</a>
+          <a class="nav-link" routerLink="/resources/profile" routerLinkActive="active">Profile</a>
         </li>
 
 
@@ -33,12 +33,12 @@
       </ul>
       <div class="md-form my-0">
         <ul class="navbar-nav mr-auto">
-          <li *ngIf="isLoggedIn() && isAdmin() && user$ | async as user" class="nav-item" routerLinkActive="active">
-            <a class="dropdown-item  text-warning" routerLink="/profil" routerLinkActive="active"><i
-              class="fa fa-user"></i> &nbsp;{{user.firstname }} {{user.lastname}}</a>
+          <li *ngIf="isLoggedIn() && isAdmin() && currentResource$ | async as currentResource" class="nav-item" routerLinkActive="active">
+            <a class="dropdown-item  text-warning" routerLink="/resources/profile" routerLinkActive="active"><i
+              class="fa fa-user"></i> &nbsp;{{currentResource.firstname }} {{currentResource.lastname}}</a>
           </li>
-          <li *ngIf="isLoggedIn() && !isAdmin() && user$ | async as user" class="nav-item" routerLinkActive="active">
-            <a class="dropdown-item  text-warning">{{user.firstname }} {{user.lastname}}</a>
+          <li *ngIf="isLoggedIn() && !isAdmin() && currentResource$ | async as currentResource" class="nav-item" routerLinkActive="active">
+            <a class="dropdown-item  text-warning">{{currentResource.firstname }} {{currentResource.lastname}}</a>
           </li>
           <li *ngIf="isLoggedIn()" class="nav-item">
             <a (click)="logout()" class="dropdown-item text-warning"><i class="fa fa-power-off"></i></a>

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {AbsenceService} from '../../shared/services/AbsenceService';
+import {AbsenceService} from '../../shared/services/absence-service';
 import {ActivatedRoute, Router} from '@angular/router';
 import Swal from 'sweetalert2';
 import {CalendarService} from '../../calendar/calendar.service';

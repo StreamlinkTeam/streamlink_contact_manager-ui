@@ -25,6 +25,7 @@ export class ContractEditorComponent implements OnInit {
   cjm = 0;
   externalConsultant = false;
   resource: Resource;
+  contactType = '';
 
 
   constructor(private service: ContractService,
@@ -33,6 +34,8 @@ export class ContractEditorComponent implements OnInit {
               private toastr: ToastrService,
               private activeRoute: ActivatedRoute) {
     this.urlToReturn = '/' + this.activeRoute.snapshot.parent.url[0].toString();
+    this.contactType = activeRoute.snapshot.parent.url[0].toString();
+
   }
 
   ngOnInit(): void {
@@ -40,39 +43,43 @@ export class ContractEditorComponent implements OnInit {
     this.editing = this.activeRoute.snapshot.parent.params['mode'] === 'edit';
     if (this.editing) {
 
-      this.service.getWishedContract(this.activeRoute.snapshot.parent.params['reference'])
+      this.service.getWishedContract(this.activeRoute.snapshot.parent.params['reference'], !this.isDeveloper())
         .subscribe(response => {
-          this.wishedContract = response,
+            this.wishedContract = response;
 
-            this.resourceService.getResource(response.developerReference).subscribe(res => {
-              if (res.resourceType == 'ExternalConsultant') {
-                this.externalConsultant = true;
-                this.cjm = this.contract.salary
-              } else {
-                this.externalConsultant = false;
-              }
-            });
+            if (!this.isDeveloper() && this.wishedContract != null && this.wishedContract.reference != null) {
+              this.resourceService.getResource(response.developerReference).subscribe(res => {
+                if (res.resourceType === 'ExternalConsultant') {
+                  this.externalConsultant = true;
+                  this.cjm = this.contract.salary;
+                } else {
+                  this.externalConsultant = false;
+                }
+              });
+            }
+          },
 
           error => {
             this.router.navigate([this.urlToReturn, 'error']);
-          };
-        });
+          });
 
-      this.service.getContract(this.activeRoute.snapshot.parent.params['reference'])
+      this.service.getContract(this.activeRoute.snapshot.parent.params['reference'], !this.isDeveloper())
         .subscribe(response => {
           this.contract = response;
 
-          this.resourceService.getResource(response.developerReference).subscribe(res => {
-            if (res.resourceType == 'ExternalConsultant') {
-              this.cjm = this.contract.salary
-            } else if (res.resourceType != 'ExternalConsultant') {
-              this.cjm = (this.contract.salary * this.contract.coefficient) / this.contract.businessDays;
-
-            }
-          });
-
-
           this.haveContract = this.contract != null && this.contract.reference != null;
+          if (this.haveContract && !this.isDeveloper()) {
+            this.resourceService.getResource(response.developerReference).subscribe(res => {
+              if (res.resourceType === 'ExternalConsultant') {
+                this.cjm = this.contract.salary;
+              } else if (res.resourceType !== 'ExternalConsultant') {
+                this.cjm = (this.contract.salary * this.contract.coefficient) / this.contract.businessDays;
+
+              }
+            });
+          }
+
+
         }, error => {
           this.router.navigate([this.urlToReturn, 'error']);
         });
@@ -83,10 +90,13 @@ export class ContractEditorComponent implements OnInit {
 
   }
 
+  isDeveloper() {
+    return this.contactType === 'developers';
+  }
 
   deleteContract() {
 
-    this.service.deleteContract(this.contract.developerReference)
+    this.service.deleteContract(this.contract.developerReference, !this.isDeveloper())
       .subscribe(response => {
         this.contract = null;
         this.haveContract = false;
@@ -98,7 +108,7 @@ export class ContractEditorComponent implements OnInit {
   }
 
   initContract() {
-    let con = new Contract();
+    const con = new Contract();
     con.developerReference = this.wishedContract.developerReference;
 
     // this.resourceService.getResource(con.developerReference).subscribe(result => {
@@ -112,10 +122,10 @@ export class ContractEditorComponent implements OnInit {
     //   }
     // });
 
-    this.service.createContracts(con, this.wishedContract.developerReference)
+    this.service.createContracts(con, this.wishedContract.developerReference, !this.isDeveloper())
       .subscribe(response => {
         this.contract = response;
-        this.haveContract = true;
+        this.haveContract = this.contract != null && this.contract.reference != null;
       }, error => {
         this.toastr.error('Erreur lors de la création du Contrat', 'Opération échoué !!!');
       });
@@ -125,7 +135,7 @@ export class ContractEditorComponent implements OnInit {
 
     if (form.valid) {
       if (this.editing) {
-        this.service.updateContract(this.contract, this.contract.developerReference)
+        this.service.updateContract(this.contract, this.contract.developerReference, !this.isDeveloper())
           .subscribe(response => {
             this.cjm = (this.contract.salary * this.contract.coefficient) / this.contract.businessDays;
             this.toastr.success('Contrat Mis à jour avec succés', 'Opération Réussite!');
@@ -141,7 +151,7 @@ export class ContractEditorComponent implements OnInit {
     if (form.valid) {
       if (this.editing) {
 
-        this.service.updateWishedContract(this.wishedContract, this.wishedContract.developerReference)
+        this.service.updateWishedContract(this.wishedContract, this.wishedContract.developerReference, !this.isDeveloper())
           .subscribe(response => {
 
             this.toastr.success('Contrat Mis à jour avec succés', 'Opération Réussite!');

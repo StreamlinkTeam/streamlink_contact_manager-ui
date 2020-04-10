@@ -1,7 +1,7 @@
 
 <div class="container-fluid">
 
-  <div class="p-2  text-white "
+  <div class="p-2  text-white " *ngIf="developer$ | async as developer"
        style="font-size: 15px; height:40px; background-color: #4267b2; box-shadow: 2px 2px 2px grey; border-radius: 5px; text-align: center;"><h5>
     Fiche - {{developer.firstname}} {{developer.lastname}}</h5></div>
   <br>
@@ -41,12 +41,7 @@
     Evaluations
   </a>
 
-    <a #abs="routerLinkActive" [active]="abs.isActive"
-       animationDuration="2000ms"
-       mat-tab-link routerLink="abscount"
-       routerLinkActive>
-      Décompte d'absence
-    </a>
+
   </nav>
 
   <br/>

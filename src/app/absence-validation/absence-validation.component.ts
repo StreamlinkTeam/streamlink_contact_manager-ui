@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
-import { AbsenceService } from '../shared/services/AbsenceService';
+import { AbsenceService } from '../shared/services/absence-service';
 import { ToastrService } from 'ngx-toastr';
-import { Absence } from '../shared/entities/Absence.model';
-import { AbsenceListService } from '../shared/services/AbsenceListService';
+import { Absence } from '../shared/entities/absence.model';
+import { AbsenceListService } from '../shared/services/absence-list-service';
 import { Row } from 'ng2-smart-table/lib/data-set/row';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';

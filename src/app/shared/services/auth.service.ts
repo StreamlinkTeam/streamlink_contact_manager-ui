@@ -5,6 +5,7 @@ import {Observable} from 'rxjs/Observable';
 
 import 'rxjs/add/operator/map';
 import {JwtToken} from '../entities/token.model';
+import {Resource} from '../entities/resource.model';
 
 @Injectable()
 export class AuthService {
@@ -16,7 +17,7 @@ export class AuthService {
     return this.userService.authenticate(username, password);
   }
 
-  getCurrentUser(): Observable<User> {
+  getCurrentUser(): Observable<User|Resource> {
 
     return this.userService.getCurrentUser();
 
@@ -86,7 +87,7 @@ export class AuthService {
 
   private tokenNotExpired(): boolean {
 
-    let decodedJwtData = this.getJwtToken();
+    const decodedJwtData = this.getJwtToken();
 
     // console.log('decodedJwtData: ' + decodedJwtData);
     // console.log('exp: ' + decodedJwtData.exp);
@@ -100,8 +101,8 @@ export class AuthService {
   }
 
   private getJwtToken(): JwtToken {
-    let decodedJwtJsonData = window.atob(this.getToken().split('.')[1]);
-    let decodedJwtData = JSON.parse(decodedJwtJsonData) as JwtToken;
+    const decodedJwtJsonData = window.atob(this.getToken().split('.')[1]);
+    const decodedJwtData = JSON.parse(decodedJwtJsonData) as JwtToken;
 
     decodedJwtData.exp = decodedJwtData.exp * 1000;
     decodedJwtData.iat = decodedJwtData.iat * 1000;
