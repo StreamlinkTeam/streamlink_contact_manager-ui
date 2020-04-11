@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { map} from 'rxjs/operators';
+import {environment} from '../../environments/environment';
 
-  const url = 'http://localhost:9090/ws/time_line';
- // const url = 'http://streamlinkcrm.northeurope.azurecontainer.io:9091/ws/time_line';
+  const url = environment.API + '/ws/time_line';
 
 @Injectable()
 export class CalendarService implements Resolve<any> {
@@ -106,13 +106,13 @@ export class CalendarService implements Resolve<any> {
 
   validateTimelines(timeline) {
     const timelineDate = new Date(timeline.timeline.start);
-    console.log(timeline)
-    let timel = {
+    console.log(timeline);
+    const timel = {
       year: timelineDate.getFullYear(),
       month: timelineDate.getMonth() + 1,
       id: timeline.timeline.resource.id
-    }
-    console.log(timel)
+    };
+    console.log(timel);
     return this.httpClient.post(`${url}/validate`, timel);
   }
 

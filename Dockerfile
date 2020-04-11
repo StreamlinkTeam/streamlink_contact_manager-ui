@@ -1,6 +1,21 @@
-FROM node:8.11.1
-RUN mkdir /usr/src/app
-WORKDIR /usr/src/app
+FROM node:latest as node
+
+# set working directory
+WORKDIR /app
+
+# install and cache app dependencies
 COPY . .
-RUN npm install -g @angular/cli@^7.3.5 && npm rebuild node-sass
-CMD ng serve --host 0.0.0.0 --port 4200 --disableHostCheck true
+
+
+
+#RUN npm install --save-dev @angular-devkit/build-angular
+RUN npm install -g @angular/cli && npm rebuild node-sass
+RUN npm audit fix
+RUN npm run build --prod
+
+FROM nginx:alpine
+
+RUN rm -rf /usr/share/nginx/html/* && rm -rf /etc/nginx/nginx.conf
+COPY ./nginx.conf /etc/nginx/nginx.conf
+
+COPY --from=node /app/dist /usr/share/nginx/html

@@ -75,8 +75,8 @@ export class EventService {
   }
 
   updateEvent(reference, event) {
-    console.log("SERVER :: ", event)
-    return this.http.put("http://localhost:9090/ws/time_line?ligneTempsReference=" + reference, event);
+    console.log('SERVER :: ', event);
+    return this.http.put(environment.API + '/ws/time_line?ligneTempsReference=' + reference, event);
   }
 
   getPeriod(month, year) {
