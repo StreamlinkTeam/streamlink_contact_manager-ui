@@ -1,5 +1,5 @@
-import {Injectable} from "@angular/core";
-import {NgForm} from "@angular/forms";
+import {Injectable} from '@angular/core';
+import {NgForm} from '@angular/forms';
 
 @Injectable()
 export class ValidatorService {
@@ -8,7 +8,7 @@ export class ValidatorService {
   }
 
   getFormValidationMessages(form: NgForm): string[] {
-    let messages: string[] = [];
+    const messages: string[] = [];
     Object.keys(form.controls).forEach(k => {
       this.getValidationMessages(form.controls[k], k)
         .forEach(m => messages.push(m));
@@ -17,28 +17,28 @@ export class ValidatorService {
   }
 
   getValidationMessages(state: any, thingName?: string): string[] {
-    let thing: string = state.path || thingName;
-    let messages: string[] = [];
+    const thing: string = state.path || thingName;
+    const messages: string[] = [];
     if (state.errors) {
-      for (let errorName in state.errors) {
+      for (const errorName in state.errors) {
         switch (errorName) {
-          case "email":
+          case 'email':
             messages.push(`Vous devez entrer un email valide`);
             break;
-          case "required":
+          case 'required':
             messages.push(`Vous devez entrer un  ${thing}`);
             break;
-          case "minlength":
-            messages.push(`L'entré ${thing} doit avoir au minimum 
+          case 'minlength':
+            messages.push(`L'entré ${thing} doit avoir au minimum
       ${state.errors['minlength'].requiredLength}
 characters`);
             break;
-          case "maxlength":
-            messages.push(`L'entré ${thing} doit avoir au maximum 
+          case 'maxlength':
+            messages.push(`L'entré ${thing} doit avoir au maximum
       ${state.errors['minlength'].requiredLength}
 characters`);
             break;
-          case "pattern":
+          case 'pattern':
             messages.push(`L'entré ${thing} contient des characters illégaux`);
             break;
         }

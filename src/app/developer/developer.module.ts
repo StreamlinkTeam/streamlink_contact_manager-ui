@@ -25,7 +25,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatTabsModule} from '@angular/material/tabs';
 
 
-import {ButtonsModule, CardsFreeModule, WavesModule} from 'angular-bootstrap-md';
+import {ButtonsModule, CardsModule, WavesModule} from 'angular-bootstrap-md';
 import {MatDatepickerModule, MatFormFieldModule, MatIconModule, MatInputModule} from '@angular/material';
 import {DeveloperRecordComponent} from './developer-record.component';
 import {AbsenceModule} from '../absence/absence.module';
@@ -33,7 +33,7 @@ import {AbsenceModule} from '../absence/absence.module';
 
 @NgModule({
   imports: [
-    ButtonsModule, WavesModule, CardsFreeModule,
+    ButtonsModule, WavesModule, CardsModule,
     SharedModule,
     BrowserModule,
     NgSelectModule,

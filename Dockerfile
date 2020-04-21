@@ -8,9 +8,9 @@ COPY . .
 
 
 
-#RUN npm install --save-dev @angular-devkit/build-angular
+RUN npm install --save-dev @angular-devkit/build-angular
 RUN npm install -g @angular/cli && npm rebuild node-sass
-RUN npm audit fix
+#RUN npm audit fix
 RUN npm run build --prod
 
 FROM nginx:alpine

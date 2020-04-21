@@ -44,14 +44,14 @@ export class AbsenceDemandeComponent implements OnInit {
   }
 
   save(form: NgForm) {
-    console.log(this.absenceList)
+    console.log(this.absenceList);
     this.service.createAbsenceList(this.absenceList).subscribe(res => {
       this.saveAbsence(form, res.reference);
       this.refAbs = res.reference;
       this.toastr.success('Action Mise à jour avec succés', 'Opération Réussite!');
 
     }, error1 => {
-      console.log('errrroorrr!!!');
+      console.log('error!!!');
       this.toastr.error('Erreur lors de la mise à jour de l\'Action', 'Opération échoué !!!');
 
     });
@@ -62,12 +62,12 @@ export class AbsenceDemandeComponent implements OnInit {
     for (let i = 0; i < index.length; i++) {
       this.absence.type = this.type;
       this.absence.state = 'NV';
-      this.absence.dateAbsence = new Date(this.datesSelected[i].month + "-" + this.datesSelected[i].day + "-" + this.datesSelected[i].year);
+      this.absence.dateAbsence = new Date(this.datesSelected[i].month + '-' + this.datesSelected[i].day + '-' + this.datesSelected[i].year);
       this.absence.dateAbsence.setDate(this.absence.dateAbsence.getDate() + 1);
       this.absence.duration = this.duration[i];
       this.absence.absenceListReference = reference;
 
-      console.log(this.absence)
+      console.log(this.absence);
       this.absenceService.createAbsence(this.absence).subscribe(res => {
 
         this.refAbs = res.reference;

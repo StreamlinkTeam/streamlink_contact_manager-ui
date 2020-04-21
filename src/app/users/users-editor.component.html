@@ -70,7 +70,7 @@
 
                 <div class="form-group">
                   <label>Email: </label>
-                  <input #email_input="ngModel" [(ngModel)]="user.email" class="form-control"
+                  <input #email_input="ngModel" [readOnly]="editing || currentUser" [(ngModel)]="user.email" class="form-control"
                          email name="mail">
                   <app-field-error-display
                     [displayError]="form.submitted && email_input.invalid"
@@ -80,18 +80,18 @@
                 </div>
 
 
-                <div *ngIf="!currentUser" class="form-group">
-                  <label>Roles</label>
+<!--                <div *ngIf="!currentUser" class="form-group">-->
+<!--                  <label>Roles</label>-->
 
-                  <ng-select [(ngModel)]="user.roles" [hideSelected]="true" [multiple]="true"
-                             bindValue="label" id="roles" name="roles">
+<!--                  <ng-select [(ngModel)]="user.roles" [hideSelected]="true" [multiple]="true"-->
+<!--                             bindValue="label" id="roles" name="roles">-->
 
-                    <ng-option value="ROLE_ADMIN">Admin</ng-option>
-                    <ng-option value="ROLE_CLIENT">Client</ng-option>
-                    <ng-option value="ROLE_RESOURCE">Resource</ng-option>
+<!--                    <ng-option value="ROLE_ADMIN">Admin</ng-option>-->
+<!--                    <ng-option value="ROLE_CLIENT">Client</ng-option>-->
+<!--                    <ng-option value="ROLE_RESOURCE">Resource</ng-option>-->
 
-                  </ng-select>
-                </div>
+<!--                  </ng-select>-->
+<!--                </div>-->
 
                 <div class="form-group">
                   <button style="margin: 5px" color="primary" mat-raised-button type="submit">

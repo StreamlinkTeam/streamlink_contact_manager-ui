@@ -5,7 +5,7 @@ import { AbsenceService } from '../shared/services/absence-service';
 import { ToastrService } from 'ngx-toastr';
 import { Absence } from '../shared/entities/absence.model';
 import { AbsenceListService } from '../shared/services/absence-list-service';
-import { Row } from 'ng2-smart-table/lib/data-set/row';
+import { Row } from 'ng2-smart-table/lib/lib/data-set/row';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 @Component({
@@ -18,8 +18,8 @@ export class AbsenceValidationComponent implements OnInit {
   displayedColumns = ['id', 'name', 'progress', 'color'];
   dataSource: MatTableDataSource<Absence>;
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator, { static: false}) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: false}) sort: MatSort;
 
   constructor(
     private absenceListService: AbsenceListService,

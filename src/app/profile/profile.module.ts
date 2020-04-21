@@ -10,7 +10,7 @@ import {RouterModule} from '@angular/router';
 import {ProfileComponent} from './profile.component';
 import {ProfilePasswordEditorComponent} from './profile-password-editor.component';
 import {MatIconModule, MatTabsModule, MatButtonModule} from '@angular/material';
-import {CardsFreeModule} from 'angular-bootstrap-md';
+import {CardsModule} from 'angular-bootstrap-md';
 
 
 
@@ -21,7 +21,7 @@ import {CardsFreeModule} from 'angular-bootstrap-md';
     BrowserAnimationsModule,
     FormsModule,
     RouterModule,
-    CommonModule, MatTabsModule, CardsFreeModule, MatIconModule],
+    CommonModule, MatTabsModule, CardsModule, MatIconModule],
   declarations: [ProfileComponent, ProfilePasswordEditorComponent],
   exports: [ProfileComponent, ProfilePasswordEditorComponent]
 })

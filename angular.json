@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "streamlink-contacts": {
+    "streamlink-condidats-ui": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -24,10 +24,10 @@
               "src/styles.css",
               "node_modules/@ng-select/ng-select/themes/material.theme.css",
               "node_modules/font-awesome/scss/font-awesome.scss",
-              "node_modules/angular-bootstrap-md/scss/mdb-free.scss",
+              "node_modules/angular-bootstrap-md/assets/scss/mdb.scss",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/ngx-toastr/toastr.css",
-              "node_modules/primeng/resources/themes/omega/theme.css",
+              "node_modules/primeng/resources/themes/rhea/theme.css",
               "node_modules/primeng/resources/primeng.min.css"
             ],
             "scripts": [
@@ -59,18 +59,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "streamlink-contacts:build"
+            "browserTarget": "streamlink-condidats-ui:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "streamlink-contacts:build:production"
+              "browserTarget": "streamlink-condidats-ui:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "streamlink-contacts:build"
+            "browserTarget": "streamlink-condidats-ui:build"
           }
         },
         "test": {
@@ -93,7 +93,7 @@
               "node_modules/font-awesome/css/font-awesome.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/ngx-toastr/toastr.css",
-              "node_modules/primeng/resources/themes/omega/theme.css",
+              "node_modules/primeng/resources/themes/rhea/theme.css",
               "node_modules/primeng/resources/primeng.min.css"
             ],
             "assets": [
@@ -116,7 +116,7 @@
         }
       }
     },
-    "streamlink-contacts-e2e": {
+    "streamlink-condidats-ui-e2e": {
       "root": "e2e",
       "sourceRoot": "e2e",
       "projectType": "application",
@@ -125,7 +125,7 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "./protractor.conf.js",
-            "devServerTarget": "streamlink-contacts:serve"
+            "devServerTarget": "streamlink-condidats-ui:serve"
           }
         },
         "lint": {
@@ -142,7 +142,7 @@
       }
     }
   },
-  "defaultProject": "streamlink-contacts",
+  "defaultProject": "streamlink-condidats-ui",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "app",
@@ -151,5 +151,8 @@
     "@schematics/angular:directive": {
       "prefix": "app"
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }

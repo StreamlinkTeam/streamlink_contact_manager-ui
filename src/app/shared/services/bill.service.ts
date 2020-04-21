@@ -21,9 +21,7 @@ export class BillService {
     const url = environment.API + '/ws/bills';
     const options = {params: new HttpParams().set('billReference', reference)};
     return this.http
-      .put<Bill>(url, bill, options)
-      ._finally(() => {
-      });
+      .put<Bill>(url, bill, options);
   }
 
   getBillById(id): Observable<Bill> {

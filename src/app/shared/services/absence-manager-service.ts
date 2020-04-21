@@ -18,9 +18,7 @@ export class AbsenceManagerService {
 
     const options = {params: new HttpParams().set('resourceReference', resourceReference)};
 
-    return this.http.get<AbsenceManage>(url, options)
-      ._finally(() => {
-      });
+    return this.http.get<AbsenceManage>(url, options);
 
   }
 
@@ -30,10 +28,7 @@ export class AbsenceManagerService {
 
     const options = {params: new HttpParams().set('absenceManageReference', absenceManageReference)};
 
-    return this.http.get<AbsenceManage>(url, options)
-      ._finally(() => {
-      });
-
+    return this.http.get<AbsenceManage>(url, options);
   }
 
   updateAbsenceManage(absenceManage: AbsenceManage, resourceReference: string): Observable<AbsenceManage> {

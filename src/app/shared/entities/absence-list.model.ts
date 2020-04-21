@@ -1,8 +1,8 @@
 export class AbsenceList {
   reference: string;
-  comment: string = '';
-  subject: string = '';
-  state: string = 'NV';
+  comment = '';
+  subject = '';
+  state = 'NV';
   resourceReference: string;
   absenceListDate: Date;
   startDate: Date;

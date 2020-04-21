@@ -8,7 +8,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterModule} from '@angular/router';
 
 import {NgSelectModule} from '@ng-select/ng-select';
-import {Ng2FileSizeModule} from 'ng2-file-size';
 import {Ng2SmartTableModule} from 'ng2-smart-table';
 import {ActionModule} from '../action/action.module';
 import {PositioningTableComponent} from './positioning-table.component';
@@ -22,19 +21,18 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {AngularFontAwesomeModule} from 'angular-font-awesome';
 
-import {ButtonsModule, CardsFreeModule, WavesModule} from 'angular-bootstrap-md';
+import {ButtonsModule, CardsModule, WavesModule} from 'angular-bootstrap-md';
 
 
 @NgModule({
   imports: [
-    ButtonsModule, WavesModule, CardsFreeModule,
+    ButtonsModule, WavesModule, CardsModule,
     SharedModule,
     BrowserModule,
     NgSelectModule,
     BrowserAnimationsModule,
     FormsModule,
     RouterModule,
-    Ng2FileSizeModule,
     CommonModule,
     Ng2SmartTableModule, MatInputModule, MatSelectModule, MatDialogModule, MatButtonModule, MatIconModule,
     MatFormFieldModule,

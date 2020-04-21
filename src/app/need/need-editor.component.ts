@@ -1,9 +1,9 @@
 import {NeedService} from './../shared/services/need.service';
 import {NgForm} from '@angular/forms';
 import {catchError, debounceTime, distinctUntilChanged, switchMap, tap} from 'rxjs/operators';
-import {concat} from 'rxjs/observable/concat';
+
 import {ActivatedRoute, Router} from '@angular/router';
-import {Subject} from 'rxjs/Subject';
+import {concat, Subject} from 'rxjs';
 import {Observable, of} from 'rxjs';
 import {User} from './../shared/entities/user.model';
 import {Component, OnInit} from '@angular/core';

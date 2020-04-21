@@ -1,12 +1,10 @@
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {Contract} from '../entities/contract.model';
 import {WishedContract} from '../entities/wished-contract.model';
 import {HttpClient, HttpParams} from '@angular/common/http';
 
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
 import {LoaderService} from './loader.service';
 
 
@@ -18,7 +16,7 @@ export class ContractService {
 
   getContract(reference: string, isResource: boolean): Observable<Contract> {
 
-    //this.loaderService.show();
+    // this.loaderService.show();
     let url = environment.API;
 
     if (isResource) {
@@ -31,16 +29,13 @@ export class ContractService {
 
     return this
       .http
-      .get<Contract>(url, options)
-      ._finally(() => {
-        //this.loaderService.hide();
-      });
+      .get<Contract>(url, options);
 
   }
 
   createContracts(contract: Contract, reference: string, isResource: boolean): Observable<Contract> {
 
-    //this.loaderService.show();
+    // this.loaderService.show();
     let url = environment.API;
 
     if (isResource) {
@@ -52,14 +47,11 @@ export class ContractService {
     const options = {params: new HttpParams().set('developerReference', reference)};
 
     return this.http
-      .post<Contract>(url, contract, options)
-      ._finally(() => {
-        //this.loaderService.hide();
-      });
+      .post<Contract>(url, contract, options);
   }
 
   updateContract(contract: Contract, reference: string, isResource: boolean): Observable<Contract> {
-    //this.loaderService.show();
+    // this.loaderService.show();
     let url = environment.API;
 
     if (isResource) {
@@ -72,14 +64,11 @@ export class ContractService {
 
 
     return this.http
-      .put<Contract>(url, contract, options)
-      ._finally(() => {
-        //this.loaderService.hide();
-      });
+      .put<Contract>(url, contract, options);
   }
 
   deleteContract(reference: string, isResource: boolean): Observable<any> {
-    //this.loaderService.show();
+    // this.loaderService.show();
     let url = environment.API;
 
     if (isResource) {
@@ -92,15 +81,12 @@ export class ContractService {
 
 
     return this.http
-      .delete<any>(url, options)
-      ._finally(() => {
-        //this.loaderService.hide();
-      });
+      .delete<any>(url, options);
   }
 
   getWishedContract(reference: string, isResource: boolean): Observable<WishedContract> {
 
-    //this.loaderService.show();
+    // this.loaderService.show();
     let url = environment.API;
 
     if (isResource) {
@@ -113,15 +99,12 @@ export class ContractService {
 
     return this
       .http
-      .get<WishedContract>(url, options)
-      ._finally(() => {
-        //this.loaderService.hide();
-      });
+      .get<WishedContract>(url, options);
 
   }
 
   updateWishedContract(wishedContract: WishedContract, reference: string, isResource: boolean): Observable<WishedContract> {
-    //this.loaderService.show();
+    // this.loaderService.show();
     let url = environment.API;
 
     if (isResource) {
@@ -134,10 +117,7 @@ export class ContractService {
 
 
     return this.http
-      .put<WishedContract>(url, wishedContract, options)
-      ._finally(() => {
-        //this.loaderService.hide();
-      });
+      .put<WishedContract>(url, wishedContract, options);
   }
 }
 

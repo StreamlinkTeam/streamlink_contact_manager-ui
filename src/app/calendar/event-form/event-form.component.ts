@@ -1,22 +1,20 @@
-import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, NgForm } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { CalendarEvent } from 'angular-calendar';
-import { CalendarEventModel } from '../event.model';
-import { MatColors } from '../../../@fuse/mat-colors';
-import { PositioningService } from '../../shared/services/positioning.service';
-import { Subject } from 'rxjs';
-import { Positioning } from '../../shared/entities/positioning.model';
-import { TimeLine } from '../../shared/entities/time-line.model';
-import { EventService } from '../../shared/services/event.service';
-import { Router } from '@angular/router';
-import Swal from 'sweetalert2';
-import { SharingService } from '../../shared/services/sharing.service';
-import { Globals } from '../../shared/global/globals';
+import {Component, Inject, OnInit, ViewEncapsulation} from '@angular/core';
+import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {CalendarEventModel} from '../event.model';
+import {MatColors} from '../../../@fuse/mat-colors';
+import {PositioningService} from '../../shared/services/positioning.service';
+import {Subject} from 'rxjs';
+import {Positioning} from '../../shared/entities/positioning.model';
+import {TimeLine} from '../../shared/entities/time-line.model';
+import {EventService} from '../../shared/services/event.service';
+import {Router} from '@angular/router';
+import {SharingService} from '../../shared/services/sharing.service';
+import {Globals} from '../../shared/global/globals';
 
 
 @Component({
-  selector: 'calendar-event-form-dialog',
+  selector: 'app-calendar-event-form-dialog',
   templateUrl: './event-form.component.html',
   styleUrls: ['./event-form.component.scss'],
   encapsulation: ViewEncapsulation.None
@@ -94,7 +92,7 @@ export class CalendarEventFormDialogComponent implements OnInit {
       this.dialogTitle = this.timeLine.project;
     } else {
       this.dialogTitle = this.timeLine.project;
-      this.startD = _data.date
+      this.startD = _data.date;
       this.event = new CalendarEventModel({
         start: _data.date,
         end: _data.date
@@ -122,19 +120,19 @@ export class CalendarEventFormDialogComponent implements OnInit {
  }*/
 
   ngOnInit() {
-    let newEv: any = {
+    const newEv: any = {
       project: '',
       note: '',
       start: new Date(localStorage.getItem('date'))
-    }
+    };
 
     this.positionningService.getPositioningsRsource().subscribe(res => {
       this.positionings = res;
       this.sharingService.currentMessage.subscribe(res => {
         const ev = JSON.parse(res);
         this.event = this.globals.events[ev.index];
-        console.log(this.globals.events)
-        if (!this.event) this.event = newEv;
+        console.log(this.globals.events);
+        if (!this.event) { this.event = newEv; }
         this.selectedProject = this.event.project;
         this.importedEvent = ev;
       });
@@ -171,7 +169,7 @@ export class CalendarEventFormDialogComponent implements OnInit {
 
 
   }
-  loadPosistionning() {
+  loadPositioning() {
     return this.service.getPositioningsRsource().subscribe((data: {}) => {
       this.positionings = data as [];
 
@@ -188,8 +186,7 @@ export class CalendarEventFormDialogComponent implements OnInit {
     this.importedEvent.events[this.importedEvent.index].project = this.event.project;
     this.importedEvent.events[this.importedEvent.index].note = this.event.note;
     this.importedEvent.events[this.importedEvent.index].temp = this.event.temp;
-    const dt: Date = new Date(this.event.start);
-    this.importedEvent.events[this.importedEvent.index].start = dt;
+    this.importedEvent.events[this.importedEvent.index].start = new Date(this.event.start);
 
     this.globals.events[this.importedEvent.index] = this.importedEvent.events[this.importedEvent.index];
     console.log('SAVE :: ', this.globals.events[0]);
@@ -201,13 +198,13 @@ export class CalendarEventFormDialogComponent implements OnInit {
   }
 
   editEvent() {
-    let dt: Date = new Date(this.event.start);
+    const dt: Date = new Date(this.event.start);
 
-    let newEv: any = {
+    const newEv: any = {
       project: this.event.project,
       note: this.event.note,
       start: new Date(dt.setDate(dt.getDate() + 1))
-    }
+    };
     console.log(this.event);
     this.eventService.updateEvent(this.event.reference, newEv).subscribe(res => {
     });

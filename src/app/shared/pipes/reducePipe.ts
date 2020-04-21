@@ -7,7 +7,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class ReducePipe implements PipeTransform {
 
     transform(items: any[], filter: any): any {
-        console.log(filter)
+        console.log(filter);
         if (typeof (filter) === 'undefined' || this.isEmpty(filter)) {
             return items;
         }
@@ -16,8 +16,8 @@ export class ReducePipe implements PipeTransform {
             return items;
         }
 
-        for (let key in filter) {
-            console.log(filter[key])
+        for (const key in filter) {
+            console.log(filter[key]);
             if (key === 'project' && filter['project'] !== 'all') {
                 items = items.filter(item => item.project.need.title === filter.project);
             }
@@ -26,7 +26,7 @@ export class ReducePipe implements PipeTransform {
                 items = items.filter(item => item.user.firstname === filter.resource);
             }
 
-            console.log(items)
+            console.log(items);
         }
 
         return items;
@@ -34,7 +34,7 @@ export class ReducePipe implements PipeTransform {
     }
 
     isEmpty(obj) {
-        for (let key in obj) {
+        for (const key in obj) {
             if (obj.hasOwnProperty(key)) {
                 return false;
             }

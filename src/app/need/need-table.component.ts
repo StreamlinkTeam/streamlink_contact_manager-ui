@@ -1,5 +1,5 @@
 import {NeedService} from './../shared/services/need.service';
-import {Row} from 'ng2-smart-table/lib/data-set/row';
+import {Row} from 'ng2-smart-table/lib/lib/data-set/row';
 import {environment} from './../../environments/environment';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
@@ -230,7 +230,7 @@ export class NeedTableComponent implements OnInit {
     Swal.fire({
       title: 'Êtes-vous sûr?',
       text: 'Supression du besoin ' + need.title,
-      type: 'warning',
+      icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonText: 'Annuler',

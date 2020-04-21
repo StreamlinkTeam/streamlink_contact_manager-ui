@@ -5,10 +5,10 @@ import { takeUntil } from 'rxjs/operators';
 import { FuseMatchMediaService } from '@fuse/services/match-media.service';
 
 @Directive({
+  // tslint:disable-next-line:directive-selector
     selector: '.inner-scroll'
 })
-export class FuseInnerScrollDirective implements OnInit, OnDestroy
-{
+export class FuseInnerScrollDirective implements OnInit, OnDestroy {
     // Private
     private _parent: any;
     private _grandParent: any;
@@ -25,8 +25,7 @@ export class FuseInnerScrollDirective implements OnInit, OnDestroy
         private _elementRef: ElementRef,
         private _fuseMediaMatchService: FuseMatchMediaService,
         private _renderer: Renderer2
-    )
-    {
+    ) {
         // Set the private defaults
         this._unsubscribeAll = new Subject();
     }
@@ -38,14 +37,12 @@ export class FuseInnerScrollDirective implements OnInit, OnDestroy
     /**
      * On init
      */
-    ngOnInit(): void
-    {
+    ngOnInit(): void {
         // Get the parent
         this._parent = this._renderer.parentNode(this._elementRef.nativeElement);
 
         // Return, if there is no parent
-        if ( !this._parent )
-        {
+        if ( !this._parent ) {
             return;
         }
 
@@ -57,12 +54,9 @@ export class FuseInnerScrollDirective implements OnInit, OnDestroy
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe((alias) => {
 
-                if ( alias === 'xs' )
-                {
+                if ( alias === 'xs' ) {
                     this._removeClass();
-                }
-                else
-                {
+                } else {
                     this._addClass();
                 }
             });
@@ -71,11 +65,9 @@ export class FuseInnerScrollDirective implements OnInit, OnDestroy
     /**
      * On destroy
      */
-    ngOnDestroy(): void
-    {
+    ngOnDestroy(): void {
         // Return, if there is no parent
-        if ( !this._parent )
-        {
+        if ( !this._parent ) {
             return;
         }
 
@@ -96,8 +88,7 @@ export class FuseInnerScrollDirective implements OnInit, OnDestroy
      *
      * @private
      */
-    private _addClass(): void
-    {
+    private _addClass(): void {
         // Add the inner-scroll class
         this._renderer.addClass(this._grandParent, 'inner-scroll');
     }
@@ -106,8 +97,7 @@ export class FuseInnerScrollDirective implements OnInit, OnDestroy
      * Remove the class name
      * @private
      */
-    private _removeClass(): void
-    {
+    private _removeClass(): void {
 
         // Remove the inner-scroll class
         this._renderer.removeClass(this._grandParent, 'inner-scroll');

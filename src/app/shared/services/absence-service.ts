@@ -5,6 +5,7 @@ import {LoaderService} from './loader.service';
 import {Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {Absence} from '../entities/absence.model';
+import {finalize} from 'rxjs/operators';
 
 @Injectable()
 export class AbsenceService {
@@ -27,10 +28,7 @@ export class AbsenceService {
     const options = {params: new HttpParams().set('developerReference', developerReference)};
 
 
-    return this.http.get<Absence[]>(url, options)
-      ._finally(() => {
-        //this.loaderService.hide();
-      });
+    return this.http.get<Absence[]>(url, options);
   }
 
   getAllAbsenceByManager(): Observable<Absence[]> {
@@ -38,9 +36,9 @@ export class AbsenceService {
     const url = environment.API + '/ws/absences/manager';
 
     return this.http.get<Absence[]>(url)
-      ._finally(() => {
+      .pipe(finalize(() => {
         this.loaderService.hide();
-      });
+      }));
   }
 
   getAllAbsenceByListRef(reference) {

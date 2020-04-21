@@ -1,18 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ServerDataSource } from 'ng2-smart-table';
-import { environment } from '../../environments/environment';
-import { HttpClient } from '@angular/common/http';
-import { Row } from 'ng2-smart-table/lib/data-set/row';
+import { Row } from 'ng2-smart-table/lib/lib/data-set/row';
 import { Router, ActivatedRoute } from '@angular/router';
-import { DatePipe } from '@angular/common';
 import { BillService } from '../shared/services/bill.service';
 
 import * as jsPDF from 'jspdf';
 import 'jspdf-autotable';
-import html2canvas from 'html2canvas';
-import { Email } from '../shared/entities/mail.model';
-import Swal from 'sweetalert2';
-import { MailService } from '../shared/services/mail.service';
+
 
 @Component({
   selector: 'app-bill-table',

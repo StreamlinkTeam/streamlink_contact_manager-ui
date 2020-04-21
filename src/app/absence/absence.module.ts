@@ -12,9 +12,8 @@ import {Ng2SmartTableModule} from 'ng2-smart-table';
 
 import {EvaluationModule} from '../evaluation/evaluation.module';
 import {ActionModule} from '../action/action.module';
-import {ContactModule} from '../contact/contact.module';
 
-import {ButtonsModule, CardsFreeModule, WavesModule} from 'angular-bootstrap-md';
+import {ButtonsModule, CardsModule, WavesModule} from 'angular-bootstrap-md';
 import {AbsenceComponent} from './absence.component';
 import {AbsenceDemandeComponent} from './absence-demande/absence-demande.component';
 import {MultiDatePickerComponent} from './multi-date-picker/multi-date-picker.component';
@@ -29,7 +28,7 @@ import { AbsenceDetailComponent } from './absence-detail/absence-detail.componen
 
 @NgModule({
   imports: [
-    ButtonsModule, WavesModule, CardsFreeModule,
+    ButtonsModule, WavesModule, CardsModule,
     SharedModule,
     BrowserModule,
     NgSelectModule,
@@ -43,7 +42,8 @@ import { AbsenceDetailComponent } from './absence-detail/absence-detail.componen
     ActionModule,
      NgbDatepickerModule, TableModule, NgbButtonsModule, ButtonModule, MatTabsModule, MatFormFieldModule, MatSelectModule],
   declarations: [
-    AbsenceComponent, AbsenceDemandeComponent, MultiDatePickerComponent, ListAbsencesComponent, AbsenceCountComponent, AbsenceDetailComponent ],
+    AbsenceComponent, AbsenceDemandeComponent, MultiDatePickerComponent,
+    ListAbsencesComponent, AbsenceCountComponent, AbsenceDetailComponent ],
   exports: [AbsenceComponent, AbsenceDemandeComponent, MultiDatePickerComponent, ListAbsencesComponent, AbsenceCountComponent]
 })
 export class AbsenceModule {

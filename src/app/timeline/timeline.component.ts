@@ -20,8 +20,8 @@ export class TimelineComponent implements OnInit {
       let results = [];
       results = this.groupe(res) as [];
       console.log(results);
-      for (let r in results) {
-        for (let x in results[r]) {
+      for (const r in results) {
+        for (const x in results[r]) {
           this.list.push(results[r][x]);
         }
       }
@@ -38,7 +38,7 @@ export class TimelineComponent implements OnInit {
   groupe(res) {
     let results = [];
     results = res as [];
-    let obj = {};
+    const obj = {};
     for (let i = 0; i < results.length; i++) {
       const date = new Date(results[i].start);
 

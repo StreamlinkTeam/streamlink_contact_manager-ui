@@ -10,14 +10,14 @@ import { FuseNavigationService } from '@fuse/components/navigation/navigation.se
 import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
 
 @Component({
+  // tslint:disable-next-line:component-selector
     selector     : 'fuse-theme-options',
     templateUrl  : './theme-options.component.html',
     styleUrls    : ['./theme-options.component.scss'],
     encapsulation: ViewEncapsulation.None,
     animations   : fuseAnimations
 })
-export class FuseThemeOptionsComponent implements OnInit, OnDestroy
-{
+export class FuseThemeOptionsComponent implements OnInit, OnDestroy {
     fuseConfig: any;
     form: FormGroup;
 
@@ -44,8 +44,7 @@ export class FuseThemeOptionsComponent implements OnInit, OnDestroy
         private _fuseNavigationService: FuseNavigationService,
         private _fuseSidebarService: FuseSidebarService,
         private _renderer: Renderer2
-    )
-    {
+    ) {
         // Set the defaults
         this.barClosed = true;
 
@@ -60,8 +59,7 @@ export class FuseThemeOptionsComponent implements OnInit, OnDestroy
     /**
      * On init
      */
-    ngOnInit(): void
-    {
+    ngOnInit(): void {
         // Build the config form
         // noinspection TypeScriptValidateTypes
         this.form = this._formBuilder.group({
@@ -154,8 +152,7 @@ export class FuseThemeOptionsComponent implements OnInit, OnDestroy
     /**
      * On destroy
      */
-    ngOnDestroy(): void
-    {
+    ngOnDestroy(): void {
         // Unsubscribe from all subscriptions
         this._unsubscribeAll.next();
         this._unsubscribeAll.complete();
@@ -175,13 +172,10 @@ export class FuseThemeOptionsComponent implements OnInit, OnDestroy
      * @param value
      * @private
      */
-    private _resetFormValues(value): void
-    {
-        switch ( value )
-        {
+    private _resetFormValues(value): void {
+        switch ( value ) {
             // Vertical Layout #1
-            case 'vertical-layout-1':
-            {
+            case 'vertical-layout-1': {
                 this.form.patchValue({
                     layout: {
                         width    : 'fullwidth',
@@ -216,8 +210,7 @@ export class FuseThemeOptionsComponent implements OnInit, OnDestroy
             }
 
             // Vertical Layout #2
-            case 'vertical-layout-2':
-            {
+            case 'vertical-layout-2': {
                 this.form.patchValue({
                     layout: {
                         width    : 'fullwidth',
@@ -252,8 +245,7 @@ export class FuseThemeOptionsComponent implements OnInit, OnDestroy
             }
 
             // Vertical Layout #3
-            case 'vertical-layout-3':
-            {
+            case 'vertical-layout-3': {
                 this.form.patchValue({
                     layout: {
                         width    : 'fullwidth',
@@ -288,8 +280,7 @@ export class FuseThemeOptionsComponent implements OnInit, OnDestroy
             }
 
             // Horizontal Layout #1
-            case 'horizontal-layout-1':
-            {
+            case 'horizontal-layout-1': {
                 this.form.patchValue({
                     layout: {
                         width    : 'fullwidth',
@@ -334,8 +325,7 @@ export class FuseThemeOptionsComponent implements OnInit, OnDestroy
      *
      * @param key
      */
-    toggleSidebarOpen(key): void
-    {
+    toggleSidebarOpen(key): void {
         this._fuseSidebarService.getSidebar(key).toggleOpen();
     }
 }

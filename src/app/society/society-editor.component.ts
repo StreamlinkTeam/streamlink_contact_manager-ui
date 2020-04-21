@@ -47,7 +47,7 @@ export class SocietyEditorComponent {
   }
 
   addService() {
-    if (this.society.services == undefined) {
+    if (this.society.services === undefined) {
       this.society.services = [];
     }
     this.society.services.push(this.serviceTitle);

@@ -105,10 +105,10 @@ export class BillEditorComponent implements OnInit {
 
 
       const contentDataURL = canvas.toDataURL('image/png');
-      let pdf = new jsPDF("p", "mm", "a4");
+      const pdf = new jsPDF('p', 'mm', 'a4');
 
-      let width = pdf.internal.pageSize.getWidth();
-      let height = pdf.internal.pageSize.getHeight();
+      const width = pdf.internal.pageSize.getWidth();
+      const height = pdf.internal.pageSize.getHeight();
 
       pdf.addImage(contentDataURL, 'PNG', 10, 10, 180, 150);
       pdf.save(this.bill.id + '.pdf');

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { LoaderService } from './loader.service';
 
 import { Observable } from 'rxjs';
+import { finalize } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { AbsenceList } from '../entities/absence-list.model';
 
@@ -22,18 +23,18 @@ export class AbsenceListService {
     this.loaderService.show();
     const url = environment.API + '/ws/absenceList';
     return this.http.post<AbsenceList>(url, absenceList)
-      ._finally(() => {
+      .pipe(finalize(() => {
         this.loaderService.hide();
-      });
+      }));
   }
 
   createNewAbsenceList(): Observable<AbsenceList> {
     this.loaderService.show();
     const url = environment.API + '/ws/absence_list/save';
     return this.http.post<AbsenceList>(url, {})
-      ._finally(() => {
+      .pipe(finalize(() => {
         this.loaderService.hide();
-      });
+      }));
   }
 
   saveAbsenceList(absenceList) {

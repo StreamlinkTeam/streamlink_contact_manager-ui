@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
 
@@ -22,10 +22,7 @@ export class EventService {
 
     const options = { params: new HttpParams().set('reference', reference) };
 
-    return this.http.get<TimeLine>(url, options)
-      ._finally(() => {
-        // this.loaderService.hide();
-      });
+    return this.http.get<TimeLine>(url, options);
 
   }
 
@@ -68,10 +65,7 @@ export class EventService {
 
     const ref = sessionStorage['ref'];
     timeLine.resourceReference = ref;
-    return this.http.post<TimeLine>(url, timeLine)
-      ._finally(() => {
-        // this.loaderService.hide();
-      });
+    return this.http.post<TimeLine>(url, timeLine);
   }
 
   updateEvent(reference, event) {

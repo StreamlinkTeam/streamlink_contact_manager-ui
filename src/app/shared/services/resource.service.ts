@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
 import { Contact } from '../entities/contact.model';
@@ -8,12 +8,10 @@ import { PersonalInformation } from '../entities/personal-information.model';
 import { SkillsInformation } from '../entities/skills-information.model';
 import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/finally';
 
 import { LoaderService } from './loader.service';
 import { Resource, ResourceView } from '../entities/resource.model';
+import {map} from 'rxjs/operators';
 
 
 @Injectable()
@@ -29,10 +27,7 @@ export class ResourceService {
 
     const options = { params: new HttpParams().set('developerReference', reference) };
 
-    return this.http.get<Resource>(url, options)
-      ._finally(() => {
-        // this.loaderService.hide();
-      });
+    return this.http.get<Resource>(url, options);
 
   }
 
@@ -46,10 +41,7 @@ export class ResourceService {
   createResources(resource: Resource): Observable<Resource> {
 
     const url = environment.API + '/ws/resources';
-    return this.http.post<Resource>(url, resource)
-      ._finally(() => {
-        // this.loaderService.hide();
-      });
+    return this.http.post<Resource>(url, resource);
   }
 
   createResourceFromDeveloper(developerReference: string): Observable<Resource> {
@@ -60,10 +52,7 @@ export class ResourceService {
 
 
     return this.http
-      .post<Resource>(url, null, options)
-      ._finally(() => {
-        // this.loaderService.hide();
-      });
+      .post<Resource>(url, null, options);
   }
 
   updateResource(resource: Resource, reference: string): Observable<Resource> {
@@ -74,10 +63,7 @@ export class ResourceService {
 
 
     return this.http
-      .put<Resource>(url, resource, options)
-      ._finally(() => {
-        // this.loaderService.hide();
-      });
+      .put<Resource>(url, resource, options);
   }
 
   deleteResource(reference: string) {
@@ -89,7 +75,7 @@ export class ResourceService {
 
     return this.http
       .delete(url, options)
-      .map((res: HttpResponse<any>) => res.body);
+      .pipe(map((res: HttpResponse<any>) => res.body));
   }
 
   getResourceSkills(developerReference: string): Observable<SkillsInformation> {
@@ -99,10 +85,7 @@ export class ResourceService {
     const options = { params: new HttpParams().set('developerReference', developerReference) };
 
 
-    return this.http.get<SkillsInformation>(url, options)
-      ._finally(() => {
-        // this.loaderService.hide();
-      });
+    return this.http.get<SkillsInformation>(url, options);
   }
 
   updateResourceSkills(skills: SkillsInformation, developerReference: string): Observable<SkillsInformation> {
@@ -113,10 +96,7 @@ export class ResourceService {
 
 
     return this.http
-      .put<SkillsInformation>(url, skills, options)
-      ._finally(() => {
-        // this.loaderService.hide();
-      });
+      .put<SkillsInformation>(url, skills, options);
   }
 
 
@@ -129,10 +109,7 @@ export class ResourceService {
 
     return this
       .http
-      .get<PersonalInformation>(url, options)
-      ._finally(() => {
-        // this.loaderService.hide();
-      });
+      .get<PersonalInformation>(url, options);
   }
 
   updateResourceInfo(info: PersonalInformation, developerReference: string): Observable<PersonalInformation> {
@@ -143,10 +120,7 @@ export class ResourceService {
 
 
     return this.http
-      .put<PersonalInformation>(url, info, options)
-      ._finally(() => {
-        // this.loaderService.hide();
-      });
+      .put<PersonalInformation>(url, info, options);
   }
 
   getResourceContact(developerReference: string): Observable<Contact> {
@@ -159,10 +133,7 @@ export class ResourceService {
 
     return this
       .http
-      .get<Contact>(url, options)
-      ._finally(() => {
-        // this.loaderService.hide();
-      });
+      .get<Contact>(url, options);
   }
 
   updateResourceContact(contact: Contact, developerReference: string): Observable<Contact> {
@@ -173,10 +144,7 @@ export class ResourceService {
 
 
     return this.http
-      .put<Contact>(url, contact, options)
-      ._finally(() => {
-        // this.loaderService.hide();
-      });
+      .put<Contact>(url, contact, options);
   }
 
   getResourceCVs(developerReference: string): Observable<CV[]> {
@@ -188,10 +156,7 @@ export class ResourceService {
 
     return this
       .http
-      .get<CV[]>(url, options)
-      ._finally(() => {
-        // this.loaderService.hide();
-      });
+      .get<CV[]>(url, options);
   }
 
   createResourceCv(fileToUpload: File, developerReference: string): Observable<CV> {
@@ -205,10 +170,7 @@ export class ResourceService {
 
 
     return this.http
-      .put<CV>(url, formData, options)
-      ._finally(() => {
-        // this.loaderService.hide();
-      });
+      .put<CV>(url, formData, options);
   }
 
   deleteCV(reference: string, developerReference: string) {
@@ -219,20 +181,14 @@ export class ResourceService {
 
 
     return this.http
-      .delete(url, options)
-      ._finally(() => {
-        // this.loaderService.hide();
-      });
+      .delete(url, options);
   }
 
   searchResources(term: string): Observable<ResourceView[]> {
     // this.loaderService.show();
     const url = environment.API + '/ws/resources/auto-complete';
     const options = { params: new HttpParams().set('term', term) };
-    return this.http.get<ResourceView[]>(url, options)
-      ._finally(() => {
-        // this.loaderService.hide();
-      });
+    return this.http.get<ResourceView[]>(url, options);
   }
 
 

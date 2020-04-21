@@ -17,8 +17,8 @@ export class FieldErrorDisplayComponent {
 
   getValidationMessages() {
 
-    let thing: string = this.fieldName || this.model.name;
-    let messages: string[] = [];
+    const thing: string = this.fieldName || this.model.name;
+    const messages: string[] = [];
     if (this.model.errors) {
       for (const errorName in this.model.errors) {
         switch (errorName) {

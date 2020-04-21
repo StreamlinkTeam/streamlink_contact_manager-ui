@@ -1,14 +1,13 @@
-import { Component, OnInit, ViewEncapsulation, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation} from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { Observable, Subject } from 'rxjs';
-import { isSameDay, isSameMonth, startOfDay } from 'date-fns';
-import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarMonthViewDay } from 'angular-calendar';
+import { startOfDay } from 'date-fns';
+import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent} from 'angular-calendar';
 
 import { FuseConfirmDialogComponent } from '../../@fuse/components/confirm-dialog/confirm-dialog.component';
 import { fuseAnimations } from '../../@fuse/animations';
 import { CalendarService } from './calendar.service';
-import { CalendarEventModel } from './event.model';
 import { CalendarEventFormDialogComponent } from './event-form/event-form.component';
 import { FuseSidebarService } from '../../@fuse/components/sidebar/sidebar.service';
 import { AuthService } from '../shared/services/auth.service';
@@ -33,7 +32,7 @@ import {Resource} from '../shared/entities/resource.model';
 
 
 @Component({
-  selector: 'calendar',
+  selector: 'app-calendar',
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss'],
   encapsulation: ViewEncapsulation.None,
@@ -176,7 +175,7 @@ export class CalendarComponent implements OnInit {
 
   resetMonth4() {
     this.events = [];
-    this.positionningService.getPositioningsRsource().subscribe(res => {
+    this.positionningService.getPositioningsRsource().subscribe(response => {
 
       this._calendarService.getAllEvents().subscribe(res => {
         const newRes = res as any[];
@@ -538,8 +537,8 @@ export class CalendarComponent implements OnInit {
       resource: this.globals.events[0].resource,
       date: this.globals.events[0].start
     };
-    this.eventService.saveTimeList(list).subscribe(res => {
-      console.log(res);
+    this.eventService.saveTimeList(list).subscribe(response => {
+      console.log(response);
       for (let i = 0; i < this.globals.events.length; i++) {
 
         if (this.globals.events[i].temp.value !== 1) {
@@ -567,7 +566,7 @@ export class CalendarComponent implements OnInit {
         }
 
         this.getValueWorked(this.globals.events[i].temp, this.globals.events[i].project);
-        this.globals.events[i].listTemps = res;
+        this.globals.events[i].listTemps = response;
         this.events[i].start.setDate(this.events[i].start.getDate() + 1);
         this.eventService.saveTimeLine(this.globals.events[i]).subscribe(() => {
           //

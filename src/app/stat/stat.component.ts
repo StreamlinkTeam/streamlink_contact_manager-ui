@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {UserService} from '../shared/services/user.service';
-import { BaseChartDirective } from 'ng2-charts';
-import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
+import {BaseChartDirective} from 'ng2-charts';
+import {ChartOptions} from 'chart.js';
 
 @Component({
   selector: 'app-stat',
@@ -9,11 +9,8 @@ import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
   styleUrls: ['./stat.component.css']
 })
 export class StatComponent implements OnInit {
-  @ViewChild(BaseChartDirective)
+  @ViewChild(BaseChartDirective, { static: false})
   public chart: BaseChartDirective;
-
-  userNumbers: any;
-
   public barChartLabels = [''];
   public barChartType = 'bar';
   public barChartLegend = true;
@@ -50,10 +47,9 @@ export class StatComponent implements OnInit {
           data: [5],
           label: 'Projets'
         }
-      ]
-      let userNumbers = res;
-      this.barChartData.push({ data: [userNumbers], label: 'utilisateurs' });
-      console.log(this.barChartOptions)
+      ];
+      this.barChartData.push({ data: [res], label: 'utilisateurs' });
+      console.log(this.barChartOptions);
       this.chart.chart.update();
     });
   }

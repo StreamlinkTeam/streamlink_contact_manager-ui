@@ -89,8 +89,8 @@ export class MultiDatePickerComponent {
   }
   addRangeDate(fromDate: NgbDateStruct , toDate: NgbDateStruct) {
     // We get the getTime() of the dates from and to
-    let from = new Date(fromDate.year +"-"+ fromDate.month +"-"+ fromDate.day).getTime();
-    let to = new Date(toDate.year +"-"+ toDate.month +"-"+ toDate.day).getTime();
+    const from = new Date(fromDate.year + '-' + fromDate.month + '-' + fromDate.day).getTime();
+    const to = new Date(toDate.year + '-' + toDate.month + '-' + toDate.day).getTime();
     for (let time = from; time <= to; time += (24 * 60 * 60 * 1000 ))  {// add one day
 
       let date: Date;
@@ -102,7 +102,7 @@ export class MultiDatePickerComponent {
   }
   // return true if is selected
   isDateSelected(date: NgbDateStruct) {
-    return (this.datesSelected.findIndex(f=>f.day === date.day && f.month === date.month && f.year === date.year)>= 0);
+    return (this.datesSelected.findIndex(f => f.day === date.day && f.month === date.month && f.year === date.year) >= 0);
   }
   isHovered = date => this.fromDate && !this.toDate && this.hoveredDate && after(date, this.fromDate) && before(date, this.hoveredDate);
   isInside = date => after(date, this.fromDate) && before(date, this.toDate);

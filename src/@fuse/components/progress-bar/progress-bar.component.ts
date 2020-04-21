@@ -5,13 +5,13 @@ import { takeUntil } from 'rxjs/operators';
 import { FuseProgressBarService } from '@fuse/components/progress-bar/progress-bar.service';
 
 @Component({
+  // tslint:disable-next-line:component-selector
     selector     : 'fuse-progress-bar',
     templateUrl  : './progress-bar.component.html',
     styleUrls    : ['./progress-bar.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
-export class FuseProgressBarComponent implements OnInit, OnDestroy
-{
+export class FuseProgressBarComponent implements OnInit, OnDestroy {
     bufferValue: number;
     mode: 'determinate' | 'indeterminate' | 'buffer' | 'query';
     value: number;
@@ -27,8 +27,7 @@ export class FuseProgressBarComponent implements OnInit, OnDestroy
      */
     constructor(
         private _fuseProgressBarService: FuseProgressBarService
-    )
-    {
+    ) {
         // Set the defaults
 
         // Set the private defaults
@@ -42,8 +41,7 @@ export class FuseProgressBarComponent implements OnInit, OnDestroy
     /**
      * On init
      */
-    ngOnInit(): void
-    {
+    ngOnInit(): void {
         // Subscribe to the progress bar service properties
 
         // Buffer value
@@ -79,8 +77,7 @@ export class FuseProgressBarComponent implements OnInit, OnDestroy
     /**
      * On destroy
      */
-    ngOnDestroy(): void
-    {
+    ngOnDestroy(): void {
         // Unsubscribe from all subscriptions
         this._unsubscribeAll.next();
         this._unsubscribeAll.complete();

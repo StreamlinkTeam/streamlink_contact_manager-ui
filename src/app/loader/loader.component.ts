@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {Subscription} from 'rxjs/Subscription';
+import {Subscription} from 'rxjs';
 
 import {LoaderService} from '../shared/services/loader.service';
 import {LoaderState} from '../shared/entities/loader';
 import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
-  selector: 'angular-loader',
+  selector: 'app-angular-loader',
   templateUrl: 'loader.component.html'
 })
 export class LoaderComponent implements OnInit {

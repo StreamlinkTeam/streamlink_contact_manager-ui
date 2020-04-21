@@ -137,7 +137,7 @@ export class PositioningEditComponent implements OnInit {
     Swal.fire({
       title: 'Êtes-vous sûr?',
       text: 'Convertion du besoin en projet ',
-      type: 'warning',
+      icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonText: 'annuler',

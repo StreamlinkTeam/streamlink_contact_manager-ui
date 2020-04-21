@@ -6,7 +6,7 @@ import {ActionEditorComponent} from './action-editor.component';
 import {FormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {BrowserModule} from '@angular/platform-browser';
-import {ButtonsModule, CardsFreeModule, WavesModule} from 'angular-bootstrap-md';
+import {ButtonsModule, CardsModule, WavesModule} from 'angular-bootstrap-md';
 import {OwlDateTimeModule} from 'ng-pick-datetime';
 import {MatIconModule} from '@angular/material';
 import {MatButtonModule} from '@angular/material/button';
@@ -20,7 +20,7 @@ import {MatButtonModule} from '@angular/material/button';
     BrowserModule,
     RouterModule,
     SharedModule,
-    ButtonsModule, WavesModule, CardsFreeModule, OwlDateTimeModule, MatIconModule],
+    ButtonsModule, WavesModule, CardsModule, OwlDateTimeModule, MatIconModule],
   exports: [
     ActionEditorComponent,
     ActionTableComponent

@@ -12,7 +12,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {Ng2SmartTableModule} from 'ng2-smart-table';
 import {MatButtonModule, MatIconModule} from '@angular/material';
 import {MatInputModule} from '@angular/material/input';
-import {ButtonsModule, CardsFreeModule, WavesModule} from 'angular-bootstrap-md';
+import {ButtonsModule, CardsModule, WavesModule} from 'angular-bootstrap-md';
 import {Ng2FileSizeModule} from 'ng2-file-size';
 import {UserAvatarComponent} from './user-avatar.component';
 import {AbsenceModule} from '../absence/absence.module';
@@ -22,7 +22,7 @@ import {AbsenceModule} from '../absence/absence.module';
 @NgModule({
   imports: [
     SharedModule, MatButtonModule, MatIconModule, MatInputModule,
-    BrowserModule, ButtonsModule, CardsFreeModule, WavesModule,
+    BrowserModule, ButtonsModule, CardsModule, WavesModule,
     NgSelectModule,
     BrowserAnimationsModule,
     FormsModule,

@@ -1,9 +1,8 @@
 import {User} from '../entities/user.model';
 import {UserService} from './user.service';
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 
-import 'rxjs/add/operator/map';
 import {JwtToken} from '../entities/token.model';
 import {Resource} from '../entities/resource.model';
 

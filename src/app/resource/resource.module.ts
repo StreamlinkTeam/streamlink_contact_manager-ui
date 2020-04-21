@@ -14,21 +14,22 @@ import {ResourceTableComponent} from './resource-table.component';
 import {DeveloperModule} from '../developer/developer.module';
 import {ResourceEditorComponent} from './resource-editor.component';
 
-import {ButtonsModule, CardsFreeModule, WavesModule} from 'angular-bootstrap-md';
+import {ButtonsModule, CardsModule, WavesModule} from 'angular-bootstrap-md';
 import {ResourceRecordComponent} from './resource-record.component';
 import {ActionModule} from '../action/action.module';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material';
 import {AbsenceModule} from '../absence/absence.module';
 import {ResourceCountAbsenceComponent} from '../resource-count-absence/resource-count-absence.component';
-import {TypeaheadModule} from 'ngx-bootstrap';
+
 import {ResourceComponent} from './resource.component';
 import {MatTabsModule} from '@angular/material/tabs';
+import {TypeaheadModule} from 'ngx-bootstrap/typeahead';
 
 
 @NgModule({
   imports: [
-    ButtonsModule, WavesModule, CardsFreeModule,
+    ButtonsModule, WavesModule, CardsModule,
     SharedModule,
     BrowserModule,
     NgSelectModule,

@@ -1,10 +1,10 @@
 import { Directive, ElementRef } from '@angular/core';
 
 @Directive({
+  // tslint:disable-next-line:directive-selector
     selector: '[fuseWidgetToggle]'
 })
-export class FuseWidgetToggleDirective
-{
+export class FuseWidgetToggleDirective {
     /**
      * Constructor
      *
@@ -12,7 +12,6 @@ export class FuseWidgetToggleDirective
      */
     constructor(
         public elementRef: ElementRef
-    )
-    {
+    ) {
     }
 }

@@ -1,13 +1,13 @@
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {Token} from '../entities/token.model';
 import {User} from '../entities/user.model';
 import {HttpClient, HttpParams, HttpResponse} from '@angular/common/http';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
+
 import {LoaderService} from './loader.service';
 import {Resource} from '../entities/resource.model';
+import {map} from 'rxjs/operators';
 
 
 @Injectable()
@@ -27,17 +27,15 @@ export class UserService {
     };
 
     return this.http.post<Token>(url, user)
-      .map(token => {
+      .pipe(map(token => {
         this.authenticateSuccess(token);
         return true;
-      });
+      }));
   }
 
   getCurrentUser(): Observable<User | Resource> {
     const url = environment.API + '/ws/users/current';
-    return this.http.get<User | Resource>(url)
-      ._finally(() => {
-      });
+    return this.http.get<User | Resource>(url);
   }
 
   changePassword(oldPassword: string, newPassword: string): Observable<any> {
@@ -49,9 +47,7 @@ export class UserService {
       newPassword: newPassword
     };
 
-    return this.http.put<any>(url, password)
-      ._finally(() => {
-      });
+    return this.http.put<any>(url, password);
 
   }
 
@@ -86,9 +82,7 @@ export class UserService {
 
     const options = {params: new HttpParams().set('userReference', reference)};
 
-    return this.http.get<User>(url, options)
-      ._finally(() => {
-      });
+    return this.http.get<User>(url, options);
 
   }
 
@@ -104,9 +98,7 @@ export class UserService {
 
 
     return this.http
-      .put<User>(url, user, options)
-      ._finally(() => {
-      });
+      .put<User>(url, user, options);
   }
 
   deleteUser(reference: string) {
@@ -117,9 +109,7 @@ export class UserService {
 
     return this.http
       .delete(url, options)
-      .map((res: HttpResponse<any>) => res.body)
-      ._finally(() => {
-      });
+      .pipe(map((res: HttpResponse<any>) => res.body));
   }
 
   // // __________________Avatar_Services_______________________________
@@ -190,8 +180,6 @@ export class UserService {
 
   usersCount(): Observable<any> {
     const url = environment.API + '/ws/users/count';
-    return this.http.get<any>(url)
-      ._finally(() => {
-      });
+    return this.http.get<any>(url);
   }
 }

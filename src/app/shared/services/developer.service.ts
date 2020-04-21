@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 
 import {environment} from '../../../environments/environment';
 import {Contact} from '../entities/contact.model';
@@ -9,11 +9,9 @@ import {PersonalInformation} from '../entities/personal-information.model';
 import {SkillsInformation} from '../entities/skills-information.model';
 import {HttpClient, HttpParams, HttpResponse} from '@angular/common/http';
 
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/finally';
 
 import {LoaderService} from './loader.service';
+import {map} from 'rxjs/operators';
 
 
 @Injectable()
@@ -29,10 +27,7 @@ export class DeveloperService {
 
     const options = {params: new HttpParams().set('developerReference', reference)};
 
-    return this.http.get<Developer>(url, options)
-      ._finally(() => {
-        // this.loaderService.hide();
-      });
+    return this.http.get<Developer>(url, options);
 
   }
 
@@ -42,20 +37,14 @@ export class DeveloperService {
     // this.loaderService.show();
     const url = environment.API + '/ws/developers/all';
 
-    return this.http.get<DeveloperView[]>(url)
-      ._finally(() => {
-        // this.loaderService.hide();
-      });
+    return this.http.get<DeveloperView[]>(url);
   }
 
 
   createDevelopers(developer: Developer): Observable<Developer> {
     // this.loaderService.show();
     const url = environment.API + '/ws/developers';
-    return this.http.post<Developer>(url, developer)
-      ._finally(() => {
-        // this.loaderService.hide();
-      });
+    return this.http.post<Developer>(url, developer);
   }
 
   updateDeveloper(developer: Developer, reference: string): Observable<Developer> {
@@ -66,10 +55,7 @@ export class DeveloperService {
 
 
     return this.http
-      .put<Developer>(url, developer, options)
-      ._finally(() => {
-        // this.loaderService.hide();
-      });
+      .put<Developer>(url, developer, options);
   }
 
   deleteDeveloper(reference: string) {
@@ -81,10 +67,7 @@ export class DeveloperService {
 
     return this.http
       .delete(url, options)
-      .map((res: HttpResponse<any>) => res.body)
-      ._finally(() => {
-        // this.loaderService.hide();
-      });
+      .pipe(map((res: HttpResponse<any>) => res.body));
   }
 
   getDeveloperSkills(developerReference: string, isResource: boolean): Observable<SkillsInformation> {
@@ -100,10 +83,7 @@ export class DeveloperService {
     const options = {params: new HttpParams().set('developerReference', developerReference)};
 
 
-    return this.http.get<SkillsInformation>(url, options)
-      ._finally(() => {
-        // this.loaderService.hide();
-      });
+    return this.http.get<SkillsInformation>(url, options);
   }
 
   updateDeveloperSkills(skills: SkillsInformation, developerReference: string, isResource: boolean): Observable<SkillsInformation> {
@@ -120,10 +100,7 @@ export class DeveloperService {
 
 
     return this.http
-      .put<SkillsInformation>(url, skills, options)
-      ._finally(() => {
-        // this.loaderService.hide();
-      });
+      .put<SkillsInformation>(url, skills, options);
   }
 
 
@@ -142,10 +119,7 @@ export class DeveloperService {
 
     return this
       .http
-      .get<PersonalInformation>(url, options)
-      ._finally(() => {
-        // this.loaderService.hide();
-      });
+      .get<PersonalInformation>(url, options);
   }
 
   updateDeveloperInfo(info: PersonalInformation, developerReference: string, isResource: boolean): Observable<PersonalInformation> {
@@ -162,10 +136,7 @@ export class DeveloperService {
 
 
     return this.http
-      .put<PersonalInformation>(url, info, options)
-      ._finally(() => {
-        // this.loaderService.hide();
-      });
+      .put<PersonalInformation>(url, info, options);
   }
 
   getDeveloperContact(developerReference: string): Observable<Contact> {
@@ -178,10 +149,7 @@ export class DeveloperService {
 
     return this
       .http
-      .get<Contact>(url, options)
-      ._finally(() => {
-        // this.loaderService.hide();
-      });
+      .get<Contact>(url, options);
   }
 
   updateDeveloperContact(contact: Contact, developerReference: string): Observable<Contact> {
@@ -192,10 +160,7 @@ export class DeveloperService {
 
 
     return this.http
-      .put<Contact>(url, contact, options)
-      ._finally(() => {
-        //  this.loaderService.hide();
-      });
+      .put<Contact>(url, contact, options);
   }
 
   getDeveloperCVs(developerReference: string, isResource: boolean): Observable<CV[]> {
@@ -213,10 +178,7 @@ export class DeveloperService {
 
     return this
       .http
-      .get<CV[]>(url, options)
-      ._finally(() => {
-        //  this.loaderService.hide();
-      });
+      .get<CV[]>(url, options);
   }
 
   createDeveloperFromCv(fileToUpload: File): Observable<DeveloperView> {
@@ -227,10 +189,7 @@ export class DeveloperService {
     formData.append('cv', fileToUpload, fileToUpload.name);
 
     return this.http
-      .post<DeveloperView>(url, formData)
-      ._finally(() => {
-        //  this.loaderService.hide();
-      });
+      .post<DeveloperView>(url, formData);
   }
 
   createDeveloperCv(fileToUpload: File, developerReference: string, isResource: boolean): Observable<CV> {
@@ -250,10 +209,7 @@ export class DeveloperService {
 
 
     return this.http
-      .put<CV>(url, formData, options)
-      ._finally(() => {
-        //  this.loaderService.hide();
-      });
+      .put<CV>(url, formData, options);
   }
 
   deleteCV(reference: string, developerReference: string, isResource: boolean) {
@@ -270,10 +226,7 @@ export class DeveloperService {
 
 
     return this.http
-      .delete(url, options)
-      ._finally(() => {
-        //  this.loaderService.hide();
-      });
+      .delete(url, options);
   }
 
 }

@@ -6,14 +6,14 @@ import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ButtonsModule, InputsModule, WavesModule} from 'angular-bootstrap-md';
 import {MatButtonModule} from '@angular/material/button';
-import { ParticlesModule } from 'angular-particle';
+// import { ParticlesModule } from 'angular-particle';
 
 // MDB Angular Free
 // Angular Forms Modules
 
 @NgModule({
   imports: [SharedModule, CommonModule, FormsModule, ReactiveFormsModule,
-    InputsModule, WavesModule, ButtonsModule, MatButtonModule, ParticlesModule],
+    InputsModule, WavesModule, ButtonsModule, MatButtonModule],
   providers: [AuthGuard, LoginGuard],
   exports: [AuthComponent],
   declarations: [AuthComponent]

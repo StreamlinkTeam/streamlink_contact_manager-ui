@@ -1,12 +1,11 @@
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {Language} from '../entities/language.model';
 import {HttpClient, HttpParams, HttpResponse} from '@angular/common/http';
 
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import {LoaderService} from "./loader.service";
+import {LoaderService} from './loader.service';
+import {map} from 'rxjs/operators';
 
 
 @Injectable()
@@ -16,28 +15,22 @@ export class LanguageService {
   }
 
   getLanguages(): Observable<Language[]> {
-    //this.loaderService.show();
+    // this.loaderService.show();
     const url = environment.API + '/ws/languages';
 
-    return this.http.get<Language[]>(url)
-      ._finally(() => {
-        //this.loaderService.hide();
-      });
+    return this.http.get<Language[]>(url);
   }
 
 
   createLanguages(language: Language) {
-    //this.loaderService.show();
+
     const url = environment.API + '/ws/languages';
     return this.http
-      .post<Language>(url, language)
-      ._finally(() => {
-        //this.loaderService.hide();
-      });
+      .post<Language>(url, language);
   }
 
   updateLanguage(language: Language, reference: string) {
-    //this.loaderService.show();
+
     const url = environment.API + '/ws/languages';
 
     const params: HttpParams = new HttpParams();
@@ -46,14 +39,11 @@ export class LanguageService {
 
     return this.http
       .put(url, language, {params: params})
-      .map((res: HttpResponse<Language>) => res.body)
-      ._finally(() => {
-        //this.loaderService.hide();
-      });
+      .pipe(map((res: HttpResponse<Language>) => res.body));
   }
 
   deleteLanguage(reference: string) {
-    //this.loaderService.show();
+
     const url = environment.API + '/ws/languages';
 
     const params: HttpParams = new HttpParams();
@@ -62,10 +52,7 @@ export class LanguageService {
 
     return this.http
       .delete(url, {params: params})
-      .map((res: HttpResponse<any>) => res.body)
-      ._finally(() => {
-        //this.loaderService.hide();
-      });
+      .pipe(map((res: HttpResponse<any>) => res.body));
   }
 
 

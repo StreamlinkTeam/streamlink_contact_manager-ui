@@ -10,10 +10,9 @@ import '@fuse/components/highlight/prism-languages';
     template : '',
     styleUrls: ['./highlight.component.scss']
 })
-export class FuseHighlightComponent implements OnInit, OnDestroy
-{
+export class FuseHighlightComponent implements OnInit, OnDestroy {
     // Source
-    @ContentChild('source')
+    @ContentChild('source', {static: true})
     source: ElementRef;
 
     // Lang

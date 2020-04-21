@@ -13,7 +13,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
 import {catchError, debounceTime, distinctUntilChanged, switchMap, tap} from 'rxjs/operators';
 import {MatDialogRef} from '@angular/material';
-import Swal from "sweetalert2";
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-need-add-dialog',
@@ -139,7 +139,7 @@ export class NeedAddDialogComponent implements OnInit {
         }
       );
     } else {
-     
+
       this.societies$ = concat(
         of([]), // default items
         this.societiesInput$.pipe(

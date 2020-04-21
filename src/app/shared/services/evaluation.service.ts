@@ -1,11 +1,10 @@
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {Evaluation} from '../entities/evaluation.model';
 import {HttpClient, HttpParams} from '@angular/common/http';
 
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
+
 import {LoaderService} from './loader.service';
 
 
@@ -16,7 +15,7 @@ export class EvaluationService {
   }
 
   getEvaluations(developerReference: string, isResource: boolean): Observable<Evaluation[]> {
-    //this.loaderService.show();
+
     let url = environment.API;
 
     if (isResource) {
@@ -27,15 +26,12 @@ export class EvaluationService {
     const options = {params: new HttpParams().set('developerReference', developerReference)};
 
 
-    return this.http.get<Evaluation[]>(url, options)
-      ._finally(() => {
-        //this.loaderService.hide();
-      });
+    return this.http.get<Evaluation[]>(url, options);
   }
 
 
   createEvaluation(evaluation: Evaluation, developerReference: string, isResource: boolean): Observable<Evaluation> {
-    //this.loaderService.show();
+    // this.loaderService.show();
     let url = environment.API;
 
     if (isResource) {
@@ -46,14 +42,11 @@ export class EvaluationService {
     const options = {params: new HttpParams().set('developerReference', developerReference)};
 
     return this.http
-      .post<Evaluation>(url, evaluation, options)
-      ._finally(() => {
-        //this.loaderService.hide();
-      });
+      .post<Evaluation>(url, evaluation, options);
   }
 
   updateEvaluation(evaluation: Evaluation, reference: string, developerReference: string, isResource: boolean): Observable<Evaluation> {
-    //this.loaderService.show();
+    // this.loaderService.show();
     let url = environment.API;
 
     if (isResource) {
@@ -66,14 +59,11 @@ export class EvaluationService {
 
 
     return this.http
-      .put<Evaluation>(url, evaluation, options)
-      ._finally(() => {
-        //this.loaderService.hide();
-      });
+      .put<Evaluation>(url, evaluation, options);
   }
 
   deleteEvaluation(reference: string, developerReference: string, isResource: boolean) {
-    //this.loaderService.show();
+    // this.loaderService.show();
     let url = environment.API;
 
     if (isResource) {
@@ -85,10 +75,7 @@ export class EvaluationService {
 
 
     return this.http
-      .delete(url, options)
-      ._finally(() => {
-        //this.loaderService.hide();
-      });
+      .delete(url, options);
   }
 
 }

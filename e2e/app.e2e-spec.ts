@@ -1,6 +1,6 @@
 import {AppPage} from './app.po';
 
-describe('streamlink-contacts App', () => {
+describe('streamlink-condidats-ui App', () => {
   let page: AppPage;
 
   beforeEach(() => {

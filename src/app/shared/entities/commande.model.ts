@@ -1,5 +1,5 @@
 export class Commande {
-    id  ?= 0;
+    id  ? = 0;
     reference ? = '';
     etat ? = '';
     duree ?;

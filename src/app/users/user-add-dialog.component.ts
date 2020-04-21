@@ -47,8 +47,8 @@ export class UserAddDialogComponent {
           this.email.to = response.email;
           this.email.messageSubject = 'Accees au compte Streamlink';
           this.email.messageBody = `Bonjour
-          
-Votre nom d\'utilisateur: ${response.email} 
+
+Votre nom d\'utilisateur: ${response.email}
 Votre mot de passe: ${this.staticPassword}
 
 Cordialement,

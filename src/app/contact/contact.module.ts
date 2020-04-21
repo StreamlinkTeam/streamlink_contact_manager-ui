@@ -6,7 +6,7 @@ import {ContactEditorComponent} from './contact-editor.component';
 import {FormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {BrowserModule} from '@angular/platform-browser';
-import {CardsFreeModule} from 'angular-bootstrap-md';
+import {CardsModule} from 'angular-bootstrap-md';
 import {MatButtonModule} from '@angular/material/button';
 import {UserModule} from '../users/user.module';
 
@@ -17,7 +17,7 @@ import {UserModule} from '../users/user.module';
     BrowserModule,
     RouterModule,
     SharedModule,
-    CardsFreeModule,
+    CardsModule,
     MatButtonModule,
     UserModule
   ],

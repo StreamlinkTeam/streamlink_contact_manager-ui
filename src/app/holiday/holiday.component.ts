@@ -112,17 +112,17 @@ export class HolidayComponent {
     'public': true,
     'country': 'FR'
   },
-  { "date": "2020-01-01", "nom_jour_ferie": "Jour de l'an" },
-  { "date": "2020-04-13", "nom_jour_ferie": "Lundi de Pâques" },
-  { "date": "2020-05-01", "nom_jour_ferie": "Fête du travail" },
-  { "date": "2020-05-08", "nom_jour_ferie": "Victoire des alliés" },
-  { "date": "2020-05-21", "nom_jour_ferie": "Ascension" },
-  { "date": "2020-06-01", "nom_jour_ferie": "Lundi de Pentecôte" },
-  { "date": "2020-07-14", "nom_jour_ferie": "Fête Nationale" },
-  { "date": "2020-08-15", "nom_jour_ferie": "Assomption" },
-  { "date": "2020-11-01", "nom_jour_ferie": "Toussaint" },
-  { "date": "2020-11-11", "nom_jour_ferie": "Armistice" },
-  { "date": "2020-12-25", "nom_jour_ferie": "Noël" }];
+  { 'date': '2020-01-01', 'nom_jour_ferie': 'Jour de l\'an' },
+  { 'date': '2020-04-13', 'nom_jour_ferie': 'Lundi de Pâques' },
+  { 'date': '2020-05-01', 'nom_jour_ferie': 'Fête du travail' },
+  { 'date': '2020-05-08', 'nom_jour_ferie': 'Victoire des alliés' },
+  { 'date': '2020-05-21', 'nom_jour_ferie': 'Ascension' },
+  { 'date': '2020-06-01', 'nom_jour_ferie': 'Lundi de Pentecôte' },
+  { 'date': '2020-07-14', 'nom_jour_ferie': 'Fête Nationale' },
+  { 'date': '2020-08-15', 'nom_jour_ferie': 'Assomption' },
+  { 'date': '2020-11-01', 'nom_jour_ferie': 'Toussaint' },
+  { 'date': '2020-11-11', 'nom_jour_ferie': 'Armistice' },
+  { 'date': '2020-12-25', 'nom_jour_ferie': 'Noël' }];
 
 
   constructor() {
@@ -130,7 +130,7 @@ export class HolidayComponent {
 
   isEqual(date1: Date, date) {
     const date2 = new Date(date);
-    return (date1.getDate() == date2.getDate() && date1.getMonth() == date2.getMonth() && date1.getFullYear() == date2.getFullYear());
+    return (date1.getDate() === date2.getDate() && date1.getMonth() === date2.getMonth() && date1.getFullYear() === date2.getFullYear());
   }
 
   isHoliday(date: Date) {

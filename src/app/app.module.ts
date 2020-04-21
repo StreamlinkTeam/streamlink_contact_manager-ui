@@ -29,7 +29,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { PositioningEditComponent } from './positioning-edit/positioning-edit.component';
 
-import { SweetAlert2Module } from '@toverux/ngx-sweetalert2';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -81,6 +81,7 @@ import { CommandeTableComponent } from './commande-table/commande-table.componen
 import {HolidayComponent} from './holiday/holiday.component';
 import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
 import { AbsenceManageComponent } from './absence-manage/absence-manage.component';
+// import {SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2';
 
 
 registerLocaleData(localeFr, 'fr');

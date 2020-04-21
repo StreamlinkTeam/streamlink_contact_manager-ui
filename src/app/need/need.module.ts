@@ -12,7 +12,6 @@ import {BrowserModule} from '@angular/platform-browser';
 import {RouterModule} from '@angular/router';
 
 import {NgSelectModule} from '@ng-select/ng-select';
-import {Ng2FileSizeModule} from 'ng2-file-size';
 import {Ng2SmartTableModule} from 'ng2-smart-table';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatInputModule} from '@angular/material/input';
@@ -22,16 +21,16 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 
-import {ButtonsModule, CardsFreeModule, WavesModule} from 'angular-bootstrap-md';
+import {ButtonsModule, CardsModule, WavesModule} from 'angular-bootstrap-md';
 import {ActionModule} from '../action/action.module';
 
 
 @NgModule({
   imports: [
-    FormsModule, NgSelectModule, Ng2FileSizeModule, Ng2SmartTableModule, RouterModule, MatTabsModule,
+    FormsModule, NgSelectModule, Ng2SmartTableModule, RouterModule, MatTabsModule,
     ButtonsModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatIconModule, MatButtonModule,
     WavesModule, MatDatepickerModule,
-    CardsFreeModule,
+    CardsModule,
     BrowserAnimationsModule,
     SharedModule,
     CommonModule,

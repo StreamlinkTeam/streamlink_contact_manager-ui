@@ -145,7 +145,7 @@ export const appRoutes: Routes = [
   {path: 'developers/create/from-cv', component: DeveloperCVScannerComponent, canActivate: [AuthGuard]},
   {path: 'developers/create', component: DeveloperEditorComponent, canActivate: [AuthGuard]},
   {
-    path: 'timesheet', loadChildren: 'app/calendar/calendar.module#CalendarModule', component: CalendarComponent, canActivate: [AuthGuard]
+    path: 'timesheet', loadChildren: () => import('app/calendar/calendar.module').then(m => m.CalendarModule), component: CalendarComponent, canActivate: [AuthGuard]
   },
 
   {path: 'developers/:error', component: DeveloperTableComponent, canActivate: [AuthGuard]},

@@ -31,7 +31,7 @@ export class ProductionMonthlyComponent implements OnInit {
   filterargs = {};
 
   ngOnInit() {
-    let array = [];
+    const array = [];
     this.timeLineService.groupedByDay().subscribe(res => {
       let data = [];
       data = res as [];
@@ -47,21 +47,25 @@ export class ProductionMonthlyComponent implements OnInit {
         }
         this.groupedMonths[e.year][e.month][e.id][e.project] = e.total;
       });
-      this.productionService.getAll().subscribe(res => {
+      this.productionService.getAll().subscribe((res) => {
         this.production = res as [];
         for (let i = 0; i < this.production.length; i++) {
           this.production[i].ca = this.production[i].caht - (this.production[i].prod * this.production[i].project.tjm);
           this.production[i].date = this.production[i].commande.date;
-          let date = new Date(this.production[i].date);
+          const date = new Date(this.production[i].date);
           const numberOfMonths = this.diffMonths(this.today, date);
 
           for (let j = 0; j < numberOfMonths; j++) {
             const n: number = Number(date.getMonth()) + +j + +1;
-            console.log('[' + date.getFullYear() + '][' + n + '][' + this.production[i].user.id + '][' + this.production[i].project.reference + ']');
+            console.log('[' + date.getFullYear() + '][' + n + '][' + this.production[i].user.id + ']['
+              + this.production[i].project.reference + ']');
 
-            // let tot = 0;
-            // if (this.groupedMonths[date.getFullYear()][n][this.production[i].user.id][this.production[i].project.reference] !== undefined) {
-            let tot = this.groupedMonths[date.getFullYear()][n][this.production[i].user.id][this.production[i].project.reference];
+            /*
+             let tot = 0;
+             if (this.groupedMonths[date.getFullYear()][n][this.production[i].user.id]
+             [this.production[i].project.reference] !== undefined) {
+            */
+            const tot = this.groupedMonths[date.getFullYear()][n][this.production[i].user.id][this.production[i].project.reference];
             //  }
 
             this.months.push({
@@ -97,10 +101,10 @@ export class ProductionMonthlyComponent implements OnInit {
     const date = new Date(dateString);
     for (let i = 0; i < factures.length; i++) {
       const factureDate = new Date(factures[i].billDate);
-      if (factureDate.getMonth() == date.getMonth() &&
-        factureDate.getFullYear() == date.getFullYear() &&
-        factures[i].resource.id == production.user.id &&
-        factures[i].commande.id == production.commande.id) {
+      if (factureDate.getMonth() === date.getMonth() &&
+        factureDate.getFullYear() === date.getFullYear() &&
+        factures[i].resource.id === production.user.id &&
+        factures[i].commande.id === production.commande.id) {
         found = true;
         return true;
       }
@@ -110,7 +114,7 @@ export class ProductionMonthlyComponent implements OnInit {
   }
 
   customDateFormat(dt) {
-    let month = dt.getMonth() + 1;
+    const month = dt.getMonth() + 1;
     const customString = `${month}-${dt.getFullYear()}`;
     if (month < 10) {
       return '0' + customString;
@@ -137,7 +141,7 @@ export class ProductionMonthlyComponent implements OnInit {
     dateString += prod.start.substring(0, prod.start.indexOf('-'));
     dateString += '-27';
     console.log('DATE STRING :: ', dateString);
-    let date = new Date(dateString);
+    const date = new Date(dateString);
     const bill = {
       billDate: date,
       currenvy: 'EUR',

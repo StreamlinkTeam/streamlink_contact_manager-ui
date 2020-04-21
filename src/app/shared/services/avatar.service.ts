@@ -1,9 +1,10 @@
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {Avatar} from '../entities/avatar.model';
 import {environment} from '../../../environments/environment';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {LoaderService} from './loader.service';
+import {finalize} from 'rxjs/operators';
 
 @Injectable()
 export class AvatarService {
@@ -32,9 +33,9 @@ export class AvatarService {
       };
     }
     return this.http.get<Avatar>(url, options)
-      ._finally(() => {
+      .pipe(finalize(() => {
         this.loaderService.hide();
-      });
+      }));
   }
 
 
@@ -66,16 +67,16 @@ export class AvatarService {
 
     return this.http
       .put<Avatar>(url, formData, options)
-      ._finally(() => {
+      .pipe(finalize(() => {
         this.loaderService.hide();
-      });
+      }));
   }
 
   deleteAvatar(reference: string, userReference: string, isResource: boolean) {
     this.loaderService.show();
     let url = environment.API;
 
-    let options ={};
+    let options = {};
 
     if (isResource) {
       url = url + '/ws/resources/avatar';
@@ -101,8 +102,8 @@ export class AvatarService {
 
     return this.http
       .delete(url, options)
-      ._finally(() => {
+      .pipe(finalize(() => {
         this.loaderService.hide();
-      });
+      }));
   }
 }
